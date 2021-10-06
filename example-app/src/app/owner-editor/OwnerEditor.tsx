@@ -15,15 +15,13 @@ import { useHistory } from "react-router-dom";
 import { EntityDetailsScreenProps, useScreens } from "@amplicode/react-core";
 
 const OWNER = gql(/* GraphQL */ `
-  query Get_Owner($id: Long) {
+  query OwnerEditor__Get_Owner($id: Long) {
     owner(id: $id) {
       id
       firstName
       lastName
       city
       address
-      email
-      telephone
     }
   }
 `);
