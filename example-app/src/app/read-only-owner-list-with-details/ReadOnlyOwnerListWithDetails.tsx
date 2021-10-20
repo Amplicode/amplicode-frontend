@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
 import { gql } from "@amplicode/gql";
-import { useQuery, ApolloCache, Reference } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { CheckOutlined, CloseOutlined, EnterOutlined } from "@ant-design/icons";
 import { Button, Card, Spin, Empty, Result } from "antd";
 import { FormattedMessage, IntlShape, useIntl } from "react-intl";
@@ -15,7 +15,7 @@ import {
   useDefaultBrowserHotkeys,
   useScreens
 } from "@amplicode/react-core";
-import { ReadOnlyOwnerDetails } from "../read-only-owner-details/ReadOnlyOwnerDetails";
+import ReadOnlyOwnerDetails from "../read-only-owner-details/ReadOnlyOwnerDetails";
 
 const ROUTE = "read-only-owner-list-with-details";
 
@@ -30,7 +30,7 @@ const OWNER_LIST = gql(/* GraphQL */ `
   }
 `);
 
-export const ReadOnlyOwnerListWithDetails = observer(
+const ReadOnlyOwnerListWithDetails = observer(
   ({ onSelect }: EntityListScreenProps) => {
     const screens: Screens = useScreens();
     const intl = useIntl();
@@ -45,13 +45,14 @@ export const ReadOnlyOwnerListWithDetails = observer(
 
     const openEditor = useCallback(
       (id?: string) => {
-
         const params: OpenInBreadcrumbParams = {
-          breadcrumbCaption: intl.formatMessage({id: 'screen.ReadOnlyOwnerDetails'}), // TODO specify message id
-          component: ReadOnlyOwnerDetails, // TODO specify component name
+          breadcrumbCaption: intl.formatMessage({
+            id: "screen.ReadOnlyOwnerDetails"
+          }), // TODO specify message id
+          component: ReadOnlyOwnerDetails // TODO specify component name
         };
         if (id != null) {
-          params.props = {id};
+          params.props = { id };
         }
         screens.openInBreadcrumb(params);
         // Append /id to existing url
@@ -86,10 +87,6 @@ export const ReadOnlyOwnerListWithDetails = observer(
 
     const items = data?.ownerList;
 
-    if (items == null || items.length === 0) {
-      return <Empty />;
-    }
-
     return (
       <div className="narrow-layout">
         {isSelectMode && (
@@ -109,22 +106,26 @@ export const ReadOnlyOwnerListWithDetails = observer(
           </div>
         )}
 
-        {items.map((e: any) => (
-          <Card
-            key={e["id"]}
-            title={guessDisplayName(e)}
-            style={{ marginBottom: "12px" }}
-            actions={getCardActions({
-              screens,
-              entityInstance: e,
-              onSelect,
-              intl,
-              openEditor
-            })}
-          >
-            <Fields entity={e} />
-          </Card>
-        ))}
+        {items == null || items.length === 0 ? (
+          <Empty />
+        ) : (
+          items.map((e: any) => (
+            <Card
+              key={e["id"]}
+              title={guessDisplayName(e)}
+              style={{ marginBottom: "12px" }}
+              actions={getCardActions({
+                screens,
+                entityInstance: e,
+                onSelect,
+                intl,
+                openEditor
+              })}
+            >
+              <Fields entity={e} />
+            </Card>
+          ))
+        )}
       </div>
     );
   }
@@ -189,16 +190,4 @@ function getCardActions(input: CardActionsInput) {
   }
 }
 
-function getUpdateFn(e: any) {
-  return (cache: ApolloCache<any>) => {
-    cache.modify({
-      fields: {
-        ownerList(existingRefs, { readField }) {
-          return existingRefs.filter(
-            (ref: Reference) => e["id"] !== readField("id", ref)
-          );
-        }
-      }
-    });
-  };
-}
+export default ReadOnlyOwnerListWithDetails;

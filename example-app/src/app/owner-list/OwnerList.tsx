@@ -24,7 +24,7 @@ import {
   useDefaultBrowserHotkeys,
   useScreens
 } from "@amplicode/react-core";
-import { OwnerEditor } from "../owner-editor/OwnerEditor";
+import OwnerEditor from "../owner-editor/OwnerEditor";
 
 const ROUTE = "owner-list";
 
@@ -45,7 +45,7 @@ const DELETE__OWNER = gql(/* GraphQL */ `
   }
 `);
 
-export const OwnerList = observer(({ onSelect }: EntityListScreenProps) => {
+const OwnerList = observer(({ onSelect }: EntityListScreenProps) => {
   const screens: Screens = useScreens();
   const intl = useIntl();
   const match = useRouteMatch<{ entityId: string }>(`/${ROUTE}/:entityId`);
@@ -61,13 +61,12 @@ export const OwnerList = observer(({ onSelect }: EntityListScreenProps) => {
 
   const openEditor = useCallback(
     (id?: string) => {
-
       const params: OpenInBreadcrumbParams = {
-        breadcrumbCaption: intl.formatMessage({id: 'screen.OwnerEditor'}), // TODO specify message id
-        component: OwnerEditor, // TODO specify component name
+        breadcrumbCaption: intl.formatMessage({ id: "screen.OwnerEditor" }), // TODO specify message id
+        component: OwnerEditor // TODO specify component name
       };
       if (id != null) {
-        params.props = {id};
+        params.props = { id };
       }
       screens.openInBreadcrumb(params);
       // Append /id to existing url
@@ -101,10 +100,6 @@ export const OwnerList = observer(({ onSelect }: EntityListScreenProps) => {
   }
 
   const items = data?.ownerList;
-
-  if (items == null || items.length === 0) {
-    return <Empty />;
-  }
 
   return (
     <div className="narrow-layout">
@@ -141,23 +136,27 @@ export const OwnerList = observer(({ onSelect }: EntityListScreenProps) => {
         </div>
       )}
 
-      {items.map((e: any) => (
-        <Card
-          key={e["id"]}
-          title={guessDisplayName(e)}
-          style={{ marginBottom: "12px" }}
-          actions={getCardActions({
-            screens,
-            entityInstance: e,
-            onSelect,
-            executeDeleteMutation,
-            intl,
-            openEditor
-          })}
-        >
-          <Fields entity={e} />
-        </Card>
-      ))}
+      {items == null || items.length === 0 ? (
+        <Empty />
+      ) : (
+        items.map((e: any) => (
+          <Card
+            key={e["id"]}
+            title={guessDisplayName(e)}
+            style={{ marginBottom: "12px" }}
+            actions={getCardActions({
+              screens,
+              entityInstance: e,
+              onSelect,
+              executeDeleteMutation,
+              intl,
+              openEditor
+            })}
+          >
+            <Fields entity={e} />
+          </Card>
+        ))
+      )}
     </div>
   );
 });
@@ -265,3 +264,5 @@ function getUpdateFn(e: any) {
     });
   };
 }
+
+export default OwnerList;

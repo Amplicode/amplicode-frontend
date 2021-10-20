@@ -1,10 +1,15 @@
-## Contributing
+## Table of Contents
 
-<a name="react-client-templates"/>
+- [**Newcomer's Guide**](#newcomers-guide)
+  - [Development Environment](#development-environment)
+  - [Code Style & Conventions](#code-style)
+  - [How to Commit Your Work](#commit)
+- [**Reference Materials**](#reference)
+  - [Generators](#generators)
 
-## Newcomer's Guide
+## Newcomer's Guide <a name="newcomers-guide"></a>
 
-### Development Environment
+### Development Environment <a name="development-environment"></a>
 
 #### Requirements
 
@@ -64,7 +69,7 @@ npm run bootstrap-react-app
 npm run start-react-app
 ```
 
-### Coding Conventions
+### Code Style & Conventions <a name="code-style"></a>
 
 #### Cross-platforming
 
@@ -134,57 +139,78 @@ const foobar = foo && foo.bar && foo.bar.baz;
 const foobar = foo?.bar?.baz;
 ```
 
-### Testing
+##### Classes
 
-This section explains how to test the generator.
+Extract **static utility methods** / **methods not using class state** into separate functions.
 
-#### Test Folders
+```javascript
+// wrong
+class SomeClass {
+  static staticMethod = () => {};
+  methodNotUsingState = () => {};
+}
 
-`/fixtures` - initial data required for tests.<br>
-`/generated` - result of generators work - apps and SDK will be stored here.<br>
-`/expected` - files gauges used for comparison with generated code.<br>
-
-#### Unit Tests
-
-From project root all unit tests could be run with coverage
-
-```bash
-npm run test:coverage
+// correct
+class SomeClass {}
+staticMethod = () => {};
+methodNotUsingState = () => {};
 ```
 
-or inside specific package
+Bind methods to a class using an arrow function
 
-```bash
-npm test
+```javascript
+// wrong
+class SomeClass {
+  SOMETHING = "SOMETHING";
+  getSomething() {
+    return this.SOMETHING;
+  }
+}
+const { getSomething } = new SomeClass();
+getSomething(); // Error
+
+// correct
+class SomeClass {
+  SOMETHING = "SOMETHING";
+  getSomething = () => {
+    return this.SOMETHING;
+  };
+}
+const { getSomething } = new SomeClass();
+getSomething(); // OK
 ```
 
-#### Integration Tests
+##### Semicolons
 
-Integration tests use compiled version of front-generator. To apply your code changes you need to run `npm run build` before testing.
-<br>
-Generated Apps and SDK are placed into `./test/e2e/generated` directory.
+Semicolons are required at the end of a statement. 
 
-##### Run All E2E Tests
-
-```bash
-npm run test:e2e
+```
+const screens = useScreens();
 ```
 
-##### E2E Tests for Generators
+> While omitting the semicolon will work in most cases, there is [one case](https://stackoverflow.com/a/1169596/16487129) that will be interpreted not as intended when the semicolon is missing. Instead of always keeping this use case in mind, we prefer to just put semicolons at the end of each statement.
 
-SDK
+Also in types and interfaces:
 
-```bash
-npm run test:e2e:sdk
+```
+// wrong:
+interface MyInterface {
+  someString: string,
+  someNumber: number
+}
+interface MyInterface2 {
+  someString: string
+  someNumber: number
+}
+
+// correct:
+interface MyInterface {
+  someString: string;
+  someNumber: number;
+}
 ```
 
-React client
-
-```bash
-npm run test:e2e:react
-```
-
-### How to Commit Your Work
+### How to Commit Your Work <a name='commit'></a>
 
 #### Conventional Commits
 
@@ -298,25 +324,25 @@ Commit message should contain github issue number (if any)
 
 5. Merge your PR with "Rebase and merge" button and delete source branch after that.
 
-## Advanced Info
+## Reference Materials <a name='reference'></a>
 
-### Generators
+### Generators <a name='generators'></a>
 
 #### Basics and Terminology
 
-`packages/jmix-front-generator` contains the source code for `@haulmont/jmix-front-generator` library which is used for code generation (scaffolding). This library uses [Yeoman](https://yeoman.io/), however, in order to extend and reuse functionality we are using functions composition rather than Yeoman's usual approach of class inheritance. This will be covered in more detail in [How to Write a Generator](#how-to-write-a-generator) section. The code is generated from [EJS](https://ejs.co/) templates.
+`packages/codegen` contains the source code for `@amplicode/codegen` library which is used for code generation (scaffolding). This library uses [Yeoman](https://yeoman.io/), however, in order to extend and reuse functionality we are using functions composition rather than Yeoman's usual approach of class inheritance. This will be covered in more detail in [How to Write a Generator](#how-to-write-a-generator) section. The code is generated from [EJS](https://ejs.co/) templates.
 
 This library can be used as a standalone CLI tool, but most of the time it will be used from Studio. When used as a CLI tool it can interactively ask questions and use the **answers** to resolve interpolations in the templates. Studio will ask these questions using its graphical interface and invoke the generator CLI, passing the base64-encoded answers object as `--answers` **option**. There are other options, for example `--dest` that tells the generator where to put the generated files.
 
-In addition to _answers_ and _options_ there is a **project model** - information about your Jmix project's entities, fetch plans, services, queries, etc. It can be obtained from Studio.
+In addition to _answers_ and _options_ generator uses **GraphQL schema**. 
 
-> EJS template + options + answers + project model = generated code
+> EJS template + options + answers + GraphQL schema = generated code
 
-A **generator** is a combination of an EJS template and code that is responsible for asking questions and turning the answers, options and project model into generated code. For each **client** (e.g. React client, React Native client, etc.) there is always a generator that creates a starter app and zero or more generators that adds the components.
+A **generator** is a combination of an EJS template and code that is responsible for asking questions and turning the answers, options and GraphQL schema into generated code. For each **client** (e.g. React client, React Native client, etc.) there is always a generator that creates a starter app and zero or more generators that adds the components.
 
 > TIP: use `amplicodegen -h` to see the available clients, generators and options.
 
-#### How to Write a Generator
+#### How to Write a Generator <a name='how-to-write-a-generator'></a>
 
 There is a convention that enables CLI/Studio to discover generators. When you want to add a new generator:
 
@@ -354,9 +380,9 @@ Generally the process of code generation can be viewed as the following **pipeli
    +--------+---------+
             |
             v
-  +---------+----------+
-  | get project model  |
-  +---------+----------+
+ +----------+-----------+
+ |  get GraphQL schema  |
+ +----------+-----------+
             |
             v
      +------+------+
@@ -378,7 +404,7 @@ Let us describe the **stages** of this pipeline:
 
 - `get options`: we tell Yeoman what options are allowed and get the values of those options.
 - `configure Yeoman`: set the source and destination directory, register transformations, etc.
-- `get project model`: read it from file system if the model file path was provided in options, or get it directly from Studio using integration.
+- `get GraphQL schema`: for example, read it from file system using file path is provided in options.
 - `get answers`: ask questions and get the answers. Or get the answers from options.
 - `derive template model`: use answers, options and project model to create a **template model** - a set of data that will be used to resolve interpolations in the template. This stage is kind of like MobX's `@computed`.
 - `write`: use the template and template model to resolve the interpolations and write the result to the file system.
@@ -391,15 +417,14 @@ To use this pipeline call `defaultPipeline` function in your `generate` method. 
 - `stages` - an object containing your custom implementations of stages:
   - `getOptions`
   - `configureGenerator`
-  - `getProjectModel`
-  - `getAnswersFromOptions`
-  - `getAnswersFromPrompt`
+  - `getGraphQLSchema`
+  - `getAnswers`
   - `deriveTemplateModel`
   - `write`
 
-There are default implementations of stages that are suitable for most cases. Most likely you'll need to customize `getAnswersFromPrompt`, `deriveTemplateModel` and `write`. Implementations of these stages also share some code between themselves. This code is extracted into functions which we put under `src/building-blocks/stages/{stageName}/pieces`. When creating your own reusable functions it is important to give them clear names so that your functions can be easily discovered and reused by fellow developers.
+There are default implementations of stages that are suitable for most cases. Most likely you'll need to customize `getAnswers`, `deriveTemplateModel` and `write`. Implementations of these stages also share some code between themselves. This code is extracted into functions which we put under `src/building-blocks/stages/{stageName}/pieces`. When creating your own reusable functions it is important to give them clear names so that your functions can be easily discovered and reused by fellow developers.
 
-Inside your generator folder, organize your custom code based on the stage it belongs to. For example, put your questions and your implementation of `getAnswersFromPrompt` to `answers.ts`, your `TemplateModel` type and `deriveTemplateModel` implementation to `template-model.ts`, etc. A typical generator folder may look like this:
+Inside your generator folder, organize your custom code based on the stage it belongs to. For example, put your questions and your implementation of `getAnswers` to `answers.ts`, your `TemplateModel` type and `deriveTemplateModel` implementation to `template-model.ts`, etc. A typical generator folder may look like this:
 
 ```
 ├── answers.ts
@@ -415,7 +440,7 @@ Inside your generator folder, organize your custom code based on the stage it be
 └── write.ts
 ```
 
-If you need to use a different/modified pipeline, write your own analogue of the `defaultPipeline` function. You can still reuse the default implementation of stages that are relevant to you.
+If you need to use a different/modified pipeline, write your own analogue of the `amplicodePipeline` function. You can still reuse the default implementation of stages that are relevant to you.
 
 #### Templates
 
@@ -447,3 +472,100 @@ export const deriveTemplateModel = (
   };
 }
 ```
+
+#### Testing Your Changes Manually
+
+Generators should be tested from both CLI and Amplicode Studio. In either case the codegen library should be built first:
+
+```
+cd packages/codegen
+npm run build
+```
+
+##### Testing from CLI
+
+Install the local codegen build:
+
+```
+cd packages/codegen
+npm i -g .
+```
+
+How you can use the generator in CLI using `amplicodegen` command. Running it without arguments displays the usage info.
+
+```
+$ amplicodegen
+
+Usage: amplicodegen [command] [options]
+
+Options:
+  --custom-generator-paths <paths...>        Use custom generators from the filesystem.
+  -v, --version                              output the version number
+  -h, --help                                 display help for command
+
+Commands:
+  list [options]                             List all available clients and their clients
+  react-typescript:addon [options]           Generates react-typescript addon
+  react-typescript:app [options]             Generates react-typescript app
+  react-typescript:entity-list [options]     Generates react-typescript entity-list
+  react-typescript:entity-details [options]  Generates react-typescript entity-details
+  help [command]                             display help for command
+```
+
+There is a couple of special commands such as `list` or `help`, the rest of the command are generators. These commands follow the pattern `client-name:generator-name`.
+
+You can display help for a given command:
+
+```
+$ amplicodegen help react-typescript:entity-list
+Usage: amplicodegen react-typescript:entity-list [options]
+
+Generates react-typescript entity-list
+
+Options:
+  -d, --dest [dest]          destination directory
+  -s, --schema [schema]      specify path to GraphQL schema
+  -a, --answers [answers]    fulfilled params for generator to avoid interactive input in serialized JSON string
+  -b, --verbose              log out additional info about generation process
+  -f, --dirShift [dirShift]  directory shift for html imports e.g ../../
+  -h, --help                 display help for command
+```
+
+Example of generator invocation in CLI (it's multiline to improve readability, note that using \ to make multiline commands won't work on Windows):
+
+```
+amplicodegen react-typescript:entity-details \
+ --answers eyJjb21wb25lbnROYW1lIjoiUGV0TGlzdCIsInNob3VsZEFkZFRvTWVudSI6dHJ1ZX0= \
+ --schema ./schema.graphql \
+ --dest ../example-app/src/app/petEditor \
+ --dirShift ../../
+```
+
+`--answers` is base64-encoded answers object. For example, if you need to provide a string answer `componentName` and a boolean answer `shouldAddToMenu`:
+
+```
+const answers = {
+  componentName: 'PetList',
+  shouldAddToMenu: true,
+};
+const encodedAnswers = btoa(JSON.stringify(answers));
+```
+
+##### Testing from Amplicode Studio
+
+You'll need IntelliJ IDEA Ultimate.
+
+0. Install Studio:
+   - Download the latest build of Amplicode Studio (see team wiki for the link).
+   - In IDE navigate to `File` -> `Settings` -> `Plugins`
+   - Click cogwheel icon and select 'Install plugin from disk`
+2. Open [backend project](https://github.com/Amplicode/amplicode-mvp-petclinic) in Studio.  
+3. Navigate to `frontend/generation`.
+4. npm install the local codegen build, for example:
+   ```
+   npm i /home/me/amplicode-frontend/packages/codegen
+   ```
+4. Invoke Gradle task `listGenerators` in the backend project ("Gradle" panel on the right, `frontend` -> `Tasks` -> `npm` -> `listGenerators`).
+5. Restart Studio
+	
+Now you can create screens using Studio interface (`Ctrl + Shift + A` -> type "Frontend Component").

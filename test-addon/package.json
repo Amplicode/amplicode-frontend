@@ -8,25 +8,35 @@
   "files": [
     "dist/",
     "amplicode.addon-metadata.json",
-    "pallete.tsx"
+    "palette.tsx"
   ],
   "peerDependencies": {
     "react": "^17.0.1",
-    "react-intl": "^5.3.0"
+    "react-intl": "^5.3.0",
+    "@react-buddy/ide-toolbox": "^1.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.0.1",
+    "@types/react": "^17.0.33",
+    "postcss": "^8.3.11",
+    "react": "^17.0.2",
+    "react-intl": "^5.21.0",
     "rimraf": "^3.0.0",
     "rollup": "^2.53.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.0",
-    "rollup-plugin-typescript2": "^0.30.0"
+    "rollup-plugin-typescript2": "^0.30.0",
+    "typescript": "^4.4.4"
   },
   "scripts": {
     "compile": "npm run clean && rollup -c",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run compile"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "author": "Haulmont",
   "license": "Apache-2.0"

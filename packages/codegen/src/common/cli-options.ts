@@ -29,6 +29,7 @@ export function pickOptions(cmd: {[key:string]: any}, availableOptions?: Options
   const passedOptions: { [key: string]: any } = {};
   if (availableOptions) {
     Object.keys(availableOptions).forEach(optionFullName => {
+      // eslint-disable-next-line no-prototype-builtins
       if (cmd.hasOwnProperty(optionFullName)) {
         passedOptions[optionFullName] = cmd[optionFullName] as string | boolean;
       }
@@ -76,7 +77,7 @@ export interface PolymerElementOptions extends CommonGenerationOptions {
 export const polymerElementOptionsConfig: OptionsConfig = {
   ...commonGenerationOptionsConfig,
   dirShift: {
-    alias: 's',
+    alias: 'f',
     description: 'directory shift for html imports e.g ../../',
     type: String
   },
@@ -91,7 +92,7 @@ export const polymerElementOptionsConfig: OptionsConfig = {
 export const componentOptionsConfig: OptionsConfig = {
   ...commonGenerationOptionsConfig,
   dirShift: {
-    alias: 's',
+    alias: 'f',
     description: 'directory shift for html imports e.g ../../',
     type: String
   },

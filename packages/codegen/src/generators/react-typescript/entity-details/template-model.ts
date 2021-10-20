@@ -30,17 +30,12 @@ export interface AttributeModel {
   isRelationField: boolean;
 }
 
-export type MvpEntityEditorTemplateModel =
-  & BaseTemplateModel
-  & ScreenTemplateModel
-  & UtilTemplateModel
-  & GraphQLEditorModel
-  & {
+export interface MvpEntityEditorTemplateModel extends BaseTemplateModel, ScreenTemplateModel, UtilTemplateModel, GraphQLEditorModel {
     queryString: string,
     mutationString?: string,
     idField: string,
     listQueryName: string,
-  };
+  }
 
 type GraphQLEditorModel = {
   queryName: string,
@@ -160,7 +155,7 @@ export function deriveGraphQLEditorModel(
   let hasStringScalars: boolean = false;
   let hasIntScalars: boolean = false;
   let hasFloatScalars: boolean = false;
-  let hasIDScalars: boolean = false;
+  const hasIDScalars: boolean = false;
   let hasBooleanScalars: boolean = false;
   let hasEnumScalars: boolean = false;
   let hasCustomScalars: boolean = false;

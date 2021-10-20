@@ -15,21 +15,18 @@ import {
   ScreenTemplateModel
 } from "../../../building-blocks/stages/template-model/pieces/amplicode/ScreenTemplateModel";
 
-export type EntityListTemplateModel =
-  BaseTemplateModel
-  & UtilTemplateModel
-  & ScreenTemplateModel
-  & {
+export interface EntityListTemplateModel extends
+  BaseTemplateModel, UtilTemplateModel, ScreenTemplateModel {
   queryName: string,
   queryString: string,
   deleteMutationName?: string,
   deleteMutationString?: string,
   idField: string,
   mode: EntityListMode;
-};
+}
 
 export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<AmplicodeComponentOptions, EntityListAnswers, EntityListTemplateModel> = async (
-  options: AmplicodeComponentOptions, answers: EntityListAnswers, schema?: GraphQLSchema, questions?: StudioTemplateProperty[]
+  options: AmplicodeComponentOptions, answers: EntityListAnswers, _schema?: GraphQLSchema, _questions?: StudioTemplateProperty[]
 ): Promise<EntityListTemplateModel> => {
   const {
     componentName,
