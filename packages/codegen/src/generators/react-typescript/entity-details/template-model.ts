@@ -30,12 +30,7 @@ export interface AttributeModel {
   isRelationField: boolean;
 }
 
-export type MvpEntityEditorTemplateModel =
-  & BaseTemplateModel
-  & ScreenTemplateModel
-  & UtilTemplateModel
-  & GraphQLEditorModel
-  & {
+export interface MvpEntityEditorTemplateModel extends BaseTemplateModel, ScreenTemplateModel, UtilTemplateModel, GraphQLEditorModel {
     queryString: string,
     mutationString?: string,
     idField: string,
@@ -63,9 +58,9 @@ type GraphQLEditorModel = {
 export const deriveEntityDetailsTemplateModel: AmplicodeTemplateModelStage<
   AmplicodeComponentOptions, MvpEntityEditorAnswers, MvpEntityEditorTemplateModel
 > = async (
-  options: AmplicodeComponentOptions,
-  answers: MvpEntityEditorAnswers,
-  schema?: GraphQLSchema,
+  options,
+  answers,
+  schema?,
 ): Promise<MvpEntityEditorTemplateModel>  => {
   const {
     query: queryString,

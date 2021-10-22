@@ -15,11 +15,8 @@ import {
   ScreenTemplateModel
 } from "../../../building-blocks/stages/template-model/pieces/amplicode/ScreenTemplateModel";
 
-export type EntityListTemplateModel =
-  BaseTemplateModel
-  & UtilTemplateModel
-  & ScreenTemplateModel
-  & {
+export interface EntityListTemplateModel extends
+  BaseTemplateModel, UtilTemplateModel, ScreenTemplateModel {
   queryName: string,
   queryString: string,
   deleteMutationName?: string,
