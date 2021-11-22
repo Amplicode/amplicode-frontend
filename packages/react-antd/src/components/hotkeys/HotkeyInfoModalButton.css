@@ -1,0 +1,16 @@
+.ant-btn-text.hotkeyInfoButton__iconBtn {
+  color: #CCCCCC;
+}
+
+.ant-btn-text.hotkeyInfoButton__iconBtn:hover {
+  color: #FFF;
+}
+
+.ant-btn-text.hotkeyInfoButton__iconBtn:focus {
+  color: #FFF;
+}
+
+.ant-btn-text.hotkeyInfoButton__scrollContainer {
+  max-height: 400px;
+  overflow-y: auto;
+}

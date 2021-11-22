@@ -36,7 +36,7 @@ export const HotkeyInfo = observer(({hotkeyConfigs}: HotkeyInfoProps) => {
               .map(hotkeyConfig =>
                 <Descriptions.Item
                   key={hotkeyConfig.description}
-                  label={hotkeyConfig.pattern}
+                  label={hotkeyConfig.hotkey}
                 >
                   {intl.formatMessage({id: hotkeyConfig.description})}
                 </Descriptions.Item>

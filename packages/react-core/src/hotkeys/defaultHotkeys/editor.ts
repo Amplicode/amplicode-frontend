@@ -4,7 +4,7 @@ import { HotkeyConfig } from "../hotkeyConfig";
 const EDITOR_HOTKEYS_CATEGORY_NAME = 'hotkeys.category.editor';
 
 export const saveEntityHotkeysConfig: HotkeyConfig = {
-  pattern: 's',
+  hotkey: 's',
   description: 'hotkeys.editor.saveEntity',
   categoryName: EDITOR_HOTKEYS_CATEGORY_NAME,
 }
