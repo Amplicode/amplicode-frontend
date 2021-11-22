@@ -1,40 +1,25 @@
 import { Button, Modal, notification, Space } from "antd";
-import { LogoutOutlined, MacCommandOutlined } from "@ant-design/icons";
+import { LogoutOutlined } from "@ant-design/icons";
 import { useCallback, useState } from "react";
 import { useIntl } from "react-intl";
 import "./AppHeader.css";
-import { useHotkeyStore } from "@amplicode/react-core";
-import { HotkeyInfo } from "@amplicode/react-antd";
+import { useHotkey } from "@amplicode/react-core";
+import { HotkeyInfoModalButton } from "@amplicode/react-antd";
 import { observer } from "mobx-react";
 import { securityStore } from "../../security-store";
-
-const HotkeyInfoButton = observer(() => {
-  const [visible, setVisible] = useState(false);
-  const intl = useIntl();
-  const {hotkeyConfigs} = useHotkeyStore();
-
-  return (
-    <>
-      <Button
-        type="text"
-        className="app-header__icon-btn"
-        icon={<MacCommandOutlined />}
-        onClick={() => setVisible(true)}
-      />
-      <Modal
-        visible={visible}
-        title={intl.formatMessage({ id: "hotkeys.hotkeyInfo.title" })}
-        footer={null}
-        onCancel={() => setVisible(false)}
-      >
-        <HotkeyInfo hotkeyConfigs={hotkeyConfigs} />
-      </Modal>
-    </>
-  );
-});
+import { KeyHandler } from "hotkeys-js";
+import {toggleHotkeyInfoHotkeyConfig} from './hotkeyInfoHotkeyConfigs'
 
 export const AppHeader = observer(() => {
   const intl = useIntl();
+
+  const [visibleHotkeyInfo, setVisibleHotkeyInfo] = useState(false);
+  
+  const toggleHotkeyInfo = useCallback<KeyHandler>(
+    () => setVisibleHotkeyInfo(!visibleHotkeyInfo),
+    [visibleHotkeyInfo]
+  );
+  useHotkey(toggleHotkeyInfoHotkeyConfig, toggleHotkeyInfo);
 
   const showLogoutConfirm = useCallback(() => {
     Modal.confirm({
@@ -56,7 +41,10 @@ export const AppHeader = observer(() => {
   return (
     <div className="app-header">
       <Space className="app-header__user-panel">
-        <HotkeyInfoButton />
+        <HotkeyInfoModalButton
+          visible={visibleHotkeyInfo}
+          setVisible={setVisibleHotkeyInfo}
+        />
         <Button
           id="button_logout"
           className="app-header__icon-btn"

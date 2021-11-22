@@ -70,7 +70,7 @@ export const ReadOnlyOwnerList = observer(
       }
     }, [match, openEditor, screens]);
 
-    useDefaultBrowserHotkeys();
+    useDefaultBrowserHotkeys({ openEditor });
 
     if (loading) {
       return <Spin />;

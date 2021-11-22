@@ -2,7 +2,7 @@
  * @param description is unique
  */
 export interface HotkeyConfig {
-  pattern: string;
+  hotkey: string;
   description: string;
   categoryName: string;
 }

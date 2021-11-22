@@ -7,13 +7,13 @@ import { HotkeyConfig } from "../hotkeyConfig";
 const SCREEN_HOTKEYS_CATEGORY_NAME = 'hotkeys.category.screen';
 
 export const nextTabHotkeyConfig: HotkeyConfig = {
-  pattern: 'right',
+  hotkey: 'g+n',
   description: 'hotkeys.screen.nextTab',
   categoryName: SCREEN_HOTKEYS_CATEGORY_NAME,
 };
 
 export const previousTabHotkeyConfig: HotkeyConfig = {
-  pattern: 'left',
+  hotkey: 'g+p',
   description: 'hotkeys.screen.previousTab',
   categoryName: SCREEN_HOTKEYS_CATEGORY_NAME,
 };

@@ -5,21 +5,20 @@ import { KeyHandler } from "hotkeys-js";
 
 const BROWSER_HOTKEYS_CATEGORY_NAME = 'hotkeys.category.browser';
 
-export const applyFilterHotkeyConfig: HotkeyConfig = {
-  pattern: 'f',
-  description: 'hotkeys.browser.applyFilter',
+export const createEntityHotkeyConfig: HotkeyConfig = {
+  hotkey: 'g+c',
+  description: 'hotkeys.browser.createEntity',
   categoryName: BROWSER_HOTKEYS_CATEGORY_NAME,
 }
 
 export const browserHotkeysConfigs: HotkeyConfig[] = [
-  applyFilterHotkeyConfig,
+  createEntityHotkeyConfig,
 ];
 
-export const useDefaultBrowserHotkeys = () => {
-  const applyFilter = useCallback<KeyHandler>(() => {
-    // TODO Write the implementation when the functionality with filters will be implemented
-    // eslint-disable-next-line no-console
-    console.log('applyFilter hotkey');
-  }, []);
-  useScreenHotkey(applyFilterHotkeyConfig, applyFilter);
+export interface BrowserHotkeysHook {
+  openEditor: () => void;
+}
+export const useDefaultBrowserHotkeys = ({openEditor}: BrowserHotkeysHook) => {
+  const createEntity = useCallback<KeyHandler>(() => openEditor(), [openEditor]);
+  useScreenHotkey(createEntityHotkeyConfig, createEntity);
 }
