@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.3](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.5.2...@amplicode/codegen@0.5.3) (2021-11-24)
+
+
+### Bug Fixes
+
+* generated app not starting when using npm 8 ([a7d18ed](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/a7d18edf2213bb14ef9e587eab32b9c69d397cdd))
+
+
+
+
+
 ## [0.5.2](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.5.1...@amplicode/codegen@0.5.2) (2021-11-24)
 
 
