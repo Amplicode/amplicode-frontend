@@ -6,6 +6,7 @@
   - [How to Commit Your Work](#commit)
 - [**Reference Materials**](#reference)
   - [Generators](#generators)
+  - [Generated TypeScript Types](#generated-types)
 
 ## Newcomer's Guide <a name="newcomers-guide"></a>
 
@@ -629,3 +630,9 @@ You'll need IntelliJ IDEA Ultimate.
 5. Restart Studio.
 
 Now you can create screens using Studio interface (`Ctrl + Shift + A` -> type "Frontend Component").
+
+### Generated TypeScript Types <a name="generated-types"></a>
+
+We are using [@graphql-codegen/gql-tag-operations-preset](https://www.graphql-code-generator.com/docs/presets/gql-tag-operations) to generate TypeScript types based on GraphQL operations and schema. Generated types are located in `src/gql` and we install them as a local package in order for them to be available in any place of the application by the same path. Read above link for more details.
+
+**There is a caveat!** Generated TypeScript types are using `@graphql-typed-document-node/core` package. It is a transitive dependency of `@apollo/client`. When using npm 7 it is installed on top level and is therefore usable by `src/gql`. When using npm 8 it is installed in `node_modules` inside `@apollo/client` folder and is therefore inaccessible. As a workaround, we are adding it as a dev dependency to `src/gql`. When updating `@apollo/client` to a version that uses new major version of `@graphql-typed-document-node/core` we should manually update mentioned dev dependency in the template.
