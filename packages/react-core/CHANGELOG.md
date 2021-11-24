@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.2](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.2.1...@amplicode/react-core@0.2.2) (2021-11-24)
+
+
+### Bug Fixes
+
+* fix example-app apollo types error by changing version of apollo ([557a87c](https://github.com/Amplicode/amplicode-frontend/commit/557a87cbfc2f0ba81f90d019038709ea9e2d8c60))
+
+
+
+
+
 ## [0.2.1](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.2.0...@amplicode/react-core@0.2.1) (2021-11-17)
 
 **Note:** Version bump only for package @amplicode/react-core

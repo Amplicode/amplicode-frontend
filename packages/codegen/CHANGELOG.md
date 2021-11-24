@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.2](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.5.1...@amplicode/codegen@0.5.2) (2021-11-24)
+
+
+### Bug Fixes
+
+* fix example-app apollo types error by changing version of apollo ([557a87c](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/557a87cbfc2f0ba81f90d019038709ea9e2d8c60))
+
+
+
+
+
 ## [0.5.1](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.5.0...@amplicode/codegen@0.5.1) (2021-11-19)
 
 
