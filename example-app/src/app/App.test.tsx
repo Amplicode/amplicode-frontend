@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { IntlProvider } from "react-intl";
 import App from "./App";
 import { HashRouter } from "react-router-dom";
 import axios from "axios";
@@ -10,7 +9,6 @@ import {
   createHttpLink,
   InMemoryCache
 } from "@apollo/client";
-import en from "../i18n/en.json";
 import {
   HotkeyContext,
   HotkeyStore,
@@ -22,8 +20,8 @@ import { GRAPHQL_URI, REQUEST_SAME_ORIGIN } from "../config";
 import { onError } from "@apollo/client/link/error";
 import { act } from "react-dom/test-utils";
 import { securityStore } from "../security-store";
-import "../i18n/i18nInit";
 import "./screenRegistry";
+import { LocalI18nProvider as I18nProvider } from "../i18n/LocalI18nProvider";
 
 it("renders without crashing", () => {
   const screens = new Screens();
@@ -67,7 +65,7 @@ it("renders without crashing", () => {
     ReactDOM.render(
       <React.StrictMode>
         <ApolloProvider client={client}>
-          <IntlProvider locale="en" messages={en}>
+          <I18nProvider locale="en">
             <ScreenContext.Provider value={screens}>
               <HashRouter>
                 <HotkeyContext.Provider value={hotkeys}>
@@ -75,7 +73,7 @@ it("renders without crashing", () => {
                 </HotkeyContext.Provider>
               </HashRouter>
             </ScreenContext.Provider>
-          </IntlProvider>
+          </I18nProvider>
         </ApolloProvider>
       </React.StrictMode>,
       div
