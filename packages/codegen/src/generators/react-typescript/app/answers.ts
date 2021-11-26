@@ -29,5 +29,11 @@ export const appQuestions: StudioTemplateProperty[] = [
     caption: 'Base Path',
     propertyType: StudioTemplatePropertyType.STRING,
     defaultValue: 'front'
+  },
+  {
+    code: 'i18nApi',
+    caption: 'Using graphql api for getting i18n messages',
+    propertyType: StudioTemplatePropertyType.BOOLEAN,
+    defaultValue: 'false'
   }
 ];

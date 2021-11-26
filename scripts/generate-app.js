@@ -5,7 +5,8 @@ const appAnswers = btoa(JSON.stringify({
   appTitle: "Jmix2 Petclinic",
   appShortName: "jmix2-petclinic",
   graphqlUri: "/graphql",
-  basePath: "front"
+  basePath: "front",
+  i18nApi: "false"
 }));
 
 const appCommand = `node ${amplicodegen} react-typescript:app`
