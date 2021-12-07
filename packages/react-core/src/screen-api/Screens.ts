@@ -4,9 +4,16 @@ import React, {ReactNode} from "react";
 import {generateKey} from "../util/generateKey";
 import {getScreenKey} from "./getScreenKey";
 import {defaultGetPageTitle} from "./defaultGetPageTitle";
+import { EventEmitter } from "../util/EventEmitter";
+import { ScreenMeta } from "./ScreenMetaContext";
+
+export type ScreenEventEmitter = EventEmitter<{
+  switchScreen: (screenMeta: ScreenMeta) => any;
+}>;
 
 export interface OpenInBreadcrumbParams {
   breadcrumbCaption: string;
+  screenId?: string;
   component: ReactComponent;
   props?: any;
 }
@@ -27,6 +34,7 @@ export interface TabState {
 export interface BreadcrumbState {
   content: ReactNode;
   caption: string;
+  screenId?: string;
   key: string;
 }
 
@@ -39,6 +47,7 @@ export class Screens {
   private _activeTabIndex: number | null = null;
 
   readonly appTitle: string;
+  readonly emitter: ScreenEventEmitter = new EventEmitter();
 
   get tabs() {
     return this._tabs;
@@ -101,7 +110,7 @@ export class Screens {
   }
 
   openInTab = (params: OpenInTabParams) => {
-    const {tabCaption, breadcrumbCaption, component, props, tabKey} = params;
+    const {tabCaption, breadcrumbCaption, component, props, tabKey, screenId} = params;
 
     if (this._tabs.some(t => t.key === tabKey)) {
       // Tab with given key already exists so we just activate it
@@ -119,13 +128,14 @@ export class Screens {
       this.openInBreadcrumb({
         component,
         props,
+        screenId,
         breadcrumbCaption
       });
     }
   };
 
   openInBreadcrumb = (params: OpenInBreadcrumbParams) => {
-    const {breadcrumbCaption, component, props} = params;
+    const {breadcrumbCaption, component, screenId, props} = params;
 
     if (this.activeTab == null) {
       throw new Error('No active tab found');
@@ -133,6 +143,7 @@ export class Screens {
 
     this.activeTab.breadcrumbs.push({
       caption: breadcrumbCaption,
+      screenId,
       content: React.createElement(component, props),
       key: generateKey()
     });

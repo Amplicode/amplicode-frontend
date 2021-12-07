@@ -1,7 +1,7 @@
 import {
   useScreens,
   getScreenKey,
-  ScreenMetaContext,
+  ScreenMetaProvider,
   screenStore
 } from "@amplicode/react-core";
 import { TabHeading, BreadcrumbsArea } from "@amplicode/react-antd";
@@ -67,14 +67,9 @@ export const ScreenTabs = observer(() => {
           <Tabs activeKey={activeBreadcrumb?.key} renderTabBar={() => <></>}>
             {tabs[index].breadcrumbs.map(breadcrumb => (
               <Tabs.TabPane key={breadcrumb.key}>
-                <ScreenMetaContext.Provider
-                  value={{
-                    tabKey: tab.key,
-                    breadcrumbKey: breadcrumb.key
-                  }}
-                >
+                <ScreenMetaProvider tab={tab} breadcrumb={breadcrumb}>
                   {breadcrumb.content}
-                </ScreenMetaContext.Provider>
+                </ScreenMetaProvider>
               </Tabs.TabPane>
             ))}
           </Tabs>
