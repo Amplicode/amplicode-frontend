@@ -33,28 +33,23 @@ export const useScreenHotkey = (
 ) => {
   const {addHotkeyConfig, removeHotkeyConfigs} = useHotkeyStore();
   const {activeTab, activeBreadcrumb} = useScreens();
-  const {tabKey, breadcrumbKey} = useScreenMeta();
+  const screenMeta = useScreenMeta();
   
   useEffect(() => {
-    if (activeTab?.key === tabKey && activeBreadcrumb?.key === breadcrumbKey) {
+    if (
+      screenMeta != null
+      && activeTab?.key === screenMeta.tab.key
+      && activeBreadcrumb?.key === screenMeta.breadcrumb.key
+    ) {
       hotkeys(hotkeyConfig.hotkey, memoizedCallback);
       addHotkeyConfig(hotkeyConfig);
     }
 
     return () => {
-      if (activeTab?.key === tabKey && activeBreadcrumb?.key === breadcrumbKey) {
+      if (activeTab?.key === screenMeta?.tab.key && activeBreadcrumb?.key === screenMeta?.breadcrumb.key) {
         hotkeys.unbind(hotkeyConfig.hotkey, memoizedCallback);
         removeHotkeyConfigs(hotkeyConfig);
       }
     };
-  }, [
-    tabKey,
-    activeTab?.key,
-    breadcrumbKey,
-    activeBreadcrumb?.key,
-    hotkeyConfig,
-    addHotkeyConfig,
-    removeHotkeyConfigs,
-    memoizedCallback,
-  ]);
+  }, [activeTab?.key, activeBreadcrumb?.key, hotkeyConfig, addHotkeyConfig, removeHotkeyConfigs, memoizedCallback, screenMeta, screenMeta?.tab.key, screenMeta?.breadcrumb.key]);
 }
