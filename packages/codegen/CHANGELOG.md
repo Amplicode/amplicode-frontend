@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.5.3...@amplicode/codegen@0.6.0) (2021-12-09)
+
+
+### Features
+
+* add eventEmitter for screen-api ([f75f3a5](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/f75f3a579db4d37e0864da01cdee9c055088f4c1))
+* add possibility to choose graphql api for getting i18n messages [#9](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/9) ([0a9c426](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/0a9c4269e336872e90b7592fab5d4cbd545c8ef1))
+
+
+
+
+
 ## [0.5.3](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.5.2...@amplicode/codegen@0.5.3) (2021-11-24)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.2.2...@amplicode/react-core@0.3.0) (2021-12-09)
+
+
+### Features
+
+* add eventEmitter for screen-api ([f75f3a5](https://github.com/Amplicode/amplicode-frontend/commit/f75f3a579db4d37e0864da01cdee9c055088f4c1))
+
+
+
+
+
 ## [0.2.2](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.2.1...@amplicode/react-core@0.2.2) (2021-11-24)
 
 
