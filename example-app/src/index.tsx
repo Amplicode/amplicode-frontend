@@ -14,7 +14,7 @@ import "antd/dist/antd.min.css";
 import axios from "axios";
 import { HashRouter } from "react-router-dom";
 import { onError } from "@apollo/client/link/error";
-import { createIntl } from "react-intl";
+import { createIntl, IntlProvider } from "react-intl";
 import { GRAPHQL_URI, REQUEST_SAME_ORIGIN } from "./config";
 import {
   HotkeyContext,
@@ -29,8 +29,8 @@ import { useInitial } from "./dev/hook";
 import { defaultHotkeyConfigs } from "./hotkeyConfigs";
 import { securityStore } from "./security-store";
 import { notification } from "antd";
+import "./i18n/i18nInit";
 import "./addons";
-import { LocalI18nProvider as I18nProvider } from "./i18n/LocalI18nProvider";
 
 axios.interceptors.response.use(response => {
   if (response.status === 401) {
@@ -109,7 +109,7 @@ const hotkeys = new HotkeyStore(defaultHotkeyConfigs);
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <I18nProvider locale="en">
+      <IntlProvider locale="en" messages={localesStore.messagesMapping["en"]}>
         <ScreenContext.Provider value={screens}>
           <HashRouter>
             <HotkeyContext.Provider value={hotkeys}>
@@ -122,7 +122,7 @@ ReactDOM.render(
             </HotkeyContext.Provider>
           </HashRouter>
         </ScreenContext.Provider>
-      </I18nProvider>
+      </IntlProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")

@@ -13,14 +13,17 @@
   "common.notAllowed": "You do not have a permission to perform this operation",
   "common.viewDetails": "View details",
   "common.404": "Sorry, we couldn't find the page you were looking for",
+
   "auth.login.unauthorized": "Login does not exist or incorrect password",
   "auth.login.unknownError": "Login failed",
   "auth.logout.confirm": "Are you sure you want to logout?",
   "auth.logout.unknownError": "Logout failed",
+
   "EntityListScreen.deleteConfirmation": "Are you sure you want to delete this record?",
   "EntityDetailsScreen.savedSuccessfully": "Saved successfully",
   "EntityDetailsScreen.validationError": "Validation Error. Please check the data you entered.",
   "EntityLookupField.selectEntityInstance": "Select entity instance",
+
   "screen.home": "Home",
 
   "hotkeys.hotkeyInfo.title": "Keyboard Shortcuts",
