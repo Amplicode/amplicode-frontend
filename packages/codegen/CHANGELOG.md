@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.1](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.6.0...@amplicode/codegen@0.6.1) (2021-12-14)
+
+
+### Reverts
+
+* add possibility to choose graphql api for getting i18n messages [#9](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/9) ([74aa7b2](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/74aa7b27b8ee739e5bfeed583f2ab2291c6eaf91))
+
+
+
+
+
 # [0.6.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.5.3...@amplicode/codegen@0.6.0) (2021-12-09)
 
 
