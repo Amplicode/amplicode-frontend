@@ -56,6 +56,10 @@ class LocalesStore {
       return localeName === locale;
     })?.isRtlLayout;
   }
+
+  readonly hasLocale = (locale: string) => {
+    return this._localesInfo.some(localeInfo => localeInfo.locale === locale);
+  };
 }
 
 export const localesStore = new LocalesStore();
