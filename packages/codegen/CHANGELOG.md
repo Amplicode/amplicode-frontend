@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.2](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.6.1...@amplicode/codegen@0.6.2) (2021-12-14)
+
+
+### Bug Fixes
+
+* peer deps issue when doing npm install in generated project ([4898bc3](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/4898bc312320849cc7e40993843bd4e761fe4d76))
+
+
+
+
+
 ## [0.6.1](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.6.0...@amplicode/codegen@0.6.1) (2021-12-14)
 
 
