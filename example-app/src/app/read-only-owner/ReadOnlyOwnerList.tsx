@@ -51,7 +51,7 @@ export const ReadOnlyOwnerList = observer(
           }),
           component: ReadOnlyOwnerDetails
         };
-        if (id != null) {
+        if (id != null && id !== "new") {
           params.props = { id };
         }
         screens.openInBreadcrumb(params);

@@ -67,7 +67,7 @@ export const PetList = observer(({ onSelect }: EntityListScreenProps) => {
         breadcrumbCaption: intl.formatMessage({ id: "screen.PetEditor" }),
         component: PetEditor
       };
-      if (id != null) {
+      if (id != null && id !== "new") {
         params.props = { id };
       }
       screens.openInBreadcrumb(params);

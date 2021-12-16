@@ -65,7 +65,7 @@ export const OwnerList = observer(({ onSelect }: EntityListScreenProps) => {
         breadcrumbCaption: intl.formatMessage({ id: "screen.OwnerEditor" }),
         component: OwnerEditor
       };
-      if (id != null) {
+      if (id != null && id !== "new") {
         params.props = { id };
       }
       screens.openInBreadcrumb(params);
