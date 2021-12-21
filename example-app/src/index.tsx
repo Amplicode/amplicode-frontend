@@ -1,3 +1,4 @@
+import "./i18n/i18nInit";
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
@@ -29,7 +30,6 @@ import { useInitial } from "./dev/hook";
 import { defaultHotkeyConfigs } from "./hotkeyConfigs";
 import { securityStore } from "./security-store";
 import { notification } from "antd";
-import "./i18n/i18nInit";
 import "./addons";
 
 axios.interceptors.response.use(response => {
