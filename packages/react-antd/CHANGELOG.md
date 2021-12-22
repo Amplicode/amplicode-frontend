@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.6](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-antd@0.2.5...@amplicode/react-antd@0.2.6) (2021-12-22)
+
+
+### Bug Fixes
+
+* show selected submenu correctly ([383b734](https://github.com/Amplicode/amplicode-frontend/commit/383b734e31ae7d2190c9240e785a48feb1291c4f))
+
+
+
+
+
 ## [0.2.5](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-antd@0.2.4...@amplicode/react-antd@0.2.5) (2021-12-14)
 
 **Note:** Version bump only for package @amplicode/react-antd

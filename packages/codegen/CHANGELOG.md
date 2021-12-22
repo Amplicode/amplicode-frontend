@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.3](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.6.2...@amplicode/codegen@0.6.3) (2021-12-22)
+
+
+### Bug Fixes
+
+* addon i18n doesn't work when using components from addon [#110](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/110) ([a442fa4](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/a442fa44e4b793e2efc2c1235009739ffaa48d5b))
+* show selected submenu correctly ([383b734](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/383b734e31ae7d2190c9240e785a48feb1291c4f))
+
+
+
+
+
 ## [0.6.2](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.6.1...@amplicode/codegen@0.6.2) (2021-12-14)
 
 
