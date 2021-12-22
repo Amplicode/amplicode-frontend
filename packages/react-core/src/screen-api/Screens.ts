@@ -141,6 +141,8 @@ export class Screens {
       throw new Error('No active tab found');
     }
 
+    this.closeBreadcrumbsAfterActive();
+
     this.activeTab.breadcrumbs.push({
       caption: breadcrumbCaption,
       screenId,
@@ -149,6 +151,13 @@ export class Screens {
     });
     this.activeTab.activeBreadcrumbIndex = this.activeTab.breadcrumbs.length - 1;
   };
+
+  private closeBreadcrumbsAfterActive = () => {
+    if (this.activeTab == null || this.activeTab?.activeBreadcrumbIndex == null) {
+      return
+    }
+    this.activeTab.breadcrumbs = this.activeTab?.breadcrumbs.slice(0, this.activeTab?.activeBreadcrumbIndex + 1);
+  }
 
   makeTabActive = (key: string) => {
     this.makeTabActiveByIndex(this._tabs.findIndex(t => t.key === key));
