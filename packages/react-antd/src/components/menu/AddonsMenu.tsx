@@ -62,6 +62,7 @@ function transformAddonItemToJsx(
       {...(extProps as SubMenuProps)}
       {...restSubMenuItemProps}
       title={intl.formatMessage({id: caption})}
+      {...({eventKey: restSubMenuItemProps.key} as SubMenuProps)}
     >
       {
         childItems.map((item: AddonItem) => {
