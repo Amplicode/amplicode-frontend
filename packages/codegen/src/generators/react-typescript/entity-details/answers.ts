@@ -46,6 +46,7 @@ export const entityDetailsQuestions = [
     caption: "Add to menu",
     code: "shouldAddToMenu",
     propertyType: StudioTemplatePropertyType.BOOLEAN,
+    defaultValue: false,
     required: true
   }
 ];
