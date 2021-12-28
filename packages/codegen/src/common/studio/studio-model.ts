@@ -22,7 +22,7 @@ export interface StudioTemplateProperty {
   code: string;
   caption: string;
   propertyType: StudioTemplatePropertyType;
-  defaultValue?: string;
+  defaultValue?: string | boolean;
   required?: boolean;
   relatedProperty?: string;
   options?: string[];

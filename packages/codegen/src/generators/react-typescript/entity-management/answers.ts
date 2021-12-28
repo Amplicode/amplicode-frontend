@@ -78,6 +78,7 @@ export const commonEntityManagementQuestions =  [
     code: "shouldAddToMenu",
     propertyType: StudioTemplatePropertyType.BOOLEAN,
     required: true,
+    defaultValue: true,
     step: {
       name: "Entity List",
       order: "1"
