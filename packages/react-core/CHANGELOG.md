@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.3.1...@amplicode/react-core@0.7.0) (2022-01-11)
+
+
+### Bug Fixes
+
+* breadcrumbs can grow and grow by adding new ones [#101](https://github.com/Amplicode/amplicode-frontend/issues/101) ([b80a03e](https://github.com/Amplicode/amplicode-frontend/commit/b80a03ef18f191e9de3cf89abb158795ad0464a9))
+
+
+
+
+
 ## [0.3.1](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.3.0...@amplicode/react-core@0.3.1) (2021-12-14)
 
 **Note:** Version bump only for package @amplicode/react-core

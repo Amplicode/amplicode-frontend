@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.6.2...@amplicode/codegen@0.7.0) (2022-01-11)
+
+
+### Features
+
+* enrich antd palette [#117](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/117) ([a8ab1de](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/a8ab1de5a62775cfd49ca58f0cdea8450eaf1bc6))
+
+
+
+
+
 ## [0.6.2](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.6.1...@amplicode/codegen@0.6.2) (2021-12-14)
 
 
