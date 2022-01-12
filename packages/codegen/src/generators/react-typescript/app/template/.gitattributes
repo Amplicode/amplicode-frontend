@@ -1,0 +1,2 @@
+# Prevent gql-tag-operations from generating new line characters that doesn't match the source, see https://github.com/dotansimha/graphql-code-generator/issues/6811
+* text eol=lf
