@@ -23,9 +23,9 @@ export function addMvpAppMenu({
 
   const destRoot = gen.destinationRoot();
   const srcDir = path.join(destRoot, dirShift ? dirShift : '');
-  const componentPath = pathToComponent ?? `./${getRelativePath(path.join(srcDir, 'app'), destRoot)}/${componentName}`;
+  const componentPath = pathToComponent ?? `../../app/${getRelativePath(path.join(srcDir, 'app'), destRoot)}/${componentName}`;
 
-  const appMenuPath = path.join(srcDir, 'app', 'AppMenu.tsx');
+  const appMenuPath = path.join(srcDir, 'app', 'menu', 'Menu.tsx');
   if (!gen.fs.exists(appMenuPath)) {
     gen.log('Unable to add component to menu: app menu not found');
     return;
@@ -34,7 +34,7 @@ export function addMvpAppMenu({
   const appMenuTransformed = transformAddMenuItem(appMenuContents, route);
   gen.fs.write(appMenuPath, appMenuTransformed);
 
-  const screenRegistryFilePath = path.join(srcDir, 'app', 'screenRegistry.ts');
+  const screenRegistryFilePath = path.join(srcDir, 'core', 'screen-api', 'screen-registry.ts');
   if (!gen.fs.exists(screenRegistryFilePath)) {
     gen.log('Unable to add component to menu: screen registry not found');
     return;

@@ -1,4 +1,4 @@
-import {Home} from "./home/Home";
+import {Home} from "../../app/screens/home/Home";
 import {screenStore} from "@amplicode/react-core";
 
 screenStore.registerScreen("home", {

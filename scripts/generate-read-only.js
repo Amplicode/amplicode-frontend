@@ -38,7 +38,7 @@ const readOnlyManagementAnswers = btoa(JSON.stringify({
 const readOnlyManagementCommand = `node ${amplicodegen} react-typescript:entity-management`
 + ` --answers ${readOnlyManagementAnswers}`
 + ` --schema ./schema.graphql`
-+ ` --dest ../example-app/src/app/read-only-owner`
-+ ` --dirShift ../../`;
++ ` --dest ../example-app/src/app/screens/read-only-owner`
++ ` --dirShift ../../../`;
 
 runCmdSync(readOnlyManagementCommand);

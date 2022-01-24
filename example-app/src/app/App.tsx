@@ -2,9 +2,9 @@ import React from "react";
 import "./App.css";
 import { Login } from "./login/Login";
 import { observer } from "mobx-react";
-import { AppMain } from "./app-main/AppMain";
+import { AppMain } from "./main/Main";
 import { useDefaultScreenHotkeys } from "@amplicode/react-core";
-import { securityStore } from "../security-store";
+import { securityStore } from "../core/security/security-store";
 
 export const App = observer(() => {
   useDefaultScreenHotkeys();

@@ -140,6 +140,7 @@ export function getAddonsPath(
   return path.join(
     gen.destinationRoot(), 
     dirShift ? dirShift : '',
+    'addons',
     'addons.ts'
   );
 }

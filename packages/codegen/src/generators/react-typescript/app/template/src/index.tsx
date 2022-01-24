@@ -1,8 +1,8 @@
-import "./i18n/i18nInit";
+import "./core/i18n/i18n-init";
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import "./app/screenRegistry";
+import "./core/screen-api/screen-registry";
 import App from "./app/App";
 import reportWebVitals from "./reportWebVitals";
 import {
@@ -27,10 +27,10 @@ import {
 import { DevSupport } from "@react-buddy/ide-toolbox";
 import { ComponentPreviews } from "./dev/previews";
 import { useInitial } from "./dev/hook";
-import { defaultHotkeyConfigs } from "./hotkeyConfigs";
-import { securityStore } from "./security-store";
+import { defaultHotkeyConfigs } from "./core/hotkeys/hotkey-configs";
+import { securityStore } from "./core/security/security-store";
 import { notification } from "antd";
-import "./addons";
+import "./core/addons/addons";
 
 axios.interceptors.response.use(response => {
   if (response.status === 401) {

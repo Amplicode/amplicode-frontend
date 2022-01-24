@@ -1,7 +1,7 @@
-import { ReadOnlyOwnerList } from "./read-only-owner/ReadOnlyOwnerList";
-import { PetList } from "./pet/PetList";
-import { OwnerList } from "./owner/OwnerList";
-import { Home } from "./home/Home";
+import { ReadOnlyOwnerList } from "../../app/screens/read-only-owner/ReadOnlyOwnerList";
+import { PetList } from "../../app/screens/pet/PetList";
+import { OwnerList } from "../../app/screens/owner/OwnerList";
+import { Home } from "../../app/screens/home/Home";
 import { screenStore } from "@amplicode/react-core";
 
 screenStore.registerScreen("home", {

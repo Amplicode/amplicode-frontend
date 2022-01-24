@@ -54,7 +54,7 @@ const petManagementAnswers = btoa(JSON.stringify({
 const petManagementCommand = `node ${amplicodegen} react-typescript:entity-management`
     + ` --answers ${petManagementAnswers}`
     + ` --schema ./schema.graphql`
-    + ` --dest ../example-app/src/app/pet`
-    + ` --dirShift ../../`;
+    + ` --dest ../example-app/src/app/screens/pet`
+    + ` --dirShift ../../../`;
 
 runCmdSync(petManagementCommand);
