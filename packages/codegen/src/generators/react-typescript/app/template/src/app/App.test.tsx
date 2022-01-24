@@ -10,20 +10,20 @@ import {
   createHttpLink,
   InMemoryCache
 } from "@apollo/client";
-import en from "../i18n/en.json";
+import en from "../core/i18n/en.json";
 import {
   HotkeyContext,
   HotkeyStore,
   ScreenContext,
   Screens
 } from "@amplicode/react-core";
-import { defaultHotkeyConfigs } from "../hotkeyConfigs";
+import { defaultHotkeyConfigs } from "../core/hotkeys/hotkey-configs";
 import { GRAPHQL_URI, REQUEST_SAME_ORIGIN } from "../config";
 import { onError } from "@apollo/client/link/error";
 import { act } from "react-dom/test-utils";
-import { securityStore } from "../security-store";
-import "../i18n/i18nInit";
-import "./screenRegistry";
+import { securityStore } from "../core/security/security-store";
+import "../core/i18n/i18n-init";
+import "../core/screen-api/screen-registry";
 
 it("renders without crashing", () => {
   const screens = new Screens();

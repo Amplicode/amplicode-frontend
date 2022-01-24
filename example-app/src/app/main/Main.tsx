@@ -1,10 +1,10 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { Layout } from "antd";
-import { AppHeader } from "../app-header/AppHeader";
-import "./AppMain.css";
-import { AppMenu } from "../AppMenu";
-import { ScreenTabs } from "../screen-tabs/ScreenTabs";
+import { AppHeader } from "../header/Header";
+import "./Main.css";
+import { AppMenu } from "../menu/Menu";
+import { ScreenTabs } from "../../core/screen-api/ScreenTabs";
 import { Route, Switch } from "react-router-dom";
 import { Page404, CloseAllTabs } from "@amplicode/react-antd";
 import { screenStore } from "@amplicode/react-core";

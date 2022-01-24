@@ -52,7 +52,7 @@ const ownerManagementAnswers = btoa(JSON.stringify({
 const ownerManagementCommand = `node ${amplicodegen} react-typescript:entity-management`
 + ` --answers ${ownerManagementAnswers}`
 + ` --schema ./schema.graphql`
-+ ` --dest ../example-app/src/app/owner`
-+ ` --dirShift ../../`;
++ ` --dest ../example-app/src/app/screens/owner`
++ ` --dirShift ../../../`;
 
 runCmdSync(ownerManagementCommand);

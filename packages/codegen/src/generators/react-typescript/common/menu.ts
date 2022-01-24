@@ -77,7 +77,7 @@ export function addToAppMenu(
 ): boolean {
 
   const appMenuDir = path.join(destRoot, dirShift ? dirShift : '');
-  const appMenuPath = path.join(appMenuDir, 'app', 'AppMenu.tsx');
+  const appMenuPath = path.join(appMenuDir, 'app', 'menu', 'Menu.tsx');
 
   if (fs.exists(appMenuPath)) {
     const appMenuContents = fs.read(appMenuPath);

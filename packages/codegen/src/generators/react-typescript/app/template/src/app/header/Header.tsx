@@ -2,13 +2,13 @@ import { Button, Modal, notification, Space } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
 import { useCallback, useState } from "react";
 import { useIntl } from "react-intl";
-import "./AppHeader.css";
+import "./Header.css";
 import { useHotkey } from "@amplicode/react-core";
 import { HotkeyInfoModalButton } from "@amplicode/react-antd";
 import { observer } from "mobx-react";
-import { securityStore } from "../../security-store";
+import { securityStore } from "../../core/security/security-store";
 import { KeyHandler } from "hotkeys-js";
-import {toggleHotkeyInfoHotkeyConfig} from './hotkeyInfoHotkeyConfigs'
+import {toggleHotkeyInfoHotkeyConfig} from './hotkey-info-hotkey-configs'
 
 export const AppHeader = observer(() => {
   const intl = useIntl();

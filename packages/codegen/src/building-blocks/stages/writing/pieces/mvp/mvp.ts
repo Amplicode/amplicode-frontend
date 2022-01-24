@@ -56,7 +56,7 @@ export function addScreenI18nKeyEn(
   gen: YeomanGenerator, 
   componentType: "addons" | "screen" = "screen"
 ) {
-  const existingMessagesPath = path.join(dirShift, `i18n/en.json`);
+  const existingMessagesPath = path.join(dirShift, 'core', 'i18n', 'en.json');
   const existingMessages: Record<string, string> | null = gen.fs.readJSON(existingMessagesPath);
   if (existingMessages == null) {
     throw new Error('i18n messages not found');
@@ -78,11 +78,11 @@ export function addScreenI18nKeyEn(
 }
 
 export function addI18nMessagesEn(
-  dirShift: string, 
-  gen: YeomanGenerator, 
+  dirShift: string,
+  gen: YeomanGenerator,
   messages: Record<string, string>
 ) {
-  const existingMessagesPath = path.join(dirShift, `i18n/en.json`);
+  const existingMessagesPath = path.join(dirShift, 'core', 'i18n', 'en.json');
   const existingMessages: Record<string, string> | null = gen.fs.readJSON(existingMessagesPath);
   if (existingMessages == null) {
     throw new Error('i18n messages not found');
