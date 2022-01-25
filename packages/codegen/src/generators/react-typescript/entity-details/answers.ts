@@ -5,7 +5,7 @@ export type MvpEntityEditorAnswers =
   ScreenAnswers & {
     query: string;
     mutation?: string;
-    listQueryName: string; // TODO remove
+    refetchQueryName: string;
     idField?: string;
   };
 
@@ -18,8 +18,8 @@ export const entityDetailsQuestions = [
     required: true
   },
   {
-    caption: 'List query name',
-    code: 'listQueryName',
+    caption: 'Refetch query name',
+    code: 'refetchQueryName',
     propertyType: StudioTemplatePropertyType.STRING,
     required: true
   },

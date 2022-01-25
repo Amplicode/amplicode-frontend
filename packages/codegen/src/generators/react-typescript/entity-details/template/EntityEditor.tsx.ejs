@@ -1,6 +1,11 @@
-import {useEffect, useCallback, useState} from "react";
-import {gql} from '@amplicode/gql';
-import { useLazyQuery, useMutation, FetchResult, ApolloError, ApolloCache } from "@apollo/client";
+import { useEffect, useCallback, useState } from "react";
+import { gql } from "@amplicode/gql";
+import {
+  useLazyQuery,
+  useMutation,
+  FetchResult,
+  ApolloError
+} from "@apollo/client";
 import {
   Form,
   Button,
@@ -46,51 +51,72 @@ const <%= toFatSnakeCase(mutationName) %> = gql(/* GraphQL */ `
   <%= mutationString %>
 `);
 
-export const <%= componentName %> = observer(({id}: EntityDetailsScreenProps) => {
+export const <%= componentName %> = observer(({ id }: EntityDetailsScreenProps) => {
   const [form] = useForm();
   const intl = useIntl();
   const screens = useScreens();
   const history = useHistory();
 
-  const [loadItem, {loading: queryLoading, error: queryError, data}] = useLazyQuery(<%= toFatSnakeCase(queryName) %>, {
+  const [
+    loadItem,
+    { loading: queryLoading, error: queryError, data }
+  ] = useLazyQuery(<%= toFatSnakeCase(queryName) %>, {
     variables: {
       id
     }
   });
 
-  const [executeUpsertMutation, {loading: upsertInProcess}] = useMutation(<%= toFatSnakeCase(mutationName) %>);
+  const [executeUpsertMutation, { loading: upsertInProcess }] = useMutation(
+    <%= toFatSnakeCase(mutationName) %>,
+    {
+      refetchQueries: ["<%= refetchQueryName %>"]
+    }
+  );
 
   const [formError, setFormError] = useState<string | undefined>();
 
   const goToParentScreen = useCallback(() => {
-    history.push('.'); // Remove entity id part from url
+    history.push("."); // Remove entity id part from url
     screens.closeActiveBreadcrumb();
   }, [screens, history]);
 
-  const handleSubmit = useCallback((values) => {
-    executeUpsertMutation({
-      variables: {
-        <%= locals.inputVariableName %>: formValuesToData(values, id)
-      },
-      update: getUpdateFn(values)
-    }).then(({errors}: FetchResult) => {
-      if (errors == null || errors.length === 0) {
-        goToParentScreen();
-        message.success(intl.formatMessage({id: 'EntityDetailsScreen.savedSuccessfully'}));
-        return;
-      }
-      setFormError(errors.join('\n'));
-      console.error(errors);
-      message.error(intl.formatMessage({id: 'common.requestFailed'}));
-    }).catch((e: Error | ApolloError) => {
-      setFormError(e.message);
-      console.error(e);
-      message.error(intl.formatMessage({id: 'common.requestFailed'}));
-    });
-  }, [executeUpsertMutation, id, intl, goToParentScreen]);
+  const handleSubmit = useCallback(
+    values => {
+      executeUpsertMutation({
+        variables: {
+          <%= locals.inputVariableName %>: formValuesToData(values, id)
+        }
+      })
+        .then(({ errors }: FetchResult) => {
+          if (errors == null || errors.length === 0) {
+            goToParentScreen();
+            return message.success(
+              intl.formatMessage({
+                id: "EntityDetailsScreen.savedSuccessfully"
+              })
+            );
+          }
+          setFormError(errors.join("\n"));
+          console.error(errors);
+          return message.error(
+            intl.formatMessage({ id: "common.requestFailed" })
+          );
+        })
+        .catch((e: Error | ApolloError) => {
+          setFormError(e.message);
+          console.error(e);
+          return message.error(
+            intl.formatMessage({ id: "common.requestFailed" })
+          );
+        });
+    },
+    [executeUpsertMutation, id, intl, goToParentScreen]
+  );
 
   const handleSubmitFailed = useCallback(() => {
-    message.error(intl.formatMessage({id: 'EntityDetailsScreen.validationError'}));
+    return message.error(
+      intl.formatMessage({ id: "EntityDetailsScreen.validationError" })
+    );
   }, [intl]);
 
   useEffect(() => {
@@ -107,24 +133,28 @@ export const <%= componentName %> = observer(({id}: EntityDetailsScreenProps) =>
     }
   }, [item, form]);
 
-  useDefaultEditorHotkeys({saveEntity: form.submit});
+  useDefaultEditorHotkeys({ saveEntity: form.submit });
 
   if (queryLoading) {
-    return <Spin/>;
+    return <Spin />;
   }
 
   if (queryError) {
-    return <Result status="error"
-                   title={<FormattedMessage id='common.requestFailed' />}
-    />;
+    return (
+      <Result
+        status="error"
+        title={<FormattedMessage id="common.requestFailed" />}
+      />
+    );
   }
 
   return (
     <Card className="narrow-layout">
-        <Form onFinish={handleSubmit}
-              onFinishFailed={handleSubmitFailed}
-              layout="vertical"
-              form={form}
+        <Form
+          onFinish={handleSubmit}
+          onFinishFailed={handleSubmitFailed}
+          layout="vertical"
+          form={form}
         >
 
           <% attributes.forEach((attr) => { %>
@@ -133,27 +163,27 @@ export const <%= componentName %> = observer(({id}: EntityDetailsScreenProps) =>
             <% } %>
           <% }) %>
 
-          {formError && <Alert message={formError}
-                               type="error"
-                               style={{marginBottom: '18px'}}
-                        />
-          }
+          {formError && (
+            <Alert
+              message={formError}
+             type="error"
+             style={{ marginBottom: "18px" }}
+            />
+          )}
 
-          <Form.Item style={{textAlign: 'center'}}>
-            <Button htmlType="button"
-                    onClick={goToParentScreen}
-            >
-              <FormattedMessage id='common.cancel'/>
+          <Form.Item style={{ textAlign: "center" }}>
+            <Button htmlType="button" onClick={goToParentScreen}>
+              <FormattedMessage id="common.cancel" />
             </Button>
-            <Button type="primary"
-                    htmlType="submit"
-                    loading={upsertInProcess}
-                    style={{marginLeft: '8px'}}
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={upsertInProcess}
+              style={{ marginLeft: "8px" }}
             >
-              <FormattedMessage id={'common.submit'}/>
+              <FormattedMessage id={"common.submit"} />
             </Button>
           </Form.Item>
-
         </Form>
     </Card>
   );
@@ -168,27 +198,4 @@ function formValuesToData(values: any, id?: string): any {
 
 function dataToFormValues(data: any): any {
   return data;
-}
-
-function getUpdateFn(values: any) {
-  return (cache: ApolloCache<any>, result: FetchResult) => {
-    const updateResult = result.data?.<%= mutationName %>;
-    // Reflect the update in Apollo cache
-    cache.modify({
-      fields: {
-        <%= listQueryName %>(existingRefs = []) {
-          const updatedItemRef = cache.writeFragment({
-            id: `<%= entityName %>:${updateResult.id}`,
-            data: values,
-            fragment: gql(`
-              fragment New_<%= entityName %> on <%= entityName %> {
-                id
-              }
-            `)
-          });
-          return [...existingRefs, updatedItemRef];
-        }
-      }
-    });
-  }
 }

@@ -8,7 +8,6 @@ export interface EntityManagementAnswers extends ScreenAnswers {
   mode?: EntityListMode;
   listQuery: string,
   detailsQuery: string,
-  listQueryName: string,
   upsertMutation?: string,
   deleteMutation?: string,
   idField?: string

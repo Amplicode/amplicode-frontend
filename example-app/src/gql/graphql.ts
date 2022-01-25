@@ -380,11 +380,6 @@ export type Update_OwnerMutation = {
     | undefined;
 };
 
-export type New_OwnerDtoFragment = {
-  __typename?: "OwnerDTO";
-  id?: any | null | undefined;
-};
-
 export type Get_Owner_ListQueryVariables = Exact<{ [key: string]: never }>;
 
 export type Get_Owner_ListQuery = {
@@ -450,11 +445,6 @@ export type Update_PetMutation = {
     | undefined;
 };
 
-export type New_PetDtoFragment = {
-  __typename?: "PetDTO";
-  id?: any | null | undefined;
-};
-
 export type Get_Pet_ListQueryVariables = Exact<{ [key: string]: never }>;
 
 export type Get_Pet_ListQuery = {
@@ -490,40 +480,6 @@ export type Delete_PetMutation = {
   delete_Pet: boolean;
 };
 
-export const New_OwnerDtoFragmentDoc = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "New_OwnerDTO" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "OwnerDTO" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [{ kind: "Field", name: { kind: "Name", value: "id" } }],
-      },
-    },
-  ],
-} as unknown as DocumentNode<New_OwnerDtoFragment, unknown>;
-export const New_PetDtoFragmentDoc = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "New_PetDTO" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "PetDTO" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [{ kind: "Field", name: { kind: "Name", value: "id" } }],
-      },
-    },
-  ],
-} as unknown as DocumentNode<New_PetDtoFragment, unknown>;
 export const Get_OwnerDocument = {
   kind: "Document",
   definitions: [

@@ -95,7 +95,7 @@ const client = new ApolloClient({
       fetchPolicy: "network-only"
     },
     watchQuery: {
-      fetchPolicy: "cache-and-network"
+      fetchPolicy: "network-only"
     }
   }
 });
