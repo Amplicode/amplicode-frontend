@@ -1,6 +1,8 @@
 import {MvpEntityEditorTemplateModel, deriveEntityDetailsTemplateModel} from "../entity-details/template-model";
 import {EntityManagementAnswers} from "./answers";
-import {getOperationName} from "../../../building-blocks/stages/template-model/pieces/amplicode/amplicode";
+import {
+  getOperationName, getQueryName,
+} from "../../../building-blocks/stages/template-model/pieces/amplicode/amplicode";
 import {AmplicodeComponentOptions} from "../../../building-blocks/stages/options/pieces/amplicode";
 import {GraphQLSchema} from "graphql";
 import gql from "graphql-tag";
@@ -57,7 +59,7 @@ export const deriveManagementTemplateModel = async (
       query: detailsQuery,
       mutation: upsertMutation,
       shouldAddToMenu: false,
-      listQueryName: queryName,
+      refetchQueryName: getQueryName(queryNode),
     },
     schema
   )

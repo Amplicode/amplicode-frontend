@@ -4,8 +4,7 @@ import {
   useLazyQuery,
   useMutation,
   FetchResult,
-  ApolloError,
-  ApolloCache
+  ApolloError
 } from "@apollo/client";
 import { Form, Button, Card, message, Alert, Spin, Result, Input } from "antd";
 import { useForm } from "antd/es/form/Form";
@@ -57,7 +56,10 @@ export const PetEditor = observer(({ id }: EntityDetailsScreenProps) => {
   });
 
   const [executeUpsertMutation, { loading: upsertInProcess }] = useMutation(
-    UPDATE__PET
+    UPDATE__PET,
+    {
+      refetchQueries: ["Get_Pet_List"]
+    }
   );
 
   const [formError, setFormError] = useState<string | undefined>();
@@ -72,34 +74,36 @@ export const PetEditor = observer(({ id }: EntityDetailsScreenProps) => {
       executeUpsertMutation({
         variables: {
           input: formValuesToData(values, id)
-        },
-        update: getUpdateFn(values)
+        }
       })
         .then(({ errors }: FetchResult) => {
           if (errors == null || errors.length === 0) {
             goToParentScreen();
-            message.success(
+            return message.success(
               intl.formatMessage({
                 id: "EntityDetailsScreen.savedSuccessfully"
               })
             );
-            return;
           }
           setFormError(errors.join("\n"));
           console.error(errors);
-          message.error(intl.formatMessage({ id: "common.requestFailed" }));
+          return message.error(
+            intl.formatMessage({ id: "common.requestFailed" })
+          );
         })
         .catch((e: Error | ApolloError) => {
           setFormError(e.message);
           console.error(e);
-          message.error(intl.formatMessage({ id: "common.requestFailed" }));
+          return message.error(
+            intl.formatMessage({ id: "common.requestFailed" })
+          );
         });
     },
     [executeUpsertMutation, id, intl, goToParentScreen]
   );
 
   const handleSubmitFailed = useCallback(() => {
-    message.error(
+    return message.error(
       intl.formatMessage({ id: "EntityDetailsScreen.validationError" })
     );
   }, [intl]);
@@ -214,27 +218,4 @@ function formValuesToData(values: any, id?: string): any {
 
 function dataToFormValues(data: any): any {
   return data;
-}
-
-function getUpdateFn(values: any) {
-  return (cache: ApolloCache<any>, result: FetchResult) => {
-    const updateResult = result.data?.update_Pet;
-    // Reflect the update in Apollo cache
-    cache.modify({
-      fields: {
-        petList(existingRefs = []) {
-          const updatedItemRef = cache.writeFragment({
-            id: `PetDTO:${updateResult.id}`,
-            data: values,
-            fragment: gql(`
-              fragment New_PetDTO on PetDTO {
-                id
-              }
-            `)
-          });
-          return [...existingRefs, updatedItemRef];
-        }
-      }
-    });
-  };
 }

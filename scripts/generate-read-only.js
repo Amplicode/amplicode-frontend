@@ -31,7 +31,6 @@ const readOnlyManagementAnswers = btoa(JSON.stringify({
   shouldAddToMenu: true,
   listQuery: esc(ownerListQuery),
   detailsQuery: esc(ownerDetailsQuery),
-  listQueryName: 'ownerList',
   mode: 'view with details'
 }));
 

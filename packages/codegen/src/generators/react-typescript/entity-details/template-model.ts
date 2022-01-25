@@ -34,7 +34,7 @@ export interface MvpEntityEditorTemplateModel extends BaseTemplateModel, ScreenT
     queryString: string,
     mutationString?: string,
     idField: string,
-    listQueryName: string,
+    refetchQueryName: string,
   }
 
 type GraphQLEditorModel = {
@@ -66,7 +66,7 @@ export const deriveEntityDetailsTemplateModel: AmplicodeTemplateModelStage<
     query: queryString,
     mutation: mutationString,
     idField = 'id',
-    listQueryName
+    refetchQueryName
   } = answers;
 
   const queryNode = gql(queryString);
@@ -83,7 +83,7 @@ export const deriveEntityDetailsTemplateModel: AmplicodeTemplateModelStage<
     queryString,
     mutationString,
     idField,
-    listQueryName
+    refetchQueryName
   }
 };
 

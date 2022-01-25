@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
 import { gql } from "@amplicode/gql";
 import { Exact } from "@amplicode/gql/graphql";
-import { useQuery, useMutation, ApolloCache, Reference } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import {
   CheckOutlined,
   CloseOutlined,
@@ -55,7 +55,9 @@ export const PetList = observer(({ onSelect }: EntityListScreenProps) => {
 
   const { loading, error, data } = useQuery(PET_LIST);
 
-  const [executeDeleteMutation] = useMutation(DELETE__PET);
+  const [executeDeleteMutation] = useMutation(DELETE__PET, {
+    refetchQueries: [PET_LIST]
+  });
 
   // Entity list can work in select mode, which means that you can select an entity instance and it will be passed to onSelect callback.
   // This functionality is used in EntityLookupField.
@@ -218,8 +220,7 @@ function getCardActions(input: CardActionsInput) {
               executeDeleteMutation({
                 variables: {
                   id: entityInstance.id
-                },
-                update: getUpdateFn(entityInstance)
+                }
               });
             }
           });
@@ -251,18 +252,4 @@ function getCardActions(input: CardActionsInput) {
       />
     ];
   }
-}
-
-function getUpdateFn(e: any) {
-  return (cache: ApolloCache<any>) => {
-    cache.modify({
-      fields: {
-        petList(existingRefs, { readField }) {
-          return existingRefs.filter(
-            (ref: Reference) => e["id"] !== readField("id", ref)
-          );
-        }
-      }
-    });
-  };
 }

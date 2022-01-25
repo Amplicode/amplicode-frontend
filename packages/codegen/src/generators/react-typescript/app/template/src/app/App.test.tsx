@@ -56,7 +56,7 @@ it("renders without crashing", () => {
         fetchPolicy: "network-only"
       },
       watchQuery: {
-        fetchPolicy: "cache-and-network"
+        fetchPolicy: "network-only"
       }
     }
   });
