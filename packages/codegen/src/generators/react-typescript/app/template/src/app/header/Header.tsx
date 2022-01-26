@@ -8,7 +8,7 @@ import { HotkeyInfoModalButton } from "@amplicode/react-antd";
 import { observer } from "mobx-react";
 import { securityStore } from "../../core/security/security-store";
 import { KeyHandler } from "hotkeys-js";
-import {toggleHotkeyInfoHotkeyConfig} from './hotkey-info-hotkey-configs'
+import {toggleHotkeyInfoHotkeyConfig} from '../../core/hotkeys/hotkey-info-config'
 
 export const AppHeader = observer(() => {
   const intl = useIntl();

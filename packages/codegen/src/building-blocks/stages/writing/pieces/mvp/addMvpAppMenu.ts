@@ -23,7 +23,7 @@ export function addMvpAppMenu({
 
   const destRoot = gen.destinationRoot();
   const srcDir = path.join(destRoot, dirShift ? dirShift : '');
-  const componentPath = pathToComponent ?? `../../app/${getRelativePath(path.join(srcDir, 'app'), destRoot)}/${componentName}`;
+  const componentPath = pathToComponent ?? `${getRelativePath(path.join(srcDir, 'core/screen-api'), destRoot)}/${componentName}`;
 
   const appMenuPath = path.join(srcDir, 'app', 'menu', 'Menu.tsx');
   if (!gen.fs.exists(appMenuPath)) {
