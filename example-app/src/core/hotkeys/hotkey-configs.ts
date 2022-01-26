@@ -4,7 +4,7 @@ import {
   browserHotkeysConfigs,
   editorHotkeysConfigs
 } from "@amplicode/react-core";
-import { hotkeyInfoHotkeyConfigs } from "../../app/header/hotkey-info-hotkey-configs";
+import { hotkeyInfoHotkeyConfigs } from "./hotkey-info-config";
 
 export const defaultHotkeyConfigs: HotkeyConfig[] = [
   ...hotkeyInfoHotkeyConfigs,
