@@ -87,7 +87,7 @@ export const <%= componentName %> = observer(({ onSelect }: EntityListScreenProp
         breadcrumbCaption: intl.formatMessage({ id: "screen.<%= detailsComponentName %>" }),
         component: <%= detailsComponentName %>,
       };
-      if (id != null) {
+      if (id != null && id !== 'new') {
         params.props = { id };
       }
       screens.openInBreadcrumb(params);
