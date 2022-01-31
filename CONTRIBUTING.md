@@ -49,16 +49,8 @@ Backend repo for `example-app`: https://github.com/Amplicode/amplicode-mvp-petcl
 
 Run backend:
 
-- On Linux
-
 ```
-./gradlew bootRun
-```
-
-- On Windows
-
-```
-./gradlew.bat bootRun
+./mvnw clean spring-boot:run
 ```
 
 #### Frontend
