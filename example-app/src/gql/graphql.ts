@@ -353,19 +353,16 @@ export type Get_OwnerQueryVariables = Exact<{
 
 export type Get_OwnerQuery = {
   __typename?: "Query";
-  owner?:
-    | {
-        __typename?: "OwnerDTO";
-        id?: any | null | undefined;
-        firstName?: string | null | undefined;
-        lastName?: string | null | undefined;
-        city?: string | null | undefined;
-        address?: string | null | undefined;
-        email?: string | null | undefined;
-        telephone?: string | null | undefined;
-      }
-    | null
-    | undefined;
+  owner?: {
+    __typename?: "OwnerDTO";
+    id?: any | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    city?: string | null;
+    address?: string | null;
+    email?: string | null;
+    telephone?: string | null;
+  } | null;
 };
 
 export type Update_OwnerMutationVariables = Exact<{
@@ -374,30 +371,20 @@ export type Update_OwnerMutationVariables = Exact<{
 
 export type Update_OwnerMutation = {
   __typename?: "Mutation";
-  update_Owner?:
-    | { __typename?: "OwnerDTO"; id?: any | null | undefined }
-    | null
-    | undefined;
+  update_Owner?: { __typename?: "OwnerDTO"; id?: any | null } | null;
 };
 
 export type Get_Owner_ListQueryVariables = Exact<{ [key: string]: never }>;
 
 export type Get_Owner_ListQuery = {
   __typename?: "Query";
-  ownerList?:
-    | Array<
-        | {
-            __typename?: "OwnerDTO";
-            id?: any | null | undefined;
-            firstName?: string | null | undefined;
-            lastName?: string | null | undefined;
-            city?: string | null | undefined;
-          }
-        | null
-        | undefined
-      >
-    | null
-    | undefined;
+  ownerList?: Array<{
+    __typename?: "OwnerDTO";
+    id?: any | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    city?: string | null;
+  } | null> | null;
 };
 
 export type Delete_OwnerMutationVariables = Exact<{
@@ -415,22 +402,16 @@ export type Get_PetQueryVariables = Exact<{
 
 export type Get_PetQuery = {
   __typename?: "Query";
-  pet?:
-    | {
-        __typename?: "PetDTO";
-        id?: any | null | undefined;
-        identificationNumber?: string | null | undefined;
-        owner?:
-          | {
-              __typename?: "OwnerDTO";
-              firstName?: string | null | undefined;
-              lastName?: string | null | undefined;
-            }
-          | null
-          | undefined;
-      }
-    | null
-    | undefined;
+  pet?: {
+    __typename?: "PetDTO";
+    id?: any | null;
+    identificationNumber?: string | null;
+    owner?: {
+      __typename?: "OwnerDTO";
+      firstName?: string | null;
+      lastName?: string | null;
+    } | null;
+  } | null;
 };
 
 export type Update_PetMutationVariables = Exact<{
@@ -439,36 +420,23 @@ export type Update_PetMutationVariables = Exact<{
 
 export type Update_PetMutation = {
   __typename?: "Mutation";
-  update_Pet?:
-    | { __typename?: "PetDTO"; id?: any | null | undefined }
-    | null
-    | undefined;
+  update_Pet?: { __typename?: "PetDTO"; id?: any | null } | null;
 };
 
 export type Get_Pet_ListQueryVariables = Exact<{ [key: string]: never }>;
 
 export type Get_Pet_ListQuery = {
   __typename?: "Query";
-  petList?:
-    | Array<
-        | {
-            __typename?: "PetDTO";
-            id?: any | null | undefined;
-            identificationNumber?: string | null | undefined;
-            owner?:
-              | {
-                  __typename?: "OwnerDTO";
-                  firstName?: string | null | undefined;
-                  lastName?: string | null | undefined;
-                }
-              | null
-              | undefined;
-          }
-        | null
-        | undefined
-      >
-    | null
-    | undefined;
+  petList?: Array<{
+    __typename?: "PetDTO";
+    id?: any | null;
+    identificationNumber?: string | null;
+    owner?: {
+      __typename?: "OwnerDTO";
+      firstName?: string | null;
+      lastName?: string | null;
+    } | null;
+  } | null> | null;
 };
 
 export type Delete_PetMutationVariables = Exact<{
