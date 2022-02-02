@@ -48,9 +48,7 @@ it("renders without crashing", () => {
 
   const client = new ApolloClient({
     link: logoutLink.concat(httpLink),
-    cache: new InMemoryCache({
-      addTypename: false
-    }),
+    cache: new InMemoryCache(),
     defaultOptions: {
       query: {
         fetchPolicy: "network-only"
