@@ -30,6 +30,10 @@ const OWNER_LIST = gql(/* GraphQL */ `
   }
 `);
 
+function getDisplayedAttributes(p: string, entity: any) {
+  return p !== "id" && p !== "__typename" && entity[p] != null;
+}
+
 export const ReadOnlyOwnerList = observer(
   ({ onSelect }: EntityListScreenProps) => {
     const screens: Screens = useScreens();
@@ -134,7 +138,7 @@ export const ReadOnlyOwnerList = observer(
 const Fields = ({ entity }: { entity: any }) => (
   <>
     {Object.keys(entity)
-      .filter(p => p !== "id" && entity[p] != null)
+      .filter(p => getDisplayedAttributes(p, entity))
       .map(p => (
         <div key={p}>
           <strong>{guessLabel(p)}:</strong> {renderFieldValue(entity, p)}

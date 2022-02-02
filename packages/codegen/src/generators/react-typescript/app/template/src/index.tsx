@@ -87,9 +87,7 @@ const errorLink = onError(({ networkError, graphQLErrors }) => {
 
 const client = new ApolloClient({
   link: errorLink.concat(httpLink),
-  cache: new InMemoryCache({
-    addTypename: false
-  }),
+  cache: new InMemoryCache(),
   defaultOptions: {
     query: {
       fetchPolicy: "network-only"
