@@ -43,7 +43,7 @@ export const ReadOnlyOwnerList = observer(
     // This functionality is used in EntityLookupField.
     const isSelectMode = onSelect != null;
 
-    const openEditor = useCallback(
+    const openItem = useCallback(
       (id?: string) => {
         const params: OpenInBreadcrumbParams = {
           breadcrumbCaption: intl.formatMessage({
@@ -66,11 +66,11 @@ export const ReadOnlyOwnerList = observer(
         screens.activeTab?.breadcrumbs.length === 1 &&
         match?.params.entityId != null
       ) {
-        openEditor(match.params.entityId);
+        openItem(match.params.entityId);
       }
-    }, [match, openEditor, screens]);
+    }, [match, openItem, screens]);
 
-    useDefaultBrowserHotkeys({ openEditor });
+    useDefaultBrowserHotkeys({ openEditor: openItem });
 
     if (loading) {
       return <Spin />;
@@ -119,7 +119,7 @@ export const ReadOnlyOwnerList = observer(
                 entityInstance: e,
                 onSelect,
                 intl,
-                openEditor
+                openItem
               })}
             >
               <Fields entity={e} />
@@ -154,11 +154,11 @@ interface CardActionsInput {
   entityInstance: any;
   onSelect?: (entityInstance: this["entityInstance"]) => void;
   intl: IntlShape;
-  openEditor: (id?: string) => void;
+  openItem: (id?: string) => void;
 }
 
 function getCardActions(input: CardActionsInput) {
-  const { screens, entityInstance, onSelect, intl, openEditor } = input;
+  const { screens, entityInstance, onSelect, intl, openItem } = input;
 
   if (onSelect == null) {
     return [
@@ -166,26 +166,23 @@ function getCardActions(input: CardActionsInput) {
         key="details"
         title={intl.formatMessage({ id: "common.viewDetails" })}
         onClick={() => {
-          openEditor(entityInstance.id);
+          openItem(entityInstance.id);
         }}
       />
     ];
   }
 
-  if (onSelect != null) {
-    return [
-      <CheckOutlined
-        key="select"
-        title={intl.formatMessage({
-          id: "EntityLookupField.selectEntityInstance"
-        })}
-        onClick={() => {
-          if (onSelect != null) {
-            onSelect(entityInstance);
-            screens.closeActiveBreadcrumb();
-          }
-        }}
-      />
-    ];
-  }
+  // onSelect != null
+  return [
+    <CheckOutlined
+      key="select"
+      title={intl.formatMessage({
+        id: "EntityLookupField.selectEntityInstance"
+      })}
+      onClick={() => {
+        onSelect(entityInstance);
+        screens.closeActiveBreadcrumb();
+      }}
+    />
+  ];
 }

@@ -19,7 +19,7 @@ import {
 export interface EntityManagementTemplateModel extends BaseTemplateModel, UtilTemplateModel, ScreenTemplateModel
 {
   listComponentName: string,
-  detailsComponentName: string,
+  itemComponentName: string,
   queryString: string,
   queryName: string,
   deleteMutationString?: string,
@@ -38,7 +38,7 @@ export const deriveManagementTemplateModel = async (
 
   const {
     listComponentName,
-    detailsComponentName,
+    itemComponentName,
     listQuery,
     detailsQuery,
     upsertMutation,
@@ -55,7 +55,7 @@ export const deriveManagementTemplateModel = async (
 
   const entityDetailsTemplateModel = await deriveEntityDetailsTemplateModel(
     options, {
-      componentName: detailsComponentName,
+      componentName: itemComponentName,
       query: detailsQuery,
       mutation: upsertMutation,
       shouldAddToMenu: false,
@@ -69,7 +69,7 @@ export const deriveManagementTemplateModel = async (
     ...templateUtilities,
     ...deriveScreenTemplateModel(options, {componentName: listComponentName, shouldAddToMenu}),
     listComponentName,
-    detailsComponentName,
+    itemComponentName,
     queryString: listQuery,
     queryName,
     deleteMutationString: deleteMutation,

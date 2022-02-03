@@ -63,7 +63,7 @@ export const PetList = observer(({ onSelect }: EntityListScreenProps) => {
   // This functionality is used in EntityLookupField.
   const isSelectMode = onSelect != null;
 
-  const openEditor = useCallback(
+  const openItem = useCallback(
     (id?: string) => {
       const params: OpenInBreadcrumbParams = {
         breadcrumbCaption: intl.formatMessage({ id: "screen.PetEditor" }),
@@ -84,11 +84,11 @@ export const PetList = observer(({ onSelect }: EntityListScreenProps) => {
       screens.activeTab?.breadcrumbs.length === 1 &&
       match?.params.entityId != null
     ) {
-      openEditor(match.params.entityId);
+      openItem(match.params.entityId);
     }
-  }, [match, openEditor, screens]);
+  }, [match, openItem, screens]);
 
-  useDefaultBrowserHotkeys({ openEditor });
+  useDefaultBrowserHotkeys({ openEditor: openItem });
 
   if (loading) {
     return <Spin />;
@@ -115,7 +115,7 @@ export const PetList = observer(({ onSelect }: EntityListScreenProps) => {
             title='intl.formatMessage({id: "common.create"})'
             type="primary"
             icon={<PlusOutlined />}
-            onClick={() => openEditor()}
+            onClick={() => openItem()}
           >
             <span>
               <FormattedMessage id="common.create" />
@@ -154,7 +154,7 @@ export const PetList = observer(({ onSelect }: EntityListScreenProps) => {
               onSelect,
               executeDeleteMutation,
               intl,
-              openEditor
+              openItem
             })}
           >
             <Fields entity={e} />
@@ -191,7 +191,7 @@ interface CardActionsInput {
     options?: MutationFunctionOptions<any, Exact<{ id: any }>>
   ) => Promise<FetchResult>;
   intl: IntlShape;
-  openEditor: (id?: string) => void;
+  openItem: (id?: string) => void;
 }
 
 function getCardActions(input: CardActionsInput) {
@@ -201,7 +201,7 @@ function getCardActions(input: CardActionsInput) {
     onSelect,
     executeDeleteMutation,
     intl,
-    openEditor
+    openItem
   } = input;
 
   if (onSelect == null) {
@@ -217,7 +217,7 @@ function getCardActions(input: CardActionsInput) {
             okText: intl.formatMessage({ id: "common.ok" }),
             cancelText: intl.formatMessage({ id: "common.cancel" }),
             onOk: () => {
-              executeDeleteMutation({
+              return executeDeleteMutation({
                 variables: {
                   id: entityInstance.id
                 }
@@ -230,26 +230,23 @@ function getCardActions(input: CardActionsInput) {
         key="edit"
         title={intl.formatMessage({ id: "common.edit" })}
         onClick={() => {
-          openEditor(entityInstance.id);
+          openItem(entityInstance.id);
         }}
       />
     ];
   }
 
-  if (onSelect != null) {
-    return [
-      <CheckOutlined
-        key="select"
-        title={intl.formatMessage({
-          id: "EntityLookupField.selectEntityInstance"
-        })}
-        onClick={() => {
-          if (onSelect != null) {
-            onSelect(entityInstance);
-            screens.closeActiveBreadcrumb();
-          }
-        }}
-      />
-    ];
-  }
+  // onSelect != null
+  return [
+    <CheckOutlined
+      key="select"
+      title={intl.formatMessage({
+        id: "EntityLookupField.selectEntityInstance"
+      })}
+      onClick={() => {
+        onSelect(entityInstance);
+        screens.closeActiveBreadcrumb();
+      }}
+    />
+  ];
 }
