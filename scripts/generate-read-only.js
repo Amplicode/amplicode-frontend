@@ -27,7 +27,7 @@ query Get_Owner($id: BigInteger) {
 
 const readOnlyManagementAnswers = btoa(JSON.stringify({
   listComponentName: 'ReadOnlyOwnerList',
-  detailsComponentName: 'ReadOnlyOwnerDetails',
+  itemComponentName: 'ReadOnlyOwnerDetails',
   shouldAddToMenu: true,
   listQuery: esc(ownerListQuery),
   detailsQuery: esc(ownerDetailsQuery),

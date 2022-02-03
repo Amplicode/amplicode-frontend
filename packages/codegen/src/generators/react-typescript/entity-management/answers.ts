@@ -4,7 +4,7 @@ import {ScreenAnswers} from "../../../building-blocks/stages/answers/amplicode/S
 
 export interface EntityManagementAnswers extends ScreenAnswers {
   listComponentName: string,
-  detailsComponentName: string,
+  itemComponentName: string,
   mode?: EntityListMode;
   listQuery: string,
   detailsQuery: string,
@@ -85,7 +85,7 @@ export const commonEntityManagementQuestions =  [
   },
   {
     caption: 'Details component name',
-    code: 'detailsComponentName',
+    code: 'itemComponentName',
     propertyType: StudioTemplatePropertyType.POLYMER_COMPONENT_NAME,
     defaultValue: 'Details',
     required: true,

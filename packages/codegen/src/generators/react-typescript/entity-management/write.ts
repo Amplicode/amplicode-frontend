@@ -8,5 +8,5 @@ export async function writeManagement(
   templateModel: EntityManagementTemplateModel, gen: YeomanGenerator
 )  {
   await writeEntityDetails(templateModel.entityDetailsTemplateModel, gen);
-  await  writeAmplicodeComponent(templateModel, gen, path.join(__dirname, 'template', 'Cards.tsx.ejs'));
+  await  writeAmplicodeComponent(templateModel, gen, path.join(__dirname, '..', 'common', 'template', 'Cards.tsx.ejs'));
 }
