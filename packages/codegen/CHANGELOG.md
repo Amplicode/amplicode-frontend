@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.7.0...@amplicode/codegen@0.8.0) (2022-02-04)
+
+
+### Bug Fixes
+
+* addon i18n doesn't work when using components from addon [#110](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/110) ([a442fa4](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/a442fa44e4b793e2efc2c1235009739ffaa48d5b))
+* dynamic caption on login screen [#91](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/91) ([5521e83](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/5521e832585ce52656cbe2e63386a50d93ee376b))
+* fix compilation error on Windows os [#105](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/105) ([0a2ce97](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/0a2ce97b65940592777a5ab2adad20818bb63b38))
+* invalid request when editor page is refreshed [#102](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/102) ([0cac26b](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/0cac26be7fcce59dbde1d36804de0d856a5b7880))
+* show selected submenu correctly ([383b734](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/383b734e31ae7d2190c9240e785a48feb1291c4f))
+* tS typings generated on Windows cause compilation error fix [#105](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/105) ([e9128dd](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/e9128dd05678ab5b15fcb5ff71c3932574b066ed))
+
+
+### Features
+
+* implement initialization hook for React Buddy [#145](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/145) ([1a4d41b](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/1a4d41b8f6c875b2092acd8ab847481c2d543cfe))
+* use network-only cache policy by default [#37](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/37) ([d6ad3a8](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/d6ad3a843f8727a392d2b6b328a249e7eb78e8d8))
+
+
+
+
+
 # [0.7.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.6.2...@amplicode/codegen@0.7.0) (2022-01-11)
 
 
