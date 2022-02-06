@@ -14,13 +14,13 @@ query Get_Pet_List {
 `;
 
 const petDeleteMutation = `
-mutation Delete_Pet($id: Long!) {
+mutation Delete_Pet($id: BigInteger!) {
   delete_Pet(id: $id)
 }
 `;
 
 const petDetailsQuery = `
-query Get_Pet($id: Long) {
+query Get_Pet($id: BigInteger) {
   pet(id: $id) {
     id
     identificationNumber

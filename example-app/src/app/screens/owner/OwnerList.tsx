@@ -40,7 +40,7 @@ const OWNER_LIST = gql(/* GraphQL */ `
 `);
 
 const DELETE__OWNER = gql(/* GraphQL */ `
-  mutation Delete_Owner($id: Long!) {
+  mutation Delete_Owner($id: BigInteger!) {
     delete_Owner(id: $id)
   }
 `);

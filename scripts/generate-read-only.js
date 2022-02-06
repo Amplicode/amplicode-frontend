@@ -12,7 +12,7 @@ query Get_Owner_List {
 `;
 
 const ownerDetailsQuery = `
-query Get_Owner($id: Long) {
+query Get_Owner($id: BigInteger) {
   owner(id: $id) {
     id
     firstName
