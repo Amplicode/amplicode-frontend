@@ -20,7 +20,7 @@ import {
 import { EntityLookupField } from "@amplicode/react-antd";
 
 const PET = gql(/* GraphQL */ `
-  query Get_Pet($id: Long) {
+  query Get_Pet($id: BigInteger) {
     pet(id: $id) {
       id
       identificationNumber

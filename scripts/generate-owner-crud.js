@@ -12,13 +12,13 @@ query Get_Owner_List {
 `;
 
 const ownerDeleteMutation = `
-mutation Delete_Owner($id: Long!) {
+mutation Delete_Owner($id: BigInteger!) {
   delete_Owner(id: $id)
 }
 `;
 
 const ownerDetailsQuery = `
-query Get_Owner($id: Long) {
+query Get_Owner($id: BigInteger) {
   owner(id: $id) {
     id
     firstName

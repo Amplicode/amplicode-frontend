@@ -18,68 +18,28 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** Base64-encoded binary */
-  Base64String: any;
-  /** Base64-encoded binary */
-  Base64String_Byte: any;
-  /** Built-in java.math.BigDecimal */
+  /** BigDecimal */
   BigDecimal: any;
-  /** Built-in java.math.BigInteger */
+  /** BigInteger */
   BigInteger: any;
-  /** Built-in Byte as Int */
-  Byte: any;
-  /** Built-in scalar representing a date-time with a time-zone */
-  Calendar: any;
-  /** Built-in Char as Character */
-  Char: any;
-  /** Built-in scalar representing an instant in time */
+  /** Date */
   Date: any;
-  /** Built-in scalar representing an amount of time */
-  Duration: any;
-  /** Built-in scalar representing an instant in time */
-  Instant: any;
-  /** Built-in scalar representing a local date */
-  LocalDate: any;
-  /** Built-in scalar representing a local date-time */
-  LocalDateTime: any;
-  /** Built-in scalar representing a local time */
-  LocalTime: any;
-  /** Built-in Locale */
-  Locale: any;
-  /** Long type */
-  Long: any;
-  /** Built-in scalar representing a date-time with a UTC offset */
-  OffsetDateTime: any;
-  /** Built-in scalar representing a time with a UTC offset */
-  OffsetTime: any;
-  /** Built-in Short as Int */
-  Short: any;
-  /** Built-in scalar representing a SQL compliant local date */
-  SqlDate: any;
-  /** Built-in scalar representing a SQL compliant local time */
-  SqlTime: any;
-  /** Built-in scalar representing a SQL compliant local date-time */
-  SqlTimestamp: any;
-  /** Use SPQR's SchemaPrinter to remove this from SDL */
-  UNREPRESENTABLE: any;
-  /** URL String */
-  URL: any;
-  /** UUID String */
-  UUID: any;
-  /** Built-in scalar representing a date-time with a time-zone */
-  ZonedDateTime: any;
-  /** Currency Type */
-  currency: any;
+  /** DateTime */
+  DateTime: any;
+  /** Time */
+  Time: any;
+  /** Void */
+  Void: any;
 };
 
 /** Mutation root */
 export type Mutation = {
   __typename?: "Mutation";
-  delete_Owner: Scalars["Boolean"];
-  delete_Pet: Scalars["Boolean"];
-  delete_PetType: Scalars["Boolean"];
-  delete_Test: Scalars["Boolean"];
-  delete_Visit: Scalars["Boolean"];
+  delete_Owner?: Maybe<Scalars["Void"]>;
+  delete_Pet?: Maybe<Scalars["Void"]>;
+  delete_PetType?: Maybe<Scalars["Void"]>;
+  delete_Test?: Maybe<Scalars["Void"]>;
+  delete_Visit?: Maybe<Scalars["Void"]>;
   update_Owner?: Maybe<OwnerDto>;
   update_Pet?: Maybe<PetDto>;
   update_PetType?: Maybe<PetTypeDto>;
@@ -89,27 +49,27 @@ export type Mutation = {
 
 /** Mutation root */
 export type MutationDelete_OwnerArgs = {
-  id: Scalars["Long"];
+  id?: InputMaybe<Scalars["BigInteger"]>;
 };
 
 /** Mutation root */
 export type MutationDelete_PetArgs = {
-  id: Scalars["Long"];
+  id?: InputMaybe<Scalars["BigInteger"]>;
 };
 
 /** Mutation root */
 export type MutationDelete_PetTypeArgs = {
-  id: Scalars["Long"];
+  id?: InputMaybe<Scalars["BigInteger"]>;
 };
 
 /** Mutation root */
 export type MutationDelete_TestArgs = {
-  id: Scalars["Long"];
+  id?: InputMaybe<Scalars["BigInteger"]>;
 };
 
 /** Mutation root */
 export type MutationDelete_VisitArgs = {
-  id: Scalars["Long"];
+  id?: InputMaybe<Scalars["BigInteger"]>;
 };
 
 /** Mutation root */
@@ -143,7 +103,7 @@ export type OwnerDto = {
   city?: Maybe<Scalars["String"]>;
   email?: Maybe<Scalars["String"]>;
   firstName?: Maybe<Scalars["String"]>;
-  id?: Maybe<Scalars["Long"]>;
+  id?: Maybe<Scalars["BigInteger"]>;
   lastName?: Maybe<Scalars["String"]>;
   telephone?: Maybe<Scalars["String"]>;
 };
@@ -153,7 +113,7 @@ export type OwnerDtoInput = {
   city?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
   firstName?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["Long"]>;
+  id?: InputMaybe<Scalars["BigInteger"]>;
   lastName?: InputMaybe<Scalars["String"]>;
   telephone?: InputMaybe<Scalars["String"]>;
 };
@@ -163,31 +123,31 @@ export type OwnerInputDtoInput = {
   city?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
   firstName?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["Long"]>;
+  id?: InputMaybe<Scalars["BigInteger"]>;
   lastName?: InputMaybe<Scalars["String"]>;
   telephone?: InputMaybe<Scalars["String"]>;
 };
 
 export type PetDto = {
   __typename?: "PetDTO";
-  birthDate?: Maybe<Scalars["LocalDate"]>;
-  id?: Maybe<Scalars["Long"]>;
+  birthDate?: Maybe<Scalars["Date"]>;
+  id?: Maybe<Scalars["BigInteger"]>;
   identificationNumber?: Maybe<Scalars["String"]>;
   owner?: Maybe<OwnerDto>;
   type?: Maybe<PetTypeDto>;
 };
 
 export type PetDtoInput = {
-  birthDate?: InputMaybe<Scalars["LocalDate"]>;
-  id?: InputMaybe<Scalars["Long"]>;
+  birthDate?: InputMaybe<Scalars["Date"]>;
+  id?: InputMaybe<Scalars["BigInteger"]>;
   identificationNumber?: InputMaybe<Scalars["String"]>;
   owner?: InputMaybe<OwnerDtoInput>;
   type?: InputMaybe<PetTypeDtoInput>;
 };
 
 export type PetInputDtoInput = {
-  birthDate?: InputMaybe<Scalars["LocalDate"]>;
-  id?: InputMaybe<Scalars["Long"]>;
+  birthDate?: InputMaybe<Scalars["Date"]>;
+  id?: InputMaybe<Scalars["BigInteger"]>;
   identificationNumber?: InputMaybe<Scalars["String"]>;
   owner?: InputMaybe<OwnerDtoInput>;
   type?: InputMaybe<PetTypeDtoInput>;
@@ -195,17 +155,17 @@ export type PetInputDtoInput = {
 
 export type PetTypeDto = {
   __typename?: "PetTypeDTO";
-  id?: Maybe<Scalars["Long"]>;
+  id?: Maybe<Scalars["BigInteger"]>;
   name?: Maybe<Scalars["String"]>;
 };
 
 export type PetTypeDtoInput = {
-  id?: InputMaybe<Scalars["Long"]>;
+  id?: InputMaybe<Scalars["BigInteger"]>;
   name?: InputMaybe<Scalars["String"]>;
 };
 
 export type PetTypeInputDtoInput = {
-  id?: InputMaybe<Scalars["Long"]>;
+  id?: InputMaybe<Scalars["BigInteger"]>;
   name?: InputMaybe<Scalars["String"]>;
 };
 
@@ -226,27 +186,27 @@ export type Query = {
 
 /** Query root */
 export type QueryOwnerArgs = {
-  id?: InputMaybe<Scalars["Long"]>;
+  id?: InputMaybe<Scalars["BigInteger"]>;
 };
 
 /** Query root */
 export type QueryPetArgs = {
-  id?: InputMaybe<Scalars["Long"]>;
+  id?: InputMaybe<Scalars["BigInteger"]>;
 };
 
 /** Query root */
 export type QueryPetTypeArgs = {
-  id?: InputMaybe<Scalars["Long"]>;
+  id?: InputMaybe<Scalars["BigInteger"]>;
 };
 
 /** Query root */
 export type QueryTestArgs = {
-  id?: InputMaybe<Scalars["Long"]>;
+  id?: InputMaybe<Scalars["BigInteger"]>;
 };
 
 /** Query root */
 export type QueryVisitArgs = {
-  id?: InputMaybe<Scalars["Long"]>;
+  id?: InputMaybe<Scalars["BigInteger"]>;
 };
 
 export type TestDto = {
@@ -255,39 +215,39 @@ export type TestDto = {
   bigInt?: Maybe<Scalars["BigInteger"]>;
   bool?: Maybe<Scalars["Boolean"]>;
   boolPrimitive: Scalars["Boolean"];
-  byteArray?: Maybe<Scalars["Base64String_Byte"]>;
-  bytePrimitive: Scalars["Byte"];
-  bytePrimitiveArray?: Maybe<Scalars["Base64String"]>;
-  byteTest?: Maybe<Scalars["Byte"]>;
-  calendar?: Maybe<Scalars["Calendar"]>;
-  charArray?: Maybe<Array<Maybe<Scalars["Char"]>>>;
-  charPrimitive: Scalars["Char"];
-  charPrimitiveArray?: Maybe<Array<Maybe<Scalars["Char"]>>>;
-  character?: Maybe<Scalars["Char"]>;
-  currency?: Maybe<Scalars["currency"]>;
-  date?: Maybe<Scalars["SqlDate"]>;
-  dateUtil?: Maybe<Scalars["Date"]>;
+  byteArray?: Maybe<Scalars["String"]>;
+  bytePrimitive: Scalars["Int"];
+  bytePrimitiveArray?: Maybe<Scalars["String"]>;
+  byteTest?: Maybe<Scalars["Int"]>;
+  calendar?: Maybe<Scalars["String"]>;
+  charArray?: Maybe<Scalars["String"]>;
+  charPrimitive: Scalars["String"];
+  charPrimitiveArray?: Maybe<Scalars["String"]>;
+  character?: Maybe<Scalars["String"]>;
+  currency?: Maybe<Scalars["String"]>;
+  date?: Maybe<Scalars["String"]>;
+  dateUtil?: Maybe<Scalars["DateTime"]>;
   doubleTest?: Maybe<Scalars["Float"]>;
-  duration?: Maybe<Scalars["Duration"]>;
+  duration?: Maybe<Scalars["String"]>;
   floatTest?: Maybe<Scalars["Float"]>;
-  id?: Maybe<Scalars["Long"]>;
-  instant?: Maybe<Scalars["Instant"]>;
+  id?: Maybe<Scalars["BigInteger"]>;
+  instant?: Maybe<Scalars["String"]>;
   intTest?: Maybe<Scalars["Int"]>;
-  localDate?: Maybe<Scalars["LocalDate"]>;
-  localDateTime?: Maybe<Scalars["LocalDateTime"]>;
-  localTime?: Maybe<Scalars["LocalTime"]>;
-  locale?: Maybe<Scalars["Locale"]>;
-  longTest?: Maybe<Scalars["Long"]>;
-  offsetDateTime?: Maybe<Scalars["OffsetDateTime"]>;
-  offsetTime?: Maybe<Scalars["OffsetTime"]>;
-  shortPrimitive: Scalars["Short"];
-  shortTest?: Maybe<Scalars["Short"]>;
+  localDate?: Maybe<Scalars["Date"]>;
+  localDateTime?: Maybe<Scalars["DateTime"]>;
+  localTime?: Maybe<Scalars["Time"]>;
+  locale?: Maybe<Scalars["String"]>;
+  longTest?: Maybe<Scalars["BigInteger"]>;
+  offsetDateTime?: Maybe<Scalars["DateTime"]>;
+  offsetTime?: Maybe<Scalars["Time"]>;
+  shortPrimitive: Scalars["Int"];
+  shortTest?: Maybe<Scalars["Int"]>;
   string?: Maybe<Scalars["String"]>;
-  time?: Maybe<Scalars["SqlTime"]>;
-  timeStamp?: Maybe<Scalars["SqlTimestamp"]>;
-  url?: Maybe<Scalars["URL"]>;
-  uuidTest?: Maybe<Scalars["UUID"]>;
-  zonedDateTime?: Maybe<Scalars["ZonedDateTime"]>;
+  time?: Maybe<Scalars["String"]>;
+  timeStamp?: Maybe<Scalars["String"]>;
+  url?: Maybe<Scalars["String"]>;
+  uuidTest?: Maybe<Scalars["String"]>;
+  zonedDateTime?: Maybe<Scalars["DateTime"]>;
 };
 
 export type TestInputDtoInput = {
@@ -295,60 +255,64 @@ export type TestInputDtoInput = {
   bigInt?: InputMaybe<Scalars["BigInteger"]>;
   bool?: InputMaybe<Scalars["Boolean"]>;
   boolPrimitive: Scalars["Boolean"];
-  byteArray?: InputMaybe<Scalars["Base64String_Byte"]>;
-  bytePrimitive: Scalars["Byte"];
-  bytePrimitiveArray?: InputMaybe<Scalars["Base64String"]>;
-  byteTest?: InputMaybe<Scalars["Byte"]>;
-  calendar?: InputMaybe<Scalars["Calendar"]>;
-  charArray?: InputMaybe<Array<InputMaybe<Scalars["Char"]>>>;
-  charPrimitive: Scalars["Char"];
-  charPrimitiveArray?: InputMaybe<Array<InputMaybe<Scalars["Char"]>>>;
-  character?: InputMaybe<Scalars["Char"]>;
-  currency?: InputMaybe<Scalars["currency"]>;
-  date?: InputMaybe<Scalars["SqlDate"]>;
-  dateUtil?: InputMaybe<Scalars["Date"]>;
+  byteArray?: InputMaybe<Scalars["String"]>;
+  bytePrimitive: Scalars["Int"];
+  bytePrimitiveArray?: InputMaybe<Scalars["String"]>;
+  byteTest?: InputMaybe<Scalars["Int"]>;
+  calendar?: InputMaybe<Scalars["String"]>;
+  charArray?: InputMaybe<Scalars["String"]>;
+  charPrimitive: Scalars["String"];
+  charPrimitiveArray?: InputMaybe<Scalars["String"]>;
+  character?: InputMaybe<Scalars["String"]>;
+  currency?: InputMaybe<Scalars["String"]>;
+  date?: InputMaybe<Scalars["String"]>;
+  dateUtil?: InputMaybe<Scalars["DateTime"]>;
   doubleTest?: InputMaybe<Scalars["Float"]>;
-  duration?: InputMaybe<Scalars["Duration"]>;
+  duration?: InputMaybe<Scalars["String"]>;
   floatTest?: InputMaybe<Scalars["Float"]>;
-  id?: InputMaybe<Scalars["Long"]>;
-  instant?: InputMaybe<Scalars["Instant"]>;
+  id?: InputMaybe<Scalars["BigInteger"]>;
+  instant?: InputMaybe<Scalars["String"]>;
   intTest?: InputMaybe<Scalars["Int"]>;
-  localDate?: InputMaybe<Scalars["LocalDate"]>;
-  localDateTime?: InputMaybe<Scalars["LocalDateTime"]>;
-  localTime?: InputMaybe<Scalars["LocalTime"]>;
-  locale?: InputMaybe<Scalars["Locale"]>;
-  longTest?: InputMaybe<Scalars["Long"]>;
-  offsetDateTime?: InputMaybe<Scalars["OffsetDateTime"]>;
-  offsetTime?: InputMaybe<Scalars["OffsetTime"]>;
-  shortPrimitive: Scalars["Short"];
-  shortTest?: InputMaybe<Scalars["Short"]>;
+  localDate?: InputMaybe<Scalars["Date"]>;
+  localDateTime?: InputMaybe<Scalars["DateTime"]>;
+  localTime?: InputMaybe<Scalars["Time"]>;
+  locale?: InputMaybe<Scalars["String"]>;
+  longTest?: InputMaybe<Scalars["BigInteger"]>;
+  offsetDateTime?: InputMaybe<Scalars["DateTime"]>;
+  offsetTime?: InputMaybe<Scalars["Time"]>;
+  shortPrimitive: Scalars["Int"];
+  shortTest?: InputMaybe<Scalars["Int"]>;
   string?: InputMaybe<Scalars["String"]>;
-  time?: InputMaybe<Scalars["SqlTime"]>;
-  timeStamp?: InputMaybe<Scalars["SqlTimestamp"]>;
-  url?: InputMaybe<Scalars["URL"]>;
-  uuidTest?: InputMaybe<Scalars["UUID"]>;
-  zonedDateTime?: InputMaybe<Scalars["ZonedDateTime"]>;
+  time?: InputMaybe<Scalars["String"]>;
+  timeStamp?: InputMaybe<Scalars["String"]>;
+  url?: InputMaybe<Scalars["String"]>;
+  uuidTest?: InputMaybe<Scalars["String"]>;
+  zonedDateTime?: InputMaybe<Scalars["DateTime"]>;
+};
+
+export type Visit = {
+  __typename?: "Visit";
+  getPet?: Maybe<PetDto>;
 };
 
 export type VisitDto = {
   __typename?: "VisitDTO";
   description?: Maybe<Scalars["String"]>;
-  id?: Maybe<Scalars["Long"]>;
-  pet?: Maybe<PetDto>;
-  visitEnd?: Maybe<Scalars["LocalDateTime"]>;
-  visitStart?: Maybe<Scalars["LocalDateTime"]>;
+  id?: Maybe<Scalars["BigInteger"]>;
+  visitEnd?: Maybe<Scalars["DateTime"]>;
+  visitStart?: Maybe<Scalars["DateTime"]>;
 };
 
 export type VisitInputDtoInput = {
   description?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["Long"]>;
+  id?: InputMaybe<Scalars["BigInteger"]>;
   pet?: InputMaybe<PetDtoInput>;
-  visitEnd?: InputMaybe<Scalars["LocalDateTime"]>;
-  visitStart?: InputMaybe<Scalars["LocalDateTime"]>;
+  visitEnd?: InputMaybe<Scalars["DateTime"]>;
+  visitStart?: InputMaybe<Scalars["DateTime"]>;
 };
 
 export type Get_OwnerQueryVariables = Exact<{
-  id?: InputMaybe<Scalars["Long"]>;
+  id?: InputMaybe<Scalars["BigInteger"]>;
 }>;
 
 export type Get_OwnerQuery = {
@@ -388,16 +352,16 @@ export type Get_Owner_ListQuery = {
 };
 
 export type Delete_OwnerMutationVariables = Exact<{
-  id: Scalars["Long"];
+  id: Scalars["BigInteger"];
 }>;
 
 export type Delete_OwnerMutation = {
   __typename?: "Mutation";
-  delete_Owner: boolean;
+  delete_Owner?: any | null;
 };
 
 export type Get_PetQueryVariables = Exact<{
-  id?: InputMaybe<Scalars["Long"]>;
+  id?: InputMaybe<Scalars["BigInteger"]>;
 }>;
 
 export type Get_PetQuery = {
@@ -440,12 +404,12 @@ export type Get_Pet_ListQuery = {
 };
 
 export type Delete_PetMutationVariables = Exact<{
-  id: Scalars["Long"];
+  id: Scalars["BigInteger"];
 }>;
 
 export type Delete_PetMutation = {
   __typename?: "Mutation";
-  delete_Pet: boolean;
+  delete_Pet?: any | null;
 };
 
 export const Get_OwnerDocument = {
@@ -459,7 +423,10 @@ export const Get_OwnerDocument = {
         {
           kind: "VariableDefinition",
           variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: { kind: "NamedType", name: { kind: "Name", value: "Long" } },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "BigInteger" },
+          },
         },
       ],
       selectionSet: {
@@ -588,7 +555,10 @@ export const Delete_OwnerDocument = {
           variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
           type: {
             kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "Long" } },
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "BigInteger" },
+            },
           },
         },
       ],
@@ -628,7 +598,10 @@ export const Get_PetDocument = {
         {
           kind: "VariableDefinition",
           variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: { kind: "NamedType", name: { kind: "Name", value: "Long" } },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "BigInteger" },
+          },
         },
       ],
       selectionSet: {
@@ -787,7 +760,10 @@ export const Delete_PetDocument = {
           variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
           type: {
             kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "Long" } },
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "BigInteger" },
+            },
           },
         },
       ],
