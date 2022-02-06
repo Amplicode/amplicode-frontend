@@ -42,7 +42,7 @@ const PET_LIST = gql(/* GraphQL */ `
 `);
 
 const DELETE__PET = gql(/* GraphQL */ `
-  mutation Delete_Pet($id: Long!) {
+  mutation Delete_Pet($id: BigInteger!) {
     delete_Pet(id: $id)
   }
 `);

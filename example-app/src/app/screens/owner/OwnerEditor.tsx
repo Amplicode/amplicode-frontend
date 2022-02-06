@@ -18,7 +18,7 @@ import {
 } from "@amplicode/react-core";
 
 const OWNER = gql(/* GraphQL */ `
-  query Get_Owner($id: Long) {
+  query Get_Owner($id: BigInteger) {
     owner(id: $id) {
       id
       firstName
