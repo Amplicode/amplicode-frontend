@@ -39,6 +39,7 @@ export const entityListQuestions = [
   },
   {
     caption: 'Mutation to delete an item',
+    // TODO rename with 'deleteMutation'
     code: 'mutation',
     propertyType: StudioTemplatePropertyType.GRAPHQL_MUTATION,
     required: false

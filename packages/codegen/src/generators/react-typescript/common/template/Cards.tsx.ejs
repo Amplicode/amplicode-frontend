@@ -16,7 +16,7 @@ Beside mode, there are additional options for template config:
 * 'withItemComponent' - defines if item component defined and passed in 'itemComponentName'
 
 -%>
-<% var withItemComponent = itemComponentName !== null; -%>
+<% var withItemComponent = locals.itemComponentName != null; -%>
 <% var withDeleteAction = locals.deleteMutationString != null && locals.deleteMutationName != null; -%>
 
 import { observer } from "mobx-react";

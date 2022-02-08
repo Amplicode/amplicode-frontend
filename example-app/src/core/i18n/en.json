@@ -37,5 +37,6 @@
   "screen.PetEditor": "Pet Editor",
   "screen.PetList": "Pet List",
   "screen.ReadOnlyOwnerDetails": "Read Only Owner Details",
-  "screen.ReadOnlyOwnerList": "Read Only Owner List"
+  "screen.ReadOnlyOwnerList": "Read Only Owner List",
+  "screen.StandaloneOwnerList": "Standalone Owner List"
 }

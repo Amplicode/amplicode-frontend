@@ -63,6 +63,12 @@ export const AppMenu = observer(() => {
       >
         {getCaption("read-only-owner-list")}
       </Menu.Item>
+      <Menu.Item
+        title={getCaption("standalone-owner-list")}
+        key="standalone-owner-list"
+      >
+        {getCaption("standalone-owner-list")}
+      </Menu.Item>
       <AddonsMenu key={"addonsMenu"} />
       {/*If you don't need Screen API (tabs / breadcrumbs) you can just use React Router components*/}
       {/*<Menu.Item*/}
