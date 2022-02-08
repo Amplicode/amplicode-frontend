@@ -24,7 +24,7 @@ import {
   useScreens,
   useDefaultBrowserHotkeys
 } from "@amplicode/react-core";
-import { PetEditor } from "./PetEditor";
+import {RefactoredPetEditor} from "./RefactoredPetEditor";
 
 const ROUTE = "pet-list";
 
@@ -67,10 +67,18 @@ export const PetList = observer(({ onSelect }: EntityListScreenProps) => {
     (id?: string) => {
       const params: OpenInBreadcrumbParams = {
         breadcrumbCaption: intl.formatMessage({ id: "screen.PetEditor" }),
-        component: PetEditor
+        component: RefactoredPetEditor,
+        props: {
+          // TODO: For some reason passing PET_LIST doesn't work - investigate
+          refetchQueries: ['Get_Pet_List']
+        }
       };
+
       if (id != null && id !== "new") {
-        params.props = { id };
+        params.props = {
+          ...params.props,
+          id
+        };
       }
       screens.openInBreadcrumb(params);
       // Append /id to existing url
