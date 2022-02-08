@@ -6,9 +6,10 @@ runCmdSync('lerna run --scope @amplicode/codegen prepublishOnly')
 rimraf.sync('example-app');
 
 runCmdSync('node generate-app.js', './scripts');
-runCmdSync('node generate-owner-crud.js', './scripts');
+runCmdSync('node generate-owner-management.js', './scripts');
 runCmdSync('node generate-pet-crud.js', './scripts');
-runCmdSync('node generate-read-only.js', './scripts');
+runCmdSync('node generate-owner-list-readonly.js', './scripts');
+runCmdSync('node generate-owner-list-standalone.js', './scripts');
 
 runCmdSync('lerna run prepublishOnly');
 runCmdSync(`lerna exec --scope '{@amplicode/react-core,@amplicode/react-antd}' "npm pack"`);
