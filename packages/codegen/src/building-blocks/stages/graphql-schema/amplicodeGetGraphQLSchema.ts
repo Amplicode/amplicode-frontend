@@ -8,15 +8,20 @@ import {loadSchema} from "@graphql-tools/load";
  * This is the path:
  *
  * project-folder
- * ├── generation
- * │   └── node_modules
- * │       └── @haulmont
- * │           └── jmix-front-generator
- * │               └── bin <-------------- FROM HERE
- * └── schema.graphql <------------------- TO HERE
+ * ├── frontend
+ * │   └── generation
+ * │       └── node_modules
+ * │           └── @haulmont
+ * │               └── jmix-front-generator
+ * │                   └── bin <-------------- FROM HERE
+ * ├── src
+ *     └── main
+ *         └── resources
+ *             └── graphql
+ *                 └── schema.graphqls <------------------- TO HERE
  *
  */
-const DEFAULT_SCHEMA_PATH = '../../../../../schema.graphql';
+const DEFAULT_SCHEMA_PATH = '../../../../../../src/main/resources/graphql/schema.graphqls';
 
 export const amplicodeGetGraphQLSchema = async <O extends AmplicodeCommonOptions>(
   options: O, invocationDir: string
