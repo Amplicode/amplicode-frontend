@@ -1,4 +1,4 @@
-schema: ../scripts/schema.graphql
+schema: ..\scripts\schema.graphql
 documents:
   - 'src/**/*.(ts|tsx)'
   - '!src/gql/**/*'
