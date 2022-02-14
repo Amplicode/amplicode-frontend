@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useState } from "react";
+import React, { ChangeEvent, useCallback, useState, useEffect } from "react";
 import { Button, Form, Input, notification } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { observer } from "mobx-react";
@@ -12,6 +12,13 @@ export const Login = observer(() => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [performingLoginRequest, setPerformingLoginRequest] = useState(false);
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      setUsername("admin")
+      setPassword("admin")
+    }
+  })
 
   const changeLogin = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value),
