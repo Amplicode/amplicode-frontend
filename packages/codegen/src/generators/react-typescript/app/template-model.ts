@@ -10,5 +10,5 @@ export const deriveTemplateModel = async <O extends AmplicodeCommonOptions, A, T
   _schema?: GraphQLSchema,
   schemaPath?: string
 ): Promise<T> => {
-  return {... answers as unknown as T, schemaPath};
+  return {... answers as unknown as T, schemaPath: schemaPath?.replace(/\\/g, "/")};
 }
