@@ -1,25 +1,20 @@
-import { useEffect, useCallback, useState } from "react";
-import { gql } from "@amplicode/gql";
-import {
-  useLazyQuery,
-  useMutation,
-  FetchResult,
-  ApolloError
-} from "@apollo/client";
-import { Form, Button, Card, message, Alert, Spin, Result, Input } from "antd";
-import { useForm } from "antd/es/form/Form";
-import { observer } from "mobx-react";
-import { FormattedMessage, useIntl } from "react-intl";
-import { useHistory } from "react-router-dom";
-import {
-  EntityDetailsScreenProps,
-  useScreens,
-  useDefaultEditorHotkeys,
-  guessDisplayName
-} from "@amplicode/react-core";
-import { EntityLookupField } from "@amplicode/react-antd";
+import {gql} from "../../../gql";
+import {guessDisplayName} from "@amplicode/react-core";
+import React, {useEffect, useState} from "react";
+import {Card, Form, Input, Spin} from "antd";
+import {useLazyQuery} from "@apollo/client";
+import {useForm} from "antd/es/form/Form";
+import {EntityLookupField} from "@amplicode/react-antd";
+import {ResultOf} from "@graphql-typed-document-node/core";
+import { RequestFailedError } from "../../../core/crud/RequestFailedError";
+import {RefetchQueries} from "../../../core/type-aliases/RefetchQueries";
+import { useSubmit } from "../../../core/crud/useSubmit";
+import {useFormData} from "../../../core/crud/useFormData";
+import {useClientValidationFailed} from "../../../core/crud/useClientValidationFailed";
+import { FormButtons } from "../../../core/crud/FormButtons";
+import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 
-const PET = gql(/* GraphQL */ `
+const GET_PET = gql(/* GraphQL */ `
   query Get_Pet($id: BigInteger) {
     pet(id: $id) {
       id
@@ -32,7 +27,7 @@ const PET = gql(/* GraphQL */ `
   }
 `);
 
-const UPDATE__PET = gql(/* GraphQL */ `
+const UPDATE_PET = gql(/* GraphQL */ `
   mutation Update_Pet($input: PetInputDTOInput) {
     update_Pet(input: $input) {
       id
@@ -40,182 +35,169 @@ const UPDATE__PET = gql(/* GraphQL */ `
   }
 `);
 
-export const PetEditor = observer(({ id }: EntityDetailsScreenProps) => {
-  const [form] = useForm();
-  const intl = useIntl();
-  const screens = useScreens();
-  const history = useHistory();
+export function PetEditor({ id, refetchQueries }: EntityDetailsScreenProps<QueryResultType>) {
+  // Load the item if `id` is provided
+  const {item, itemLoading, itemError} = useLoadItem(id);
 
-  const [
-    loadItem,
-    { loading: queryLoading, error: queryError, data }
-  ] = useLazyQuery(PET, {
+  if (itemLoading) {
+    return <Spin />;
+  }
+
+  if (itemError) {
+    return <RequestFailedError />;
+  }
+
+  return (
+    <EditorForm item={item}
+                id={id}
+                refetchQueries={refetchQueries}
+    />
+  );
+}
+
+interface EditorFormProps<TData> {
+  /**
+   * Loaded entity instance (if editing).
+   */
+  item?: ItemType;
+  /**
+   * See {@link EntityDetailsScreenProps.id}
+   */
+  id?: string;
+  /**
+   * See {@link EntityDetailsScreenProps.refetchQueries}
+   */
+  refetchQueries?: RefetchQueries<TData>,
+}
+
+function EditorForm<TData>({item, refetchQueries, id}: EditorFormProps<TData>) {
+  const [form] = useForm();
+
+  // Global error message, i.e. error message not related to a particular form field.
+  // Examples: cross-validation, network errors.
+  const [formError, setFormError] = useState<string | undefined>();
+
+  const {handleSubmit, submitting} = useSubmit(UPDATE_PET, setFormError, refetchQueries, id);
+  const handleClientValidationFailed = useClientValidationFailed();
+
+  // Put the item into the form.
+  // Item becomes form field values, which will then be used inside `handleSubmit`.
+  useFormData(form, item);
+
+  return (
+    <Card className="narrow-layout">
+      <Form
+        onFinish={handleSubmit}
+        onFinishFailed={handleClientValidationFailed}
+        layout="vertical"
+        form={form}
+      >
+        <FormFields />
+        <ErrorMessage errorMessage={formError} />
+        <FormButtons submitting={submitting} />
+      </Form>
+    </Card>
+  );
+}
+
+function FormFields() {
+  return (
+    <>
+      <Form.Item
+        name="birthDate"
+        label="Birth Date"
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        name="identificationNumber"
+        label="Identification Number"
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item name="owner" label="Owner" >
+        <EntityLookupField
+          getDisplayName={guessDisplayName}
+          label="Owner"
+          // TODO Uncomment the code and specify the list component
+          // listComponent={YourEntityListComponentName}
+        />
+      </Form.Item>
+
+      <Form.Item name="type" label="Type" >
+        <EntityLookupField
+          getDisplayName={guessDisplayName}
+          label="Type"
+          // TODO Uncomment the code and specify the list component
+          // listComponent={YourEntityListComponentName}
+        />
+      </Form.Item>
+    </>
+  );
+}
+
+/**
+ * Loads the item if `id` is provided
+ *
+ * @param id
+ */
+export function useLoadItem(id?: string) {
+  const [item, setItem] = useState<ItemType | null>();
+
+  // Get the function that will load item from server,
+  // also get variables that will contain loading/error state and response data
+  // once the response is received
+  const [loadItem, { loading, error, data }] = useLazyQuery(GET_PET, {
     variables: {
       id
     }
   });
 
-  const [executeUpsertMutation, { loading: upsertInProcess }] = useMutation(
-    UPDATE__PET,
-    {
-      refetchQueries: ["Get_Pet_List"]
-    }
-  );
-
-  const [formError, setFormError] = useState<string | undefined>();
-
-  const goToParentScreen = useCallback(() => {
-    history.push("."); // Remove entity id part from url
-    screens.closeActiveBreadcrumb();
-  }, [screens, history]);
-
-  const handleSubmit = useCallback(
-    values => {
-      executeUpsertMutation({
-        variables: {
-          input: formValuesToData(values, id)
-        }
-      })
-        .then(({ errors }: FetchResult) => {
-          if (errors == null || errors.length === 0) {
-            goToParentScreen();
-            return message.success(
-              intl.formatMessage({
-                id: "EntityDetailsScreen.savedSuccessfully"
-              })
-            );
-          }
-          setFormError(errors.join("\n"));
-          console.error(errors);
-          return message.error(
-            intl.formatMessage({ id: "common.requestFailed" })
-          );
-        })
-        .catch((e: Error | ApolloError) => {
-          setFormError(e.message);
-          console.error(e);
-          return message.error(
-            intl.formatMessage({ id: "common.requestFailed" })
-          );
-        });
-    },
-    [executeUpsertMutation, id, intl, goToParentScreen]
-  );
-
-  const handleSubmitFailed = useCallback(() => {
-    return message.error(
-      intl.formatMessage({ id: "EntityDetailsScreen.validationError" })
-    );
-  }, [intl]);
-
+  // Load item if `id` has been provided in props
   useEffect(() => {
     if (id != null) {
       loadItem();
     }
   }, [loadItem, id]);
 
-  const item = data?.pet;
-
+  // Get the received item, if any
   useEffect(() => {
-    if (item != null) {
-      form.setFieldsValue(dataToFormValues(item));
+    if (data?.pet != null) {
+      setItem(data?.pet);
     }
-  }, [item, form]);
+  }, [data, setItem]);
 
-  useDefaultEditorHotkeys({ saveEntity: form.submit });
-
-  if (queryLoading) {
-    return <Spin />;
-  }
-
-  if (queryError) {
-    return (
-      <Result
-        status="error"
-        title={<FormattedMessage id="common.requestFailed" />}
-      />
-    );
-  }
-
-  return (
-    <Card className="narrow-layout">
-      <Form
-        onFinish={handleSubmit}
-        onFinishFailed={handleSubmitFailed}
-        layout="vertical"
-        form={form}
-      >
-        <Form.Item
-          name="birthDate"
-          label="Birth Date"
-          style={{ marginBottom: "12px" }}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="identificationNumber"
-          label="Identification Number"
-          style={{ marginBottom: "12px" }}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item name="owner" label="Owner" style={{ marginBottom: "12px" }}>
-          <EntityLookupField
-            getDisplayName={(value: Record<string, unknown>) =>
-              guessDisplayName(value)
-            }
-            label="Owner"
-            // TODO Uncomment the code and specify the list component
-            // listComponent={YourEntityListComponentName}
-          />
-        </Form.Item>
-
-        <Form.Item name="type" label="Type" style={{ marginBottom: "12px" }}>
-          <EntityLookupField
-            getDisplayName={(value: Record<string, unknown>) =>
-              guessDisplayName(value)
-            }
-            label="Type"
-            // TODO Uncomment the code and specify the list component
-            // listComponent={YourEntityListComponentName}
-          />
-        </Form.Item>
-
-        {formError && (
-          <Alert
-            message={formError}
-            type="error"
-            style={{ marginBottom: "18px" }}
-          />
-        )}
-
-        <Form.Item style={{ textAlign: "center" }}>
-          <Button htmlType="button" onClick={goToParentScreen}>
-            <FormattedMessage id="common.cancel" />
-          </Button>
-          <Button
-            type="primary"
-            htmlType="submit"
-            loading={upsertInProcess}
-            style={{ marginLeft: "8px" }}
-          >
-            <FormattedMessage id={"common.submit"} />
-          </Button>
-        </Form.Item>
-      </Form>
-    </Card>
-  );
-});
-
-function formValuesToData(values: any, id?: string): any {
   return {
-    ...values,
-    id
+    item,
+    itemLoading: loading,
+    itemError: error,
   };
 }
 
-function dataToFormValues(data: any): any {
-  return data;
+/**
+ * Type of data object received when executing the query
+ */
+type QueryResultType = ResultOf<typeof GET_PET>;
+/**
+ * Type of the item loaded by executing the query
+ */
+type ItemType = QueryResultType['pet'];
+
+// TODO This will reside in react-core once we move @apollo/client into react-core
+interface EntityDetailsScreenProps<TData> {
+  /**
+   * id of entity instance to be loaded when editing an instance.
+   * Will be `undefined` when creating an instance.
+   */
+  id?: string;
+  /**
+   * A list of queries that needs to be refetched once the editor has been submitted.
+   * For example, you might need to refresh entity list after editing an entity instance.
+   * In simple cases this would be just an array of query names, e.g. ["Get_Pet_List"],
+   * or an array of `DocumentNode`s, e.g. [PET_LIST].
+   * For more info, check Apollo Client documentation.
+   */
+  refetchQueries?: RefetchQueries<TData>;
 }

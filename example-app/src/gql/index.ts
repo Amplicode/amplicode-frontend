@@ -15,9 +15,9 @@ const documents = {
     graphql.Get_PetDocument,
   "\n  mutation Update_Pet($input: PetInputDTOInput) {\n    update_Pet(input: $input) {\n      id\n    }\n  }\n":
     graphql.Update_PetDocument,
-  "\n  query Get_Pet_List {\n    petList {\n      id\n      identificationNumber\n      owner {\n        firstName\n        lastName\n      }\n    }\n  }\n":
+  "\n    query Get_Pet_List {\n        petList {\n            id\n            identificationNumber\n            owner {\n                firstName\n                lastName\n            }\n        }\n    }\n":
     graphql.Get_Pet_ListDocument,
-  "\n  mutation Delete_Pet($id: BigInteger!) {\n    delete_Pet(id: $id)\n  }\n":
+  "\n    mutation Delete_Pet($id: BigInteger!) {\n        delete_Pet(id: $id)\n    }\n":
     graphql.Delete_PetDocument,
 };
 
@@ -40,11 +40,11 @@ export function gql(
   source: "\n  mutation Update_Pet($input: PetInputDTOInput) {\n    update_Pet(input: $input) {\n      id\n    }\n  }\n"
 ): typeof documents["\n  mutation Update_Pet($input: PetInputDTOInput) {\n    update_Pet(input: $input) {\n      id\n    }\n  }\n"];
 export function gql(
-  source: "\n  query Get_Pet_List {\n    petList {\n      id\n      identificationNumber\n      owner {\n        firstName\n        lastName\n      }\n    }\n  }\n"
-): typeof documents["\n  query Get_Pet_List {\n    petList {\n      id\n      identificationNumber\n      owner {\n        firstName\n        lastName\n      }\n    }\n  }\n"];
+  source: "\n    query Get_Pet_List {\n        petList {\n            id\n            identificationNumber\n            owner {\n                firstName\n                lastName\n            }\n        }\n    }\n"
+): typeof documents["\n    query Get_Pet_List {\n        petList {\n            id\n            identificationNumber\n            owner {\n                firstName\n                lastName\n            }\n        }\n    }\n"];
 export function gql(
-  source: "\n  mutation Delete_Pet($id: BigInteger!) {\n    delete_Pet(id: $id)\n  }\n"
-): typeof documents["\n  mutation Delete_Pet($id: BigInteger!) {\n    delete_Pet(id: $id)\n  }\n"];
+  source: "\n    mutation Delete_Pet($id: BigInteger!) {\n        delete_Pet(id: $id)\n    }\n"
+): typeof documents["\n    mutation Delete_Pet($id: BigInteger!) {\n        delete_Pet(id: $id)\n    }\n"];
 
 export function gql(source: string): unknown;
 export function gql(source: string) {
