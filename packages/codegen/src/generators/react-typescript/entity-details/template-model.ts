@@ -164,7 +164,7 @@ export function deriveGraphQLEditorModel(
   const attributes = Object.values(namedType.getFields()).map((field: any) => {
     const attr: AttributeModel = {
       name: field.name,
-      type: field.type.name,
+      type: field.type.name ?? field.type.ofType.name,
       displayName: capitalizeFirst(splitByCapitalLetter(field.name)),
       isRelationField: false,
     };
