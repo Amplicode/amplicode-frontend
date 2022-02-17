@@ -2,22 +2,18 @@ import {gql} from "../../../gql";
 import {ResultOf} from "@graphql-typed-document-node/core";
 import {guessDisplayName, useScreens} from "@amplicode/react-core";
 import {useMutation, useQuery} from "@apollo/client";
-import {Card, Empty, Space, Spin} from "antd";
+import {Button, Card, Empty, Space, Spin} from "antd";
 import {ValueWithLabel} from "../../../core/crud/ValueWithLabel";
-import { CreateButton } from "../../../core/crud/CreateButton";
-import { CloseScreenButton } from "../../../core/crud/CloseScreenButton";
 import {useOpenItemScreen} from "../../../core/crud/useOpenItemScreen";
 import {PetEditor} from "./PetEditor";
 import {useDeleteItem} from "../../../core/crud/useDeleteItem";
-import {useSelectItem} from "../../../core/crud/useSelectItem";
-import {SelectIconButton} from "../../../core/crud/SelectIconButton";
-import {EditIconButton} from "../../../core/crud/EditIconButton";
-import {DeleteIconButton} from "../../../core/crud/DeleteIconButton";
 import {ApolloError} from "@apollo/client/errors";
 import * as React from "react";
 import {RequestFailedError} from "../../../core/crud/RequestFailedError";
 import {useRouteMatch} from "react-router-dom";
 import {ReactNode} from "react";
+import {DeleteOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
+import {FormattedMessage, useIntl} from "react-intl";
 
 const ROUTE = 'pet-list';
 const REFETCH_QUERIES = ['Get_Pet_List'];
@@ -42,7 +38,7 @@ const DELETE_PET = gql(/* GraphQL */ `
 `);
 
 
-export function PetList({ onSelect }: EntityListScreenProps<ItemType>) {
+export function PetList() {
   // Load the items from server
   const { loading, error, data } = useQuery(GET_PET_LIST);
   const items = data?.petList;
@@ -56,12 +52,11 @@ export function PetList({ onSelect }: EntityListScreenProps<ItemType>) {
       <Space direction='vertical'
              style={{width: '100%'}}
       >
-        <ButtonPanel onSelect={onSelect} />
+        <ButtonPanel />
         <Cards
           items={items}
           loading={loading}
           error={error}
-          onSelect={onSelect}
         />
         {/* <Pagination /> - in future */}
       </Space>
@@ -92,14 +87,12 @@ function useItemUrl() {
   }
 }
 
-interface ButtonPanelProps {
-  onSelect?: (item: ItemType) => void;
-}
-
 /**
  * Button panel above the cards
  */
-function ButtonPanel({onSelect}: ButtonPanelProps) {
+function ButtonPanel() {
+  const intl = useIntl();
+
   // A callback that will open an empty editor form so that a new entity instance can be created
   const openEmptyEditor = useOpenItemScreen({
     route: ROUTE,
@@ -108,18 +101,20 @@ function ButtonPanel({onSelect}: ButtonPanelProps) {
     refetchQueries: REFETCH_QUERIES
   });
 
-  if (onSelect != null) {
-    // Lookup mode
-    return (
-      <div>
-        <CloseScreenButton />
-      </div>
-    );
-  }
-
   return (
     <div>
-      <CreateButton onClick={openEmptyEditor} />
+      <Button
+        htmlType="button"
+        key="create"
+        title={intl.formatMessage({id: "common.create"})}
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={openEmptyEditor}
+      >
+      <span>
+        <FormattedMessage id="common.create" />
+      </span>
+      </Button>
     </div>
   );
 }
@@ -128,13 +123,12 @@ interface ItemCardsListProps {
   items?: ItemListType;
   loading?: boolean;
   error?: ApolloError;
-  onSelect?: (item: ItemType) => void;
 }
 
 /**
  * Collection of cards, each card representing an item
  */
-function Cards({items, loading, error, onSelect}: ItemCardsListProps) {
+function Cards({items, loading, error}: ItemCardsListProps) {
   if (loading) {
     return <Spin />;
   }
@@ -157,7 +151,6 @@ function Cards({items, loading, error, onSelect}: ItemCardsListProps) {
         items.map((item) => (
           <ItemCard item={item}
                     key={item?.id}
-                    onSelect={onSelect}
           />
         ))
       }
@@ -165,21 +158,9 @@ function Cards({items, loading, error, onSelect}: ItemCardsListProps) {
   );
 }
 
-interface ItemCardProps {
-  item: ItemType;
-  /**
-   * Passed when the entity list screen is used as a lookup screen.
-   * In this case there will be a `Close` button above the cards, and `Select` button in each card.
-   * Otherwise there will be a `Create` button above the cards, and `Edit` and `Delete` buttons in each card.
-   *
-   * @param item this card's item
-   */
-  onSelect?: (item: ItemType) => void;
-}
-
-function ItemCard({item, onSelect}: ItemCardProps) {
+function ItemCard({item}: {item: ItemType}) {
   // Get the action buttons that will be displayed in the card
-  const cardActions: ReactNode[] = useCardActions({onSelect, item});
+  const cardActions: ReactNode[] = useCardActions({item});
 
   if (item == null) {
     return null;
@@ -215,25 +196,20 @@ function CardFields({item}: {item: ItemType}) {
   );
 }
 
-interface CardActionParams {
-  item: ItemType;
-  onSelect?: (item: ItemType) => void;
-}
-
 /**
  * Returns a Select button in lookup mode, and Edit and Delete buttons otherwise.
  * We are using a hook instead of a component here because `actions` prop of `Card` component
  * expects an array of ReactNodes.
  */
-function useCardActions(
-  {onSelect, item}: CardActionParams
-): ReactNode[] {
+function useCardActions({item}: {item: ItemType}): ReactNode[] {
+  const intl = useIntl();
+
   // Callback that opens an editor either for creating or for editing an item
   // depending on whether `item` is provided
   const openItem = useOpenItemScreen({
     route: ROUTE,
     screenComponent: PetEditor,
-    screenCaptionKey: 'screenPetEditor',
+    screenCaptionKey: 'screen.PetEditor',
     refetchQueries: REFETCH_QUERIES,
     id: item?.id
   });
@@ -242,18 +218,18 @@ function useCardActions(
   // Callback that deletes the item
   const deleteItem = useDeleteItem(item?.id, runDeleteMutation, REFETCH_QUERIES);
 
-  // Callback that executes `onSelect` on this item
-  const selectItem = useSelectItem(item, onSelect);
-
-  if (onSelect != null) {
-    // Lookup mode
-    return [<SelectIconButton onClick={selectItem} />];
-  }
-
   // Default mode
   return [
-    <EditIconButton onClick={openItem} />,
-    <DeleteIconButton onClick={deleteItem} />
+    <EditOutlined
+      key="edit"
+      title={intl.formatMessage({ id: "common.edit" })}
+      onClick={openItem}
+    />,
+    <DeleteOutlined
+      key="delete"
+      title={intl.formatMessage({ id: "common.remove" })}
+      onClick={deleteItem}
+    />
   ];
 }
 
@@ -269,7 +245,3 @@ type ItemListType = QueryResultType['petList'];
  * Type of a single item
  */
 type ItemType = Exclude<ItemListType, null | undefined>[0];
-
-interface EntityListScreenProps<TItem> {
-  onSelect?: (item: TItem) => void;
-}

@@ -1,7 +1,7 @@
 import {gql} from "../../../gql";
 import {guessDisplayName} from "@amplicode/react-core";
-import React, {useEffect, useState} from "react";
-import {Card, Form, Input, Spin} from "antd";
+import React, {useCallback, useEffect, useState} from "react";
+import {Button, Card, Form, FormInstance, Input, message, Space, Spin} from "antd";
 import {useLazyQuery} from "@apollo/client";
 import {useForm} from "antd/es/form/Form";
 import {EntityLookupField} from "@amplicode/react-antd";
@@ -9,10 +9,10 @@ import {ResultOf} from "@graphql-typed-document-node/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import {RefetchQueries} from "../../../core/type-aliases/RefetchQueries";
 import { useSubmit } from "../../../core/crud/useSubmit";
-import {useFormData} from "../../../core/crud/useFormData";
-import {useClientValidationFailed} from "../../../core/crud/useClientValidationFailed";
-import { FormButtons } from "../../../core/crud/FormButtons";
 import { ErrorMessage } from "../../../core/crud/ErrorMessage";
+import {useCloseNestedScreen} from "../../../core/crud/useCloseNestedScreen";
+import {FormattedMessage, useIntl} from "react-intl";
+import {gql2form} from "../../../core/format/gql2form";
 
 const GET_PET = gql(/* GraphQL */ `
   query Get_Pet($id: BigInteger) {
@@ -139,11 +139,37 @@ function FormFields() {
 }
 
 /**
+ * Buttons below the form.
+ *
+ * @param submitting flag indicating whether submit is in progress
+ */
+function FormButtons({submitting}: {submitting?: boolean}) {
+  const closeEditor = useCloseNestedScreen();
+
+  return (
+    <Form.Item style={{textAlign: 'center'}}>
+      <Space>
+        <Button htmlType="button" onClick={closeEditor}>
+          <FormattedMessage id="common.cancel" />
+        </Button>
+        <Button
+          type="primary"
+          htmlType="submit"
+          loading={submitting}
+        >
+          <FormattedMessage id={"common.submit"} />
+        </Button>
+      </Space>
+    </Form.Item>
+  );
+}
+
+/**
  * Loads the item if `id` is provided
  *
  * @param id
  */
-export function useLoadItem(id?: string) {
+function useLoadItem(id?: string) {
   const [item, setItem] = useState<ItemType | null>();
 
   // Get the function that will load item from server,
@@ -174,6 +200,34 @@ export function useLoadItem(id?: string) {
     itemLoading: loading,
     itemError: error,
   };
+}
+
+/**
+ * Puts the `item` inside the `form`
+ *
+ * @param form
+ * @param item
+ */
+export function useFormData<ItemType extends Record<string, unknown> | null>(form: FormInstance, item?: ItemType) {
+  useEffect(() => {
+    if (item != null) {
+      const fieldValues = gql2form(item);
+      form.setFieldsValue(fieldValues);
+    }
+  }, [item, form]);
+}
+
+/**
+ * Returns a callback that is executed when client-side validation of a form has failed
+ */
+function useClientValidationFailed() {
+  const intl = useIntl();
+
+  return useCallback(() => {
+    return message.error(
+      intl.formatMessage({ id: "EntityDetailsScreen.validationError" })
+    );
+  }, [intl]);
 }
 
 /**

@@ -3,10 +3,10 @@ import {useScreens} from "@amplicode/react-core";
 import {useCallback} from "react";
 
 /**
- * Returns a callback that closes the entity editor, returns the user to parent screen
+ * Returns a callback that closes the nested screen, returns the user to parent screen
  * and modifies the current url accordingly.
  */
-export function useCloseEditor() {
+export function useCloseNestedScreen() {
   const history = useHistory();
   const screens = useScreens();
 

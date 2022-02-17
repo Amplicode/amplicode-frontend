@@ -4,7 +4,7 @@ import {message} from "antd";
 import {GraphQLError} from "graphql/error/GraphQLError";
 import {useCallback} from "react";
 import {form2gql} from "../format/form2gql";
-import { useCloseEditor } from "./useCloseEditor";
+import { useCloseNestedScreen } from "./useCloseNestedScreen";
 
 /**
  * Returns an object containing `handleSubmit` callback that is executed after user clicks `Submit` button on a form
@@ -22,7 +22,7 @@ export function useSubmit<TData>(
   id?: string
 ) {
   const intl = useIntl();
-  const closeEditor = useCloseEditor();
+  const closeEditor = useCloseNestedScreen();
 
   // Get the function that will run the mutation
   // and a boolean indicating that submit is in progress
