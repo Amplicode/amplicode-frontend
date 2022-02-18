@@ -4,8 +4,6 @@ import React from "react";
 
 /**
  * Default error message for a failed request
- *
- * @constructor
  */
 export function RequestFailedError() {
   return (

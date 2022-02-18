@@ -5,7 +5,6 @@ import React from "react";
  * Displays `errorMessage` if defined, otherwise does not render.
  *
  * @param errorMessage
- * @constructor
  */
 export function ErrorMessage({errorMessage}: {errorMessage?: string}) {
   if (errorMessage == null) {
