@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0-next.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.8.0...@amplicode/codegen@0.9.0-next.0) (2022-02-22)
+
+
+### Bug Fixes
+
+* input is shown instead of checkbox for boolean property in editor [#33](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/33) ([67e5278](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/67e52780d36a4a7b769044d3ae778c9f42c2af0a))
+* replace backslah with slash in codegen.yml on Windows OS [#155](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/155) ([5516bcb](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/5516bcb16afd2786fddf3efa19c45f231c8f831f))
+
+
+### Features
+
+* login and password initialization in development mode [#168](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/168) ([729d330](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/729d3301bcd8877408bcbbc17df96198630cc9b9))
+
+
+
+
+
 # [0.8.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.7.0...@amplicode/codegen@0.8.0) (2022-02-04)
 
 
