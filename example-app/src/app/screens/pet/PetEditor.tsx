@@ -24,7 +24,7 @@ import { gql2form } from "../../../core/format/gql2form";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 
 const PET = gql(/* GraphQL */ `
-  query Get_Pet($id: BigInteger) {
+  query Pet_PetEditor($id: BigInteger) {
     pet(id: $id) {
       id
       identificationNumber
@@ -37,7 +37,7 @@ const PET = gql(/* GraphQL */ `
 `);
 
 const UPDATE__PET = gql(/* GraphQL */ `
-  mutation Update_Pet($input: PetInputDTOInput) {
+  mutation Update_Pet_PetEditor($input: PetInputDTOInput) {
     update_Pet(input: $input) {
       id
     }

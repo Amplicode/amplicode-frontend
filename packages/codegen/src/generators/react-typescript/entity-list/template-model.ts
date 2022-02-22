@@ -16,6 +16,7 @@ import {
   deriveScreenTemplateModel,
   ScreenTemplateModel
 } from "../../../building-blocks/stages/template-model/pieces/amplicode/ScreenTemplateModel";
+import {capitalizeFirst} from "../../../common/utils";
 import {AttributeModel} from "../../../building-blocks/stages/template-model/pieces/entity";
 import {getEntityAttributes} from "../../../building-blocks/stages/template-model/pieces/entity-management/getEntityAttributes";
 
@@ -43,11 +44,18 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
     idField = 'id',
   } = answers;
 
-  const queryNode = gql(queryString);
+  const initQueryNode = gql(queryString);
   const mutationNode = deleteMutationString != null ? gql(deleteMutationString) : undefined;
-  const queryName = getOperationName(queryNode);
+  const queryTitle = getQueryName(initQueryNode)
+  const queryName = getOperationName(initQueryNode);
+  const renamedQueryString = queryString.replace(queryTitle, `${capitalizeFirst(queryName)}_${componentName}`)
+  const queryNode = gql(renamedQueryString)
   const refetchQuery = getQueryName(queryNode);
   const deleteMutationName = mutationNode != null ? getOperationName(mutationNode) : undefined;
+  const deleteMutationTitle = mutationNode != null ? getQueryName(mutationNode) : undefined;
+  const renamedDeleteMutationString = deleteMutationName && deleteMutationTitle && deleteMutationString
+    ? deleteMutationString.replace(deleteMutationTitle, `${capitalizeFirst(deleteMutationName)}_${componentName}`)
+    : undefined
   const attributes = getEntityAttributes(queryNode, idField);
 
   return {
@@ -56,9 +64,9 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
     ...deriveScreenTemplateModel(options, answers),
     componentName,
     queryName,
-    queryString,
+    queryString: renamedQueryString,
     deleteMutationName,
-    deleteMutationString,
+    deleteMutationString: renamedDeleteMutationString,
     attributes,
     idField,
     mode,

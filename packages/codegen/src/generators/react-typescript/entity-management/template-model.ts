@@ -1,7 +1,7 @@
 import {MvpEntityEditorTemplateModel, deriveEntityDetailsTemplateModel} from "../entity-details/template-model";
 import {EntityManagementAnswers} from "./answers";
 import {
-  getQueryName,
+  getOperationName, getQueryName,
 } from "../../../building-blocks/stages/template-model/pieces/amplicode/amplicode";
 import {AmplicodeComponentOptions} from "../../../building-blocks/stages/options/pieces/amplicode";
 import {GraphQLSchema} from "graphql";
@@ -15,6 +15,7 @@ import {
   deriveScreenTemplateModel,
   ScreenTemplateModel
 } from "../../../building-blocks/stages/template-model/pieces/amplicode/ScreenTemplateModel";
+import {capitalizeFirst} from "../../../common/utils";
 import {deriveEntityListTemplateModel, EntityListTemplateModel} from "../entity-list/template-model";
 
 export interface EntityManagementTemplateModel extends BaseTemplateModel, UtilTemplateModel, ScreenTemplateModel {
@@ -38,7 +39,11 @@ export const deriveManagementTemplateModel = async (
     shouldAddToMenu,
   } = answers;
 
-  const queryNode = gql(listQuery);
+  const initQueryNode = gql(listQuery);
+  const queryName = getOperationName(initQueryNode);
+  const queryTitle = getQueryName(initQueryNode);
+  const renamedQueryString = listQuery.replace(queryTitle, `${capitalizeFirst(queryName)}_${listComponentName}`)
+  const queryNode = gql(renamedQueryString);
 
   const entityDetailsTemplateModel = await deriveEntityDetailsTemplateModel(
     options, {

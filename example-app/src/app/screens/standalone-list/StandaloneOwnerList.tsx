@@ -14,10 +14,10 @@ import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 
 const ROUTE = "standalone-owner-list";
-const REFETCH_QUERIES = ["Get_Owner_List"];
+const REFETCH_QUERIES = ["OwnerList_StandaloneOwnerList"];
 
 const OWNER_LIST = gql(/* GraphQL */ `
-  query Get_Owner_List {
+  query OwnerList_StandaloneOwnerList {
     ownerList {
       id
       firstName
@@ -28,7 +28,7 @@ const OWNER_LIST = gql(/* GraphQL */ `
 `);
 
 const DELETE__OWNER = gql(/* GraphQL */ `
-  mutation Delete_Owner($id: BigInteger!) {
+  mutation Delete_Owner_StandaloneOwnerList($id: BigInteger!) {
     delete_Owner(id: $id)
   }
 `);

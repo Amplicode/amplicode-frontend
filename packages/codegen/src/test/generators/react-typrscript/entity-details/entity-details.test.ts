@@ -56,7 +56,7 @@ describe('codegen entity-details test', () => {
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function OwnerDetails');
-    expect(componentFile).to.contain('query Get_Owner($id: BigInteger) {');
+    expect(componentFile).to.contain('query Owner_OwnerDetails($id: BigInteger) {');
   });
 
 
@@ -77,8 +77,8 @@ describe('codegen entity-details test', () => {
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function OwnerEditor');
-    expect(componentFile).to.contain('query Get_Owner($id: BigInteger) {');
-    expect(componentFile).to.contain('mutation Update_Owner($input: OwnerInputDTOInput) {');
+    expect(componentFile).to.contain('query Owner_OwnerEditor($id: BigInteger) {');
+    expect(componentFile).to.contain('mutation Update_Owner_OwnerEditor($input: OwnerInputDTOInput) {');
   });
 
 

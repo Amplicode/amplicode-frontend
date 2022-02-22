@@ -311,11 +311,11 @@ export type VisitInputDtoInput = {
   visitStart?: InputMaybe<Scalars["DateTime"]>;
 };
 
-export type Get_OwnerQueryVariables = Exact<{
+export type Owner_OwnerEditorQueryVariables = Exact<{
   id?: InputMaybe<Scalars["BigInteger"]>;
 }>;
 
-export type Get_OwnerQuery = {
+export type Owner_OwnerEditorQuery = {
   __typename?: "Query";
   owner?: {
     __typename?: "OwnerDTO";
@@ -329,18 +329,18 @@ export type Get_OwnerQuery = {
   } | null;
 };
 
-export type Update_OwnerMutationVariables = Exact<{
+export type Update_Owner_OwnerEditorMutationVariables = Exact<{
   input?: InputMaybe<OwnerInputDtoInput>;
 }>;
 
-export type Update_OwnerMutation = {
+export type Update_Owner_OwnerEditorMutation = {
   __typename?: "Mutation";
   update_Owner?: { __typename?: "OwnerDTO"; id?: any | null } | null;
 };
 
-export type Get_Owner_ListQueryVariables = Exact<{ [key: string]: never }>;
+export type OwnerList_OwnerListQueryVariables = Exact<{ [key: string]: never }>;
 
-export type Get_Owner_ListQuery = {
+export type OwnerList_OwnerListQuery = {
   __typename?: "Query";
   ownerList?: Array<{
     __typename?: "OwnerDTO";
@@ -351,20 +351,20 @@ export type Get_Owner_ListQuery = {
   } | null> | null;
 };
 
-export type Delete_OwnerMutationVariables = Exact<{
+export type Delete_Owner_OwnerListMutationVariables = Exact<{
   id: Scalars["BigInteger"];
 }>;
 
-export type Delete_OwnerMutation = {
+export type Delete_Owner_OwnerListMutation = {
   __typename?: "Mutation";
   delete_Owner?: any | null;
 };
 
-export type Get_PetQueryVariables = Exact<{
+export type Pet_PetEditorQueryVariables = Exact<{
   id?: InputMaybe<Scalars["BigInteger"]>;
 }>;
 
-export type Get_PetQuery = {
+export type Pet_PetEditorQuery = {
   __typename?: "Query";
   pet?: {
     __typename?: "PetDTO";
@@ -378,18 +378,18 @@ export type Get_PetQuery = {
   } | null;
 };
 
-export type Update_PetMutationVariables = Exact<{
+export type Update_Pet_PetEditorMutationVariables = Exact<{
   input?: InputMaybe<PetInputDtoInput>;
 }>;
 
-export type Update_PetMutation = {
+export type Update_Pet_PetEditorMutation = {
   __typename?: "Mutation";
   update_Pet?: { __typename?: "PetDTO"; id?: any | null } | null;
 };
 
-export type Get_Pet_ListQueryVariables = Exact<{ [key: string]: never }>;
+export type PetList_PetListQueryVariables = Exact<{ [key: string]: never }>;
 
-export type Get_Pet_ListQuery = {
+export type PetList_PetListQuery = {
   __typename?: "Query";
   petList?: Array<{
     __typename?: "PetDTO";
@@ -403,22 +403,79 @@ export type Get_Pet_ListQuery = {
   } | null> | null;
 };
 
-export type Delete_PetMutationVariables = Exact<{
+export type Delete_Pet_PetListMutationVariables = Exact<{
   id: Scalars["BigInteger"];
 }>;
 
-export type Delete_PetMutation = {
+export type Delete_Pet_PetListMutation = {
   __typename?: "Mutation";
   delete_Pet?: any | null;
 };
 
-export const Get_OwnerDocument = {
+export type Owner_ReadOnlyOwnerDetailsQueryVariables = Exact<{
+  id?: InputMaybe<Scalars["BigInteger"]>;
+}>;
+
+export type Owner_ReadOnlyOwnerDetailsQuery = {
+  __typename?: "Query";
+  owner?: {
+    __typename?: "OwnerDTO";
+    id?: any | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    city?: string | null;
+    address?: string | null;
+    email?: string | null;
+    telephone?: string | null;
+  } | null;
+};
+
+export type OwnerList_ReadOnlyOwnerListQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type OwnerList_ReadOnlyOwnerListQuery = {
+  __typename?: "Query";
+  ownerList?: Array<{
+    __typename?: "OwnerDTO";
+    id?: any | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    city?: string | null;
+  } | null> | null;
+};
+
+export type OwnerList_StandaloneOwnerListQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type OwnerList_StandaloneOwnerListQuery = {
+  __typename?: "Query";
+  ownerList?: Array<{
+    __typename?: "OwnerDTO";
+    id?: any | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    city?: string | null;
+  } | null> | null;
+};
+
+export type Delete_Owner_StandaloneOwnerListMutationVariables = Exact<{
+  id: Scalars["BigInteger"];
+}>;
+
+export type Delete_Owner_StandaloneOwnerListMutation = {
+  __typename?: "Mutation";
+  delete_Owner?: any | null;
+};
+
+export const Owner_OwnerEditorDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "query",
-      name: { kind: "Name", value: "Get_Owner" },
+      name: { kind: "Name", value: "Owner_OwnerEditor" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
@@ -462,14 +519,17 @@ export const Get_OwnerDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<Get_OwnerQuery, Get_OwnerQueryVariables>;
-export const Update_OwnerDocument = {
+} as unknown as DocumentNode<
+  Owner_OwnerEditorQuery,
+  Owner_OwnerEditorQueryVariables
+>;
+export const Update_Owner_OwnerEditorDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "mutation",
-      name: { kind: "Name", value: "Update_Owner" },
+      name: { kind: "Name", value: "Update_Owner_OwnerEditor" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
@@ -511,16 +571,16 @@ export const Update_OwnerDocument = {
     },
   ],
 } as unknown as DocumentNode<
-  Update_OwnerMutation,
-  Update_OwnerMutationVariables
+  Update_Owner_OwnerEditorMutation,
+  Update_Owner_OwnerEditorMutationVariables
 >;
-export const Get_Owner_ListDocument = {
+export const OwnerList_OwnerListDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "query",
-      name: { kind: "Name", value: "Get_Owner_List" },
+      name: { kind: "Name", value: "OwnerList_OwnerList" },
       selectionSet: {
         kind: "SelectionSet",
         selections: [
@@ -541,14 +601,17 @@ export const Get_Owner_ListDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<Get_Owner_ListQuery, Get_Owner_ListQueryVariables>;
-export const Delete_OwnerDocument = {
+} as unknown as DocumentNode<
+  OwnerList_OwnerListQuery,
+  OwnerList_OwnerListQueryVariables
+>;
+export const Delete_Owner_OwnerListDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "mutation",
-      name: { kind: "Name", value: "Delete_Owner" },
+      name: { kind: "Name", value: "Delete_Owner_OwnerList" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
@@ -584,16 +647,16 @@ export const Delete_OwnerDocument = {
     },
   ],
 } as unknown as DocumentNode<
-  Delete_OwnerMutation,
-  Delete_OwnerMutationVariables
+  Delete_Owner_OwnerListMutation,
+  Delete_Owner_OwnerListMutationVariables
 >;
-export const Get_PetDocument = {
+export const Pet_PetEditorDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "query",
-      name: { kind: "Name", value: "Get_Pet" },
+      name: { kind: "Name", value: "Pet_PetEditor" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
@@ -652,14 +715,14 @@ export const Get_PetDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<Get_PetQuery, Get_PetQueryVariables>;
-export const Update_PetDocument = {
+} as unknown as DocumentNode<Pet_PetEditorQuery, Pet_PetEditorQueryVariables>;
+export const Update_Pet_PetEditorDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "mutation",
-      name: { kind: "Name", value: "Update_Pet" },
+      name: { kind: "Name", value: "Update_Pet_PetEditor" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
@@ -700,14 +763,17 @@ export const Update_PetDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<Update_PetMutation, Update_PetMutationVariables>;
-export const Get_Pet_ListDocument = {
+} as unknown as DocumentNode<
+  Update_Pet_PetEditorMutation,
+  Update_Pet_PetEditorMutationVariables
+>;
+export const PetList_PetListDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "query",
-      name: { kind: "Name", value: "Get_Pet_List" },
+      name: { kind: "Name", value: "PetList_PetList" },
       selectionSet: {
         kind: "SelectionSet",
         selections: [
@@ -746,14 +812,17 @@ export const Get_Pet_ListDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<Get_Pet_ListQuery, Get_Pet_ListQueryVariables>;
-export const Delete_PetDocument = {
+} as unknown as DocumentNode<
+  PetList_PetListQuery,
+  PetList_PetListQueryVariables
+>;
+export const Delete_Pet_PetListDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "mutation",
-      name: { kind: "Name", value: "Delete_Pet" },
+      name: { kind: "Name", value: "Delete_Pet_PetList" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
@@ -788,4 +857,168 @@ export const Delete_PetDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<Delete_PetMutation, Delete_PetMutationVariables>;
+} as unknown as DocumentNode<
+  Delete_Pet_PetListMutation,
+  Delete_Pet_PetListMutationVariables
+>;
+export const Owner_ReadOnlyOwnerDetailsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Owner_ReadOnlyOwnerDetails" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "BigInteger" },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "owner" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "firstName" } },
+                { kind: "Field", name: { kind: "Name", value: "lastName" } },
+                { kind: "Field", name: { kind: "Name", value: "city" } },
+                { kind: "Field", name: { kind: "Name", value: "address" } },
+                { kind: "Field", name: { kind: "Name", value: "email" } },
+                { kind: "Field", name: { kind: "Name", value: "telephone" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Owner_ReadOnlyOwnerDetailsQuery,
+  Owner_ReadOnlyOwnerDetailsQueryVariables
+>;
+export const OwnerList_ReadOnlyOwnerListDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "OwnerList_ReadOnlyOwnerList" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "ownerList" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "firstName" } },
+                { kind: "Field", name: { kind: "Name", value: "lastName" } },
+                { kind: "Field", name: { kind: "Name", value: "city" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  OwnerList_ReadOnlyOwnerListQuery,
+  OwnerList_ReadOnlyOwnerListQueryVariables
+>;
+export const OwnerList_StandaloneOwnerListDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "OwnerList_StandaloneOwnerList" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "ownerList" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "firstName" } },
+                { kind: "Field", name: { kind: "Name", value: "lastName" } },
+                { kind: "Field", name: { kind: "Name", value: "city" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  OwnerList_StandaloneOwnerListQuery,
+  OwnerList_StandaloneOwnerListQueryVariables
+>;
+export const Delete_Owner_StandaloneOwnerListDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Delete_Owner_StandaloneOwnerList" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "BigInteger" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "delete_Owner" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Delete_Owner_StandaloneOwnerListMutation,
+  Delete_Owner_StandaloneOwnerListMutationVariables
+>;

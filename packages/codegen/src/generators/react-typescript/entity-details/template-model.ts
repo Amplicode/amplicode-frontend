@@ -11,7 +11,10 @@ import {
 import {templateUtilities, UtilTemplateModel} from "../../../building-blocks/stages/template-model/pieces/util";
 import gql from "graphql-tag";
 import {GraphQLOutputType} from "graphql/type/definition";
-import {getOperationName} from "../../../building-blocks/stages/template-model/pieces/amplicode/amplicode";
+import {
+  getOperationName,
+  getQueryName
+} from "../../../building-blocks/stages/template-model/pieces/amplicode/amplicode";
 import {capitalizeFirst, splitByCapitalLetter} from "../../../common/utils";
 import {
   deriveScreenTemplateModel,
@@ -64,15 +67,29 @@ export const deriveEntityDetailsTemplateModel: AmplicodeTemplateModelStage<
   schema?: GraphQLSchema,
 ): Promise<MvpEntityEditorTemplateModel>  => {
   const {
+    componentName,
     query: queryString,
     mutation: mutationString,
     idField = 'id',
     refetchQueryName
   } = answers;
 
-  const queryNode = gql(queryString);
+  const initQueryNode = gql(queryString);
+  const queryName = getOperationName(initQueryNode);
+  const queryTitle = getQueryName(initQueryNode);
+  const renamedQueryString = queryString.replace(queryTitle, `${capitalizeFirst(queryName)}_${componentName}`)
+  const queryNode = gql(renamedQueryString);
   const mutationNode = mutationString != null
     ? gql(mutationString)
+    : undefined;
+  const mutationName = mutationNode != null
+    ? getOperationName(mutationNode)
+    : undefined;
+  const mutationTitle = mutationNode != null
+    ? getQueryName(mutationNode)
+    : undefined;
+  const renamedMutationString = mutationString && mutationName && mutationTitle
+    ? mutationString.replace(mutationTitle, `${capitalizeFirst(mutationName)}_${componentName}`)
     : undefined;
 
   return {
@@ -81,8 +98,8 @@ export const deriveEntityDetailsTemplateModel: AmplicodeTemplateModelStage<
     ...deriveScreenTemplateModel(options, answers),
     ...deriveGraphQLEditorModel(queryNode, idField, schema, mutationNode),
     // TODO problem with $id: String = "", quotation marks get messed up
-    queryString,
-    mutationString,
+    queryString: renamedQueryString,
+    mutationString: renamedMutationString,
     idField,
     refetchQueryName
   }

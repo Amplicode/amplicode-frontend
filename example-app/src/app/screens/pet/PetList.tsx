@@ -15,10 +15,10 @@ import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 
 const ROUTE = "pet-list";
-const REFETCH_QUERIES = ["Get_Pet_List"];
+const REFETCH_QUERIES = ["PetList_PetList"];
 
 const PET_LIST = gql(/* GraphQL */ `
-  query Get_Pet_List {
+  query PetList_PetList {
     petList {
       id
       identificationNumber
@@ -31,7 +31,7 @@ const PET_LIST = gql(/* GraphQL */ `
 `);
 
 const DELETE__PET = gql(/* GraphQL */ `
-  mutation Delete_Pet($id: BigInteger!) {
+  mutation Delete_Pet_PetList($id: BigInteger!) {
     delete_Pet(id: $id)
   }
 `);

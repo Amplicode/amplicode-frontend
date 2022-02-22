@@ -14,10 +14,10 @@ import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 
 const ROUTE = "read-only-owner-list";
-const REFETCH_QUERIES = ["Get_Owner_List"];
+const REFETCH_QUERIES = ["OwnerList_ReadOnlyOwnerList"];
 
 const OWNER_LIST = gql(/* GraphQL */ `
-  query Get_Owner_List {
+  query OwnerList_ReadOnlyOwnerList {
     ownerList {
       id
       firstName

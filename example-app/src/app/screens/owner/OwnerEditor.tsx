@@ -22,7 +22,7 @@ import { gql2form } from "../../../core/format/gql2form";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 
 const OWNER = gql(/* GraphQL */ `
-  query Get_Owner($id: BigInteger) {
+  query Owner_OwnerEditor($id: BigInteger) {
     owner(id: $id) {
       id
       firstName
@@ -36,7 +36,7 @@ const OWNER = gql(/* GraphQL */ `
 `);
 
 const UPDATE__OWNER = gql(/* GraphQL */ `
-  mutation Update_Owner($input: OwnerInputDTOInput) {
+  mutation Update_Owner_OwnerEditor($input: OwnerInputDTOInput) {
     update_Owner(input: $input) {
       id
     }
