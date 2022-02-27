@@ -43,6 +43,10 @@ const DELETE__OWNER = gql(/* GraphQL */ `
   }
 `);
 
+function getDisplayedAttributes(p: string, entity: any) {
+  return p !== "id" && p !== "__typename" && entity[p] != null;
+}
+
 export const StandaloneOwnerList = observer(
   ({ onSelect }: EntityListScreenProps) => {
     const screens: Screens = useScreens();
@@ -164,7 +168,7 @@ export const StandaloneOwnerList = observer(
 const Fields = ({ entity }: { entity: any }) => (
   <>
     {Object.keys(entity)
-      .filter(p => p !== "id" && entity[p] != null)
+      .filter(p => getDisplayedAttributes(p, entity))
       .map(p => (
         <div key={p}>
           <strong>{guessLabel(p)}:</strong> {renderFieldValue(entity, p)}
