@@ -21,10 +21,11 @@ import {
   baseTemplateModel,
   BaseTemplateModel
 } from "../../../building-blocks/stages/template-model/pieces/amplicode/BaseTemplateModel";
+import {getEntityAttributes} from "../../../building-blocks/stages/template-model/pieces/entity-management/getEntityAttributes";
 
 export interface AttributeModel {
   name: string;
-  type: string;
+  type?: string;
   displayName: string;
   enumOptions?: Array<GraphQLEnumValue>;
   isRelationField: boolean;
@@ -78,7 +79,7 @@ export const deriveEntityDetailsTemplateModel: AmplicodeTemplateModelStage<
     ...baseTemplateModel,
     ...templateUtilities,
     ...deriveScreenTemplateModel(options, answers),
-    ...deriveGraphQLEditorModel(queryNode, schema, mutationNode),
+    ...deriveGraphQLEditorModel(queryNode, idField, schema, mutationNode),
     // TODO problem with $id: String = "", quotation marks get messed up
     queryString,
     mutationString,
@@ -89,6 +90,7 @@ export const deriveEntityDetailsTemplateModel: AmplicodeTemplateModelStage<
 
 export function deriveGraphQLEditorModel(
   queryNode: DocumentNode,
+  idField: string,
   schema?: GraphQLSchema,
   mutationNode?: DocumentNode,
 ): GraphQLEditorModel {
@@ -99,9 +101,11 @@ export function deriveGraphQLEditorModel(
   const queryName = getOperationName(queryNode);
 
   if (mutationNode == null) {
+    const readOnlyAttributes = getEntityAttributes(queryNode, idField);
+
     return {
       queryName,
-      attributes: []
+      attributes: readOnlyAttributes
     }
   }
 

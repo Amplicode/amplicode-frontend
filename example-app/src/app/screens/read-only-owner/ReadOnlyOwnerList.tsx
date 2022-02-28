@@ -1,23 +1,20 @@
-import { observer } from "mobx-react";
-import { gql } from "@amplicode/gql";
+import { ReactNode } from "react";
 import { useQuery } from "@apollo/client";
-import { CheckOutlined, CloseOutlined, EnterOutlined } from "@ant-design/icons";
-import { Button, Card, Spin, Empty, Result } from "antd";
-import { FormattedMessage, IntlShape, useIntl } from "react-intl";
-import { useCallback, useEffect } from "react";
-import { useHistory, useRouteMatch } from "react-router-dom";
-import {
-  EntityListScreenProps,
-  guessDisplayName,
-  guessLabel,
-  OpenInBreadcrumbParams,
-  Screens,
-  useScreens,
-  useDefaultBrowserHotkeys
-} from "@amplicode/react-core";
+import { ApolloError } from "@apollo/client/errors";
+import { ResultOf } from "@graphql-typed-document-node/core";
+import { Button, Card, Empty, Space, Spin } from "antd";
+import { EditOutlined, PlusOutlined } from "@ant-design/icons";
+import { useRouteMatch } from "react-router-dom";
+import { FormattedMessage, useIntl } from "react-intl";
+import { guessDisplayName, useScreens } from "@amplicode/react-core";
+import { gql } from "@amplicode/gql";
 import { ReadOnlyOwnerDetails } from "./ReadOnlyOwnerDetails";
+import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
+import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
+import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 
 const ROUTE = "read-only-owner-list";
+const REFETCH_QUERIES = ["Get_Owner_List"];
 
 const OWNER_LIST = gql(/* GraphQL */ `
   query Get_Owner_List {
@@ -30,163 +27,173 @@ const OWNER_LIST = gql(/* GraphQL */ `
   }
 `);
 
-function getDisplayedAttributes(p: string, entity: any) {
-  return p !== "id" && p !== "__typename" && entity[p] != null;
+export function ReadOnlyOwnerList() {
+  // Load the items from server
+  const { loading, error, data } = useQuery(OWNER_LIST);
+  const items = data?.ownerList;
+
+  // If we have navigated here using a link, or a page has been refreshed,
+  // we need to check whether the url contains the item id, and if yes - open item editor/details screen.
+  useItemUrl();
+
+  return (
+    <div className="narrow-layout">
+      <Space direction="vertical" style={{ width: "100%" }}>
+        <ButtonPanel />
+        <Cards items={items} loading={loading} error={error} />
+        {/* <Pagination /> - in future */}
+      </Space>
+    </div>
+  );
 }
 
-export const ReadOnlyOwnerList = observer(
-  ({ onSelect }: EntityListScreenProps) => {
-    const screens: Screens = useScreens();
-    const intl = useIntl();
-    const match = useRouteMatch<{ entityId: string }>(`/${ROUTE}/:entityId`);
-    const history = useHistory();
+/**
+ * Checks whether the url contains the item id, and if yes - open item editor/details screen.
+ */
+function useItemUrl() {
+  const screens = useScreens();
+  const match = useRouteMatch<{ id: string }>(`/${ROUTE}/:id`);
 
-    const { loading, error, data } = useQuery(OWNER_LIST);
+  const openItem = useOpenItemScreen({
+    route: ROUTE,
+    screenComponent: ReadOnlyOwnerDetails,
+    screenCaptionKey: "screen.ReadOnlyOwnerDetails",
+    refetchQueries: REFETCH_QUERIES,
+    id: match?.params.id
+  });
 
-    // Entity list can work in select mode, which means that you can select an entity instance and it will be passed to onSelect callback.
-    // This functionality is used in EntityLookupField.
-    const isSelectMode = onSelect != null;
-
-    const openItem = useCallback(
-      (id?: string) => {
-        const params: OpenInBreadcrumbParams = {
-          breadcrumbCaption: intl.formatMessage({
-            id: "screen.ReadOnlyOwnerDetails"
-          }),
-          component: ReadOnlyOwnerDetails
-        };
-        if (id != null && id !== "new") {
-          params.props = { id };
-        }
-        screens.openInBreadcrumb(params);
-        // Append /id to existing url
-        history.push(id ? `/${ROUTE}/${id}` : `/${ROUTE}/new`);
-      },
-      [screens, history, intl]
-    );
-
-    useEffect(() => {
-      if (
-        screens.activeTab?.breadcrumbs.length === 1 &&
-        match?.params.entityId != null
-      ) {
-        openItem(match.params.entityId);
-      }
-    }, [match, openItem, screens]);
-
-    useDefaultBrowserHotkeys({ openEditor: openItem });
-
-    if (loading) {
-      return <Spin />;
-    }
-
-    if (error) {
-      return (
-        <Result
-          status="error"
-          title={<FormattedMessage id="common.requestFailed" />}
-        />
-      );
-    }
-
-    const items = data?.ownerList;
-
-    return (
-      <div className="narrow-layout">
-        {isSelectMode && (
-          <div style={{ marginBottom: "12px" }}>
-            <Button
-              htmlType="button"
-              key="close"
-              title='intl.formatMessage({id: "common.close"})'
-              type="primary"
-              icon={<CloseOutlined />}
-              onClick={screens.closeActiveBreadcrumb}
-            >
-              <span>
-                <FormattedMessage id="common.close" />
-              </span>
-            </Button>
-          </div>
-        )}
-
-        {items == null || items.length === 0 ? (
-          <Empty />
-        ) : (
-          items.map((e: any) => (
-            <Card
-              key={e["id"]}
-              title={guessDisplayName(e)}
-              style={{ marginBottom: "12px" }}
-              actions={getCardActions({
-                screens,
-                entityInstance: e,
-                onSelect,
-                intl,
-                openItem
-              })}
-            >
-              <Fields entity={e} />
-            </Card>
-          ))
-        )}
-      </div>
-    );
+  if (screens.activeTab?.breadcrumbs.length === 1 && match?.params.id != null) {
+    openItem();
   }
-);
+}
 
-const Fields = ({ entity }: { entity: any }) => (
-  <>
-    {Object.keys(entity)
-      .filter(p => getDisplayedAttributes(p, entity))
-      .map(p => (
-        <div key={p}>
-          <strong>{guessLabel(p)}:</strong> {renderFieldValue(entity, p)}
-        </div>
+/**
+ * Button panel above the cards
+ */
+function ButtonPanel() {
+  const intl = useIntl();
+
+  // A callback that will open an empty editor form so that a new entity instance can be created
+  const openEmptyEditor = useOpenItemScreen({
+    route: ROUTE,
+    screenComponent: ReadOnlyOwnerDetails,
+    screenCaptionKey: "screen.ReadOnlyOwnerDetails",
+    refetchQueries: REFETCH_QUERIES
+  });
+
+  return (
+    <div>
+      <Button
+        htmlType="button"
+        key="create"
+        title={intl.formatMessage({ id: "common.create" })}
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={openEmptyEditor}
+      >
+        <span>
+          <FormattedMessage id="common.create" />
+        </span>
+      </Button>
+    </div>
+  );
+}
+
+interface ItemCardsListProps {
+  items?: ItemListType;
+  loading?: boolean;
+  error?: ApolloError;
+}
+
+/**
+ * Collection of cards, each card representing an item
+ */
+function Cards({ items, loading, error }: ItemCardsListProps) {
+  if (loading) {
+    return <Spin />;
+  }
+
+  if (error) {
+    return <RequestFailedError />;
+  }
+
+  if (items == null || items.length === 0) {
+    return <Empty />;
+  }
+
+  return (
+    <Space direction="vertical" style={{ width: "100%" }}>
+      {items.map(item => (
+        <ItemCard item={item} key={item?.id} />
       ))}
-  </>
-);
-
-function renderFieldValue(entity: any, property: string): string {
-  return typeof entity[property] === "object"
-    ? guessDisplayName(entity[property])
-    : String(entity[property]);
+    </Space>
+  );
 }
 
-interface CardActionsInput {
-  screens: Screens;
-  entityInstance: any;
-  onSelect?: (entityInstance: this["entityInstance"]) => void;
-  intl: IntlShape;
-  openItem: (id?: string) => void;
-}
+function ItemCard({ item }: { item: ItemType }) {
+  // Get the action buttons that will be displayed in the card
+  const cardActions: ReactNode[] = useCardActions(item);
 
-function getCardActions(input: CardActionsInput) {
-  const { screens, entityInstance, onSelect, intl, openItem } = input;
-
-  if (onSelect == null) {
-    return [
-      <EnterOutlined
-        key="details"
-        title={intl.formatMessage({ id: "common.viewDetails" })}
-        onClick={() => {
-          openItem(entityInstance.id);
-        }}
-      />
-    ];
+  if (item == null) {
+    return null;
   }
 
-  // onSelect != null
+  return (
+    <Card
+      key={item.id}
+      title={guessDisplayName(item)}
+      actions={cardActions}
+      className="narrow-layout"
+    >
+      <ValueWithLabel
+        key="firstName"
+        label="First Name"
+        value={item.firstName ?? undefined}
+      />
+      <ValueWithLabel
+        key="lastName"
+        label="Last Name"
+        value={item.lastName ?? undefined}
+      />
+      <ValueWithLabel key="city" label="City" value={item.city ?? undefined} />
+    </Card>
+  );
+}
+
+/**
+ * Returns action buttons that will be displayed inside the card.
+ */
+function useCardActions(item: ItemType): ReactNode[] {
+  const intl = useIntl();
+
+  // Callback that opens an editor either for creating or for editing an item
+  // depending on whether `item` is provided
+  const openItem = useOpenItemScreen({
+    route: ROUTE,
+    screenComponent: ReadOnlyOwnerDetails,
+    screenCaptionKey: "screen.ReadOnlyOwnerDetails",
+    refetchQueries: REFETCH_QUERIES,
+    id: item?.id
+  });
+
   return [
-    <CheckOutlined
-      key="select"
-      title={intl.formatMessage({
-        id: "EntityLookupField.selectEntityInstance"
-      })}
-      onClick={() => {
-        onSelect(entityInstance);
-        screens.closeActiveBreadcrumb();
-      }}
+    <EditOutlined
+      key="edit"
+      title={intl.formatMessage({ id: "common.edit" })}
+      onClick={openItem}
     />
   ];
 }
+
+/**
+ * Type of data object received when executing the query
+ */
+type QueryResultType = ResultOf<typeof OWNER_LIST>;
+/**
+ * Type of the items list
+ */
+type ItemListType = QueryResultType["ownerList"];
+/**
+ * Type of a single item
+ */
+type ItemType = Exclude<ItemListType, null | undefined>[0];

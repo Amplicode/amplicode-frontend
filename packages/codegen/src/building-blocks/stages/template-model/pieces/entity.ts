@@ -1,5 +1,14 @@
 import {Entity, ProjectModel} from "../../../../common/model/cuba-model";
 import {getEntityPath} from "../../../../generators/react-typescript/common/template-model";
+import {GraphQLEnumValue} from "graphql";
+
+export interface AttributeModel {
+  name: string;
+  type?: string;
+  displayName: string;
+  enumOptions?: Array<GraphQLEnumValue>;
+  isRelationField: boolean;
+}
 
 export interface EntityWithPath extends Entity {
   path: string; // path relative to SDK placement

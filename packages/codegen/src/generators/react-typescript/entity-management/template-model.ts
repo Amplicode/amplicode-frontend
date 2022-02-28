@@ -1,7 +1,7 @@
 import {MvpEntityEditorTemplateModel, deriveEntityDetailsTemplateModel} from "../entity-details/template-model";
 import {EntityManagementAnswers} from "./answers";
 import {
-  getOperationName, getQueryName,
+  getQueryName,
 } from "../../../building-blocks/stages/template-model/pieces/amplicode/amplicode";
 import {AmplicodeComponentOptions} from "../../../building-blocks/stages/options/pieces/amplicode";
 import {GraphQLSchema} from "graphql";
@@ -15,19 +15,11 @@ import {
   deriveScreenTemplateModel,
   ScreenTemplateModel
 } from "../../../building-blocks/stages/template-model/pieces/amplicode/ScreenTemplateModel";
+import {deriveEntityListTemplateModel, EntityListTemplateModel} from "../entity-list/template-model";
 
-export interface EntityManagementTemplateModel extends BaseTemplateModel, UtilTemplateModel, ScreenTemplateModel
-{
-  listComponentName: string,
-  itemComponentName: string,
-  queryString: string,
-  queryName: string,
-  deleteMutationString?: string,
-  deleteMutationName?: string,
-  mode: string,
-  idField: string,
-  shouldAddToMenu: boolean,
-  entityDetailsTemplateModel: MvpEntityEditorTemplateModel
+export interface EntityManagementTemplateModel extends BaseTemplateModel, UtilTemplateModel, ScreenTemplateModel {
+  entityListTemplateModel: EntityListTemplateModel;
+  entityDetailsTemplateModel: MvpEntityEditorTemplateModel;
 }
 
 export const deriveManagementTemplateModel = async (
@@ -44,14 +36,9 @@ export const deriveManagementTemplateModel = async (
     upsertMutation,
     deleteMutation,
     shouldAddToMenu,
-    mode = 'edit',
-    idField = 'id',
   } = answers;
 
   const queryNode = gql(listQuery);
-  const mutationNode = deleteMutation != null ? gql(deleteMutation) : undefined;
-  const queryName = getOperationName(queryNode);
-  const deleteMutationName = mutationNode != null ? getOperationName(mutationNode) : undefined;
 
   const entityDetailsTemplateModel = await deriveEntityDetailsTemplateModel(
     options, {
@@ -64,19 +51,23 @@ export const deriveManagementTemplateModel = async (
     schema
   )
 
+  const entityListTemplateModel = await deriveEntityListTemplateModel(
+    options, {
+      componentName: listComponentName,
+      query: listQuery,
+      mutation: deleteMutation,
+      shouldAddToMenu: shouldAddToMenu,
+    },
+    schema
+  );
+
+  entityListTemplateModel.itemComponentName = itemComponentName;
+
   return {
     ...baseTemplateModel,
     ...templateUtilities,
     ...deriveScreenTemplateModel(options, {componentName: listComponentName, shouldAddToMenu}),
-    listComponentName,
-    itemComponentName,
-    queryString: listQuery,
-    queryName,
-    deleteMutationString: deleteMutation,
-    deleteMutationName,
-    mode,
-    idField,
-    shouldAddToMenu,
+    entityListTemplateModel,
     entityDetailsTemplateModel
   }
 };
