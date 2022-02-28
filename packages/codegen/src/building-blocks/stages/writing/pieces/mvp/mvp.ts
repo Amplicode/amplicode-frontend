@@ -2,6 +2,7 @@ import {YeomanGenerator} from "../../../../YeomanGenerator";
 import path from "path";
 import {capitalizeFirst, splitByCapitalLetter} from "../../../../../common/utils";
 import { addMvpAppMenu } from "./addMvpAppMenu";
+import { addComponentPreviews } from '../previews-registration';
 
 export interface MvpComponentTemplateModel {
   componentName: string;
@@ -48,6 +49,7 @@ export async function writeAmplicodeComponent<T extends MvpComponentTemplateMode
   // });
 
   addScreenI18nKeyEn(componentName, relDirShift, gen);
+  addComponentPreviews(gen, relDirShift, componentName, componentName)
 }
 
 export function addScreenI18nKeyEn(
