@@ -31,6 +31,7 @@ export const deriveManagementTemplateModel = async (
   const {
     listComponentName,
     itemComponentName,
+    route,
     listQuery,
     detailsQuery,
     upsertMutation,
@@ -43,6 +44,7 @@ export const deriveManagementTemplateModel = async (
   const entityDetailsTemplateModel = await deriveEntityDetailsTemplateModel(
     options, {
       componentName: itemComponentName,
+      route,
       query: detailsQuery,
       mutation: upsertMutation,
       shouldAddToMenu: false,
@@ -54,6 +56,7 @@ export const deriveManagementTemplateModel = async (
   const entityListTemplateModel = await deriveEntityListTemplateModel(
     options, {
       componentName: listComponentName,
+      route,
       query: listQuery,
       mutation: deleteMutation,
       shouldAddToMenu: shouldAddToMenu,
@@ -66,7 +69,7 @@ export const deriveManagementTemplateModel = async (
   return {
     ...baseTemplateModel,
     ...templateUtilities,
-    ...deriveScreenTemplateModel(options, {componentName: listComponentName, shouldAddToMenu}),
+    ...deriveScreenTemplateModel(options, {componentName: listComponentName, route, shouldAddToMenu}),
     entityListTemplateModel,
     entityDetailsTemplateModel
   }

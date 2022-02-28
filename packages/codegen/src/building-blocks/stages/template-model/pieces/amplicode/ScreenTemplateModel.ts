@@ -1,6 +1,5 @@
 import {AmplicodeComponentOptions} from "../../../options/pieces/amplicode";
 import {normalizeRelativePath, splitByCapitalLetter} from "../../../../../common/utils";
-import {toKebabCase} from "../../../../util/to-kebab-case";
 import {ScreenAnswers} from "../../../answers/amplicode/ScreenAnswers";
 
 export interface ScreenTemplateModel {
@@ -12,12 +11,12 @@ export interface ScreenTemplateModel {
 }
 
 export function deriveScreenTemplateModel(options: AmplicodeComponentOptions, answers: ScreenAnswers): ScreenTemplateModel {
-  const {componentName, shouldAddToMenu} = answers;
+  const {componentName, shouldAddToMenu, route} = answers;
 
   return {
     relDirShift: normalizeRelativePath(options.dirShift),
     componentName,
-    route: toKebabCase(componentName),
+    route,
     caption: splitByCapitalLetter(componentName),
     shouldAddToMenu
   };

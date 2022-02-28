@@ -15,7 +15,8 @@ export const enum StudioTemplatePropertyType {
   PASSWORD = 'PASSWORD',
   GRAPHQL_QUERY = 'GRAPHQL_QUERY',
   GRAPHQL_MUTATION = 'GRAPHQL_MUTATION',
-  MENU_ITEM = 'MENU_ITEM'
+  MENU_ITEM = 'MENU_ITEM',
+  ROUTE = 'ROUTE'
 }
 
 export interface StudioTemplateProperty {

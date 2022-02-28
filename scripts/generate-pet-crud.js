@@ -43,6 +43,7 @@ mutation Update_Pet($input: PetInputDTOInput) {
 const petManagementAnswers = btoa(JSON.stringify({
   listComponentName: 'PetList',
   itemComponentName: 'PetEditor',
+  route: 'pet-list',
   shouldAddToMenu: true,
   listQuery: esc(petListQuery),
   detailsQuery: esc(petDetailsQuery),
