@@ -1,6 +1,3 @@
-export * from './components/entity-details-screen/EntityDetailsScreenProps';
-export * from './components/entity-list-screen/EntityListScreenProps';
-
 export * from './util/generateKey';
 export * from './util/guessDisplayName';
 export * from './util/guessLabel';

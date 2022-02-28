@@ -110,12 +110,12 @@ ReactDOM.render(
         <ScreenContext.Provider value={screens}>
           <HashRouter>
             <HotkeyContext.Provider value={hotkeys}>
-              <DevSupport
-                ComponentPreviews={<ComponentPreviews />}
-                useInitialHook={useInitial}
-              >
+              {/*<DevSupport*/}
+              {/*  ComponentPreviews={<ComponentPreviews />}*/}
+              {/*  useInitialHook={useInitial}*/}
+              {/*>*/}
                 <App />
-              </DevSupport>
+              {/*</DevSupport>*/}
             </HotkeyContext.Provider>
           </HashRouter>
         </ScreenContext.Provider>

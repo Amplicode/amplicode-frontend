@@ -6,7 +6,6 @@ import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router-dom";
 import {
   useScreens,
-  EntityDetailsScreenProps,
   guessDisplayName,
   guessLabel
 } from "@amplicode/react-core";
@@ -25,7 +24,15 @@ const OWNER = gql(/* GraphQL */ `
   }
 `);
 
-export const ReadOnlyOwnerDetails = ({ id }: EntityDetailsScreenProps) => {
+export interface ReadOnlyOwnerDetailsProps {
+  /**
+   * id of entity instance to be loaded when editing an instance.
+   * Will be `undefined` when creating an instance.
+   */
+  id?: string;
+}
+
+export function ReadOnlyOwnerDetails({ id }: ReadOnlyOwnerDetailsProps) {
   const screens = useScreens();
   const history = useHistory();
 
@@ -66,26 +73,28 @@ export const ReadOnlyOwnerDetails = ({ id }: EntityDetailsScreenProps) => {
         title={guessDisplayName(item)}
         column={1}
       >
-        {Object.keys(item)
-          .filter(p => p !== id)
-          .map((p: string) => {
-            const propertyName = p as keyof typeof item;
-            return (
-              <Descriptions.Item
-                label={<strong>{guessLabel(propertyName)}</strong>}
-              >
-                {typeof item[propertyName] === "object"
-                  ? guessDisplayName(item[propertyName])
-                  : String(item[propertyName])}
-              </Descriptions.Item>
-            );
-          })}
+        <Descriptions.Item label={<strong>First Name</strong>}>
+          {item.firstName ?? undefined}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>Last Name</strong>}>
+          {item.lastName ?? undefined}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>City</strong>}>
+          {item.city ?? undefined}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>Address</strong>}>
+          {item.address ?? undefined}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>Email</strong>}>
+          {item.email ?? undefined}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>Telephone</strong>}>
+          {item.telephone ?? undefined}
+        </Descriptions.Item>
       </Descriptions>
       <Button htmlType="button" onClick={goToParentScreen}>
         <FormattedMessage id="common.close" />
       </Button>
     </Card>
   );
-};
-
-export default ReadOnlyOwnerDetails;
+}

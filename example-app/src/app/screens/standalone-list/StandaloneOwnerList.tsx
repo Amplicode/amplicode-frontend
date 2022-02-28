@@ -1,30 +1,20 @@
-import { observer } from "mobx-react";
-import { gql } from "@amplicode/gql";
-import { Exact } from "@amplicode/gql/graphql";
+import { ReactNode } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import {
-  CheckOutlined,
-  CloseOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  PlusOutlined
-} from "@ant-design/icons";
-import { Button, Card, Modal, Spin, Empty, Result } from "antd";
-import { FormattedMessage, IntlShape, useIntl } from "react-intl";
-import { MutationFunctionOptions } from "@apollo/client/react/types/types";
-import { FetchResult } from "@apollo/client/link/core";
-import { useCallback, useEffect } from "react";
+import { ApolloError } from "@apollo/client/errors";
+import { ResultOf } from "@graphql-typed-document-node/core";
+import { Button, Card, Empty, Space, Spin } from "antd";
+import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { useRouteMatch } from "react-router-dom";
-import {
-  EntityListScreenProps,
-  guessDisplayName,
-  guessLabel,
-  Screens,
-  useScreens,
-  useDefaultBrowserHotkeys
-} from "@amplicode/react-core";
+import { FormattedMessage, useIntl } from "react-intl";
+import { guessDisplayName, useScreens } from "@amplicode/react-core";
+import { gql } from "@amplicode/gql";
+import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
+import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
+import { useDeleteItem } from "../../../core/crud/useDeleteItem";
+import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 
 const ROUTE = "standalone-owner-list";
+const REFETCH_QUERIES = ["Get_Owner_List"];
 
 const OWNER_LIST = gql(/* GraphQL */ `
   query Get_Owner_List {
@@ -43,206 +33,192 @@ const DELETE__OWNER = gql(/* GraphQL */ `
   }
 `);
 
-export const StandaloneOwnerList = observer(
-  ({ onSelect }: EntityListScreenProps) => {
-    const screens: Screens = useScreens();
-    const intl = useIntl();
-    const match = useRouteMatch<{ entityId: string }>(`/${ROUTE}/:entityId`);
+export function StandaloneOwnerList() {
+  // Load the items from server
+  const { loading, error, data } = useQuery(OWNER_LIST);
+  const items = data?.ownerList;
 
-    const { loading, error, data } = useQuery(OWNER_LIST);
+  // If we have navigated here using a link, or a page has been refreshed,
+  // we need to check whether the url contains the item id, and if yes - open item editor/details screen.
+  useItemUrl();
 
-    const [executeDeleteMutation] = useMutation(DELETE__OWNER, {
-      refetchQueries: [OWNER_LIST]
-    });
+  return (
+    <div className="narrow-layout">
+      <Space direction="vertical" style={{ width: "100%" }}>
+        <ButtonPanel />
+        <Cards items={items} loading={loading} error={error} />
+        {/* <Pagination /> - in future */}
+      </Space>
+    </div>
+  );
+}
 
-    // Entity list can work in select mode, which means that you can select an entity instance and it will be passed to onSelect callback.
-    // This functionality is used in EntityLookupField.
-    const isSelectMode = onSelect != null;
+/**
+ * Checks whether the url contains the item id, and if yes - open item editor/details screen.
+ */
+function useItemUrl() {
+  const screens = useScreens();
+  const match = useRouteMatch<{ id: string }>(`/${ROUTE}/:id`);
 
-    const openItem = useCallback((id?: string) => {
-      // TODO Uncomment the code below, specify the editor component and remove the alert
-      alert("Please specify the editor component");
-      // const params: OpenInBreadcrumbParams = {
-      //   breadcrumbCaption: intl.formatMessage({ id: "screen.ExampleComponentName" }), // TODO specify message id
-      //   component: ExampleComponentName, // TODO specify component name
-      // };
-      // if (id != null && id !== 'new') {
-      //   params.props = { id };
-      // }
-      // screens.openInBreadcrumb(params);
-      // // Append /id to existing url
-      // history.push(id ? `/${ROUTE}/${id}` : `/${ROUTE}/new`);
-    }, []);
+  const openItem = () => alert("Please specify the editor/details component");
+  // TODO Uncomment the code below and use it in place of above callback
+  // const openItem = useOpenItemScreen({
+  //   route: ROUTE,
+  //   screenComponent: ExampleComponentName, // TODO specify component name
+  //   screenCaptionKey: 'screen.ExampleComponentName', // TODO specify screen caption key
+  //   refetchQueries: REFETCH_QUERIES,
+  //   id: match?.params.id
+  // });
 
-    useEffect(() => {
-      if (
-        screens.activeTab?.breadcrumbs.length === 1 &&
-        match?.params.entityId != null
-      ) {
-        openItem(match.params.entityId);
-      }
-    }, [match, openItem, screens]);
-
-    useDefaultBrowserHotkeys({ openEditor: openItem });
-
-    if (loading) {
-      return <Spin />;
-    }
-
-    if (error) {
-      return (
-        <Result
-          status="error"
-          title={<FormattedMessage id="common.requestFailed" />}
-        />
-      );
-    }
-
-    const items = data?.ownerList;
-
-    return (
-      <div className="narrow-layout">
-        {!isSelectMode && (
-          <div style={{ marginBottom: "12px" }}>
-            <Button
-              htmlType="button"
-              key="create"
-              title='intl.formatMessage({id: "common.create"})'
-              type="primary"
-              icon={<PlusOutlined />}
-              onClick={() => openItem()}
-            >
-              <span>
-                <FormattedMessage id="common.create" />
-              </span>
-            </Button>
-          </div>
-        )}
-        {isSelectMode && (
-          <div style={{ marginBottom: "12px" }}>
-            <Button
-              htmlType="button"
-              key="close"
-              title='intl.formatMessage({id: "common.close"})'
-              type="primary"
-              icon={<CloseOutlined />}
-              onClick={screens.closeActiveBreadcrumb}
-            >
-              <span>
-                <FormattedMessage id="common.close" />
-              </span>
-            </Button>
-          </div>
-        )}
-
-        {items == null || items.length === 0 ? (
-          <Empty />
-        ) : (
-          items.map((e: any) => (
-            <Card
-              key={e["id"]}
-              title={guessDisplayName(e)}
-              style={{ marginBottom: "12px" }}
-              actions={getCardActions({
-                screens,
-                entityInstance: e,
-                onSelect,
-                executeDeleteMutation,
-                intl,
-                openItem
-              })}
-            >
-              <Fields entity={e} />
-            </Card>
-          ))
-        )}
-      </div>
-    );
+  if (screens.activeTab?.breadcrumbs.length === 1 && match?.params.id != null) {
+    openItem();
   }
-);
+}
 
-const Fields = ({ entity }: { entity: any }) => (
-  <>
-    {Object.keys(entity)
-      .filter(p => p !== "id" && entity[p] != null)
-      .map(p => (
-        <div key={p}>
-          <strong>{guessLabel(p)}:</strong> {renderFieldValue(entity, p)}
-        </div>
+/**
+ * Button panel above the cards
+ */
+function ButtonPanel() {
+  const intl = useIntl();
+
+  // A callback that will open an empty editor form so that a new entity instance can be created
+  const openEmptyEditor = () => alert("Please specify the editor component");
+  // TODO Uncomment the code below and use it in place of above callback
+  // const openEmptyEditor = useOpenItemScreen({
+  //   route: ROUTE,
+  //   screenComponent: ExampleComponentName, // TODO specify component name
+  //   screenCaptionKey: 'screen.ExampleComponentName', // TODO specify screern caption key
+  //   refetchQueries: REFETCH_QUERIES
+  // });
+
+  return (
+    <div>
+      <Button
+        htmlType="button"
+        key="create"
+        title={intl.formatMessage({ id: "common.create" })}
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={openEmptyEditor}
+      >
+        <span>
+          <FormattedMessage id="common.create" />
+        </span>
+      </Button>
+    </div>
+  );
+}
+
+interface ItemCardsListProps {
+  items?: ItemListType;
+  loading?: boolean;
+  error?: ApolloError;
+}
+
+/**
+ * Collection of cards, each card representing an item
+ */
+function Cards({ items, loading, error }: ItemCardsListProps) {
+  if (loading) {
+    return <Spin />;
+  }
+
+  if (error) {
+    return <RequestFailedError />;
+  }
+
+  if (items == null || items.length === 0) {
+    return <Empty />;
+  }
+
+  return (
+    <Space direction="vertical" style={{ width: "100%" }}>
+      {items.map(item => (
+        <ItemCard item={item} key={item?.id} />
       ))}
-  </>
-);
-
-function renderFieldValue(entity: any, property: string): string {
-  return typeof entity[property] === "object"
-    ? guessDisplayName(entity[property])
-    : String(entity[property]);
+    </Space>
+  );
 }
 
-interface CardActionsInput {
-  screens: Screens;
-  entityInstance: any;
-  onSelect?: (entityInstance: this["entityInstance"]) => void;
-  executeDeleteMutation: (
-    options?: MutationFunctionOptions<any, Exact<{ id: any }>>
-  ) => Promise<FetchResult>;
-  intl: IntlShape;
-  openItem: (id?: string) => void;
-}
+function ItemCard({ item }: { item: ItemType }) {
+  // Get the action buttons that will be displayed in the card
+  const cardActions: ReactNode[] = useCardActions(item);
 
-function getCardActions(input: CardActionsInput) {
-  const {
-    screens,
-    entityInstance,
-    onSelect,
-    executeDeleteMutation,
-    intl,
-    openItem
-  } = input;
-
-  if (onSelect == null) {
-    return [
-      <DeleteOutlined
-        key="delete"
-        title={intl.formatMessage({ id: "common.remove" })}
-        onClick={() => {
-          Modal.confirm({
-            content: intl.formatMessage({
-              id: "EntityListScreen.deleteConfirmation"
-            }),
-            okText: intl.formatMessage({ id: "common.ok" }),
-            cancelText: intl.formatMessage({ id: "common.cancel" }),
-            onOk: () => {
-              return executeDeleteMutation({
-                variables: {
-                  id: entityInstance.id
-                }
-              });
-            }
-          });
-        }}
-      />,
-      <EditOutlined
-        key="edit"
-        title={intl.formatMessage({ id: "common.edit" })}
-        onClick={() => {
-          openItem(entityInstance.id);
-        }}
-      />
-    ];
+  if (item == null) {
+    return null;
   }
 
-  // onSelect != null
+  return (
+    <Card
+      key={item.id}
+      title={guessDisplayName(item)}
+      actions={cardActions}
+      className="narrow-layout"
+    >
+      <ValueWithLabel
+        key="firstName"
+        label="First Name"
+        value={item.firstName ?? undefined}
+      />
+      <ValueWithLabel
+        key="lastName"
+        label="Last Name"
+        value={item.lastName ?? undefined}
+      />
+      <ValueWithLabel key="city" label="City" value={item.city ?? undefined} />
+    </Card>
+  );
+}
+
+/**
+ * Returns action buttons that will be displayed inside the card.
+ */
+function useCardActions(item: ItemType): ReactNode[] {
+  const intl = useIntl();
+
+  // Callback that opens an editor either for creating or for editing an item
+  // depending on whether `item` is provided
+  const openItem = () => alert("Please specify the editor/details component");
+  // TODO Uncomment the code below and use it in place of above callback
+  // const openItem = useOpenItemScreen({
+  //   route: ROUTE,
+  //   screenComponent: ExampleComponentName, // TODO specify component name
+  //   screenCaptionKey: 'screen.ExampleComponentName', // TODO specify screen caption key
+  //   refetchQueries: REFETCH_QUERIES,
+  //   id: item?.id
+  // });
+
+  const [runDeleteMutation] = useMutation(DELETE__OWNER);
+  // Callback that deletes the item
+  const deleteItem = useDeleteItem(
+    item?.id,
+    runDeleteMutation,
+    REFETCH_QUERIES
+  );
+
   return [
-    <CheckOutlined
-      key="select"
-      title={intl.formatMessage({
-        id: "EntityLookupField.selectEntityInstance"
-      })}
-      onClick={() => {
-        onSelect(entityInstance);
-        screens.closeActiveBreadcrumb();
-      }}
+    <EditOutlined
+      key="edit"
+      title={intl.formatMessage({ id: "common.edit" })}
+      onClick={openItem}
+    />,
+    <DeleteOutlined
+      key="delete"
+      title={intl.formatMessage({ id: "common.remove" })}
+      onClick={deleteItem}
     />
   ];
 }
+
+/**
+ * Type of data object received when executing the query
+ */
+type QueryResultType = ResultOf<typeof OWNER_LIST>;
+/**
+ * Type of the items list
+ */
+type ItemListType = QueryResultType["ownerList"];
+/**
+ * Type of a single item
+ */
+type ItemType = Exclude<ItemListType, null | undefined>[0];

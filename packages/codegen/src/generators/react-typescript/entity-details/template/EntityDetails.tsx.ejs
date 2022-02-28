@@ -4,13 +4,21 @@ import {gql} from '@amplicode/gql';
 import {useQuery} from '@apollo/client';
 import {FormattedMessage} from 'react-intl';
 import {useHistory} from "react-router-dom";
-import {useScreens, EntityDetailsScreenProps, guessDisplayName, guessLabel} from "@amplicode/react-core";
+import {useScreens, guessDisplayName, guessLabel} from "@amplicode/react-core";
 
 const <%= toFatSnakeCase(queryName) %> = gql(/* GraphQL */ `
 <%= queryString %>
 `);
 
-export const <%= componentName %> = ({id}: EntityDetailsScreenProps) => {
+export interface <%= componentName %>Props {
+  /**
+   * id of entity instance to be loaded when editing an instance.
+   * Will be `undefined` when creating an instance.
+   */
+  id?: string;
+}
+
+export function <%= componentName %>({id}: <%= componentName %>Props) {
   const screens = useScreens();
   const history = useHistory();
 
@@ -47,19 +55,18 @@ export const <%= componentName %> = ({id}: EntityDetailsScreenProps) => {
                     title={guessDisplayName(item)}
                     column={1}
       >
-        {Object.keys(item)
-          .filter(p => p !== id)
-          .map((p: string) => {
-            const propertyName = p as keyof typeof item;
-            return (
-              <Descriptions.Item
-                label={<strong>{guessLabel(propertyName)}</strong>}
-              >
-                {typeof item[propertyName] === "object"
-                  ? guessDisplayName(item[propertyName])
-                  : String(item[propertyName])}
-              </Descriptions.Item>);
-          })}
+        <% attributes.forEach(attr => { -%>
+          <Descriptions.Item
+            label={<strong><%= attr.displayName %></strong>}
+          >
+            <% if (!attr.isRelation) { -%>
+              {item.<%= attr.name %> ?? undefined}
+            <% } -%>
+            <% if (attr.isRelation) { -%>
+              {guessDisplayName(item.<%= attr.name %> ?? undefined)}
+            <% } -%>
+          </Descriptions.Item>
+        <% }) -%>
       </Descriptions>
       <Button htmlType="button"
               onClick={goToParentScreen}
@@ -68,6 +75,4 @@ export const <%= componentName %> = ({id}: EntityDetailsScreenProps) => {
       </Button>
     </Card>
   );
-};
-
-export default <%= componentName %>;
+}

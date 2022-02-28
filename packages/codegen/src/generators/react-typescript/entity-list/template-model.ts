@@ -2,9 +2,12 @@ import {templateUtilities, UtilTemplateModel} from "../../../building-blocks/sta
 import {AmplicodeTemplateModelStage} from "../../../building-blocks/pipelines/amplicodePipeline";
 import {AmplicodeComponentOptions} from "../../../building-blocks/stages/options/pieces/amplicode";
 import {EntityListMode, EntityListAnswers} from "./answers";
-import {GraphQLSchema} from "graphql";
+import {DocumentNode, GraphQLSchema} from "graphql";
 import gql from "graphql-tag";
-import {getOperationName} from "../../../building-blocks/stages/template-model/pieces/amplicode/amplicode";
+import {
+  getOperationName,
+  getQueryName
+} from "../../../building-blocks/stages/template-model/pieces/amplicode/amplicode";
 import {
   baseTemplateModel,
   BaseTemplateModel
@@ -13,6 +16,9 @@ import {
   deriveScreenTemplateModel,
   ScreenTemplateModel
 } from "../../../building-blocks/stages/template-model/pieces/amplicode/ScreenTemplateModel";
+import {AttributeModel} from "../../../building-blocks/stages/template-model/pieces/entity";
+import {capitalizeFirst, splitByCapitalLetter} from "../../../common/utils";
+import {getEntityAttributes} from "../../../building-blocks/stages/template-model/pieces/entity-management/getEntityAttributes";
 
 export interface EntityListTemplateModel extends
   BaseTemplateModel, UtilTemplateModel, ScreenTemplateModel {
@@ -22,6 +28,9 @@ export interface EntityListTemplateModel extends
   deleteMutationString?: string,
   idField: string,
   mode: EntityListMode;
+  attributes: AttributeModel[];
+  itemComponentName?: string;
+  refetchQuery: string;
 }
 
 export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<AmplicodeComponentOptions, EntityListAnswers, EntityListTemplateModel> = async (
@@ -38,7 +47,9 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
   const queryNode = gql(queryString);
   const mutationNode = deleteMutationString != null ? gql(deleteMutationString) : undefined;
   const queryName = getOperationName(queryNode);
+  const refetchQuery = getQueryName(queryNode);
   const deleteMutationName = mutationNode != null ? getOperationName(mutationNode) : undefined;
+  const attributes = getEntityAttributes(queryNode, idField);
 
   return {
     ...baseTemplateModel,
@@ -49,8 +60,12 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
     queryString,
     deleteMutationName,
     deleteMutationString,
+    attributes,
     idField,
-    mode
+    mode,
+    refetchQuery
   };
 };
+
+
 
