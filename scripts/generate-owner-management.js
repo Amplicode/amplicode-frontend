@@ -42,6 +42,7 @@ mutation Update_Owner($input: OwnerInputDTOInput) {
 const ownerManagementAnswers = btoa(JSON.stringify({
   listComponentName: 'OwnerList',
   itemComponentName: 'OwnerEditor',
+  route: 'owner-list',
   shouldAddToMenu: true,
   listQuery: esc(ownerListQuery),
   detailsQuery: esc(ownerDetailsQuery),

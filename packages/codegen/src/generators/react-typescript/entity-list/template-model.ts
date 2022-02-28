@@ -22,6 +22,7 @@ import {getEntityAttributes} from "../../../building-blocks/stages/template-mode
 export interface EntityListTemplateModel extends
   BaseTemplateModel, UtilTemplateModel, ScreenTemplateModel {
   queryName: string,
+  route: string,
   queryString: string,
   deleteMutationName?: string,
   deleteMutationString?: string,
@@ -37,6 +38,7 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
 ): Promise<EntityListTemplateModel> => {
   const {
     componentName,
+    route,
     query: queryString,
     mutation: deleteMutationString,
     mode = 'edit',
@@ -55,6 +57,7 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
     ...templateUtilities,
     ...deriveScreenTemplateModel(options, answers),
     componentName,
+    route,
     queryName,
     queryString,
     deleteMutationName,

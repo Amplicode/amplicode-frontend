@@ -19,6 +19,7 @@ mutation Delete_Owner($id: BigInteger!) {
 
 const standaloneListAnswers = btoa(JSON.stringify({
   componentName: 'StandaloneOwnerList',
+  route: 'standalone-owner-list',
   shouldAddToMenu: true,
   query: esc(ownerListQuery),
   mutation: esc(ownerDeleteMutation),

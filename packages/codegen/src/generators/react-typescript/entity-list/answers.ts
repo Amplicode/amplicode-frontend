@@ -6,6 +6,7 @@ export type EntityListMode = 'edit' | 'view' | 'view with details';
 export type EntityListAnswers =
   ScreenAnswers & {
   mode?: EntityListMode;
+  route: string;
   query: string;
   mutation?: string;
   idField?: string;
@@ -18,6 +19,13 @@ export const entityListQuestions = [
     propertyType: StudioTemplatePropertyType.POLYMER_COMPONENT_NAME,
     defaultValue: 'List',
     required: true
+  },
+  {
+    caption: 'Component route',
+    code: 'route',
+    propertyType: StudioTemplatePropertyType.ROUTE,
+    required: true,
+    relatedProperty: 'componentName'
   },
   {
     caption: 'Entity list mode',

@@ -5,6 +5,7 @@ import {ScreenAnswers} from "../../../building-blocks/stages/answers/amplicode/S
 export interface EntityManagementAnswers extends ScreenAnswers {
   listComponentName: string,
   itemComponentName: string,
+  route: string,
   mode?: EntityListMode;
   listQuery: string,
   detailsQuery: string,
@@ -20,6 +21,17 @@ export const commonEntityManagementQuestions =  [
     propertyType: StudioTemplatePropertyType.POLYMER_COMPONENT_NAME,
     defaultValue: 'List',
     required: true,
+    step: {
+      name: "Entity List",
+      order: "1"
+    }
+  },
+  {
+    caption: 'List component route',
+    code: 'route',
+    propertyType: StudioTemplatePropertyType.ROUTE,
+    required: true,
+    relatedProperty: 'listComponentName',
     step: {
       name: "Entity List",
       order: "1"

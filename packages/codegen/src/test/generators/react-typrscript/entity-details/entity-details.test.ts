@@ -64,6 +64,7 @@ describe('codegen entity-details test', () => {
 
     const editorAnswers:MvpEntityEditorAnswers = {
       query: getOwnerQuery,
+      route: 'owner-editor',
       refetchQueryName: 'Get_Owner',
       mutation: ownerUpsertMutation,
       componentName: 'OwnerEditor',
@@ -102,6 +103,7 @@ describe('codegen entity-details test', () => {
 
     const answers:MvpEntityEditorAnswers = {
       query: findQuery,
+      route: 'test-dto-editor',
       refetchQueryName: 'Get_TestDto',
       mutation: updateMutation,
       componentName: 'TestDtoEditor',
