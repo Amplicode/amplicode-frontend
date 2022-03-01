@@ -1,5 +1,5 @@
 import {OpenInBreadcrumbParams, ReactComponent, useScreens} from "@amplicode/react-core";
-import {useHistory, useLocation} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {useCallback} from "react";
 import {RefetchQueries} from "../type-aliases/RefetchQueries";
 import {useIntl} from "react-intl";

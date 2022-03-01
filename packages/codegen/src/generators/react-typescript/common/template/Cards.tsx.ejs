@@ -69,12 +69,10 @@ import {
 } from "@amplicode/react-core";
 import {gql} from "@amplicode/gql";
 <% if (withItemComponent) { -%>
-  import { <%= itemComponentName %> } from "./<%= itemComponentName %>"
-<% } -%>
-import {ValueWithLabel} from "<%= relDirShift %>core/crud/ValueWithLabel";
-<% if (withItemComponent) { -%>
+  import { <%= itemComponentName %> } from "./<%= itemComponentName %>";
   import {useOpenItemScreen} from "<%= relDirShift %>core/crud/useOpenItemScreen";
 <% } -%>
+import {ValueWithLabel} from "<%= relDirShift %>core/crud/ValueWithLabel";
 <% if (withDeleteAction) { -%>
   import {useDeleteItem} from "<%= relDirShift %>core/crud/useDeleteItem";
 <% } -%>

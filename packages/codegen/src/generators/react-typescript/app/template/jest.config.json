@@ -1,0 +1,13 @@
+
+  {
+  "setupFiles": ["./jestSetup.js"],
+  "testEnvironment": "jsdom",
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest",
+    "^.+\\.(js|jsx|mjs|cjs)$": "babel-jest",
+    "^.+\\.css$": "./stylesTransform.js"
+  },
+  "transformIgnorePatterns": [
+    "/node_modules/(?!antd|@ant-design|rc-.+?|@babel/runtime).+(js|jsx)$"
+  ]
+}
