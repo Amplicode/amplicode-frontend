@@ -18,7 +18,7 @@ import { useCloseNestedScreen } from "./useCloseNestedScreen";
  *
  * @param mutation
  * @param setFormError
- * @param refetchQueries See {@link EntityDetailsScreenProps.refetchQueries}
+ * @param refetchQueries
  * @param id entity instance id (when editing an entity, otherwise undefined)
  */
 export function useSubmit<TData>(

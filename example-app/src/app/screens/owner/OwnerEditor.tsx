@@ -83,11 +83,11 @@ interface EditorFormProps<TData> {
    */
   item?: ItemType;
   /**
-   * See {@link EntityDetailsScreenProps.id}
+   *
    */
   id?: string;
   /**
-   * See {@link EntityDetailsScreenProps.refetchQueries}
+   *
    */
   refetchQueries?: RefetchQueries<TData>;
 }
@@ -243,7 +243,7 @@ function useLoadItem(id?: string) {
  * @param form
  * @param item
  */
-export function useFormData<ItemType extends Record<string, unknown> | null>(
+function useFormData<ItemType extends Record<string, unknown> | null>(
   form: FormInstance,
   item?: ItemType
 ) {

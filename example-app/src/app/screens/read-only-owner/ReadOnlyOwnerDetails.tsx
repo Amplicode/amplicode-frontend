@@ -1,11 +1,12 @@
 import { useCallback } from "react";
-import { Card, Spin, Result, Empty, Descriptions, Button } from "antd";
+import { Card, Spin, Empty, Descriptions, Button } from "antd";
 import { gql } from "@amplicode/gql";
 import { useQuery } from "@apollo/client";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router-dom";
 import { useScreens } from "@amplicode/react-core";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
+import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 
 const OWNER = gql(/* GraphQL */ `
   query Get_Owner($id: BigInteger) {
@@ -51,12 +52,7 @@ export function ReadOnlyOwnerDetails({ id }: ReadOnlyOwnerDetailsProps) {
   }
 
   if (queryError) {
-    return (
-      <Result
-        status="error"
-        title={<FormattedMessage id="common.requestFailed" />}
-      />
-    );
+    return <RequestFailedError />;
   }
 
   if (item == null) {
