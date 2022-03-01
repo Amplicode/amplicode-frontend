@@ -55,7 +55,7 @@ describe('codegen entity-details test', () => {
     await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-details'), opts(DEST_DIR, detailsAnswers, SCHEMA_PATH));
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
-    expect(componentFile).to.contain('export const OwnerDetails');
+    expect(componentFile).to.contain('export function OwnerDetails');
     expect(componentFile).to.contain('query Get_Owner($id: BigInteger) {');
   });
 
@@ -76,10 +76,9 @@ describe('codegen entity-details test', () => {
     await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-details'), opts(DEST_DIR, editorAnswers, SCHEMA_PATH));
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
-    expect(componentFile).to.contain('export const OwnerEditor');
+    expect(componentFile).to.contain('export function OwnerEditor');
     expect(componentFile).to.contain('query Get_Owner($id: BigInteger) {');
     expect(componentFile).to.contain('mutation Update_Owner($input: OwnerInputDTOInput) {');
-    expect(componentFile).to.contain('refetchQueries: ["Get_Owner"]');
   });
 
 
@@ -125,7 +124,7 @@ describe('codegen entity-details test', () => {
         </Form.Item>`;
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
-    expect(componentFile).to.contain('export const TestDtoEditor');
+    expect(componentFile).to.contain('export function TestDtoEditor');
     // compare form item ignore spaces
     expect(componentFile.replace(/\s/g,'')).to.contain(expectBoolFormItem.replace(/\s/g,''));
   });

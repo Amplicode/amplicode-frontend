@@ -2,7 +2,7 @@ import {templateUtilities, UtilTemplateModel} from "../../../building-blocks/sta
 import {AmplicodeTemplateModelStage} from "../../../building-blocks/pipelines/amplicodePipeline";
 import {AmplicodeComponentOptions} from "../../../building-blocks/stages/options/pieces/amplicode";
 import {EntityListMode, EntityListAnswers} from "./answers";
-import {DocumentNode, GraphQLSchema} from "graphql";
+import {GraphQLSchema} from "graphql";
 import gql from "graphql-tag";
 import {
   getOperationName,
@@ -17,7 +17,6 @@ import {
   ScreenTemplateModel
 } from "../../../building-blocks/stages/template-model/pieces/amplicode/ScreenTemplateModel";
 import {AttributeModel} from "../../../building-blocks/stages/template-model/pieces/entity";
-import {capitalizeFirst, splitByCapitalLetter} from "../../../common/utils";
 import {getEntityAttributes} from "../../../building-blocks/stages/template-model/pieces/entity-management/getEntityAttributes";
 
 export interface EntityListTemplateModel extends
