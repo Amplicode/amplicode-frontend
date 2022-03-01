@@ -9,8 +9,8 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { useScreens } from "@amplicode/react-core";
 import { gql } from "@amplicode/gql";
 import { ReadOnlyOwnerCardsDetails } from "./ReadOnlyOwnerCardsDetails";
-import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
+import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 

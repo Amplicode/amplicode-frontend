@@ -22,7 +22,6 @@ describe('codegen app test', () => {
     const codegenConfigPath = path.join(DEST_DIR, 'codegen.yml');
     const devEnvPath = path.join(DEST_DIR, '.env.development.local');
     const prodEnvPath = path.join(DEST_DIR, '.env.production.local');
-    const manifestPath = path.join(DEST_DIR, 'public', 'manifest.json');
 
       // check that we remove previously generated app
     assert.ok(!fs.existsSync(codegenConfigPath));
@@ -37,13 +36,8 @@ describe('codegen app test', () => {
     const doc = yaml.load(fs.readFileSync(codegenConfigPath, 'utf-8'));
     expect((doc as any).schema).eq('../../../../fixtures/schema/schema.graphql');
 
-    expect(fs.readFileSync(devEnvPath, 'utf-8')).to.contain('REACT_APP_GRAPHQL_URI=/graphql');
-    expect(fs.readFileSync(prodEnvPath, 'utf-8')).to.contain('REACT_APP_GRAPHQL_URI=/graphql');
-    expect(fs.readFileSync(prodEnvPath, 'utf-8')).to.contain('PUBLIC_URL=/front/');
-
-    const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
-    expect(manifest['short_name']).to.eq('ampl-petclinic');
-    expect(manifest['name']).to.eq('Amplicode Petclinic');
+    expect(fs.readFileSync(devEnvPath, 'utf-8')).to.contain('VITE_GRAPHQL_URI=/graphql');
+    expect(fs.readFileSync(prodEnvPath, 'utf-8')).to.contain('VITE_GRAPHQL_URI=/graphql');
   });
 
 });

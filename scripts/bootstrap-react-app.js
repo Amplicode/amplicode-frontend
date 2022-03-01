@@ -16,6 +16,7 @@ runCmdSync('lerna run prepublishOnly');
 runCmdSync(`lerna exec --scope '{@amplicode/react-core,@amplicode/react-antd}' "npm pack"`);
 
 runCmdSync('cd example-app && npm i');
+runCmdSync('cd example-app && npm run generate');
 installLocalPackage('react-core');
 installLocalPackage('react-antd');
 
