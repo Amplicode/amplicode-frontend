@@ -26,7 +26,7 @@ export interface OpenItemScreenParams<TData> {
  * @param screenComponent item editor component
  * @param screenCaptionKey caption for the editor screen
  * @param id id of the entity instance to be opened
- * @param refetchQueries See {@link EntityDetailsScreenProps.refetchQueries}
+ * @param refetchQueries
  */
 export function useOpenItemScreen<TData = any>({
   route,

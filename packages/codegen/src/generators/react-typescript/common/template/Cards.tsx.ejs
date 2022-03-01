@@ -67,7 +67,7 @@ import {gql} from "@amplicode/gql";
   import { <%= itemComponentName %> } from "./<%= itemComponentName %>"
 <% } -%>
 import {ValueWithLabel} from "<%= relDirShift %>core/crud/ValueWithLabel";
-<% if (mode === 'edit' || mode === 'view with details') { -%>
+<% if (withItemComponent) { -%>
   import {useOpenItemScreen} from "<%= relDirShift %>core/crud/useOpenItemScreen";
 <% } -%>
 <% if (withDeleteAction) { -%>
