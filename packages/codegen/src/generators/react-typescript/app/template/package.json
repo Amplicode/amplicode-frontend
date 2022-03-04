@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@amplicode/react-core": "^0.7.1",
+    "@amplicode/react-core": "^0.8.0",
     "@amplicode/react-antd": "^0.7.1",
     "@ant-design/icons": "^4.6.3",
     "@apollo/client": "~3.4.8",
