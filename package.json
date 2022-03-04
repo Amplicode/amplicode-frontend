@@ -27,7 +27,7 @@
     "inject-test-addon": "node scripts/inject-test-addon.js",
     "remove-test-addon": "node scripts/remove-test-addon.js",
     "start-react-app": "npm start --prefix example-app",
-    "publish:versions": "lerna version -m 'chore: bump versions' --no-push --conventional-commits",
+    "publish:versions": "lerna version -m 'chore: bump versions' --no-push --conventional-commits --conventional-graduate",
     "publish:prerelease-versions": "lerna version -m 'chore: bump versions (prerelease)' --no-push --conventional-commits --conventional-prerelease --preid next",
     "test": "lerna run test -- -- --passWithNoTests",
     "lint": "lerna run lint -- -- --max-warnings 0",
