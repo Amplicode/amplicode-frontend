@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.9.0-next.0...@amplicode/codegen@0.9.0) (2022-03-04)
+
+
+### Features
+
+* add generated screens to preview [#98](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/98) ([1dc1726](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/1dc172600a8df507121c80263ec2a26c7af293d0))
+* restructure CRUD screens for better readbility [#162](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/162) ([6369582](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/636958233a7153227b766d63bfab995e7c99b5b4))
+
+
+
+
+
 # [0.9.0-next.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.8.0...@amplicode/codegen@0.9.0-next.0) (2022-02-22)
 
 

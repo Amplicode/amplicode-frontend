@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.7.1...@amplicode/react-core@0.8.0) (2022-03-04)
+
+
+### Features
+
+* restructure CRUD screens for better readbility [#162](https://github.com/Amplicode/amplicode-frontend/issues/162) ([6369582](https://github.com/Amplicode/amplicode-frontend/commit/636958233a7153227b766d63bfab995e7c99b5b4))
+
+
+
+
+
 ## [0.7.1](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.7.0...@amplicode/react-core@0.7.1) (2022-02-04)
 
 
