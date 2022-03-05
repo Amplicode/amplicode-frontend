@@ -13,7 +13,8 @@ import {
 } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { EntityLookupField } from "@amplicode/react-antd";
-import { guessDisplayName } from "@amplicode/react-core";
+import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
+import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { gql } from "@amplicode/gql";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { useSubmit } from "../../../core/crud/useSubmit";
@@ -28,7 +29,13 @@ const PET = gql(/* GraphQL */ `
     pet(id: $id) {
       id
       identificationNumber
+      birthDate
+      type {
+        id
+        name
+      }
       owner {
+        id
         firstName
         lastName
       }
@@ -153,9 +160,7 @@ function FormFields() {
 
       <Form.Item name="owner" label="Owner" style={{ marginBottom: "12px" }}>
         <EntityLookupField
-          getDisplayName={(value: Record<string, unknown>) =>
-            guessDisplayName(value)
-          }
+          getDisplayName={getOwnerDTODisplayName}
           label="Owner"
           // TODO Uncomment the code and specify the list component
           // listComponent={YourEntityListComponentName}
@@ -164,9 +169,7 @@ function FormFields() {
 
       <Form.Item name="type" label="Type" style={{ marginBottom: "12px" }}>
         <EntityLookupField
-          getDisplayName={(value: Record<string, unknown>) =>
-            guessDisplayName(value)
-          }
+          getDisplayName={getPetTypeDTODisplayName}
           label="Type"
           // TODO Uncomment the code and specify the list component
           // listComponent={YourEntityListComponentName}

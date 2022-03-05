@@ -6,13 +6,16 @@ import { Button, Card, Empty, Space, Spin } from "antd";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { useRouteMatch } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
-import { guessDisplayName, useScreens } from "@amplicode/react-core";
+import { useScreens } from "@amplicode/react-core";
 import { gql } from "@amplicode/gql";
 import { PetEditor } from "./PetEditor";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
+import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
+import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
+import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 
 const ROUTE = "pet-list";
 const REFETCH_QUERIES = ["Get_Pet_List"];
@@ -22,7 +25,13 @@ const PET_LIST = gql(/* GraphQL */ `
     petList {
       id
       identificationNumber
+      birthDate
+      type {
+        id
+        name
+      }
       owner {
+        id
         firstName
         lastName
       }
@@ -150,10 +159,15 @@ function ItemCard({ item }: { item: ItemType }) {
   return (
     <Card
       key={item.id}
-      title={guessDisplayName(item)}
+      title={getPetDTODisplayName(item)}
       actions={cardActions}
       className="narrow-layout"
     >
+      <ValueWithLabel
+        key="birthDate"
+        label="Birth Date"
+        value={item.birthDate ?? undefined}
+      />
       <ValueWithLabel
         key="identificationNumber"
         label="Identification Number"
@@ -162,7 +176,12 @@ function ItemCard({ item }: { item: ItemType }) {
       <ValueWithLabel
         key="owner"
         label="Owner"
-        value={guessDisplayName(item.owner ?? undefined)}
+        value={getOwnerDTODisplayName(item.owner ?? undefined)}
+      />
+      <ValueWithLabel
+        key="type"
+        label="Type"
+        value={getPetTypeDTODisplayName(item.type ?? undefined)}
       />
     </Card>
   );

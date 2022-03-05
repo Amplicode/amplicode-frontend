@@ -1,0 +1,56 @@
+export function get<%= capitalizeFirst(entityName) %>DisplayName<TEntity extends Record<string, unknown>>(entityInstance?: TEntity): string {
+  if (entityInstance == null) {
+    return '';
+  }
+<% if (attributes.includes('name')) { -%>
+  if (entityInstance.name != null) {
+    return String(entityInstance.name);
+  }
+<% } -%>
+<% if (attributes.includes('title')) { -%>
+  if (entityInstance.title != null) {
+    return String(entityInstance.title);
+  }
+<% } -%>
+<% if (attributes.includes('caption')) { -%>
+  if (entityInstance.caption != null) {
+    return String(entityInstance.caption);
+  }
+<% } -%>
+<% if (attributes.includes('label')) { -%>
+  if (entityInstance.label != null) {
+    return String(entityInstance.label);
+  }
+<% } -%>
+<% if (attributes.includes('summary')) { -%>
+  if (entityInstance.summary != null) {
+    return String(entityInstance.summary);
+  }
+<% } -%>
+<% if (attributes.includes('description')) { -%>
+  if (entityInstance.description != null) {
+    return String(entityInstance.description);
+  }
+<% } -%>
+<% if (attributes.includes('firstName') && attributes.includes('lastName')) { -%>
+  if (entityInstance.firstName != null && entityInstance.lastName != null) {
+    return String(`${entityInstance.firstName} ${entityInstance.lastName}`);
+  }
+<% } -%>
+<% if (attributes.includes('firstName')) { -%>
+    if (entityInstance.firstName != null) {
+      return String(entityInstance.firstName);
+    }
+<% } -%>
+<% if (attributes.includes('lastName')) { -%>
+  if (entityInstance.lastName != null) {
+    return String(entityInstance.lastName);
+  }
+<% } -%>
+<% if (attributes.includes(idAttrName)) { -%>
+  if (entityInstance.<%= idAttrName %> != null) {
+    return String(entityInstance.<%= idAttrName %>);
+  }
+<% } -%>
+  return JSON.stringify(entityInstance);
+}

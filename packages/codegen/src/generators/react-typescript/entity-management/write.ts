@@ -7,5 +7,5 @@ export async function writeManagement(
   templateModel: EntityManagementTemplateModel, gen: YeomanGenerator
 )  {
   await writeEntityDetails(templateModel.entityDetailsTemplateModel, gen);
-  await  writeEntityList(templateModel.entityListTemplateModel, gen);
+  await writeEntityList(templateModel.entityListTemplateModel, gen);
 }

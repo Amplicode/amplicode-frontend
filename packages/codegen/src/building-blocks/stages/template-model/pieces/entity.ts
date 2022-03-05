@@ -8,6 +8,8 @@ export interface AttributeModel {
   displayName: string;
   enumOptions?: Array<GraphQLEnumValue>;
   isRelationField: boolean;
+  nestedAttributes?: string[];
+  idField?: string;
 }
 
 export interface EntityWithPath extends Entity {

@@ -7,6 +7,9 @@ query Get_Owner_List {
     firstName
     lastName
     city
+    address
+    telephone
+    email
   }
 }
 `;
@@ -19,8 +22,8 @@ query Get_Owner($id: BigInteger) {
     lastName
     city
     address
-    email
     telephone
+    email
   }
 }
 `;
