@@ -29,8 +29,8 @@ const OWNER = gql(/* GraphQL */ `
       lastName
       city
       address
-      email
       telephone
+      email
     }
   }
 `);

@@ -6,6 +6,7 @@ import fs from "fs";
 import prettier = require('prettier');
 import path from "path";
 import {strictEqual} from "assert";
+import {loadSchema} from "@graphql-tools/load";
 
 const enumsModel: Enum[] = require('./fixtures/enums-model.json');
 const entityModel: Entity = require('./fixtures/entity-model.json');
@@ -74,4 +75,10 @@ export function assertFilesPlain(filePath: string, clientDir: string, fixturesDi
  */
 export function stripNewLines(str: string): string {
   return str.replace(/\r\n|\n/g, '');
+}
+
+export async function getMockSchema() {
+  const schemaPath = path.join(__dirname, '../../../../scripts/schema.graphql');
+  const schemaString = fs.readFileSync(schemaPath, 'utf-8');
+  return await loadSchema(schemaString, {loaders: []});
 }

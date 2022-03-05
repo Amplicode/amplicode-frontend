@@ -1,8 +1,5 @@
 import {MvpEntityEditorTemplateModel, deriveEntityDetailsTemplateModel} from "../entity-details/template-model";
 import {EntityManagementAnswers} from "./answers";
-import {
-  getQueryName,
-} from "../../../building-blocks/stages/template-model/pieces/amplicode/amplicode";
 import {AmplicodeComponentOptions} from "../../../building-blocks/stages/options/pieces/amplicode";
 import {GraphQLSchema} from "graphql";
 import gql from "graphql-tag";
@@ -16,6 +13,7 @@ import {
   ScreenTemplateModel
 } from "../../../building-blocks/stages/template-model/pieces/amplicode/ScreenTemplateModel";
 import {deriveEntityListTemplateModel, EntityListTemplateModel} from "../entity-list/template-model";
+import {getOperationDefinitionName} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getOperationDefinitionName";
 
 export interface EntityManagementTemplateModel extends BaseTemplateModel, UtilTemplateModel, ScreenTemplateModel {
   entityListTemplateModel: EntityListTemplateModel;
@@ -48,7 +46,7 @@ export const deriveManagementTemplateModel = async (
       query: detailsQuery,
       mutation: upsertMutation,
       shouldAddToMenu: false,
-      refetchQueryName: getQueryName(queryNode),
+      refetchQueryName: getOperationDefinitionName(queryNode),
     },
     schema
   )

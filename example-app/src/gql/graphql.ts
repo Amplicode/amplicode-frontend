@@ -324,8 +324,8 @@ export type Get_OwnerQuery = {
     lastName?: string | null;
     city?: string | null;
     address?: string | null;
-    email?: string | null;
     telephone?: string | null;
+    email?: string | null;
   } | null;
 };
 
@@ -348,6 +348,9 @@ export type Get_Owner_ListQuery = {
     firstName?: string | null;
     lastName?: string | null;
     city?: string | null;
+    address?: string | null;
+    telephone?: string | null;
+    email?: string | null;
   } | null> | null;
 };
 
@@ -370,8 +373,15 @@ export type Get_PetQuery = {
     __typename?: "PetDTO";
     id?: any | null;
     identificationNumber?: string | null;
+    birthDate?: any | null;
+    type?: {
+      __typename?: "PetTypeDTO";
+      id?: any | null;
+      name?: string | null;
+    } | null;
     owner?: {
       __typename?: "OwnerDTO";
+      id?: any | null;
       firstName?: string | null;
       lastName?: string | null;
     } | null;
@@ -395,8 +405,15 @@ export type Get_Pet_ListQuery = {
     __typename?: "PetDTO";
     id?: any | null;
     identificationNumber?: string | null;
+    birthDate?: any | null;
+    type?: {
+      __typename?: "PetTypeDTO";
+      id?: any | null;
+      name?: string | null;
+    } | null;
     owner?: {
       __typename?: "OwnerDTO";
+      id?: any | null;
       firstName?: string | null;
       lastName?: string | null;
     } | null;
@@ -453,8 +470,8 @@ export const Get_OwnerDocument = {
                 { kind: "Field", name: { kind: "Name", value: "lastName" } },
                 { kind: "Field", name: { kind: "Name", value: "city" } },
                 { kind: "Field", name: { kind: "Name", value: "address" } },
-                { kind: "Field", name: { kind: "Name", value: "email" } },
                 { kind: "Field", name: { kind: "Name", value: "telephone" } },
+                { kind: "Field", name: { kind: "Name", value: "email" } },
               ],
             },
           },
@@ -534,6 +551,9 @@ export const Get_Owner_ListDocument = {
                 { kind: "Field", name: { kind: "Name", value: "firstName" } },
                 { kind: "Field", name: { kind: "Name", value: "lastName" } },
                 { kind: "Field", name: { kind: "Name", value: "city" } },
+                { kind: "Field", name: { kind: "Name", value: "address" } },
+                { kind: "Field", name: { kind: "Name", value: "telephone" } },
+                { kind: "Field", name: { kind: "Name", value: "email" } },
               ],
             },
           },
@@ -628,12 +648,25 @@ export const Get_PetDocument = {
                   kind: "Field",
                   name: { kind: "Name", value: "identificationNumber" },
                 },
+                { kind: "Field", name: { kind: "Name", value: "birthDate" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "type" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
                 {
                   kind: "Field",
                   name: { kind: "Name", value: "owner" },
                   selectionSet: {
                     kind: "SelectionSet",
                     selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "firstName" },
@@ -722,12 +755,25 @@ export const Get_Pet_ListDocument = {
                   kind: "Field",
                   name: { kind: "Name", value: "identificationNumber" },
                 },
+                { kind: "Field", name: { kind: "Name", value: "birthDate" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "type" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
                 {
                   kind: "Field",
                   name: { kind: "Name", value: "owner" },
                   selectionSet: {
                     kind: "SelectionSet",
                     selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "firstName" },

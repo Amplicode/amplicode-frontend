@@ -5,10 +5,6 @@ import {EntityListMode, EntityListAnswers} from "./answers";
 import {GraphQLSchema} from "graphql";
 import gql from "graphql-tag";
 import {
-  getOperationName,
-  getQueryName
-} from "../../../building-blocks/stages/template-model/pieces/amplicode/amplicode";
-import {
   baseTemplateModel,
   BaseTemplateModel
 } from "../../../building-blocks/stages/template-model/pieces/amplicode/BaseTemplateModel";
@@ -17,7 +13,11 @@ import {
   ScreenTemplateModel
 } from "../../../building-blocks/stages/template-model/pieces/amplicode/ScreenTemplateModel";
 import {AttributeModel} from "../../../building-blocks/stages/template-model/pieces/entity";
-import {getEntityAttributes} from "../../../building-blocks/stages/template-model/pieces/entity-management/getEntityAttributes";
+import {getEntityAttributes} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getEntityAttributes";
+import {getEntityName} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getEntityName";
+import {getAttributeNames} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getAttributeNames";
+import {getTopFieldName} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getTopFieldName";
+import {getOperationDefinitionName} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getOperationDefinitionName";
 
 export interface EntityListTemplateModel extends
   BaseTemplateModel, UtilTemplateModel, ScreenTemplateModel {
@@ -29,13 +29,19 @@ export interface EntityListTemplateModel extends
   idField: string,
   mode: EntityListMode;
   attributes: AttributeModel[];
+  allAttributes: string[];
   itemComponentName?: string;
   refetchQuery: string;
+  entityName: string;
 }
 
 export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<AmplicodeComponentOptions, EntityListAnswers, EntityListTemplateModel> = async (
-  options: AmplicodeComponentOptions, answers: EntityListAnswers, _schema?: GraphQLSchema, _schemaPath?: string
+  options: AmplicodeComponentOptions, answers: EntityListAnswers, schema?: GraphQLSchema, _schemaPath?: string
 ): Promise<EntityListTemplateModel> => {
+  if (schema == null) {
+    throw new Error('Schema not found');
+  }
+
   const {
     componentName,
     route,
@@ -47,10 +53,12 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
 
   const queryNode = gql(queryString);
   const mutationNode = deleteMutationString != null ? gql(deleteMutationString) : undefined;
-  const queryName = getOperationName(queryNode);
-  const refetchQuery = getQueryName(queryNode);
-  const deleteMutationName = mutationNode != null ? getOperationName(mutationNode) : undefined;
-  const attributes = getEntityAttributes(queryNode, idField);
+  const queryName = getTopFieldName(queryNode);
+  const refetchQuery = getOperationDefinitionName(queryNode);
+  const deleteMutationName = mutationNode != null ? getTopFieldName(mutationNode) : undefined;
+  const attributes = getEntityAttributes(queryNode, schema);
+  const entityName = getEntityName(queryName, schema);
+  const allAttributes = getAttributeNames(entityName, schema);
 
   return {
     ...baseTemplateModel,
@@ -63,9 +71,11 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
     deleteMutationName,
     deleteMutationString,
     attributes,
+    allAttributes,
     idField,
     mode,
-    refetchQuery
+    refetchQuery,
+    entityName
   };
 };
 

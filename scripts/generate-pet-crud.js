@@ -3,12 +3,18 @@ const { runCmdSync, esc, btoa, amplicodegen } = require("./common");
 const petListQuery = `
 query Get_Pet_List {
   petList {
-     id
-     identificationNumber
-     owner {
-       firstName
-       lastName
-     }
+    id
+    identificationNumber
+    birthDate
+    type {
+      id
+      name
+    }
+    owner {
+      id
+      firstName
+      lastName
+    }
   }
 }
 `;
@@ -24,7 +30,13 @@ query Get_Pet($id: BigInteger) {
   pet(id: $id) {
     id
     identificationNumber
+    birthDate
+    type {
+      id
+      name
+    }
     owner {
+      id
       firstName
       lastName
     }

@@ -7,6 +7,9 @@ query Get_Owner_List {
     firstName
     lastName
     city
+    address
+    telephone
+    email
   }
 }
 `;

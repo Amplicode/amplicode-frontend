@@ -4,11 +4,8 @@ import { gql } from "@amplicode/gql";
 import { useQuery } from "@apollo/client";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router-dom";
-import {
-  useScreens,
-  guessDisplayName,
-  guessLabel
-} from "@amplicode/react-core";
+import { useScreens } from "@amplicode/react-core";
+import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
 const OWNER = gql(/* GraphQL */ `
   query Get_Owner($id: BigInteger) {
@@ -18,8 +15,8 @@ const OWNER = gql(/* GraphQL */ `
       lastName
       city
       address
-      email
       telephone
+      email
     }
   }
 `);
@@ -70,23 +67,23 @@ export function ReadOnlyOwnerDetails({ id }: ReadOnlyOwnerDetailsProps) {
     <Card className="narrow-layout">
       <Descriptions
         layout="horizontal"
-        title={guessDisplayName(item)}
+        title={getOwnerDTODisplayName(item)}
         column={1}
       >
+        <Descriptions.Item label={<strong>Address</strong>}>
+          {item.address ?? undefined}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>City</strong>}>
+          {item.city ?? undefined}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>Email</strong>}>
+          {item.email ?? undefined}
+        </Descriptions.Item>
         <Descriptions.Item label={<strong>First Name</strong>}>
           {item.firstName ?? undefined}
         </Descriptions.Item>
         <Descriptions.Item label={<strong>Last Name</strong>}>
           {item.lastName ?? undefined}
-        </Descriptions.Item>
-        <Descriptions.Item label={<strong>City</strong>}>
-          {item.city ?? undefined}
-        </Descriptions.Item>
-        <Descriptions.Item label={<strong>Address</strong>}>
-          {item.address ?? undefined}
-        </Descriptions.Item>
-        <Descriptions.Item label={<strong>Email</strong>}>
-          {item.email ?? undefined}
         </Descriptions.Item>
         <Descriptions.Item label={<strong>Telephone</strong>}>
           {item.telephone ?? undefined}

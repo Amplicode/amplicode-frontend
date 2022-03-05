@@ -3,7 +3,7 @@ import {AmplicodeComponentOptions} from "../../../building-blocks/stages/options
 import {MvpEntityEditorAnswers} from "./answers";
 import {
   DocumentNode,
-  GraphQLEnumType, GraphQLEnumValue, GraphQLInputObjectType,
+  GraphQLEnumType, GraphQLInputObjectType,
   GraphQLScalarType,
   GraphQLSchema,
   GraphQLUnionType,
@@ -11,8 +11,6 @@ import {
 import {templateUtilities, UtilTemplateModel} from "../../../building-blocks/stages/template-model/pieces/util";
 import gql from "graphql-tag";
 import {GraphQLOutputType} from "graphql/type/definition";
-import {getOperationName} from "../../../building-blocks/stages/template-model/pieces/amplicode/amplicode";
-import {capitalizeFirst, splitByCapitalLetter} from "../../../common/utils";
 import {
   deriveScreenTemplateModel,
   ScreenTemplateModel
@@ -21,22 +19,17 @@ import {
   baseTemplateModel,
   BaseTemplateModel
 } from "../../../building-blocks/stages/template-model/pieces/amplicode/BaseTemplateModel";
-import {getEntityAttributes} from "../../../building-blocks/stages/template-model/pieces/entity-management/getEntityAttributes";
-
-export interface AttributeModel {
-  name: string;
-  type?: string;
-  displayName: string;
-  enumOptions?: Array<GraphQLEnumValue>;
-  isRelationField: boolean;
-}
+import {getEntityAttributes} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getEntityAttributes";
+import {getEntityName} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getEntityName";
+import {AttributeModel} from "../../../building-blocks/stages/template-model/pieces/entity";
+import {getTopFieldName} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getTopFieldName";
 
 export interface MvpEntityEditorTemplateModel extends BaseTemplateModel, ScreenTemplateModel, UtilTemplateModel, GraphQLEditorModel {
-    queryString: string,
-    mutationString?: string,
-    idField: string,
-    refetchQueryName: string,
-  }
+  queryString: string,
+  mutationString?: string,
+  idField: string,
+  refetchQueryName: string,
+}
 
 type GraphQLEditorModel = {
   queryName: string,
@@ -98,14 +91,16 @@ export function deriveGraphQLEditorModel(
     throw new Error('Schema is required for this generator');
   }
 
-  const queryName = getOperationName(queryNode);
+  const queryName = getTopFieldName(queryNode);
+  const entityName = getEntityName(queryName, schema);
 
   if (mutationNode == null) {
-    const readOnlyAttributes = getEntityAttributes(queryNode, idField);
+    const readOnlyAttributes = getEntityAttributes(queryNode, schema);
 
     return {
       queryName,
-      attributes: readOnlyAttributes
+      attributes: readOnlyAttributes,
+      entityName
     }
   }
 
@@ -129,7 +124,7 @@ export function deriveGraphQLEditorModel(
     throw new Error('Input type name not found');
   }
 
-  const mutationName = getOperationName(mutationNode);
+  const mutationName = getTopFieldName(mutationNode);
 
   const queryType = schema.getQueryType();
   if (queryType == null) {
@@ -140,8 +135,6 @@ export function deriveGraphQLEditorModel(
   if (!('name' in outputType)) {
     throw new Error('Output type name not found');
   }
-
-  const outputTypeName = outputType.name;
 
   const typeMap = schema.getTypeMap();
   if (typeMap == null) {
@@ -165,13 +158,16 @@ export function deriveGraphQLEditorModel(
   let hasCustomScalars: boolean = false;
   let hasRelationFields: boolean = false;
 
-  const attributes = Object.values(namedType.getFields()).map((field: any) => {
-    const attr: AttributeModel = {
-      name: field.name,
-      type: field.type.name ?? field.type.ofType.name,
-      displayName: capitalizeFirst(splitByCapitalLetter(field.name)),
-      isRelationField: false,
-    };
+  // We take attributes from query, otherwise it won't be possible to pair the entity type from editor with entity type from list
+  const attributes = getEntityAttributes(queryNode, schema);
+
+  // We need to take some info from mutation input and add it to `attributes`
+  Object.values(namedType.getFields()).map((field: any) => {
+    const attr = attributes.find(a => a.name === field.name);
+
+    if (attr == null) {
+      return;
+    }
 
     switch(attr.type) {
       case 'Int':
@@ -200,15 +196,13 @@ export function deriveGraphQLEditorModel(
           hasCustomScalars = true;
         }
     }
-
-    return attr;
   });
 
   return {
     queryName,
     mutationName,
     attributes,
-    entityName: outputTypeName,
+    entityName,
     hasStringScalars,
     hasIntScalars,
     hasFloatScalars,

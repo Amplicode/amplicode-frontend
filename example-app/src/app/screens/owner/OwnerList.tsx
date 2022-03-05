@@ -6,13 +6,14 @@ import { Button, Card, Empty, Space, Spin } from "antd";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { useRouteMatch } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
-import { guessDisplayName, useScreens } from "@amplicode/react-core";
+import { useScreens } from "@amplicode/react-core";
 import { gql } from "@amplicode/gql";
 import { OwnerEditor } from "./OwnerEditor";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
+import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
 const ROUTE = "owner-list";
 const REFETCH_QUERIES = ["Get_Owner_List"];
@@ -24,6 +25,9 @@ const OWNER_LIST = gql(/* GraphQL */ `
       firstName
       lastName
       city
+      address
+      telephone
+      email
     }
   }
 `);
@@ -148,10 +152,21 @@ function ItemCard({ item }: { item: ItemType }) {
   return (
     <Card
       key={item.id}
-      title={guessDisplayName(item)}
+      title={getOwnerDTODisplayName(item)}
       actions={cardActions}
       className="narrow-layout"
     >
+      <ValueWithLabel
+        key="address"
+        label="Address"
+        value={item.address ?? undefined}
+      />
+      <ValueWithLabel key="city" label="City" value={item.city ?? undefined} />
+      <ValueWithLabel
+        key="email"
+        label="Email"
+        value={item.email ?? undefined}
+      />
       <ValueWithLabel
         key="firstName"
         label="First Name"
@@ -162,7 +177,11 @@ function ItemCard({ item }: { item: ItemType }) {
         label="Last Name"
         value={item.lastName ?? undefined}
       />
-      <ValueWithLabel key="city" label="City" value={item.city ?? undefined} />
+      <ValueWithLabel
+        key="telephone"
+        label="Telephone"
+        value={item.telephone ?? undefined}
+      />
     </Card>
   );
 }

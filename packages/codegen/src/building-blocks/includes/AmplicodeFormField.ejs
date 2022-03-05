@@ -21,7 +21,7 @@
       <% }) -%>
     </Select>
   <% } else if (attr.isRelationField) { %>
-    <EntityLookupField getDisplayName={(value: Record<string, unknown>) => guessDisplayName(value)}
+    <EntityLookupField getDisplayName={get<%= capitalizeFirst(attr.type) %>DisplayName}
                        label="<%= attr.displayName %>"
                        // TODO Uncomment the code and specify the list component
                        // listComponent={YourEntityListComponentName}
