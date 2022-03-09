@@ -168,7 +168,7 @@ export const PetEditor = observer(({ id }: EntityDetailsScreenProps) => {
             }
             label="Owner"
             // TODO Uncomment the code and specify the list component
-            // listComponent={YourEntityListComponentName}
+            // lookupComponent={YourEntityListComponentName}
           />
         </Form.Item>
 
@@ -179,7 +179,7 @@ export const PetEditor = observer(({ id }: EntityDetailsScreenProps) => {
             }
             label="Type"
             // TODO Uncomment the code and specify the list component
-            // listComponent={YourEntityListComponentName}
+            // lookupComponent={YourEntityListComponentName}
           />
         </Form.Item>
 

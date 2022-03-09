@@ -163,7 +163,7 @@ function FormFields() {
           getDisplayName={getOwnerDTODisplayName}
           label="Owner"
           // TODO Uncomment the code and specify the list component
-          // listComponent={YourEntityListComponentName}
+          // lookupComponent={YourEntityListComponentName}
         />
       </Form.Item>
 
@@ -172,7 +172,7 @@ function FormFields() {
           getDisplayName={getPetTypeDTODisplayName}
           label="Type"
           // TODO Uncomment the code and specify the list component
-          // listComponent={YourEntityListComponentName}
+          // lookupComponent={YourEntityListComponentName}
         />
       </Form.Item>
     </>

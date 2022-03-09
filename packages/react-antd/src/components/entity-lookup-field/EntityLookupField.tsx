@@ -7,14 +7,14 @@ import {ReactComponent, useScreens} from "@amplicode/react-core";
 export interface EntityLookupFieldProps {
   value?: Record<string, unknown>;
   onChange?: (value: this['value']) => void;
-  listComponent?: ReactComponent;
-  listComponentProps?: Record<string, unknown>;
+  lookupComponent?: ReactComponent;
+  lookupComponentProps?: Record<string, unknown>;
   getDisplayName: (value: Record<string, unknown>) => string;
   label: string;
 }
 
 export function EntityLookupField(props: EntityLookupFieldProps) {
-  const {value, onChange, listComponent, listComponentProps, getDisplayName, label} = props;
+  const {value, onChange, lookupComponent, lookupComponentProps, getDisplayName, label} = props;
 
   const screens = useScreens();
   const intl = useIntl();
@@ -28,7 +28,7 @@ export function EntityLookupField(props: EntityLookupFieldProps) {
       }
     };
 
-    if (listComponent == null) {
+    if (lookupComponent == null) {
       notification.warn({message: `Please define lookup screen for reference field "${label}"`});
       return;
     }
@@ -39,13 +39,13 @@ export function EntityLookupField(props: EntityLookupFieldProps) {
 
     screens.openInBreadcrumb({
       breadcrumbCaption: caption,
-      component: listComponent,
+      component: lookupComponent,
       props: {
         ...enableSelectModeProps,
-        ...listComponentProps
+        ...lookupComponentProps
       }
     });
-  }, [onChange, listComponent, intl, label, listComponentProps, screens]);
+  }, [onChange, lookupComponent, intl, label, lookupComponentProps, screens]);
 
   return (
     <Input prefix={<LinkOutlined />}
