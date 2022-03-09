@@ -294,7 +294,7 @@ function useRowActions(item: ItemType): ReactNode[] {
   function useDeleteConfirm(id: string | null | undefined) {
     const intl = useIntl();
 
-    const [runDeleteMutation, { loading }] = useMutation(<%= MUTATION_CONST %>);
+    const [runDeleteMutation] = useMutation(<%= MUTATION_CONST %>);
     const deleteItem = useDeleteItem(
       id,
       runDeleteMutation,
@@ -302,8 +302,8 @@ function useRowActions(item: ItemType): ReactNode[] {
     );
 
     // Callback that deletes the item
-    const handleDeleteItem = () => {
-      deleteItem()
+    function handleDeleteItem() {
+      return deleteItem()
         .then(({ errors }: FetchResult) => {
           if (errors == null || errors.length === 0) {
             return handleDeleteSuccess();
@@ -336,7 +336,6 @@ function useRowActions(item: ItemType): ReactNode[] {
           id: "EntityListScreen.deleteConfirmation"
         }),
         okText: intl.formatMessage({ id: "common.ok" }),
-        okButtonProps: { loading },
         cancelText: intl.formatMessage({ id: "common.cancel" }),
         onOk: handleDeleteItem
       });
