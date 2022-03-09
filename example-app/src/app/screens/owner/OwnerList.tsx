@@ -2,7 +2,7 @@ import { ReactNode, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
-import { Button, Empty, List, Space, Spin } from "antd";
+import { Button, Modal, message, Empty, List, Space, Spin } from "antd";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { useRouteMatch } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -12,6 +12,8 @@ import { OwnerListEditor } from "./OwnerListEditor";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
+import { GraphQLError } from "graphql/error/GraphQLError";
+import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 
@@ -200,6 +202,7 @@ function ListItem({ item }: { item: ItemType }) {
  */
 function useRowActions(item: ItemType): ReactNode[] {
   const intl = useIntl();
+  const showDeleteConfirm = useDeleteConfirm(item?.id);
 
   // Callback that opens an editor either for creating or for editing an item
   // depending on whether `item` is provided
@@ -211,14 +214,6 @@ function useRowActions(item: ItemType): ReactNode[] {
     id: item?.id
   });
 
-  const [runDeleteMutation] = useMutation(DELETE_OWNER);
-  // Callback that deletes the item
-  const deleteItem = useDeleteItem(
-    item?.id,
-    runDeleteMutation,
-    REFETCH_QUERIES
-  );
-
   return [
     <EditOutlined
       key="edit"
@@ -228,9 +223,64 @@ function useRowActions(item: ItemType): ReactNode[] {
     <DeleteOutlined
       key="delete"
       title={intl.formatMessage({ id: "common.remove" })}
-      onClick={deleteItem}
+      onClick={showDeleteConfirm}
     />
   ];
+}
+
+/**
+ * Returns a confirmation dialog and invokes delete mutation upon confirmation
+ * @param id id of the entity instance that should be deleted
+ */
+function useDeleteConfirm(id: string | null | undefined) {
+  const intl = useIntl();
+
+  const [runDeleteMutation, { loading }] = useMutation(DELETE_OWNER);
+  const deleteItem = useDeleteItem(id, runDeleteMutation, REFETCH_QUERIES);
+
+  // Callback that deletes the item
+  const handleDeleteItem = () => {
+    deleteItem()
+      .then(({ errors }: FetchResult) => {
+        if (errors == null || errors.length === 0) {
+          return handleDeleteSuccess();
+        }
+        return handleDeleteGraphQLError(errors);
+      })
+      .catch(handleDeleteNetworkError);
+  };
+
+  // Function that is executed when mutation is successful
+  function handleDeleteSuccess() {
+    return message.success(
+      intl.formatMessage({ id: "EntityDetailsScreen.deletedSuccessfully" })
+    );
+  }
+
+  // Function that is executed when mutation results in a GraphQL error
+  function handleDeleteGraphQLError(
+    errors: ReadonlyArray<GraphQLError> | undefined
+  ) {
+    console.error(errors);
+    return message.error(intl.formatMessage({ id: "common.requestFailed" }));
+  }
+
+  // Function that is executed when mutation results in a network error (such as 4xx or 5xx)
+  function handleDeleteNetworkError(error: Error | ApolloError) {
+    console.error(error);
+    return message.error(intl.formatMessage({ id: "common.requestFailed" }));
+  }
+
+  return () =>
+    Modal.confirm({
+      content: intl.formatMessage({
+        id: "EntityListScreen.deleteConfirmation"
+      }),
+      okText: intl.formatMessage({ id: "common.ok" }),
+      okButtonProps: { loading },
+      cancelText: intl.formatMessage({ id: "common.cancel" }),
+      onOk: handleDeleteItem
+    });
 }
 
 /**

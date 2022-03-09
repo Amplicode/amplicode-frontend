@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
-import { Button, Empty, Space, Spin, Table } from "antd";
+import { Button, Modal, message, Empty, Space, Spin, Table } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useRouteMatch } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -11,6 +11,8 @@ import { gql } from "@amplicode/gql";
 import { OwnerTableEditor } from "./OwnerTableEditor";
 import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
+import { GraphQLError } from "graphql/error/GraphQLError";
+import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 
@@ -128,6 +130,7 @@ function useItemUrl() {
  */
 function ButtonPanel(props: { selectedRowId?: string }) {
   const intl = useIntl();
+  const showDeleteConfirm = useDeleteConfirm(props.selectedRowId!);
 
   const openEditorProps = {
     route: ROUTE,
@@ -143,14 +146,6 @@ function ButtonPanel(props: { selectedRowId?: string }) {
     ...openEditorProps,
     id: props.selectedRowId!
   });
-
-  const [runDeleteMutation] = useMutation(DELETE_OWNER);
-  // Callback that deletes the item
-  const deleteItem = useDeleteItem(
-    props.selectedRowId!,
-    runDeleteMutation,
-    REFETCH_QUERIES
-  );
 
   return (
     <Space direction="horizontal">
@@ -184,7 +179,7 @@ function ButtonPanel(props: { selectedRowId?: string }) {
         key="remove"
         title={intl.formatMessage({ id: "common.remove" })}
         disabled={props.selectedRowId == null}
-        onClick={deleteItem}
+        onClick={showDeleteConfirm}
       >
         <span>
           <FormattedMessage id="common.remove" />
@@ -192,6 +187,61 @@ function ButtonPanel(props: { selectedRowId?: string }) {
       </Button>
     </Space>
   );
+}
+
+/**
+ * Returns a confirmation dialog and invokes delete mutation upon confirmation
+ * @param id id of the entity instance that should be deleted
+ */
+function useDeleteConfirm(id: string | null | undefined) {
+  const intl = useIntl();
+
+  const [runDeleteMutation, { loading }] = useMutation(DELETE_OWNER);
+  const deleteItem = useDeleteItem(id, runDeleteMutation, REFETCH_QUERIES);
+
+  // Callback that deletes the item
+  const handleDeleteItem = () => {
+    deleteItem()
+      .then(({ errors }: FetchResult) => {
+        if (errors == null || errors.length === 0) {
+          return handleDeleteSuccess();
+        }
+        return handleDeleteGraphQLError(errors);
+      })
+      .catch(handleDeleteNetworkError);
+  };
+
+  // Function that is executed when mutation is successful
+  function handleDeleteSuccess() {
+    return message.success(
+      intl.formatMessage({ id: "EntityDetailsScreen.deletedSuccessfully" })
+    );
+  }
+
+  // Function that is executed when mutation results in a GraphQL error
+  function handleDeleteGraphQLError(
+    errors: ReadonlyArray<GraphQLError> | undefined
+  ) {
+    console.error(errors);
+    return message.error(intl.formatMessage({ id: "common.requestFailed" }));
+  }
+
+  // Function that is executed when mutation results in a network error (such as 4xx or 5xx)
+  function handleDeleteNetworkError(error: Error | ApolloError) {
+    console.error(error);
+    return message.error(intl.formatMessage({ id: "common.requestFailed" }));
+  }
+
+  return () =>
+    Modal.confirm({
+      content: intl.formatMessage({
+        id: "EntityListScreen.deleteConfirmation"
+      }),
+      okText: intl.formatMessage({ id: "common.ok" }),
+      okButtonProps: { loading },
+      cancelText: intl.formatMessage({ id: "common.cancel" }),
+      onOk: handleDeleteItem
+    });
 }
 
 interface TableSectionProps {

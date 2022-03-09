@@ -23,6 +23,7 @@
   
   "EntityListScreen.deleteConfirmation": "Вы уверены, что хотите удалить эту запись",
   "EntityDetailsScreen.savedSuccessfully": "Запись успешно сохранена",
+  "EntityDetailsScreen.deletedSuccessfully": "Запись успешно удалена",
   "EntityDetailsScreen.validationError": "Ошибка валидации. Пожалуйста, проверьте данные, которые вы ввели",
   "EntityLookupField.selectEntityInstance": "Выберете {label}",
   
