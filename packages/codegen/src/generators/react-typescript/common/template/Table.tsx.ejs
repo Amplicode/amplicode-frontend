@@ -334,17 +334,17 @@ export function <%= componentName %>() {
    */
   function useDeleteConfirm(id: string | null | undefined) {
     const intl = useIntl();
-  
-    const [runDeleteMutation, { loading }] = useMutation(<%= MUTATION_CONST %>);
+
+    const [runDeleteMutation] = useMutation(<%= MUTATION_CONST %>);
     const deleteItem = useDeleteItem(
       id,
       runDeleteMutation,
       REFETCH_QUERIES
     );
-  
+
     // Callback that deletes the item
-    const handleDeleteItem = () => {
-      deleteItem()
+    function handleDeleteItem() {
+      return deleteItem()
         .then(({ errors }: FetchResult) => {
           if (errors == null || errors.length === 0) {
             return handleDeleteSuccess();
@@ -353,31 +353,30 @@ export function <%= componentName %>() {
         })
         .catch(handleDeleteNetworkError);
     }
-  
+
     // Function that is executed when mutation is successful
     function handleDeleteSuccess() {
       return message.success(intl.formatMessage({ id: "EntityDetailsScreen.deletedSuccessfully" }));
     }
-  
+
     // Function that is executed when mutation results in a GraphQL error
     function handleDeleteGraphQLError(errors: ReadonlyArray<GraphQLError> | undefined) {
       console.error(errors);
       return message.error(intl.formatMessage({ id: "common.requestFailed" }));
     }
-  
+
     // Function that is executed when mutation results in a network error (such as 4xx or 5xx)
     function handleDeleteNetworkError(error: Error | ApolloError) {
       console.error(error);
       return message.error(intl.formatMessage({ id: "common.requestFailed" }));
     }
-    
+
     return () =>
       Modal.confirm({
         content: intl.formatMessage({
           id: "EntityListScreen.deleteConfirmation"
         }),
         okText: intl.formatMessage({ id: "common.ok" }),
-        okButtonProps: { loading },
         cancelText: intl.formatMessage({ id: "common.cancel" }),
         onOk: handleDeleteItem
       });

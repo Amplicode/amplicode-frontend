@@ -236,12 +236,12 @@ function useCardActions(item: ItemType): ReactNode[] {
 function useDeleteConfirm(id: string | null | undefined) {
   const intl = useIntl();
 
-  const [runDeleteMutation, { loading }] = useMutation(DELETE_OWNER);
+  const [runDeleteMutation] = useMutation(DELETE_OWNER);
   const deleteItem = useDeleteItem(id, runDeleteMutation, REFETCH_QUERIES);
 
   // Callback that deletes the item
-  const handleDeleteItem = () => {
-    deleteItem()
+  function handleDeleteItem() {
+    return deleteItem()
       .then(({ errors }: FetchResult) => {
         if (errors == null || errors.length === 0) {
           return handleDeleteSuccess();
@@ -249,7 +249,7 @@ function useDeleteConfirm(id: string | null | undefined) {
         return handleDeleteGraphQLError(errors);
       })
       .catch(handleDeleteNetworkError);
-  };
+  }
 
   // Function that is executed when mutation is successful
   function handleDeleteSuccess() {
@@ -278,7 +278,6 @@ function useDeleteConfirm(id: string | null | undefined) {
         id: "EntityListScreen.deleteConfirmation"
       }),
       okText: intl.formatMessage({ id: "common.ok" }),
-      okButtonProps: { loading },
       cancelText: intl.formatMessage({ id: "common.cancel" }),
       onOk: handleDeleteItem
     });
