@@ -99,7 +99,7 @@ function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
   const intl = useIntl();
   const navigate = useNavigate();
 
-  const showDeleteConfirm = useDeleteConfirm(selectedRowId!);
+  const { showDeleteConfirm, deleting } = useDeleteConfirm(selectedRowId!);
 
   return (
     <Space direction="horizontal">
@@ -133,6 +133,7 @@ function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
         key="remove"
         title={intl.formatMessage({ id: "common.remove" })}
         disabled={selectedRowId == null}
+        loading={deleting}
         onClick={showDeleteConfirm}
       >
         <span>
@@ -186,16 +187,18 @@ function useDeleteConfirm(id: string | null | undefined) {
     return message.error(intl.formatMessage({ id: "common.requestFailed" }));
   }
 
-  return () =>
-    Modal.confirm({
-      content: intl.formatMessage({
-        id: "EntityListScreen.deleteConfirmation"
+  return {
+    showDeleteConfirm: () =>
+      Modal.confirm({
+        content: intl.formatMessage({
+          id: "EntityListScreen.deleteConfirmation"
+        }),
+        okText: intl.formatMessage({ id: "common.ok" }),
+        cancelText: intl.formatMessage({ id: "common.cancel" }),
+        onOk: handleDeleteItem
       }),
-      okText: intl.formatMessage({ id: "common.ok" }),
-      okButtonProps: { loading },
-      cancelText: intl.formatMessage({ id: "common.cancel" }),
-      onOk: handleDeleteItem
-    });
+    deleting: loading
+  };
 }
 
 interface TableSectionProps {
