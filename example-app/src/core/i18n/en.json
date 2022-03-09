@@ -33,11 +33,13 @@
   "hotkeys.editor.saveEntity": "Save the entity",
   "hotkeys.screen.nextTab": "Go to the next tab",
   "hotkeys.screen.previousTab": "Go to the previous tab",
-  "screen.OwnerEditor": "Owner Editor",
+  "screen.OwnerCardsEditor": "Owner Cards Editor",
+  "screen.OwnerCards": "Owner Cards",
+  "screen.OwnerListEditor": "Owner List Editor",
   "screen.OwnerList": "Owner List",
-  "screen.PetEditor": "Pet Editor",
-  "screen.PetList": "Pet List",
-  "screen.ReadOnlyOwnerDetails": "Read Only Owner Details",
-  "screen.ReadOnlyOwnerList": "Read Only Owner List",
-  "screen.StandaloneOwnerList": "Standalone Owner List"
+  "screen.PetCardsEditor": "Pet Cards Editor",
+  "screen.PetCards": "Pet Cards",
+  "screen.ReadOnlyOwnerCardsDetails": "Read Only Owner Cards Details",
+  "screen.ReadOnlyOwnerCards": "Read Only Owner Cards",
+  "screen.StandaloneOwnerCards": "Standalone Owner Cards"
 }

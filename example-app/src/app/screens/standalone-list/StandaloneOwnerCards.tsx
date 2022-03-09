@@ -2,19 +2,18 @@ import { ReactNode, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
-import { Button, Empty, List, Space, Spin } from "antd";
+import { Button, Card, Empty, Space, Spin } from "antd";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { useRouteMatch } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useScreens } from "@amplicode/react-core";
 import { gql } from "@amplicode/gql";
-import { OwnerListEditor } from "./OwnerListEditor";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
-import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
+import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
-const ROUTE = "owner-list";
+const ROUTE = "standalone-owner-cards";
 const REFETCH_QUERIES = ["Get_Owner_List"];
 
 const OWNER_LIST = gql(/* GraphQL */ `
@@ -37,7 +36,7 @@ const DELETE__OWNER = gql(/* GraphQL */ `
   }
 `);
 
-export function OwnerList() {
+export function StandaloneOwnerCards() {
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
   const items = data?.ownerList;
@@ -50,7 +49,7 @@ export function OwnerList() {
     <div className="narrow-layout">
       <Space direction="vertical" style={{ width: "100%" }}>
         <ButtonPanel />
-        <ListItems items={items} loading={loading} error={error} />
+        <Cards items={items} loading={loading} error={error} />
         {/* <Pagination /> - in future */}
       </Space>
     </div>
@@ -64,13 +63,15 @@ function useItemUrl() {
   const screens = useScreens();
   const match = useRouteMatch<{ id: string }>(`/${ROUTE}/:id`);
 
-  const openItem = useOpenItemScreen({
-    route: ROUTE,
-    screenComponent: OwnerListEditor,
-    screenCaptionKey: "screen.OwnerListEditor",
-    refetchQueries: REFETCH_QUERIES,
-    id: match?.params.id
-  });
+  const openItem = () => alert("Please specify the editor/details component");
+  // TODO Uncomment the code below and use it in place of above callback
+  // const openItem = useOpenItemScreen({
+  //   route: ROUTE,
+  //   screenComponent: ExampleComponentName, // TODO specify component name
+  //   screenCaptionKey: 'screen.ExampleComponentName', // TODO specify screen caption key
+  //   refetchQueries: REFETCH_QUERIES,
+  //   id: match?.params.id
+  // });
 
   useEffect(() => {
     if (
@@ -83,18 +84,20 @@ function useItemUrl() {
 }
 
 /**
- * Button panel above
+ * Button panel above the cards
  */
 function ButtonPanel() {
   const intl = useIntl();
 
   // A callback that will open an empty editor form so that a new entity instance can be created
-  const openEmptyEditor = useOpenItemScreen({
-    route: ROUTE,
-    screenComponent: OwnerListEditor,
-    screenCaptionKey: "screen.OwnerListEditor",
-    refetchQueries: REFETCH_QUERIES
-  });
+  const openEmptyEditor = () => alert("Please specify the editor component");
+  // TODO Uncomment the code below and use it in place of above callback
+  // const openEmptyEditor = useOpenItemScreen({
+  //   route: ROUTE,
+  //   screenComponent: ExampleComponentName, // TODO specify component name
+  //   screenCaptionKey: 'screen.ExampleComponentName', // TODO specify screern caption key
+  //   refetchQueries: REFETCH_QUERIES
+  // });
 
   return (
     <div>
@@ -114,16 +117,16 @@ function ButtonPanel() {
   );
 }
 
-interface ListItemsProps {
+interface ItemCardsListProps {
   items?: ItemListType;
   loading?: boolean;
   error?: ApolloError;
 }
 
 /**
- * Collection of items
+ * Collection of cards, each card representing an item
  */
-function ListItems({ items, loading, error }: ListItemsProps) {
+function Cards({ items, loading, error }: ItemCardsListProps) {
   if (loading) {
     return <Spin />;
   }
@@ -138,77 +141,75 @@ function ListItems({ items, loading, error }: ListItemsProps) {
 
   return (
     <Space direction="vertical" style={{ width: "100%" }}>
-      <List
-        itemLayout="horizontal"
-        bordered
-        dataSource={items}
-        renderItem={item => <ListItem item={item} key={item?.id} />}
-      />
+      {items.map(item => (
+        <ItemCard item={item} key={item?.id} />
+      ))}
     </Space>
   );
 }
 
-function ListItem({ item }: { item: ItemType }) {
-  // Get the action buttons that will be displayed in the row
-  const rowActions: ReactNode[] = useRowActions(item);
+function ItemCard({ item }: { item: ItemType }) {
+  // Get the action buttons that will be displayed in the card
+  const cardActions: ReactNode[] = useCardActions(item);
 
   if (item == null) {
     return null;
   }
 
   return (
-    <List.Item actions={rowActions}>
-      <div style={{ flexGrow: 1 }}>
-        <ValueWithLabel
-          key="address"
-          label="Address"
-          value={item.address ?? undefined}
-        />
-        <ValueWithLabel
-          key="city"
-          label="City"
-          value={item.city ?? undefined}
-        />
-        <ValueWithLabel
-          key="email"
-          label="Email"
-          value={item.email ?? undefined}
-        />
-        <ValueWithLabel
-          key="firstName"
-          label="First Name"
-          value={item.firstName ?? undefined}
-        />
-        <ValueWithLabel
-          key="lastName"
-          label="Last Name"
-          value={item.lastName ?? undefined}
-        />
-        <ValueWithLabel
-          key="telephone"
-          label="Telephone"
-          value={item.telephone ?? undefined}
-        />
-      </div>
-    </List.Item>
+    <Card
+      key={item.id}
+      title={getOwnerDTODisplayName(item)}
+      actions={cardActions}
+      className="narrow-layout"
+    >
+      <ValueWithLabel
+        key="address"
+        label="Address"
+        value={item.address ?? undefined}
+      />
+      <ValueWithLabel key="city" label="City" value={item.city ?? undefined} />
+      <ValueWithLabel
+        key="email"
+        label="Email"
+        value={item.email ?? undefined}
+      />
+      <ValueWithLabel
+        key="firstName"
+        label="First Name"
+        value={item.firstName ?? undefined}
+      />
+      <ValueWithLabel
+        key="lastName"
+        label="Last Name"
+        value={item.lastName ?? undefined}
+      />
+      <ValueWithLabel
+        key="telephone"
+        label="Telephone"
+        value={item.telephone ?? undefined}
+      />
+    </Card>
   );
 }
 
 /**
- * Returns action buttons that will be displayed inside the item row.
+ * Returns action buttons that will be displayed inside the card.
  */
-function useRowActions(item: ItemType): ReactNode[] {
+function useCardActions(item: ItemType): ReactNode[] {
   const intl = useIntl();
 
   // Callback that opens an editor either for creating or for editing an item
   // depending on whether `item` is provided
-  const openItem = useOpenItemScreen({
-    route: ROUTE,
-    screenComponent: OwnerListEditor,
-    screenCaptionKey: "screen.OwnerListEditor",
-    refetchQueries: REFETCH_QUERIES,
-    id: item?.id
-  });
+  const openItem = () => alert("Please specify the editor/details component");
+  // TODO Uncomment the code below and use it in place of above callback
+  // const openItem = useOpenItemScreen({
+  //   route: ROUTE,
+  //   screenComponent: ExampleComponentName, // TODO specify component name
+  //   screenCaptionKey: 'screen.ExampleComponentName', // TODO specify screen caption key
+  //   refetchQueries: REFETCH_QUERIES,
+  //   id: item?.id
+  // });
 
   const [runDeleteMutation] = useMutation(DELETE__OWNER);
   // Callback that deletes the item

@@ -1,7 +1,7 @@
 import {templateUtilities, UtilTemplateModel} from "../../../building-blocks/stages/template-model/pieces/util";
 import {AmplicodeTemplateModelStage} from "../../../building-blocks/pipelines/amplicodePipeline";
 import {AmplicodeComponentOptions} from "../../../building-blocks/stages/options/pieces/amplicode";
-import {EntityListMode, EntityListAnswers} from "./answers";
+import {EntityListMode, EntityListAnswers, EntityListType} from "./answers";
 import {GraphQLSchema} from "graphql";
 import gql from "graphql-tag";
 import {
@@ -27,6 +27,7 @@ export interface EntityListTemplateModel extends
   deleteMutationName?: string,
   deleteMutationString?: string,
   idField: string,
+  type: EntityListType;
   mode: EntityListMode;
   attributes: AttributeModel[];
   allAttributes: string[];
@@ -47,6 +48,7 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
     route,
     query: queryString,
     mutation: deleteMutationString,
+    type = 'cards',
     mode = 'edit',
     idField = 'id',
   } = answers;
@@ -73,6 +75,7 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
     attributes,
     allAttributes,
     idField,
+    type,
     mode,
     refetchQuery,
     entityName

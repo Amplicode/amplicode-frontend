@@ -8,7 +8,7 @@ import { useRouteMatch } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useScreens } from "@amplicode/react-core";
 import { gql } from "@amplicode/gql";
-import { PetEditor } from "./PetEditor";
+import { PetCardsEditor } from "./PetCardsEditor";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
@@ -17,7 +17,7 @@ import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODispla
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 
-const ROUTE = "pet-list";
+const ROUTE = "pet-cards";
 const REFETCH_QUERIES = ["Get_Pet_List"];
 
 const PET_LIST = gql(/* GraphQL */ `
@@ -45,7 +45,7 @@ const DELETE__PET = gql(/* GraphQL */ `
   }
 `);
 
-export function PetList() {
+export function PetCards() {
   // Load the items from server
   const { loading, error, data } = useQuery(PET_LIST);
   const items = data?.petList;
@@ -74,8 +74,8 @@ function useItemUrl() {
 
   const openItem = useOpenItemScreen({
     route: ROUTE,
-    screenComponent: PetEditor,
-    screenCaptionKey: "screen.PetEditor",
+    screenComponent: PetCardsEditor,
+    screenCaptionKey: "screen.PetCardsEditor",
     refetchQueries: REFETCH_QUERIES,
     id: match?.params.id
   });
@@ -99,8 +99,8 @@ function ButtonPanel() {
   // A callback that will open an empty editor form so that a new entity instance can be created
   const openEmptyEditor = useOpenItemScreen({
     route: ROUTE,
-    screenComponent: PetEditor,
-    screenCaptionKey: "screen.PetEditor",
+    screenComponent: PetCardsEditor,
+    screenCaptionKey: "screen.PetCardsEditor",
     refetchQueries: REFETCH_QUERIES
   });
 
@@ -202,8 +202,8 @@ function useCardActions(item: ItemType): ReactNode[] {
   // depending on whether `item` is provided
   const openItem = useOpenItemScreen({
     route: ROUTE,
-    screenComponent: PetEditor,
-    screenCaptionKey: "screen.PetEditor",
+    screenComponent: PetCardsEditor,
+    screenCaptionKey: "screen.PetCardsEditor",
     refetchQueries: REFETCH_QUERIES,
     id: item?.id
   });

@@ -51,23 +51,26 @@ export const AppMenu = observer(() => {
       <Menu.Item icon={<HomeOutlined />} title={getCaption("home")} key="home">
         {getCaption("home")}
       </Menu.Item>
+      <Menu.Item title={getCaption("owner-cards")} key="owner-cards">
+        {getCaption("owner-cards")}
+      </Menu.Item>
       <Menu.Item title={getCaption("owner-list")} key="owner-list">
         {getCaption("owner-list")}
       </Menu.Item>
-      <Menu.Item title={getCaption("pet-list")} key="pet-list">
-        {getCaption("pet-list")}
+      <Menu.Item title={getCaption("pet-cards")} key="pet-cards">
+        {getCaption("pet-cards")}
       </Menu.Item>
       <Menu.Item
-        title={getCaption("read-only-owner-list")}
-        key="read-only-owner-list"
+        title={getCaption("read-only-owner-cards")}
+        key="read-only-owner-cards"
       >
-        {getCaption("read-only-owner-list")}
+        {getCaption("read-only-owner-cards")}
       </Menu.Item>
       <Menu.Item
-        title={getCaption("standalone-owner-list")}
-        key="standalone-owner-list"
+        title={getCaption("standalone-owner-cards")}
+        key="standalone-owner-cards"
       >
-        {getCaption("standalone-owner-list")}
+        {getCaption("standalone-owner-cards")}
       </Menu.Item>
       <AddonsMenu key={"addonsMenu"} />
       {/*If you don't need Screen API (tabs / breadcrumbs) you can just use React Router components*/}

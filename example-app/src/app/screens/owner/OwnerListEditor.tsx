@@ -12,9 +12,6 @@ import {
   Spin
 } from "antd";
 import { useForm } from "antd/es/form/Form";
-import { EntityLookupField } from "@amplicode/react-antd";
-import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
-import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { gql } from "@amplicode/gql";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { useSubmitEditor } from "../../../core/crud/useSubmitEditor";
@@ -24,34 +21,29 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { gql2form } from "../../../core/format/gql2form";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 
-const PET = gql(/* GraphQL */ `
-  query Get_Pet($id: BigInteger) {
-    pet(id: $id) {
+const OWNER = gql(/* GraphQL */ `
+  query Get_Owner($id: BigInteger) {
+    owner(id: $id) {
       id
-      identificationNumber
-      birthDate
-      type {
-        id
-        name
-      }
-      owner {
-        id
-        firstName
-        lastName
-      }
+      firstName
+      lastName
+      city
+      address
+      telephone
+      email
     }
   }
 `);
 
-const UPDATE__PET = gql(/* GraphQL */ `
-  mutation Update_Pet($input: PetInputDTOInput) {
-    update_Pet(input: $input) {
+const UPDATE__OWNER = gql(/* GraphQL */ `
+  mutation Update_Owner($input: OwnerInputDTOInput) {
+    update_Owner(input: $input) {
       id
     }
   }
 `);
 
-export interface PetEditorProps<TData = any> {
+export interface OwnerListEditorProps<TData = any> {
   /**
    * id of entity instance to be loaded when editing an instance.
    * Will be `undefined` when creating an instance.
@@ -67,10 +59,10 @@ export interface PetEditorProps<TData = any> {
   refetchQueries?: RefetchQueries<TData>;
 }
 
-export function PetEditor({
+export function OwnerListEditor({
   id,
   refetchQueries
-}: PetEditorProps<QueryResultType>) {
+}: OwnerListEditorProps<QueryResultType>) {
   // Load the item if `id` is provided
   const { item, itemLoading, itemError } = useLoadItem(id);
 
@@ -112,7 +104,7 @@ function EditorForm<TData>({
   const [formError, setFormError] = useState<string | undefined>();
 
   const { handleSubmit, submitting } = useSubmitEditor(
-    UPDATE__PET,
+    UPDATE__OWNER,
     setFormError,
     refetchQueries,
     id
@@ -143,37 +135,43 @@ function FormFields() {
   return (
     <>
       <Form.Item
-        name="birthDate"
-        label="Birth Date"
+        name="address"
+        label="Address"
+        style={{ marginBottom: "12px" }}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item name="city" label="City" style={{ marginBottom: "12px" }}>
+        <Input />
+      </Form.Item>
+
+      <Form.Item name="email" label="Email" style={{ marginBottom: "12px" }}>
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        name="firstName"
+        label="First Name"
         style={{ marginBottom: "12px" }}
       >
         <Input />
       </Form.Item>
 
       <Form.Item
-        name="identificationNumber"
-        label="Identification Number"
+        name="lastName"
+        label="Last Name"
         style={{ marginBottom: "12px" }}
       >
         <Input />
       </Form.Item>
 
-      <Form.Item name="owner" label="Owner" style={{ marginBottom: "12px" }}>
-        <EntityLookupField
-          getDisplayName={getOwnerDTODisplayName}
-          label="Owner"
-          // TODO Uncomment the code and specify the list component
-          // lookupComponent={YourEntityListComponentName}
-        />
-      </Form.Item>
-
-      <Form.Item name="type" label="Type" style={{ marginBottom: "12px" }}>
-        <EntityLookupField
-          getDisplayName={getPetTypeDTODisplayName}
-          label="Type"
-          // TODO Uncomment the code and specify the list component
-          // lookupComponent={YourEntityListComponentName}
-        />
+      <Form.Item
+        name="telephone"
+        label="Telephone"
+        style={{ marginBottom: "12px" }}
+      >
+        <Input />
       </Form.Item>
     </>
   );
@@ -212,7 +210,7 @@ function useLoadItem(id?: string) {
   // Get the function that will load item from server,
   // also get variables that will contain loading/error state and response data
   // once the response is received
-  const [loadItem, { loading, error, data }] = useLazyQuery(PET, {
+  const [loadItem, { loading, error, data }] = useLazyQuery(OWNER, {
     variables: {
       id
     }
@@ -227,8 +225,8 @@ function useLoadItem(id?: string) {
 
   // Get the received item, if any
   useEffect(() => {
-    if (data?.pet != null) {
-      setItem(data?.pet);
+    if (data?.owner != null) {
+      setItem(data?.owner);
     }
   }, [data, setItem]);
 
@@ -273,8 +271,8 @@ function useClientValidationFailed() {
 /**
  * Type of data object received when executing the query
  */
-type QueryResultType = ResultOf<typeof PET>;
+type QueryResultType = ResultOf<typeof OWNER>;
 /**
  * Type of the item loaded by executing the query
  */
-type ItemType = QueryResultType["pet"];
+type ItemType = QueryResultType["owner"];

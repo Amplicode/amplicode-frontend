@@ -2,9 +2,11 @@ import {StudioTemplatePropertyType} from "../../../common/studio/studio-model";
 import {ScreenAnswers} from "../../../building-blocks/stages/answers/amplicode/ScreenAnswers";
 
 export type EntityListMode = 'edit' | 'view' | 'view with details';
+export type EntityListType = 'list' | 'cards' | 'table';
 
 export type EntityListAnswers =
   ScreenAnswers & {
+  type?: EntityListType;
   mode?: EntityListMode;
   route: string;
   query: string;
@@ -26,6 +28,14 @@ export const entityListQuestions = [
     propertyType: StudioTemplatePropertyType.ROUTE,
     required: true,
     relatedProperty: 'componentName'
+  },
+  {
+    caption: 'Entity list type',
+    // description: 'Possible values: "cards", "list", "table"
+    code: 'type',
+    propertyType: StudioTemplatePropertyType.OPTION,
+    defaultValue: 'cards',
+    options: ['cards', 'list', 'table'],
   },
   {
     caption: 'Entity list mode',

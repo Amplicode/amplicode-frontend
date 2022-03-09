@@ -8,13 +8,13 @@ import { useRouteMatch } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useScreens } from "@amplicode/react-core";
 import { gql } from "@amplicode/gql";
-import { ReadOnlyOwnerDetails } from "./ReadOnlyOwnerDetails";
+import { ReadOnlyOwnerCardsDetails } from "./ReadOnlyOwnerCardsDetails";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
-const ROUTE = "read-only-owner-list";
+const ROUTE = "read-only-owner-cards";
 const REFETCH_QUERIES = ["Get_Owner_List"];
 
 const OWNER_LIST = gql(/* GraphQL */ `
@@ -31,7 +31,7 @@ const OWNER_LIST = gql(/* GraphQL */ `
   }
 `);
 
-export function ReadOnlyOwnerList() {
+export function ReadOnlyOwnerCards() {
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
   const items = data?.ownerList;
@@ -60,8 +60,8 @@ function useItemUrl() {
 
   const openItem = useOpenItemScreen({
     route: ROUTE,
-    screenComponent: ReadOnlyOwnerDetails,
-    screenCaptionKey: "screen.ReadOnlyOwnerDetails",
+    screenComponent: ReadOnlyOwnerCardsDetails,
+    screenCaptionKey: "screen.ReadOnlyOwnerCardsDetails",
     refetchQueries: REFETCH_QUERIES,
     id: match?.params.id
   });
@@ -85,8 +85,8 @@ function ButtonPanel() {
   // A callback that will open an empty editor form so that a new entity instance can be created
   const openEmptyEditor = useOpenItemScreen({
     route: ROUTE,
-    screenComponent: ReadOnlyOwnerDetails,
-    screenCaptionKey: "screen.ReadOnlyOwnerDetails",
+    screenComponent: ReadOnlyOwnerCardsDetails,
+    screenCaptionKey: "screen.ReadOnlyOwnerCardsDetails",
     refetchQueries: REFETCH_QUERIES
   });
 
@@ -194,8 +194,8 @@ function useCardActions(item: ItemType): ReactNode[] {
   // depending on whether `item` is provided
   const openItem = useOpenItemScreen({
     route: ROUTE,
-    screenComponent: ReadOnlyOwnerDetails,
-    screenCaptionKey: "screen.ReadOnlyOwnerDetails",
+    screenComponent: ReadOnlyOwnerCardsDetails,
+    screenCaptionKey: "screen.ReadOnlyOwnerCardsDetails",
     refetchQueries: REFETCH_QUERIES,
     id: item?.id
   });
