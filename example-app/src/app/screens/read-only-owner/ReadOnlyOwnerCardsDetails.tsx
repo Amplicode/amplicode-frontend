@@ -22,7 +22,7 @@ const OWNER = gql(/* GraphQL */ `
   }
 `);
 
-export interface ReadOnlyOwnerDetailsProps {
+export interface ReadOnlyOwnerCardsDetailsProps {
   /**
    * id of entity instance to be loaded when editing an instance.
    * Will be `undefined` when creating an instance.
@@ -30,7 +30,9 @@ export interface ReadOnlyOwnerDetailsProps {
   id?: string;
 }
 
-export function ReadOnlyOwnerDetails({ id }: ReadOnlyOwnerDetailsProps) {
+export function ReadOnlyOwnerCardsDetails({
+  id
+}: ReadOnlyOwnerCardsDetailsProps) {
   const screens = useScreens();
   const history = useHistory();
 

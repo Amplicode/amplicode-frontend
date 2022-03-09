@@ -8,12 +8,14 @@ import { useRouteMatch } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useScreens } from "@amplicode/react-core";
 import { gql } from "@amplicode/gql";
+import { OwnerCardsEditor } from "./OwnerCardsEditor";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
+import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
-const ROUTE = "standalone-owner-list";
+const ROUTE = "owner-cards";
 const REFETCH_QUERIES = ["Get_Owner_List"];
 
 const OWNER_LIST = gql(/* GraphQL */ `
@@ -36,7 +38,7 @@ const DELETE__OWNER = gql(/* GraphQL */ `
   }
 `);
 
-export function StandaloneOwnerList() {
+export function OwnerCards() {
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
   const items = data?.ownerList;
@@ -63,15 +65,13 @@ function useItemUrl() {
   const screens = useScreens();
   const match = useRouteMatch<{ id: string }>(`/${ROUTE}/:id`);
 
-  const openItem = () => alert("Please specify the editor/details component");
-  // TODO Uncomment the code below and use it in place of above callback
-  // const openItem = useOpenItemScreen({
-  //   route: ROUTE,
-  //   screenComponent: ExampleComponentName, // TODO specify component name
-  //   screenCaptionKey: 'screen.ExampleComponentName', // TODO specify screen caption key
-  //   refetchQueries: REFETCH_QUERIES,
-  //   id: match?.params.id
-  // });
+  const openItem = useOpenItemScreen({
+    route: ROUTE,
+    screenComponent: OwnerCardsEditor,
+    screenCaptionKey: "screen.OwnerCardsEditor",
+    refetchQueries: REFETCH_QUERIES,
+    id: match?.params.id
+  });
 
   useEffect(() => {
     if (
@@ -90,14 +90,12 @@ function ButtonPanel() {
   const intl = useIntl();
 
   // A callback that will open an empty editor form so that a new entity instance can be created
-  const openEmptyEditor = () => alert("Please specify the editor component");
-  // TODO Uncomment the code below and use it in place of above callback
-  // const openEmptyEditor = useOpenItemScreen({
-  //   route: ROUTE,
-  //   screenComponent: ExampleComponentName, // TODO specify component name
-  //   screenCaptionKey: 'screen.ExampleComponentName', // TODO specify screern caption key
-  //   refetchQueries: REFETCH_QUERIES
-  // });
+  const openEmptyEditor = useOpenItemScreen({
+    route: ROUTE,
+    screenComponent: OwnerCardsEditor,
+    screenCaptionKey: "screen.OwnerCardsEditor",
+    refetchQueries: REFETCH_QUERIES
+  });
 
   return (
     <div>
@@ -201,15 +199,13 @@ function useCardActions(item: ItemType): ReactNode[] {
 
   // Callback that opens an editor either for creating or for editing an item
   // depending on whether `item` is provided
-  const openItem = () => alert("Please specify the editor/details component");
-  // TODO Uncomment the code below and use it in place of above callback
-  // const openItem = useOpenItemScreen({
-  //   route: ROUTE,
-  //   screenComponent: ExampleComponentName, // TODO specify component name
-  //   screenCaptionKey: 'screen.ExampleComponentName', // TODO specify screen caption key
-  //   refetchQueries: REFETCH_QUERIES,
-  //   id: item?.id
-  // });
+  const openItem = useOpenItemScreen({
+    route: ROUTE,
+    screenComponent: OwnerCardsEditor,
+    screenCaptionKey: "screen.OwnerCardsEditor",
+    refetchQueries: REFETCH_QUERIES,
+    id: item?.id
+  });
 
   const [runDeleteMutation] = useMutation(DELETE__OWNER);
   // Callback that deletes the item

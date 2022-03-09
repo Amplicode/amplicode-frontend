@@ -1,4 +1,4 @@
-import {EntityListMode} from "../entity-list/answers";
+import {EntityListMode, EntityListType} from "../entity-list/answers";
 import {StudioTemplatePropertyType} from "../../../common/studio/studio-model";
 import {ScreenAnswers} from "../../../building-blocks/stages/answers/amplicode/ScreenAnswers";
 
@@ -6,7 +6,8 @@ export interface EntityManagementAnswers extends ScreenAnswers {
   listComponentName: string,
   itemComponentName: string,
   route: string,
-  mode?: EntityListMode;
+  type: EntityListType,
+  mode?: EntityListMode,
   listQuery: string,
   detailsQuery: string,
   upsertMutation?: string,
@@ -36,6 +37,14 @@ export const commonEntityManagementQuestions =  [
       name: "Entity List",
       order: "1"
     }
+  },
+  {
+    caption: 'Entity list type',
+    // description: 'Possible values: "cards", "list", "table"
+    code: 'type',
+    propertyType: StudioTemplatePropertyType.OPTION,
+    defaultValue: 'cards',
+    options: ['cards', 'list', 'table'],
   },
   {
     caption: 'Entity list mode',

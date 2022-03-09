@@ -30,6 +30,7 @@ export const deriveManagementTemplateModel = async (
     listComponentName,
     itemComponentName,
     route,
+    type,
     listQuery,
     detailsQuery,
     upsertMutation,
@@ -55,6 +56,7 @@ export const deriveManagementTemplateModel = async (
     options, {
       componentName: listComponentName,
       route,
+      type,
       query: listQuery,
       mutation: deleteMutation,
       shouldAddToMenu: shouldAddToMenu,
