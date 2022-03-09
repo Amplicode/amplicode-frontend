@@ -20,6 +20,8 @@ import { useCloseNestedScreen } from "./useCloseNestedScreen";
  * @param setFormError
  * @param refetchQueries
  * @param id entity instance id (when editing an entity, otherwise undefined)
+ * @param serializeFieldValues a function that converts the form field values into the shape expected by backend
+ * (serialization, format conversion).
  */
 export function useSubmitEditor<TData>(
   mutation: TypedDocumentNode,
@@ -28,7 +30,10 @@ export function useSubmitEditor<TData>(
     | ((result: FetchResult<TData>) => InternalRefetchQueriesInclude)
     | InternalRefetchQueriesInclude
     | undefined,
-  id?: string
+  id?: string,
+  serializeFieldValues: (
+    fieldValues: Record<string, unknown>
+  ) => Record<string, unknown> = form2gql
 ) {
   const intl = useIntl();
   const closeEditor = useCloseNestedScreen();
@@ -88,7 +93,7 @@ export function useSubmitEditor<TData>(
        * Otherwise a new instance will be created.
        */
       const input = {
-        ...form2gql(formFieldValues),
+        ...serializeFieldValues(formFieldValues),
         id: id
       };
 
