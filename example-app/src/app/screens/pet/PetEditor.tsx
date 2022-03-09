@@ -17,7 +17,7 @@ import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODi
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { gql } from "@amplicode/gql";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
-import { useSubmit } from "../../../core/crud/useSubmit";
+import { useSubmitEditor } from "../../../core/crud/useSubmitEditor";
 import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 import { useCloseNestedScreen } from "../../../core/crud/useCloseNestedScreen";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -111,7 +111,7 @@ function EditorForm<TData>({
   // Examples: cross-validation, network errors.
   const [formError, setFormError] = useState<string | undefined>();
 
-  const { handleSubmit, submitting } = useSubmit(
+  const { handleSubmit, submitting } = useSubmitEditor(
     UPDATE__PET,
     setFormError,
     refetchQueries,
