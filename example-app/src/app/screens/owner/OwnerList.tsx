@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
@@ -73,9 +73,14 @@ function useItemUrl() {
     id: match?.params.id
   });
 
-  if (screens.activeTab?.breadcrumbs.length === 1 && match?.params.id != null) {
-    openItem();
-  }
+  useEffect(() => {
+    if (
+      screens.activeTab?.breadcrumbs.length === 1 &&
+      match?.params.id != null
+    ) {
+      openItem();
+    }
+  });
 }
 
 /**
