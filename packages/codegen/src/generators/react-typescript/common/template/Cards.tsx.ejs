@@ -21,7 +21,12 @@ Beside mode, there are additional options for template config:
 <% const QUERY_CONST = toFatSnakeCase(queryName); -%>
 <% const MUTATION_CONST = deleteMutationName ? toFatSnakeCase(deleteMutationName) : undefined; -%>
 <%# ------- TEMPLATE STARTS HERE ------- -%>
-import {ReactNode} from "react";
+import {
+  ReactNode,
+  <% if (mode === 'edit' || mode === 'view with details') { -%>
+    useEffect,
+  <% } -%>
+} from "react";
 import {
   useQuery,
   <% if (withDeleteAction) { -%>
@@ -153,12 +158,11 @@ export function <%= componentName %>() {
       });
     <% } -%>
 
-    if (
-      screens.activeTab?.breadcrumbs.length === 1 &&
-      match?.params.id != null
-    ) {
-      openItem();
-    }
+    useEffect(() => {
+      if (screens.activeTab?.breadcrumbs.length === 1 && match?.params.id != null) {
+        openItem();
+      }
+    });
   }
 <% } -%>
 
