@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.9.0...@amplicode/codegen@0.10.0) (2022-03-10)
+
+
+### Bug Fixes
+
+* error in console when refreshing editor (refactored crud templates) [#194](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/194) ([02159a8](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/02159a8fbf1ae67c4b79efde83871b9ca5d56702))
+
+
+### Features
+
+* add route as a separate screen template parameter [#178](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/178) ([1570e43](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/1570e4380ddfddb2c37e6c7d12e434542ec64987))
+* allow custom processing of form data before submit ([19f0768](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/19f0768485aaed73c51f1589e7edba4d508b87fa))
+* scaffold getXXXDisplayName functions for entities when creating screens [#153](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/153) ([7ef1007](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/7ef1007a031d67a2f0113356449a8ac8174823ac))
+
+
+
+
+
 # [0.9.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.9.0-next.0...@amplicode/codegen@0.9.0) (2022-03-04)
 
 
