@@ -6,7 +6,7 @@
     "@amplicode/react-antd": "file:../packages/react-antd/amplicode-react-antd-0.7.3.tgz",
     "@amplicode/react-core": "file:../packages/react-core/amplicode-react-core-0.8.0.tgz",
     "@ant-design/icons": "^4.6.3",
-    "@apollo/client": "~3.4.8",
+    "@apollo/client": "~3.5.10",
     "@react-buddy/ide-toolbox": "^2.0.0",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^11.2.7",
