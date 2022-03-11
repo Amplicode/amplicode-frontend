@@ -4,6 +4,7 @@ import path from "path";
 import {generate, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
 import {expect} from "chai";
 import {MvpEntityEditorAnswers} from "../../../../generators/react-typescript/entity-details/answers";
+import {expectFileContainsIgnoreSpace} from "../../../test-commons";
 const rimraf = promisify(require('rimraf'));
 
 const DEST_DIR = path.join(process.cwd(), 'src', 'test', 'generated', 'generators', 'react-typescript', 'entity-details');
@@ -128,7 +129,7 @@ describe('codegen entity-details test', () => {
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function TestDtoEditor');
     // compare form item ignore spaces
-    expect(componentFile.replace(/\s/g,'')).to.contain(expectBoolFormItem.replace(/\s/g,''));
+    expectFileContainsIgnoreSpace(componentFile, expectBoolFormItem);
   });
 
 });

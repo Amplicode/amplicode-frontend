@@ -15,7 +15,7 @@ query Get_Owner_List {
 `;
 
 const ownerDeleteMutation = `
-mutation Delete_Owner($id: BigInteger!) {
+mutation Delete_Owner($id: BigInteger) {
   delete_Owner(id: $id)
 }
 `;

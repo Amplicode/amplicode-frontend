@@ -7,6 +7,7 @@ import prettier = require('prettier');
 import path from "path";
 import {strictEqual} from "assert";
 import {loadSchema} from "@graphql-tools/load";
+import {expect} from "chai";
 
 const enumsModel: Enum[] = require('./fixtures/enums-model.json');
 const entityModel: Entity = require('./fixtures/entity-model.json');
@@ -81,4 +82,8 @@ export async function getMockSchema() {
   const schemaPath = path.join(__dirname, '../../../../scripts/schema.graphql');
   const schemaString = fs.readFileSync(schemaPath, 'utf-8');
   return await loadSchema(schemaString, {loaders: []});
+}
+
+export function expectFileContainsIgnoreSpace(file: string, fragment: string) {
+  expect(file.replace(/\s/g, '')).to.contain(fragment.replace(/\s/g, ''));
 }
