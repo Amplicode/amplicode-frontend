@@ -1,21 +1,3 @@
-<%#
-
-Cards template provides ability to generate three types of List components.
-Type of component should be configured in 'mode' variable:
-
-* mode === 'edit' - default mode which is used when List items could be edited via additional
-    component ('itemComponentName')
-* mode === 'view' - no additional item component provided
-* mode === 'view with details' - here item component is the component that show item details without ability to edit
-
-
-Beside mode, there are additional options for template config:
-
-* 'withDeleteAction' - defines if there should be delete button on screen or not. Yes if 'deleteMutationName' and
-    'deleteMutationString' provided
-* 'withItemComponent' - defines if item component defined and passed in 'itemComponentName'
-
--%>
 <% var withItemComponent = locals.itemComponentName != null; -%>
 <% var withDeleteAction = locals.deleteMutationString != null && locals.deleteMutationName != null; -%>
 <% const QUERY_CONST = toFatSnakeCase(queryName); -%>
@@ -111,10 +93,8 @@ export function <%= componentName %>() {
   <% } -%>
 
   return (
-    <div className='narrow-layout'>
-      <Space direction='vertical'
-             style={{width: '100%'}}
-      >
+    <div className="narrow-layout">
+      <Space direction="vertical" style={{ width: "100%" }}>
         <% if (mode === 'edit') { -%>
           <ButtonPanel />
         <% } -%>
@@ -237,16 +217,10 @@ function Cards({items, loading, error}: ItemCardsListProps) {
   }
 
   return (
-    <Space direction='vertical'
-           style={{width: '100%'}}
-    >
-      {
-        items.map((item) => (
-          <ItemCard item={item}
-                    key={item?.id}
-          />
-        ))
-      }
+    <Space direction="vertical" style={{ width: "100%" }}>
+      {items.map(item => (
+        <ItemCard item={item} key={item?.id} />
+      ))}
     </Space>
   );
 }

@@ -20,7 +20,7 @@ query Get_Pet_List {
 `;
 
 const petDeleteMutation = `
-mutation Delete_Pet($id: BigInteger!) {
+mutation Delete_Pet($id: BigInteger) {
   delete_Pet(id: $id)
 }
 `;

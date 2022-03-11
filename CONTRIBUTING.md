@@ -686,3 +686,24 @@ Now you can create screens using Studio interface (`Ctrl + Shift + A` -> type "F
 We are using [@graphql-codegen/gql-tag-operations-preset](https://www.graphql-code-generator.com/docs/presets/gql-tag-operations) to generate TypeScript types based on GraphQL operations and schema. Generated types are located in `src/gql` and we install them as a local package in order for them to be available in any place of the application by the same path. Read above link for more details.
 
 **There is a caveat!** Generated TypeScript types are using `@graphql-typed-document-node/core` package. It is a transitive dependency of `@apollo/client`. When using npm 7 it is installed on top level and is therefore usable by `src/gql`. When using npm 8 it is installed in `node_modules` inside `@apollo/client` folder and is therefore inaccessible. As a workaround, we are adding it as a dev dependency to `src/gql`. When updating `@apollo/client` to a version that uses new major version of `@graphql-typed-document-node/core` we should manually update mentioned dev dependency in the template.
+
+### Collection EJS Templates (List, Cards, Table)
+
+Codegen has an ability to generate three types of screens for collection of entities - List, Cards and Table.
+
+`List` and `Cards` templates provide ability to generate collection components in three modes.
+Variant of component should be configured in `mode` variable (passed to the template from `templateModel`):
+
+* `mode = 'edit'` - default mode which is used when collection items could be edited via additional
+  component (`itemComponentName`)
+* `mode = 'view'` - no additional item component provided
+* `mode = 'view with details'` - here item component is the component that show item details without ability to edit
+
+
+Beside mode, there are additional options for template config:
+
+* `withDeleteAction` - defines if delete button should be on screen or not. Yes if `deleteMutationName` and
+  `deleteMutationString` provided
+* `withItemComponent` - defines if item component defined and passed in `itemComponentName`
+
+

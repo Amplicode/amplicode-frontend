@@ -27,15 +27,16 @@ export async function writeEntityList(
   // Write screen component
   await writeAmplicodeComponent(templateModel, gen, path.join(__dirname, '..', 'common', 'template', templateName));
 
-  // TODO we need it for 'Cards' type only, should be not write for 'List'
-  // Write getXXXDisplayName() function for listed entity
-  await writeDisplayNameFunction({
-    gen,
-    entityName: templateModel.entityName,
-    attributes: templateModel.allAttributes,
-    dirShift: templateModel.relDirShift,
-    idAttrName: templateModel.idField
-  });
+  if (templateModel.type == 'cards') {
+    // Write getXXXDisplayName() function for listed entity
+    await writeDisplayNameFunction({
+      gen,
+      entityName: templateModel.entityName,
+      attributes: templateModel.allAttributes,
+      dirShift: templateModel.relDirShift,
+      idAttrName: templateModel.idField
+    });
+  }
 
   await writeDisplayNameFunctionsForRelations(gen, templateModel.attributes, templateModel.relDirShift);
 }
