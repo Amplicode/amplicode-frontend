@@ -91,7 +91,7 @@ import Meta from "antd/es/card/Meta";
 import TextArea from "antd/es/input/TextArea";
 import Paragraph from "antd/es/typography/Paragraph";
 
-const palette = () => (
+export const PaletteTree = () => (
   <Palette>
     <Category name="Button">
       <Component name="Button">
@@ -2862,5 +2862,3 @@ const palette = () => (
     </Category>
   </Palette>
 );
-
-export default palette;
