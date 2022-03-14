@@ -9,10 +9,11 @@ import { OwnerListEditor } from "../app/screens/owner/OwnerListEditor";
 import { OwnerCards } from "../app/screens/owner/OwnerCards";
 import { OwnerCardsEditor } from "../app/screens/owner/OwnerCardsEditor";
 import { ComponentPreview, Previews } from "@react-buddy/ide-toolbox";
+import { PaletteTree } from "./palette";
 
-export const ComponentPreviews = () => {
+const ComponentPreviews = () => {
   return (
-    <Previews>
+    <Previews palette={<PaletteTree />}>
       <ComponentPreview path="/OwnerCardsEditor">
         <OwnerCardsEditor />
       </ComponentPreview>
@@ -43,3 +44,5 @@ export const ComponentPreviews = () => {
     </Previews>
   );
 };
+
+export default ComponentPreviews;
