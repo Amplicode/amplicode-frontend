@@ -21,7 +21,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { gql2form } from "../../../core/format/gql2form";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 
-const OWNER = gql(/* GraphQL */ `
+const OWNER = gql(`
   query Get_Owner($id: BigInteger) {
     owner(id: $id) {
       id
@@ -35,7 +35,7 @@ const OWNER = gql(/* GraphQL */ `
   }
 `);
 
-const UPDATE__OWNER = gql(/* GraphQL */ `
+const UPDATE__OWNER = gql(`
   mutation Update_Owner($input: OwnerInputDTOInput) {
     update_Owner(input: $input) {
       id

@@ -1,32 +1,28 @@
 const { runCmdSync, esc, btoa, amplicodegen } = require("../common");
 
-const ownerListQuery = `
-query Get_Owner_List {
-  ownerList {
-    id
-    firstName
-    lastName
-    city
-    address
-    telephone
-    email
-  }
-}
-`;
+const ownerListQuery = `query Get_Owner_List {
+    ownerList {
+      id
+      firstName
+      lastName
+      city
+      address
+      telephone
+      email
+    }
+  }`;
 
-const ownerDetailsQuery = `
-query Get_Owner($id: BigInteger) {
-  owner(id: $id) {
-    id
-    firstName
-    lastName
-    city
-    address
-    telephone
-    email
-  }
-}
-`;
+const ownerDetailsQuery = `query Get_Owner($id: BigInteger) {
+    owner(id: $id) {
+      id
+      firstName
+      lastName
+      city
+      address
+      telephone
+      email
+    }
+  }`;
 
 const readOnlyManagementAnswers = btoa(JSON.stringify({
   listComponentName: 'ReadOnlyOwnerCards',

@@ -16,7 +16,7 @@ import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODi
 
 const ROUTE = "read-only-owner-cards";
 
-const OWNER_LIST = gql(/* GraphQL */ `
+const OWNER_LIST = gql(`
   query Get_Owner_List {
     ownerList {
       id

@@ -74,14 +74,14 @@ const ROUTE = '<%= route %>';
   const REFETCH_QUERIES = ['<%= refetchQuery %>'];
 <% } -%>
 
-const <%= QUERY_CONST %> = gql(/* GraphQL */ `
+const <%= QUERY_CONST %> = gql(`
   <%= queryString %>
 `);
 
 <% if (withDeleteAction) { -%>
-  const <%= MUTATION_CONST %> = gql(/* GraphQL */ `
-    <%= deleteMutationString %>
-  `);
+const <%= MUTATION_CONST %> = gql(`
+  <%= deleteMutationString %>
+`);
 <% } -%>
 
 export function <%= componentName %>() {

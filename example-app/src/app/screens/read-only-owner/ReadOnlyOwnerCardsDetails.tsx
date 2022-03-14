@@ -8,7 +8,7 @@ import { useScreens } from "@amplicode/react-core";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 
-const OWNER = gql(/* GraphQL */ `
+const OWNER = gql(`
   query Get_Owner($id: BigInteger) {
     owner(id: $id) {
       id
