@@ -233,7 +233,7 @@ const CarEdit = observer((props: EntityEditorProps<Car>) => {
 
         <GlobalErrorsAlert serverValidationErrors={serverValidationErrors} />
 
-        <Form.Item style={{ textAlign: "center" }}>
+        <Form.Item className="form-buttons">
           <Button htmlType="button" onClick={handleCancelBtnClick}>
             <FormattedMessage id="common.cancel" />
           </Button>

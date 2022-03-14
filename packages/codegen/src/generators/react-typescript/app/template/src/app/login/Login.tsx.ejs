@@ -60,7 +60,7 @@ export const Login = observer(() => {
               placeholder='Login'
               onChange={changeLogin}
               value={username}
-              prefix={<UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+              prefix={<UserOutlined className="login-icon" />}
               size="large"
             />
           </Form.Item>
@@ -71,7 +71,7 @@ export const Login = observer(() => {
               onChange={changePassword}
               value={password}
               type="password"
-              prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+              prefix={<LockOutlined className="login-icon" />}
               size="large"
             />
           </Form.Item>

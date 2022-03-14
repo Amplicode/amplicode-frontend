@@ -142,23 +142,15 @@ function EditorForm<TData>({
 function FormFields() {
   return (
     <>
-      <Form.Item
-        name="birthDate"
-        label="Birth Date"
-        style={{ marginBottom: "12px" }}
-      >
+      <Form.Item name="birthDate" label="Birth Date">
         <Input />
       </Form.Item>
 
-      <Form.Item
-        name="identificationNumber"
-        label="Identification Number"
-        style={{ marginBottom: "12px" }}
-      >
+      <Form.Item name="identificationNumber" label="Identification Number">
         <Input />
       </Form.Item>
 
-      <Form.Item name="owner" label="Owner" style={{ marginBottom: "12px" }}>
+      <Form.Item name="owner" label="Owner">
         <EntityLookupField
           getDisplayName={getOwnerDTODisplayName}
           label="Owner"
@@ -167,7 +159,7 @@ function FormFields() {
         />
       </Form.Item>
 
-      <Form.Item name="type" label="Type" style={{ marginBottom: "12px" }}>
+      <Form.Item name="type" label="Type">
         <EntityLookupField
           getDisplayName={getPetTypeDTODisplayName}
           label="Type"
@@ -188,7 +180,7 @@ function FormButtons({ submitting }: { submitting?: boolean }) {
   const closeEditor = useCloseNestedScreen();
 
   return (
-    <Form.Item style={{ textAlign: "center" }}>
+    <Form.Item className="form-buttons">
       <Space>
         <Button htmlType="button" onClick={closeEditor}>
           <FormattedMessage id="common.cancel" />

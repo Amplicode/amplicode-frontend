@@ -151,7 +151,7 @@ function FormButtons({submitting}: {submitting?: boolean}) {
   const closeEditor = useCloseNestedScreen();
 
   return (
-    <Form.Item style={{textAlign: 'center'}}>
+    <Form.Item className="form-buttons">
       <Space>
         <Button htmlType="button" onClick={closeEditor}>
           <FormattedMessage id="common.cancel" />

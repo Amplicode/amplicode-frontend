@@ -49,7 +49,7 @@ export function OwnerCards() {
 
   return (
     <div className="narrow-layout">
-      <Space direction="vertical" style={{ width: "100%" }}>
+      <Space direction="vertical" className="card-space">
         <ButtonPanel />
         <Cards items={items} loading={loading} error={error} />
         {/* <Pagination /> - in future */}
@@ -138,7 +138,7 @@ function Cards({ items, loading, error }: ItemCardsListProps) {
   }
 
   return (
-    <Space direction="vertical" style={{ width: "100%" }}>
+    <Space direction="vertical" className="card-space">
       {items.map(item => (
         <ItemCard item={item} key={item?.id} />
       ))}

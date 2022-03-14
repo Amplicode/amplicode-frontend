@@ -41,7 +41,7 @@ export function ReadOnlyOwnerCards() {
 
   return (
     <div className="narrow-layout">
-      <Space direction="vertical" style={{ width: "100%" }}>
+      <Space direction="vertical" className="card-space">
         <Cards items={items} loading={loading} error={error} />
         {/* <Pagination /> - in future */}
       </Space>
@@ -96,7 +96,7 @@ function Cards({ items, loading, error }: ItemCardsListProps) {
   }
 
   return (
-    <Space direction="vertical" style={{ width: "100%" }}>
+    <Space direction="vertical" className="card-space">
       {items.map(item => (
         <ItemCard item={item} key={item?.id} />
       ))}

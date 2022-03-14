@@ -120,7 +120,6 @@ describe('codegen entity-details test', () => {
         <Form.Item
           name="bool"
           label="Bool"
-          style={{ marginBottom: "12px" }}
           valuePropName="checked"
         >
           <Checkbox />
