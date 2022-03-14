@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.10.0...@amplicode/codegen@0.11.0) (2022-03-14)
+
+
+### Features
+
+* add entity list type "list" [#142](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/142) ([35b0e51](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/35b0e515d01f7da4dd90085870abc5b0f7474346))
+* migrate template from CRA to vite [#154](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/154) ([2badefb](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/2badefb35958e4b577cc1886c43d6de412841102))
+* update react-buddy dependencies and template [#197](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/197) ([f7f8bbc](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/f7f8bbc99d6bdae94136dc2c20d01bf859fbcae4))
+
+
+
+
+
 # [0.10.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.9.0...@amplicode/codegen@0.10.0) (2022-03-10)
 
 
