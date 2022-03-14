@@ -2,10 +2,10 @@ import { ReactNode, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
-import { Button, Card, Empty, Space, Spin } from "antd";
-import { EditOutlined, PlusOutlined } from "@ant-design/icons";
+import { Card, Empty, Space, Spin } from "antd";
+import { EnterOutlined } from "@ant-design/icons";
 import { useRouteMatch } from "react-router-dom";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useScreens } from "@amplicode/react-core";
 import { gql } from "@amplicode/gql";
 import { ReadOnlyOwnerCardsDetails } from "./ReadOnlyOwnerCardsDetails";
@@ -15,7 +15,6 @@ import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
 const ROUTE = "read-only-owner-cards";
-const REFETCH_QUERIES = ["Get_Owner_List"];
 
 const OWNER_LIST = gql(/* GraphQL */ `
   query Get_Owner_List {
@@ -43,7 +42,6 @@ export function ReadOnlyOwnerCards() {
   return (
     <div className="narrow-layout">
       <Space direction="vertical" style={{ width: "100%" }}>
-        <ButtonPanel />
         <Cards items={items} loading={loading} error={error} />
         {/* <Pagination /> - in future */}
       </Space>
@@ -62,7 +60,6 @@ function useItemUrl() {
     route: ROUTE,
     screenComponent: ReadOnlyOwnerCardsDetails,
     screenCaptionKey: "screen.ReadOnlyOwnerCardsDetails",
-    refetchQueries: REFETCH_QUERIES,
     id: match?.params.id
   });
 
@@ -74,38 +71,6 @@ function useItemUrl() {
       openItem();
     }
   });
-}
-
-/**
- * Button panel above the cards
- */
-function ButtonPanel() {
-  const intl = useIntl();
-
-  // A callback that will open an empty editor form so that a new entity instance can be created
-  const openEmptyEditor = useOpenItemScreen({
-    route: ROUTE,
-    screenComponent: ReadOnlyOwnerCardsDetails,
-    screenCaptionKey: "screen.ReadOnlyOwnerCardsDetails",
-    refetchQueries: REFETCH_QUERIES
-  });
-
-  return (
-    <div>
-      <Button
-        htmlType="button"
-        key="create"
-        title={intl.formatMessage({ id: "common.create" })}
-        type="primary"
-        icon={<PlusOutlined />}
-        onClick={openEmptyEditor}
-      >
-        <span>
-          <FormattedMessage id="common.create" />
-        </span>
-      </Button>
-    </div>
-  );
 }
 
 interface ItemCardsListProps {
@@ -190,20 +155,19 @@ function ItemCard({ item }: { item: ItemType }) {
 function useCardActions(item: ItemType): ReactNode[] {
   const intl = useIntl();
 
-  // Callback that opens an editor either for creating or for editing an item
+  // Callback that opens a details screen or an editor either for creating or for editing an item
   // depending on whether `item` is provided
   const openItem = useOpenItemScreen({
     route: ROUTE,
     screenComponent: ReadOnlyOwnerCardsDetails,
     screenCaptionKey: "screen.ReadOnlyOwnerCardsDetails",
-    refetchQueries: REFETCH_QUERIES,
     id: item?.id
   });
 
   return [
-    <EditOutlined
-      key="edit"
-      title={intl.formatMessage({ id: "common.edit" })}
+    <EnterOutlined
+      key="open"
+      title={intl.formatMessage({ id: "common.open" })}
       onClick={openItem}
     />
   ];

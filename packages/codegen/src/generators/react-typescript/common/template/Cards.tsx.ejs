@@ -44,7 +44,7 @@ import {
   Space,
   Spin
 } from "antd";
-<% if (withDeleteAction || mode === 'edit') { -%>
+<% if (withDeleteAction || mode === 'edit' || mode === 'view with details') { -%>
   import {
     <% if (withDeleteAction) { -%>
       DeleteOutlined,
@@ -61,7 +61,12 @@ import {
 <% if (mode === 'edit' || mode === 'view with details') { -%>
   import {useRouteMatch} from "react-router-dom";
 <% } -%>
-import {FormattedMessage, useIntl} from "react-intl";
+import {
+  <% if (mode === 'edit') { -%>
+    FormattedMessage,
+  <% } -%>
+  useIntl
+} from "react-intl";
 import {
   <% if (mode === 'edit' || mode === 'view with details') { -%>
     useScreens,
@@ -153,7 +158,9 @@ export function <%= componentName %>() {
         route: ROUTE,
         screenComponent: <%= itemComponentName %>,
         screenCaptionKey: 'screen.<%= itemComponentName %>',
+      <% if (mode === 'edit') { -%>
         refetchQueries: REFETCH_QUERIES,
+      <% } -%>
         id: match?.params.id
       });
     <% } -%>
@@ -290,7 +297,7 @@ function useCardActions(item: ItemType): ReactNode[] {
   const intl = useIntl();
 
   <% if (mode === 'edit' || mode === 'view with details') { -%>
-    // Callback that opens an editor either for creating or for editing an item
+    // Callback that opens a details screen or an editor either for creating or for editing an item
     // depending on whether `item` is provided
     <% if (!withItemComponent) { -%>
       const openItem = () => alert('Please specify the editor/details component');
@@ -308,7 +315,9 @@ function useCardActions(item: ItemType): ReactNode[] {
         route: ROUTE,
         screenComponent: <%= itemComponentName %>,
         screenCaptionKey: 'screen.<%= itemComponentName %>',
+      <% if (mode === 'edit') { -%>
         refetchQueries: REFETCH_QUERIES,
+      <% } -%>
         id: item?.id
       });
     <% } -%>
