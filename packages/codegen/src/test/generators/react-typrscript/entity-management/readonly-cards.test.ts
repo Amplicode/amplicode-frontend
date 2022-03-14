@@ -50,7 +50,7 @@ describe('codegen readonly cards', () => {
     await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, SCHEMA_PATH));
 
     const expectTag = `
-    <Space direction="vertical" style={{ width: "100%" }}>
+    <Space direction="vertical" className="card-space">
       <Cards items={items} loading={loading} error={error} />
       {/* <Pagination /> - in future */}
     </Space>`;
@@ -105,7 +105,7 @@ describe('codegen readonly cards', () => {
     await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, SCHEMA_PATH));
 
     const expectTag = `
-    <Space direction="vertical" style={{ width: "100%" }}>
+    <Space direction="vertical" className="card-space">
       <Cards items={items} loading={loading} error={error} />
       {/* <Pagination /> - in future */}
     </Space>`;

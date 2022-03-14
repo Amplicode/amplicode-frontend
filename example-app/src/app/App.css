@@ -24,10 +24,30 @@
     margin: auto;
 }
 
+.narrow-layout .ant-form-item {
+    margin-bottom: 12px;
+}
+
 .ant-list-bordered .ant-list-item {
     border: 1px solid rgb(217, 217, 217);
 }
 
 .ant-table-row.table-row-selected {
     background: #fafafa;
+}
+
+.anticon.login-icon {
+    color: rgba(0,0,0,.25);
+}
+
+.card-space, .list-space {
+    width: 100%;
+}
+
+.form-buttons {
+    text-align: center;
+}
+
+.list-wrapper {
+    flex-grow: 1;
 }

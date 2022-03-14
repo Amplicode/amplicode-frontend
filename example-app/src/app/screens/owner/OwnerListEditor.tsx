@@ -134,43 +134,27 @@ function EditorForm<TData>({
 function FormFields() {
   return (
     <>
-      <Form.Item
-        name="address"
-        label="Address"
-        style={{ marginBottom: "12px" }}
-      >
+      <Form.Item name="address" label="Address">
         <Input />
       </Form.Item>
 
-      <Form.Item name="city" label="City" style={{ marginBottom: "12px" }}>
+      <Form.Item name="city" label="City">
         <Input />
       </Form.Item>
 
-      <Form.Item name="email" label="Email" style={{ marginBottom: "12px" }}>
+      <Form.Item name="email" label="Email">
         <Input />
       </Form.Item>
 
-      <Form.Item
-        name="firstName"
-        label="First Name"
-        style={{ marginBottom: "12px" }}
-      >
+      <Form.Item name="firstName" label="First Name">
         <Input />
       </Form.Item>
 
-      <Form.Item
-        name="lastName"
-        label="Last Name"
-        style={{ marginBottom: "12px" }}
-      >
+      <Form.Item name="lastName" label="Last Name">
         <Input />
       </Form.Item>
 
-      <Form.Item
-        name="telephone"
-        label="Telephone"
-        style={{ marginBottom: "12px" }}
-      >
+      <Form.Item name="telephone" label="Telephone">
         <Input />
       </Form.Item>
     </>
@@ -186,7 +170,7 @@ function FormButtons({ submitting }: { submitting?: boolean }) {
   const closeEditor = useCloseNestedScreen();
 
   return (
-    <Form.Item style={{ textAlign: "center" }}>
+    <Form.Item className="form-buttons">
       <Space>
         <Button htmlType="button" onClick={closeEditor}>
           <FormattedMessage id="common.cancel" />

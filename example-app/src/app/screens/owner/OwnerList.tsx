@@ -48,7 +48,7 @@ export function OwnerList() {
 
   return (
     <div className="narrow-layout">
-      <Space direction="vertical" style={{ width: "100%" }}>
+      <Space direction="vertical" className="list-space">
         <ButtonPanel />
         <ListItems items={items} loading={loading} error={error} />
         {/* <Pagination /> - in future */}
@@ -137,7 +137,7 @@ function ListItems({ items, loading, error }: ListItemsProps) {
   }
 
   return (
-    <Space direction="vertical" style={{ width: "100%" }}>
+    <Space direction="vertical" className="list-space">
       <List
         itemLayout="horizontal"
         bordered
@@ -158,7 +158,7 @@ function ListItem({ item }: { item: ItemType }) {
 
   return (
     <List.Item actions={rowActions}>
-      <div style={{ flexGrow: 1 }}>
+      <div className="list-wrapper">
         <ValueWithLabel
           key="address"
           label="Address"

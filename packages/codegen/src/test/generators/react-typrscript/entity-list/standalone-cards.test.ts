@@ -41,7 +41,7 @@ describe('codegen standalone cards', () => {
     await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, answers, SCHEMA_PATH));
 
     const expectCardsTag = `
-        <Space direction="vertical" style={{ width: "100%" }}>
+        <Space direction="vertical" className="card-space">
           {items.map(item => (
             <ItemCard item={item} key={item?.id} />
           ))}
@@ -76,7 +76,7 @@ describe('codegen standalone cards', () => {
     await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, answers, SCHEMA_PATH));
 
     const expectCardsTag = `
-        <Space direction="vertical" style={{ width: "100%" }}>
+        <Space direction="vertical" className="card-space">
           {items.map(item => (
             <ItemCard item={item} key={item?.id} />
           ))}

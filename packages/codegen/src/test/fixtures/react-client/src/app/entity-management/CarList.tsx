@@ -168,7 +168,7 @@ const CarList = observer((props: EntityListProps<Car>) => {
               </EntityPermAccessControl>
             ]}
           >
-            <div style={{ flexGrow: 1 }}>
+            <div className="list-wrapper">
               {getFields(item).map(p => (
                 <EntityProperty
                   entityName={ENTITY_NAME}

@@ -97,7 +97,7 @@ export function <%= componentName %>() {
 
   return (
     <div className="narrow-layout">
-      <Space direction="vertical" style={{ width: "100%" }}>
+      <Space direction="vertical" className="list-space">
         <% if (mode === 'edit') { -%>
           <ButtonPanel />
         <% } -%>
@@ -222,7 +222,7 @@ function ListItems({items, loading, error}: ListItemsProps) {
   }
 
   return (
-    <Space direction="vertical" style={{ width: "100%" }}>
+    <Space direction="vertical" className="list-space">
       <List
         itemLayout="horizontal"
         bordered
@@ -243,7 +243,7 @@ function ListItem({item}: {item: ItemType}) {
 
   return (
       <List.Item actions={rowActions}>
-        <div style={{ flexGrow: 1 }}>
+        <div className="list-wrapper">
       <% attributes.forEach(attr => { -%>
         <% if (!attr.isRelationField) { -%>
           <ValueWithLabel key='<%= attr.name %>'

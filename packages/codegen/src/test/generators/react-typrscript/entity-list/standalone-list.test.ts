@@ -43,7 +43,7 @@ describe('codegen standalone list', () => {
     await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, standaloneListAnswers, SCHEMA_PATH));
 
     const expectListTag = `
-        <Space direction="vertical" style={{ width: "100%" }}>
+        <Space direction="vertical" className="list-space">
           <List
             itemLayout="horizontal"
             bordered
@@ -81,7 +81,7 @@ describe('codegen standalone list', () => {
     await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, answers, SCHEMA_PATH));
 
     const expectCardsTag = `
-    <Space direction="vertical" style={{ width: "100%" }}>
+    <Space direction="vertical" className="list-space">
     <List
       itemLayout="horizontal"
       bordered

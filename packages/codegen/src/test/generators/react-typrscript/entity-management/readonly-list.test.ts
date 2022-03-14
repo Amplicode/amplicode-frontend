@@ -19,7 +19,7 @@ const DEST_DIR = path.join(process.cwd(), 'src', 'test', 'generated', 'generator
 const displayNameFunctionFile = path.join(DEST_DIR, 'display-name', 'getOwnerDTODisplayName.ts');
 
 const expectTag = `
-      <Space direction="vertical" style={{ width: "100%" }}>
+      <Space direction="vertical" className="list-space">
         <List
           itemLayout="horizontal"
           bordered
