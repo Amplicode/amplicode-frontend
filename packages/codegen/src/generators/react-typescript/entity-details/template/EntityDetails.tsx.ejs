@@ -11,8 +11,8 @@ import { get<%= capitalizeFirst(entityName) %>DisplayName } from '<%= relDirShif
 <% }) -%>
 import {RequestFailedError} from "../../../core/crud/RequestFailedError";
 
-const <%= toFatSnakeCase(queryName) %> = gql(/* GraphQL */ `
-<%= queryString %>
+const <%= toFatSnakeCase(queryName) %> = gql(`
+  <%= queryString %>
 `);
 
 export interface <%= componentName %>Props {

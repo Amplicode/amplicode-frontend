@@ -18,7 +18,7 @@ import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODi
 const ROUTE = "owner-cards";
 const REFETCH_QUERIES = ["Get_Owner_List"];
 
-const OWNER_LIST = gql(/* GraphQL */ `
+const OWNER_LIST = gql(`
   query Get_Owner_List {
     ownerList {
       id
@@ -32,7 +32,7 @@ const OWNER_LIST = gql(/* GraphQL */ `
   }
 `);
 
-const DELETE__OWNER = gql(/* GraphQL */ `
+const DELETE__OWNER = gql(`
   mutation Delete_Owner($id: BigInteger!) {
     delete_Owner(id: $id)
   }

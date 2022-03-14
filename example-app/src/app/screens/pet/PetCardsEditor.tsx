@@ -24,7 +24,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { gql2form } from "../../../core/format/gql2form";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 
-const PET = gql(/* GraphQL */ `
+const PET = gql(`
   query Get_Pet($id: BigInteger) {
     pet(id: $id) {
       id
@@ -43,7 +43,7 @@ const PET = gql(/* GraphQL */ `
   }
 `);
 
-const UPDATE__PET = gql(/* GraphQL */ `
+const UPDATE__PET = gql(`
   mutation Update_Pet($input: PetInputDTOInput) {
     update_Pet(input: $input) {
       id

@@ -41,11 +41,11 @@ import {FormattedMessage, useIntl} from "react-intl";
 import {gql2form} from "<%= relDirShift %>core/format/gql2form";
 import {RefetchQueries} from "<%= relDirShift %>core/type-aliases/RefetchQueries";
 
-const <%= QUERY_CONST %> = gql(/* GraphQL */ `
+const <%= QUERY_CONST %> = gql(`
   <%= queryString %>
 `);
 
-const <%= MUTATION_CONST %> = gql(/* GraphQL */ `
+const <%= MUTATION_CONST %> = gql(`
   <%= mutationString %>
 `);
 
