@@ -26,7 +26,7 @@
     "bootstrap-react-app": "node scripts/bootstrap-react-app.js",
     "inject-test-addon": "node scripts/inject-test-addon.js",
     "remove-test-addon": "node scripts/remove-test-addon.js",
-    "start-react-app": "npm start --prefix example-app",
+    "start-react-app": "npm run dev --prefix example-app",
     "publish:versions": "lerna version -m 'chore: bump versions' --no-push --conventional-commits --conventional-graduate",
     "publish:prerelease-versions": "lerna version -m 'chore: bump versions (prerelease)' --no-push --conventional-commits --conventional-prerelease --preid next",
     "test": "lerna run test -- -- --passWithNoTests",
