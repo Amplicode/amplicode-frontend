@@ -328,7 +328,7 @@ export type Get_Owner_ListQuery = {
 };
 
 export type Delete_OwnerMutationVariables = Exact<{
-  id?: InputMaybe<Scalars["BigInteger"]>;
+  id: Scalars["BigInteger"];
 }>;
 
 export type Delete_OwnerMutation = {
@@ -387,7 +387,7 @@ export type Get_Pet_ListQuery = {
 };
 
 export type Delete_PetMutationVariables = Exact<{
-  id?: InputMaybe<Scalars["BigInteger"]>;
+  id: Scalars["BigInteger"];
 }>;
 
 export type Delete_PetMutation = {
@@ -472,8 +472,11 @@ export const Delete_OwnerDocument = {
           kind: "VariableDefinition",
           variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
           type: {
-            kind: "NamedType",
-            name: { kind: "Name", value: "BigInteger" },
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "BigInteger" },
+            },
           },
         },
       ],
@@ -675,8 +678,11 @@ export const Delete_PetDocument = {
           kind: "VariableDefinition",
           variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
           type: {
-            kind: "NamedType",
-            name: { kind: "Name", value: "BigInteger" },
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "BigInteger" },
+            },
           },
         },
       ],
