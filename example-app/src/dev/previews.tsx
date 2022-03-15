@@ -4,7 +4,7 @@ import { ReadOnlyOwnerCards } from "../app/screens/read-only-owner/ReadOnlyOwner
 import { ReadOnlyOwnerCardsDetails } from "../app/screens/read-only-owner/ReadOnlyOwnerCardsDetails";
 import { PetCards } from "../app/screens/pet/PetCards";
 import { PetCardsEditor } from "../app/screens/pet/PetCardsEditor";
-import { OwnerList } from "../app/screens/owner/OwnerList";
+import { OwnerTable } from "../app/screens/owner/OwnerTable";
 import { OwnerListEditor } from "../app/screens/owner/OwnerListEditor";
 import { OwnerCards } from "../app/screens/owner/OwnerCards";
 import { OwnerCardsEditor } from "../app/screens/owner/OwnerCardsEditor";
@@ -24,7 +24,7 @@ const ComponentPreviews = () => {
         <OwnerListEditor />
       </ComponentPreview>
       <ComponentPreview path="/OwnerList">
-        <OwnerList />
+        <OwnerTable />
       </ComponentPreview>
       <ComponentPreview path="/PetCardsEditor">
         <PetCardsEditor />

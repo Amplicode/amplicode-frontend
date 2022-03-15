@@ -54,8 +54,8 @@ export const AppMenu = observer(() => {
       <Menu.Item title={getCaption("owner-cards")} key="owner-cards">
         {getCaption("owner-cards")}
       </Menu.Item>
-      <Menu.Item title={getCaption("owner-list")} key="owner-list">
-        {getCaption("owner-list")}
+      <Menu.Item title={getCaption("owner-table")} key="owner-table">
+        {getCaption("owner-table")}
       </Menu.Item>
       <Menu.Item title={getCaption("pet-cards")} key="pet-cards">
         {getCaption("pet-cards")}

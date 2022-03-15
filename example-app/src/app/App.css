@@ -27,3 +27,7 @@
 .ant-list-bordered .ant-list-item {
     border: 1px solid rgb(217, 217, 217);
 }
+
+.ant-table-row.table-row-selected {
+    background: #fafafa;
+}

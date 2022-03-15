@@ -1,7 +1,7 @@
 import { StandaloneOwnerCards } from "../../app/screens/standalone-list/StandaloneOwnerCards";
 import { ReadOnlyOwnerCards } from "../../app/screens/read-only-owner/ReadOnlyOwnerCards";
 import { PetCards } from "../../app/screens/pet/PetCards";
-import { OwnerList } from "../../app/screens/owner/OwnerList";
+import { OwnerTable } from "../../app/screens/owner/OwnerTable";
 import { OwnerCards } from "../../app/screens/owner/OwnerCards";
 import { Home } from "../../app/screens/home/Home";
 import { screenStore } from "@amplicode/react-core";
@@ -16,8 +16,8 @@ screenStore.registerScreen("owner-cards", {
   captionKey: "screen.OwnerCards"
 });
 
-screenStore.registerScreen("owner-list", {
-  component: OwnerList,
+screenStore.registerScreen("owner-table", {
+  component: OwnerTable,
   captionKey: "screen.OwnerList"
 });
 
