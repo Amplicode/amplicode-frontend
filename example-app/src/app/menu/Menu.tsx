@@ -57,8 +57,17 @@ export const AppMenu = observer(() => {
       <Menu.Item title={getCaption("owner-list")} key="owner-list">
         {getCaption("owner-list")}
       </Menu.Item>
+      <Menu.Item title={getCaption("owner-table")} key="owner-table">
+        {getCaption("owner-table")}
+      </Menu.Item>
       <Menu.Item title={getCaption("pet-cards")} key="pet-cards">
         {getCaption("pet-cards")}
+      </Menu.Item>
+      <Menu.Item title={getCaption("pet-list")} key="pet-list">
+        {getCaption("pet-list")}
+      </Menu.Item>
+      <Menu.Item title={getCaption("pet-table")} key="pet-table">
+        {getCaption("pet-table")}
       </Menu.Item>
       <Menu.Item
         title={getCaption("read-only-owner-cards")}
@@ -67,10 +76,22 @@ export const AppMenu = observer(() => {
         {getCaption("read-only-owner-cards")}
       </Menu.Item>
       <Menu.Item
+        title={getCaption("read-only-owner-table")}
+        key="read-only-owner-table"
+      >
+        {getCaption("read-only-owner-table")}
+      </Menu.Item>
+      <Menu.Item
         title={getCaption("standalone-owner-cards")}
         key="standalone-owner-cards"
       >
         {getCaption("standalone-owner-cards")}
+      </Menu.Item>
+      <Menu.Item
+        title={getCaption("standalone-owner-table")}
+        key="standalone-owner-table"
+      >
+        {getCaption("standalone-owner-table")}
       </Menu.Item>
       <AddonsMenu key={"addonsMenu"} />
       {/*If you don't need Screen API (tabs / breadcrumbs) you can just use React Router components*/}

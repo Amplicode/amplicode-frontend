@@ -1,0 +1,331 @@
+<% var withItemComponent = locals.itemComponentName != null; -%>
+<% var withDeleteAction = locals.deleteMutationString != null && locals.deleteMutationName != null; -%>
+<% const QUERY_CONST = toFatSnakeCase(queryName); -%>
+<% const MUTATION_CONST = deleteMutationName ? toFatSnakeCase(deleteMutationName) : undefined; -%>
+<%# ------- TEMPLATE STARTS HERE ------- -%>
+import {
+  <% if (mode === 'edit' || mode === 'view with details') { -%>
+    useEffect, useState
+  <% } -%>
+} from "react";
+import {
+  useQuery,
+  <% if (withDeleteAction) { -%>
+    useMutation,
+  <% } -%>
+} from "@apollo/client";
+import {ApolloError} from "@apollo/client/errors";
+import {ResultOf} from "@graphql-typed-document-node/core";
+import {
+  <% if (mode === 'edit') { -%>
+    Button,
+  <% } -%>
+  Empty,
+  Space,
+  Spin,
+  Table
+} from "antd";
+<% if (withDeleteAction || mode === 'edit') { -%>
+  import {
+    <% if (mode === 'edit') { -%>
+      PlusOutlined,
+    <% } -%>
+    <% if (mode === 'view with details') { -%>
+      EnterOutlined,
+    <% } -%>
+  } from "@ant-design/icons";
+<% } -%>
+<% if (mode === 'edit' || mode === 'view with details') { -%>
+  import {useRouteMatch} from "react-router-dom";
+<% } -%>
+<% if (mode === 'edit') { -%>
+import {FormattedMessage, useIntl} from "react-intl";
+<% } -%>
+import {
+  <% if (mode === 'edit' || mode === 'view with details') { -%>
+    useScreens,
+  <% } -%>
+} from "@amplicode/react-core";
+import {gql} from "@amplicode/gql";
+<% if (withItemComponent) { -%>
+  import { <%= itemComponentName %> } from "./<%= itemComponentName %>"
+<% } -%>
+<% if (withItemComponent) { -%>
+  import {useOpenItemScreen} from "<%= relDirShift %>core/crud/useOpenItemScreen";
+<% } -%>
+<% if (withDeleteAction) { -%>
+  import {useDeleteItem} from "<%= relDirShift %>core/crud/useDeleteItem";
+<% } -%>
+import {RequestFailedError} from "<%= relDirShift %>core/crud/RequestFailedError";
+<% attributes.filter(a => a.isRelationField).forEach(attribute => { -%>
+  import { get<%= capitalizeFirst(attribute.type) %>DisplayName } from '<%= relDirShift %>core/display-name/get<%= capitalizeFirst(attribute.type) %>DisplayName';
+<% }) -%>
+
+const ROUTE = '<%= route %>';
+<% if (mode === 'edit') { -%>
+  const REFETCH_QUERIES = ['<%= refetchQuery %>'];
+<% } -%>
+
+const <%= QUERY_CONST %> = gql(/* GraphQL */ `
+  <%= queryString %>
+`);
+
+<% if (withDeleteAction) { -%>
+  const <%= MUTATION_CONST %> = gql(/* GraphQL */ `
+    <%= deleteMutationString %>
+  `);
+<% } -%>
+
+const columns = [
+
+<% attributes.forEach(attr => { -%>
+  {
+    title: '<%= attr.displayName %>',
+    dataIndex: '<%= attr.name %>',
+    key: '<%= attr.name %>'
+  },
+<% }) -%>
+
+];
+
+export function <%= componentName %>() {
+  // Load the items from server
+  const { loading, error, data } = useQuery(<%= QUERY_CONST %>);
+  const items = data?.<%= queryName %>;
+  // selected row id
+  const [selectedRowId, setSelectedRowId] = useState();
+
+  <% if (mode === 'edit' || mode === 'view with details') { -%>
+    // If we have navigated here using a link, or a page has been refreshed,
+    // we need to check whether the url contains the item id, and if yes - open item editor/details screen.
+    useItemUrl();
+  <% } -%>
+
+  <% if (mode === 'view with details') { -%>
+    const openEditorWithItem = useOpenItemScreen({
+      route: ROUTE,
+      screenComponent: <%= itemComponentName %>,
+      screenCaptionKey: "screen.<%= itemComponentName %>",
+      id: selectedRowId
+    });
+
+    // Open details if row selected
+    useEffect(() => {
+      if (selectedRowId != null) {
+        openEditorWithItem();
+      }
+    }, [selectedRowId]);
+  <% } -%>
+
+  return (
+    <div className="narrow-layout">
+      <Space direction="vertical" style={{ width: "100%" }}>
+        <% if (mode === 'edit') { -%>
+          <ButtonPanel selectedRowId={selectedRowId} />
+        <% } -%>
+        <TableSection
+          items={items}
+          loading={loading}
+          error={error}
+          selectedRowId={selectedRowId}
+          setSelectedRowId={setSelectedRowId}
+        />
+        {/* <Pagination /> - in future */}
+      </Space>
+    </div>
+  );
+}
+
+<% if (mode === 'edit' || mode === 'view with details') { -%>
+  /**
+   * Checks whether the url contains the item id, and if yes - open item editor/details screen.
+   */
+  function useItemUrl() {
+    const screens = useScreens();
+    const match = useRouteMatch<{ id: string }>(`/${ROUTE}/:id`);
+
+    <% if (!withItemComponent) { -%>
+      const openItem = () => alert('Please specify the editor/details component');
+      // TODO Uncomment the code below and use it in place of above callback
+      // const openItem = useOpenItemScreen({
+      //   route: ROUTE,
+      //   screenComponent: ExampleComponentName, // TODO specify component name
+      //   screenCaptionKey: 'screen.ExampleComponentName', // TODO specify screen caption key
+      //   refetchQueries: REFETCH_QUERIES,
+      //   id: match?.params.id
+      // });
+    <% } -%>
+    <% if (withItemComponent) { -%>
+      const openItem = useOpenItemScreen({
+        route: ROUTE,
+        screenComponent: <%= itemComponentName %>,
+        screenCaptionKey: 'screen.<%= itemComponentName %>',
+        <% if (mode === 'edit') { -%>
+          refetchQueries: REFETCH_QUERIES,
+        <% } -%>
+        id: match?.params.id
+      });
+    <% } -%>
+
+    useEffect(() => {
+      if (screens.activeTab?.breadcrumbs.length === 1 && match?.params.id != null) {
+        openItem();
+      }
+    });
+  }
+<% } -%>
+
+<% if (mode === 'edit') { -%>
+  /**
+   * Button panel above 
+   */
+  function ButtonPanel(props: { selectedRowId?: string }) {
+    const intl = useIntl();
+
+    <% if (!withItemComponent) { -%>
+      const openEmptyEditor = () => alert('Please specify the editor component');
+      const openEditorWithItem = () => alert('Please specify the editor component');
+      // TODO Uncomment the code below and use it in place of above callback
+      // const openEditorProps = {
+      //   route: ROUTE,
+      //   screenComponent: ExampleComponentName,
+      //   screenCaptionKey: 'screen.ExampleComponentName',
+      //   refetchQueries: REFETCH_QUERIES
+      // };
+
+      // const openEmptyEditor = useOpenItemScreen(openEditorProps);
+      // const openEditorWithItem = useOpenItemScreen({
+      //   ...openEditorProps,
+      //   id: props.selectedRowId!
+      // });
+    <% } -%>
+    <% if (withItemComponent) { -%>
+      const openEditorProps = {
+        route: ROUTE,
+        screenComponent: <%= itemComponentName %>,
+        screenCaptionKey: 'screen.<%= itemComponentName %>',
+        refetchQueries: REFETCH_QUERIES
+      };
+
+      // A callback that will open an empty editor
+      const openEmptyEditor = useOpenItemScreen(openEditorProps);
+      // A callback that will open an editor with item
+      const openEditorWithItem = useOpenItemScreen({
+        ...openEditorProps,
+        id: props.selectedRowId!
+      });
+    <% } -%>
+
+    <% if (withDeleteAction) { -%>
+      const [runDeleteMutation] = useMutation(<%= MUTATION_CONST %>);
+        // Callback that deletes the item
+        const deleteItem = useDeleteItem(
+          props.selectedRowId!,
+          runDeleteMutation,
+          REFETCH_QUERIES
+        );
+    <% } -%>
+
+    return (
+      <Space direction="horizontal">
+        <Button
+          htmlType="button"
+          key="create"
+          title={intl.formatMessage({ id: "common.create" })}
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={openEmptyEditor}
+        >
+          <span>
+            <FormattedMessage id="common.create" />
+          </span>
+        </Button>
+
+        <Button
+          htmlType="button"
+          key="edit"
+          title={intl.formatMessage({ id: "common.edit" })}
+          disabled={props.selectedRowId == null}
+          onClick={openEditorWithItem}
+        >
+          <span>
+            <FormattedMessage id="common.edit" />
+          </span>
+        </Button>
+
+        <% if (withDeleteAction) { -%>
+          <Button
+            htmlType="button"
+            key="remove"
+            title={intl.formatMessage({ id: "common.remove" })}
+            disabled={props.selectedRowId == null}
+            onClick={deleteItem}
+          >
+            <span>
+              <FormattedMessage id="common.remove" />
+            </span>
+          </Button>
+        <% } -%>
+      </Space>
+    );
+  }
+<% } -%>
+
+interface TableSectionProps {
+  items?: ItemTableType;
+  loading?: boolean;
+  error?: ApolloError;
+  selectedRowId?: string;
+  setSelectedRowId: (id: any) => any;
+}
+
+/**
+ * Collection of items
+ */
+function TableSection({
+  items,
+  loading,
+  error,
+  selectedRowId,
+  setSelectedRowId
+}: TableSectionProps) {
+  if (loading) {
+    return <Spin />;
+  }
+
+  if (error) {
+    return <RequestFailedError />;
+  }
+
+  if (items == null || items.length === 0) {
+    return <Empty />;
+  }
+
+  return (
+    <Space direction="vertical" style={{ width: "100%" }}>
+      <Table
+        dataSource={items.filter(item => item != null) as object[]}
+        columns={columns}
+        rowClassName={record =>
+          (record as ItemType)?.id === selectedRowId ? "table-row-selected" : ""
+        }
+        onRow={data => {
+          return { onClick: () => setSelectedRowId((data as ItemType)?.id) };
+        }}
+      />
+    </Space>
+  );
+}
+
+/**
+ * Type of data object received when executing the query
+ */
+type QueryResultType = ResultOf<typeof <%= QUERY_CONST %>>;
+/**
+ * Type of the items list
+ */
+type ItemTableType = QueryResultType['<%= queryName %>'];
+/**
+ * Type of a single item
+ */
+type ItemType = Exclude<ItemTableType, null | undefined>[0];

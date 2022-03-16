@@ -1,4 +1,4 @@
-const { runCmdSync, esc, btoa, amplicodegen } = require("./common");
+const { runCmdSync, esc, btoa, amplicodegen } = require("../common");
 
 const ownerListQuery = `
 query Get_Owner_List {
@@ -43,9 +43,10 @@ mutation Update_Owner($input: OwnerInputDTOInput) {
 `;
 
 const ownerManagementAnswers = btoa(JSON.stringify({
-  listComponentName: 'OwnerCards',
-  itemComponentName: 'OwnerCardsEditor',
-  route: 'owner-cards',
+  listComponentName: 'OwnerList',
+  itemComponentName: 'OwnerListEditor',
+  route: 'owner-list',
+  type: 'list',
   shouldAddToMenu: true,
   listQuery: esc(ownerListQuery),
   detailsQuery: esc(ownerDetailsQuery),

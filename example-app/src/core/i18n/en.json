@@ -37,9 +37,18 @@
   "screen.OwnerCards": "Owner Cards",
   "screen.OwnerListEditor": "Owner List Editor",
   "screen.OwnerList": "Owner List",
+  "screen.OwnerTableEditor": "Owner Table Editor",
+  "screen.OwnerTable": "Owner Table",
   "screen.PetCardsEditor": "Pet Cards Editor",
   "screen.PetCards": "Pet Cards",
+  "screen.PetListEditor": "Pet List Editor",
+  "screen.PetList": "Pet List",
+  "screen.PetTableEditor": "Pet Table Editor",
+  "screen.PetTable": "Pet Table",
   "screen.ReadOnlyOwnerCardsDetails": "Read Only Owner Cards Details",
   "screen.ReadOnlyOwnerCards": "Read Only Owner Cards",
-  "screen.StandaloneOwnerCards": "Standalone Owner Cards"
+  "screen.ReadOnlyOwnerTableDetails": "Read Only Owner Table Details",
+  "screen.ReadOnlyOwnerTable": "Read Only Owner Table",
+  "screen.StandaloneOwnerCards": "Standalone Owner Cards",
+  "screen.StandaloneOwnerTable": "Standalone Owner Table"
 }
