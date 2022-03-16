@@ -32,8 +32,8 @@ export const amplicodeGetGraphQLSchema = async <O extends AmplicodeCommonOptions
 
   const schemaPathAbsolute = getSchemaPath(invocationDir, options.schema);
 
-  const {dest = invocationDir} = options;
-  const codegenYmlPath = path.resolve(dest);
+  const {dest = ''} = options;
+  const codegenYmlPath = path.join(invocationDir, dest);
   const schemaPathRelativeToCodegenYml = path.relative(codegenYmlPath, schemaPathAbsolute);
 
   if (!fs.existsSync(schemaPathAbsolute)) {
