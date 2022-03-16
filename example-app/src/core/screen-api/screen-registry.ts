@@ -1,6 +1,11 @@
+import { StandaloneOwnerTable } from "../../app/screens/standalone-list/StandaloneOwnerTable";
 import { StandaloneOwnerCards } from "../../app/screens/standalone-list/StandaloneOwnerCards";
+import { ReadOnlyOwnerTable } from "../../app/screens/read-only-owner/ReadOnlyOwnerTable";
 import { ReadOnlyOwnerCards } from "../../app/screens/read-only-owner/ReadOnlyOwnerCards";
+import { PetTable } from "../../app/screens/pet/PetTable";
+import { PetList } from "../../app/screens/pet/PetList";
 import { PetCards } from "../../app/screens/pet/PetCards";
+import { OwnerTable } from "../../app/screens/owner/OwnerTable";
 import { OwnerList } from "../../app/screens/owner/OwnerList";
 import { OwnerCards } from "../../app/screens/owner/OwnerCards";
 import { Home } from "../../app/screens/home/Home";
@@ -21,9 +26,24 @@ screenStore.registerScreen("owner-list", {
   captionKey: "screen.OwnerList"
 });
 
+screenStore.registerScreen("owner-table", {
+  component: OwnerTable,
+  captionKey: "screen.OwnerTable"
+});
+
 screenStore.registerScreen("pet-cards", {
   component: PetCards,
   captionKey: "screen.PetCards"
+});
+
+screenStore.registerScreen("pet-list", {
+  component: PetList,
+  captionKey: "screen.PetList"
+});
+
+screenStore.registerScreen("pet-table", {
+  component: PetTable,
+  captionKey: "screen.PetTable"
 });
 
 screenStore.registerScreen("read-only-owner-cards", {
@@ -31,7 +51,17 @@ screenStore.registerScreen("read-only-owner-cards", {
   captionKey: "screen.ReadOnlyOwnerCards"
 });
 
+screenStore.registerScreen("read-only-owner-table", {
+  component: ReadOnlyOwnerTable,
+  captionKey: "screen.ReadOnlyOwnerTable"
+});
+
 screenStore.registerScreen("standalone-owner-cards", {
   component: StandaloneOwnerCards,
   captionKey: "screen.StandaloneOwnerCards"
+});
+
+screenStore.registerScreen("standalone-owner-table", {
+  component: StandaloneOwnerTable,
+  captionKey: "screen.StandaloneOwnerTable"
 });

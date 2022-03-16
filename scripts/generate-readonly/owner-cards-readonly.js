@@ -1,4 +1,4 @@
-const { runCmdSync, esc, btoa, amplicodegen } = require("./common");
+const { runCmdSync, esc, btoa, amplicodegen } = require("../common");
 
 const ownerListQuery = `
 query Get_Owner_List {

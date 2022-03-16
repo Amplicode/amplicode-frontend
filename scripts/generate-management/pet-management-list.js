@@ -1,4 +1,4 @@
-const { runCmdSync, esc, btoa, amplicodegen } = require("./common");
+const { runCmdSync, esc, btoa, amplicodegen } = require("../common");
 
 const petListQuery = `
 query Get_Pet_List {
@@ -53,9 +53,10 @@ mutation Update_Pet($input: PetInputDTOInput) {
 `;
 
 const petManagementAnswers = btoa(JSON.stringify({
-  listComponentName: 'PetCards',
-  itemComponentName: 'PetCardsEditor',
-  route: 'pet-cards',
+  listComponentName: 'PetList',
+  itemComponentName: 'PetListEditor',
+  route: 'pet-list',
+  type: 'list',
   shouldAddToMenu: true,
   listQuery: esc(petListQuery),
   detailsQuery: esc(petDetailsQuery),
