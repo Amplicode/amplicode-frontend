@@ -1,21 +1,36 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "module": "commonjs",
+    "target": "ES2020", // Recommended for Node 14
+    "lib": ["ES2020"], // We don't want DOM-related stuff and ScriptHost
+    "module": "CommonJS", // Codegen library works in Node environment
+    // "moduleResolution" default to "node"
+
     "outDir": "./lib",
-    "resolveJsonModule": true,
-    "sourceMap": true,
-    "strict": true,
-    "baseUrl": ".",
-    "esModuleInterop": true,
-    "paths": {
+    "declaration": true, // Emit '.d.ts'
+
+    "resolveJsonModule": true, // Allows importing JSON files
+    "sourceMap": true, // Generate sourcemap files
+    "strict": true, // Enables stricter type checking
+    "forceConsistentCasingInFileNames": true, // Can't import from './SomeFile.ts' if the file name is './someFile.ts'
+
+    // TODO we might want to enable these stricter rules
+    // "noUnusedLocals": true, // Error on unused local variables
+    // "noUnusedParameters": true, // Error on unused function parameters
+    // "noImplicitReturns": true, // Must always return value explicitly
+    // "noImplicitAny": true, // Error when inferred type is `any`
+
+    "baseUrl": ".", // Needed for "paths" below
+    "esModuleInterop": true, // Allows importing CommonJS libs using ES2015 syntax
+    // "esModuleInterop": true -> "allowSyntheticDefaultImports" defaults to "true"
+    // It allows writing `import React from 'react';` instead of `import * as React from 'react';`
+
+    "paths": { // Use custom typings
       "inquirer-autocomplete-prompt": ["custom_types/inquirer-autocomplete-prompt"],
       "yeoman-environment": ["custom_types/yeoman-environment"]
     }
   },
   "include": [
-    "src/**/*.ts",
-    "packages/**/index.ts",
+    "src/**/*.ts", // We need all .ts files because e.g. CLI is not exported in index.ts
     "custom_types/**/*.ts"
   ],
   "exclude": [
