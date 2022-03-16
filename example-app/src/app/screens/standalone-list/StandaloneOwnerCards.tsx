@@ -199,7 +199,7 @@ function ItemCard({ item }: { item: ItemType }) {
 function useCardActions(item: ItemType): ReactNode[] {
   const intl = useIntl();
 
-  // Callback that opens an editor either for creating or for editing an item
+  // Callback that opens a details screen or an editor either for creating or for editing an item
   // depending on whether `item` is provided
   const openItem = () => alert("Please specify the editor/details component");
   // TODO Uncomment the code below and use it in place of above callback
