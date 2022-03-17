@@ -26,7 +26,7 @@ import {
   Space,
   Spin
 } from "antd";
-<% if (withDeleteAction || mode === 'edit') { -%>
+<% if (withDeleteAction || mode === 'edit' || mode === 'view with details') { -%>
   import {
     <% if (withDeleteAction) { -%>
       DeleteOutlined,
@@ -43,7 +43,11 @@ import {
 <% if (mode === 'edit' || mode === 'view with details') { -%>
   import {useRouteMatch} from "react-router-dom";
 <% } -%>
-import {FormattedMessage, useIntl} from "react-intl";
+import {
+<% if (mode === 'edit') { -%>
+FormattedMessage,
+<% } -%>
+useIntl} from "react-intl";
 import {
   <% if (mode === 'edit' || mode === 'view with details') { -%>
     useScreens,
@@ -132,7 +136,9 @@ export function <%= componentName %>() {
         route: ROUTE,
         screenComponent: <%= itemComponentName %>,
         screenCaptionKey: 'screen.<%= itemComponentName %>',
-        refetchQueries: REFETCH_QUERIES,
+        <% if (mode === 'edit') { -%>
+          refetchQueries: REFETCH_QUERIES,
+        <% } -%>
         id: match?.params.id
       });
     <% } -%>
@@ -282,7 +288,9 @@ function useRowActions(item: ItemType): ReactNode[] {
         route: ROUTE,
         screenComponent: <%= itemComponentName %>,
         screenCaptionKey: 'screen.<%= itemComponentName %>',
-        refetchQueries: REFETCH_QUERIES,
+        <% if (mode === 'edit') { -%>
+          refetchQueries: REFETCH_QUERIES,
+        <% } -%>
         id: item?.id
       });
     <% } -%>
