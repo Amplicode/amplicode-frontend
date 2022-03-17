@@ -1,6 +1,9 @@
 import React from "react";
+import { StandaloneOwnerList } from "../app/screens/standalone-list/StandaloneOwnerList";
 import { StandaloneOwnerTable } from "../app/screens/standalone-list/StandaloneOwnerTable";
 import { StandaloneOwnerCards } from "../app/screens/standalone-list/StandaloneOwnerCards";
+import { ReadOnlyOwnerList } from "../app/screens/read-only-owner/ReadOnlyOwnerList";
+import { ReadOnlyOwnerListDetails } from "../app/screens/read-only-owner/ReadOnlyOwnerListDetails";
 import { ReadOnlyOwnerTable } from "../app/screens/read-only-owner/ReadOnlyOwnerTable";
 import { ReadOnlyOwnerTableDetails } from "../app/screens/read-only-owner/ReadOnlyOwnerTableDetails";
 import { ReadOnlyOwnerCards } from "../app/screens/read-only-owner/ReadOnlyOwnerCards";
@@ -71,11 +74,20 @@ const ComponentPreviews = () => {
       <ComponentPreview path="/ReadOnlyOwnerTable">
         <ReadOnlyOwnerTable />
       </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyOwnerListDetails">
+        <ReadOnlyOwnerListDetails />
+      </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyOwnerList">
+        <ReadOnlyOwnerList />
+      </ComponentPreview>
       <ComponentPreview path="/StandaloneOwnerCards">
         <StandaloneOwnerCards />
       </ComponentPreview>
       <ComponentPreview path="/StandaloneOwnerTable">
         <StandaloneOwnerTable />
+      </ComponentPreview>
+      <ComponentPreview path="/StandaloneOwnerList">
+        <StandaloneOwnerList />
       </ComponentPreview>
     </Previews>
   );

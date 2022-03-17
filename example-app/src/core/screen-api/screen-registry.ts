@@ -1,5 +1,7 @@
+import { StandaloneOwnerList } from "../../app/screens/standalone-list/StandaloneOwnerList";
 import { StandaloneOwnerTable } from "../../app/screens/standalone-list/StandaloneOwnerTable";
 import { StandaloneOwnerCards } from "../../app/screens/standalone-list/StandaloneOwnerCards";
+import { ReadOnlyOwnerList } from "../../app/screens/read-only-owner/ReadOnlyOwnerList";
 import { ReadOnlyOwnerTable } from "../../app/screens/read-only-owner/ReadOnlyOwnerTable";
 import { ReadOnlyOwnerCards } from "../../app/screens/read-only-owner/ReadOnlyOwnerCards";
 import { PetTable } from "../../app/screens/pet/PetTable";
@@ -56,6 +58,11 @@ screenStore.registerScreen("read-only-owner-table", {
   captionKey: "screen.ReadOnlyOwnerTable"
 });
 
+screenStore.registerScreen("read-only-owner-list", {
+  component: ReadOnlyOwnerList,
+  captionKey: "screen.ReadOnlyOwnerList"
+});
+
 screenStore.registerScreen("standalone-owner-cards", {
   component: StandaloneOwnerCards,
   captionKey: "screen.StandaloneOwnerCards"
@@ -64,4 +71,9 @@ screenStore.registerScreen("standalone-owner-cards", {
 screenStore.registerScreen("standalone-owner-table", {
   component: StandaloneOwnerTable,
   captionKey: "screen.StandaloneOwnerTable"
+});
+
+screenStore.registerScreen("standalone-owner-list", {
+  component: StandaloneOwnerList,
+  captionKey: "screen.StandaloneOwnerList"
 });
