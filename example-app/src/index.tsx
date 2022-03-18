@@ -1,4 +1,3 @@
-import "./core/i18n/i18n-init";
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
@@ -14,25 +13,27 @@ import "antd/dist/antd.min.css";
 import axios from "axios";
 import { HashRouter } from "react-router-dom";
 import { onError } from "@apollo/client/link/error";
-import { createIntl, IntlProvider } from "react-intl";
 import { GRAPHQL_URI, REQUEST_SAME_ORIGIN } from "./config";
 import {
   HotkeyContext,
   HotkeyStore,
   ScreenContext,
   Screens,
-  localesStore
+  EventEmitter
 } from "@amplicode/react-core";
 import { DevSupport } from "@react-buddy/ide-toolbox";
 import { ComponentPreviews, useInitial } from "./dev";
 import { defaultHotkeyConfigs } from "./core/hotkeys/hotkey-configs";
-import { securityStore } from "./core/security/security-store";
-import { notification } from "antd";
 import "./core/addons/addons";
+import { I18nProvider } from "./core/i18n/providers/I18nProvider";
+import { ServerErrorInterceptor } from "./core/error/ServerErrorInterceptor";
+import { ServerErrorEvents } from "./core/error/ServerErrorEvents";
+
+export const serverErrorEmitter = new EventEmitter<ServerErrorEvents>();
 
 axios.interceptors.response.use(response => {
   if (response.status === 401) {
-    securityStore.logout();
+    serverErrorEmitter.emit("unauthorized");
   }
   return response;
 });
@@ -43,46 +44,9 @@ const httpLink = createHttpLink({
   credentials: REQUEST_SAME_ORIGIN ? "same-origin" : "include"
 });
 
-const errorLink = onError(({ networkError, graphQLErrors }) => {
-  // TODO code below assumes that GraphQL server returns
-  // {"errors":[{"extensions":{"classification":"UNAUTHORIZED"}}], ...}
-  // for not authenticated user
-  // and
-  // {"errors":[{"extensions":{"classification":"FORBIDDEN"}}], ...}
-  // if user has not enough permissions for query.
-  // If the server handles errors differently, or has a different response structure, code below should be modified.
-
-  if (graphQLErrors != null && graphQLErrors.length > 0) {
-    if (
-      graphQLErrors.some(
-        err => err.extensions?.classification === "UNAUTHORIZED"
-      )
-    ) {
-      securityStore.logout();
-      return;
-    }
-
-    if (
-      graphQLErrors.some(err => err.extensions?.classification === "FORBIDDEN")
-    ) {
-      const intl = createIntl({
-        locale: "en",
-        messages: localesStore.messagesMapping["en"]
-      });
-      notification.error({
-        message: intl.formatMessage({ id: "common.notAllowed" })
-      });
-      return;
-    }
-  }
-
-  if (networkError == null || !("statusCode" in networkError)) {
-    return;
-  }
-  if (networkError.statusCode === 401) {
-    securityStore.logout();
-  }
-});
+const errorLink = onError(errorResponse =>
+  serverErrorEmitter.emit("graphQLError", errorResponse)
+);
 
 const client = new ApolloClient({
   link: errorLink.concat(httpLink),
@@ -105,20 +69,22 @@ const hotkeys = new HotkeyStore(defaultHotkeyConfigs);
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <IntlProvider locale="en" messages={localesStore.messagesMapping["en"]}>
+      <I18nProvider>
         <ScreenContext.Provider value={screens}>
           <HashRouter>
             <HotkeyContext.Provider value={hotkeys}>
-              <DevSupport
-                ComponentPreviews={ComponentPreviews}
-                useInitialHook={useInitial}
-              >
-                <App />
-              </DevSupport>
+              <ServerErrorInterceptor serverErrorEmitter={serverErrorEmitter}>
+                <DevSupport
+                  ComponentPreviews={ComponentPreviews}
+                  useInitialHook={useInitial}
+                >
+                  <App />
+                </DevSupport>
+              </ServerErrorInterceptor>
             </HotkeyContext.Provider>
           </HashRouter>
         </ScreenContext.Provider>
-      </IntlProvider>
+      </I18nProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")

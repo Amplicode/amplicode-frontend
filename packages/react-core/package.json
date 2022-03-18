@@ -28,7 +28,8 @@
     "mobx": "^6.3.3",
     "mobx-react": "^7.2.0",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-intl": "~5.22.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.8.4",
@@ -52,7 +53,10 @@
     "jest-expect-message": "^1.0.2",
     "less": "^3.10.3",
     "postcss": "^8.3.6",
+    "mobx": "^6.3.3",
+    "mobx-react": "^7.2.0",
     "react-test-renderer": "^17.0.1",
+    "react-intl": "~5.22.0",
     "rollup": "^2.53.2",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",

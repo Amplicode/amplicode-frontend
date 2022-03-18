@@ -1,0 +1,40 @@
+{
+  "common.ok": "OK",
+  "common.cancel": "Отмена",
+  "common.close": "Создать с копированием",
+  "common.create": "Создать",
+  "common.edit": "Изменить",
+  "common.open": "Открыть",
+  "common.remove": "Удалить",
+  "common.submit": "ОК",
+  "common.next": "Следующий",
+  "common.back": "Назад",
+  "common.previous": "Предыдущий",
+  "common.requestFailed": "Не удалось выполнить операцию",
+  "common.notAllowed": "У вас недостаточно прав для выполнения этой операции",
+  "common.viewDetails": "Посмотреть подробности",
+  "common.404": "Извините, мы не смогли найти страницу, которую вы искали",
+  
+  "auth.login.unauthorized": "Не удалось войти. Пользователь не существует или пароль неверный",
+  "auth.login.unknownError": "Не удалось войти",
+  "auth.logout.confirm": "Вы действительно хотите выйти?",
+  "auth.logout.unknownError": "Не удалось войти",
+  
+  "EntityListScreen.deleteConfirmation": "Вы уверены, что хотите удалить эту запись",
+  "EntityDetailsScreen.savedSuccessfully": "Запись успешно сохранена",
+  "EntityDetailsScreen.validationError": "Ошибка валидации. Пожалуйста, проверьте данные, которые вы ввели",
+  "EntityLookupField.selectEntityInstance": "Выберете сущность",
+  
+  "screen.home": "Главная страница",
+  
+  "hotkeys.hotkeyInfo.title": "Горячие клавиши",
+  "hotkeys.hotkeyInfo.toggleHotkeyInfo": "Открыть / закрыть окно горячих клавиш",
+  "hotkeys.category.hotkeyInfo": "Помощь по горячим клавишам",
+  "hotkeys.category.screen": "Работы с экранами",
+  "hotkeys.category.browser": "Экран списка",
+  "hotkeys.category.editor": "Экран редактирования",
+  "hotkeys.browser.createEntity": "Перейти на экран создания сущности",
+  "hotkeys.editor.saveEntity": "Сохранить сущность",
+  "hotkeys.screen.nextTab": "Перейти на следующий вкладку",
+  "hotkeys.screen.previousTab": "Перейти на предыдущий вкладку"
+}

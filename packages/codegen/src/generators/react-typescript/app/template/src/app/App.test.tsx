@@ -10,7 +10,7 @@ import {
   createHttpLink,
   InMemoryCache
 } from "@apollo/client";
-import en from "../core/i18n/en.json";
+import en from "../core/i18n/messages/en.json";
 import {
   HotkeyContext,
   HotkeyStore,
@@ -22,7 +22,6 @@ import { GRAPHQL_URI, REQUEST_SAME_ORIGIN } from "../config";
 import { onError } from "@apollo/client/link/error";
 import { act } from "react-dom/test-utils";
 import { securityStore } from "../core/security/security-store";
-import "../core/i18n/i18n-init";
 import "../core/screen-api/screen-registry";
 
 it("renders without crashing", () => {

@@ -35,8 +35,8 @@ describe('codegen readonly list', () => {
     !fs.existsSync(DEST_DIR) && fs.mkdirSync(DEST_DIR, {recursive: true});
 
     // avoid exception on read i18n messages in mvp.ts, create file first TODO - fix in mpv.ts 'addScreenI18nKeyEn'
-    fs.mkdirSync(path.join(DEST_DIR, 'core', 'i18n'), {recursive: true});
-    fs.writeFileSync(path.join(DEST_DIR, 'core', 'i18n', 'en.json'), '{}');
+    fs.mkdirSync(path.join(DEST_DIR, 'core', 'i18n', 'messages'), {recursive: true});
+    fs.writeFileSync(path.join(DEST_DIR, 'core', 'i18n', 'messages', 'en.json'), '{}');
   });
 
   it('should generate readonly list screen - Owner', async () => {

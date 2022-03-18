@@ -19,6 +19,7 @@ export * from './hotkeys/hotkeyConfig';
 export * from './hotkeys/hotkeyContext';
 export * from './hotkeys/hotkeyStore';
 
-export * from "./menu/MenuStore";
+export * from './menu/MenuStore';
 
-export * from "./i18n/LocalesStore";
+export * from './i18n/I18nStore';
+export * from './i18n/I18nStoreContext';
