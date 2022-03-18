@@ -28,8 +28,8 @@
   "screen.home": "Home",
 
   "hotkeys.hotkeyInfo.title": "Keyboard Shortcuts",
-  "hotkeys.hotkeyInfo.categoryName": "Shortcuts Help",
   "hotkeys.hotkeyInfo.toggleHotkeyInfo": "Open / close the help page",
+  "hotkeys.category.hotkeyInfo": "Shortcuts Help",
   "hotkeys.category.screen": "Screen",
   "hotkeys.category.browser": "Browser",
   "hotkeys.category.editor": "Editor",
