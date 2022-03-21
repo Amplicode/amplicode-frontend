@@ -12,7 +12,7 @@ import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 
 const ROUTE = "read-only-owner-table";
 
-const OWNER_LIST = gql(/* GraphQL */ `
+const OWNER_LIST = gql(`
   query Get_Owner_List {
     ownerList {
       id
