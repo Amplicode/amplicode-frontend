@@ -43,7 +43,7 @@ describe('codegen standalone table', () => {
     await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, answers, SCHEMA_PATH));
 
     const expectTag = `
-    <Space direction="vertical" style={{ width: "100%" }}>
+    <Space direction="vertical" className="table-space">
       <Table
         dataSource={items.filter(item => item != null) as object[]}
         columns={columns}
@@ -95,7 +95,7 @@ describe('codegen standalone table', () => {
     await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, answers, SCHEMA_PATH));
 
     const expectTag = `
-    <Space direction="vertical" style={{ width: "100%" }}>
+    <Space direction="vertical" className="table-space">
       <Table
         dataSource={items.filter(item => item != null) as object[]}
         columns={columns}

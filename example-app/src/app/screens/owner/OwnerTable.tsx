@@ -82,7 +82,7 @@ export function OwnerTable() {
 
   return (
     <div className="narrow-layout">
-      <Space direction="vertical" style={{ width: "100%" }}>
+      <Space direction="vertical" className="table-space">
         <ButtonPanel selectedRowId={selectedRowId} />
         <TableSection
           items={items}
@@ -224,7 +224,7 @@ function TableSection({
   }
 
   return (
-    <Space direction="vertical" style={{ width: "100%" }}>
+    <Space direction="vertical" className="table-space">
       <Table
         dataSource={items.filter(item => item != null) as object[]}
         columns={columns}
