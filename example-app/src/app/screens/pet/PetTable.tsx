@@ -18,7 +18,7 @@ import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeD
 const ROUTE = "pet-table";
 const REFETCH_QUERIES = ["Get_Pet_List"];
 
-const PET_LIST = gql(/* GraphQL */ `
+const PET_LIST = gql(`
   query Get_Pet_List {
     petList {
       id
@@ -37,7 +37,7 @@ const PET_LIST = gql(/* GraphQL */ `
   }
 `);
 
-const DELETE__PET = gql(/* GraphQL */ `
+const DELETE__PET = gql(`
   mutation Delete_Pet($id: BigInteger!) {
     delete_Pet(id: $id)
   }

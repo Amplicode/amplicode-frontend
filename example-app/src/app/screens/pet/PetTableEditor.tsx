@@ -24,7 +24,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { gql2form } from "../../../core/format/gql2form";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 
-const PET = gql(/* GraphQL */ `
+const PET = gql(`
   query Get_Pet($id: BigInteger) {
     pet(id: $id) {
       id
@@ -43,7 +43,7 @@ const PET = gql(/* GraphQL */ `
   }
 `);
 
-const UPDATE__PET = gql(/* GraphQL */ `
+const UPDATE__PET = gql(`
   mutation Update_Pet($input: PetInputDTOInput) {
     update_Pet(input: $input) {
       id
@@ -142,23 +142,15 @@ function EditorForm<TData>({
 function FormFields() {
   return (
     <>
-      <Form.Item
-        name="birthDate"
-        label="Birth Date"
-        style={{ marginBottom: "12px" }}
-      >
+      <Form.Item name="birthDate" label="Birth Date">
         <Input />
       </Form.Item>
 
-      <Form.Item
-        name="identificationNumber"
-        label="Identification Number"
-        style={{ marginBottom: "12px" }}
-      >
+      <Form.Item name="identificationNumber" label="Identification Number">
         <Input />
       </Form.Item>
 
-      <Form.Item name="owner" label="Owner" style={{ marginBottom: "12px" }}>
+      <Form.Item name="owner" label="Owner">
         <EntityLookupField
           getDisplayName={getOwnerDTODisplayName}
           label="Owner"
@@ -167,7 +159,7 @@ function FormFields() {
         />
       </Form.Item>
 
-      <Form.Item name="type" label="Type" style={{ marginBottom: "12px" }}>
+      <Form.Item name="type" label="Type">
         <EntityLookupField
           getDisplayName={getPetTypeDTODisplayName}
           label="Type"
@@ -188,7 +180,7 @@ function FormButtons({ submitting }: { submitting?: boolean }) {
   const closeEditor = useCloseNestedScreen();
 
   return (
-    <Form.Item style={{ textAlign: "center" }}>
+    <Form.Item className="form-buttons">
       <Space>
         <Button htmlType="button" onClick={closeEditor}>
           <FormattedMessage id="common.cancel" />
