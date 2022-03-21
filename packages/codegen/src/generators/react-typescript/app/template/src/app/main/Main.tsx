@@ -2,7 +2,6 @@ import React from "react";
 import {observer} from "mobx-react";
 import {Layout} from "antd";
 import { AppHeader } from "../header/Header";
-import './Main.css';
 import {AppMenu} from "../menu/Menu";
 import {ScreenTabs} from "../../core/screen-api/ScreenTabs";
 import {Route, Switch} from "react-router-dom";
