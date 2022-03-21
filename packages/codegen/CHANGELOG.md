@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.11.0...@amplicode/codegen@0.12.0) (2022-03-21)
+
+
+### Bug Fixes
+
+* can't install npm packages after generating app template [#226](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/226) ([7280ba4](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/7280ba4f78e5ca032fe0417f5c57293499cda1e9))
+* peer dependency conflicts [#238](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/238) ([1973ed8](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/1973ed8fa8fd1a5cc986130179a8c142e5c46014))
+* read only list should not have action buttons [#207](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/207) ([ad94173](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/ad941739bd1275d44c31f11b5f10e75da98077f3))
+
+
+### Features
+
+* add entity collection screen type 'Table' [#143](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/143) ([9d92aa2](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/9d92aa2d5e88e2752d165a64408f211a4e3b5667))
+
+
+
+
+
 # [0.11.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.10.0...@amplicode/codegen@0.11.0) (2022-03-14)
 
 
