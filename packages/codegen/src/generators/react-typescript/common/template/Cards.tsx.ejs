@@ -49,11 +49,9 @@ import {
   <% } -%>
   useIntl
 } from "react-intl";
-import {
-  <% if (mode === 'edit' || mode === 'view with details') { -%>
-    useScreens,
-  <% } -%>
-} from "@amplicode/react-core";
+<% if (mode === 'edit' || mode === 'view with details') { -%>
+  import {useScreens} from "@amplicode/react-core";
+<% } -%>
 import {gql} from "@amplicode/gql";
 <% if (withItemComponent) { -%>
   import { <%= itemComponentName %> } from "./<%= itemComponentName %>";
@@ -69,8 +67,10 @@ import { get<%= capitalizeFirst(entityName) %>DisplayName } from '<%= relDirShif
   import { get<%= capitalizeFirst(attribute.type) %>DisplayName } from '<%= relDirShift %>core/display-name/get<%= capitalizeFirst(attribute.type) %>DisplayName';
 <% }) -%>
 
-const ROUTE = '<%= route %>';
-<% if (mode === 'edit') { -%>
+<% if (mode === 'edit' || mode === 'view with details') { -%>
+  const ROUTE = '<%= route %>';
+<% } -%>
+<% if (withDeleteAction || mode === 'edit') { -%>
   const REFETCH_QUERIES = ['<%= refetchQuery %>'];
 <% } -%>
 
