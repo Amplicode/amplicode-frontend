@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.8.1...@amplicode/react-core@0.9.0) (2022-03-23)
+
+
+### Features
+
+* i18nStore api [#127](https://github.com/Amplicode/amplicode-frontend/issues/127) ([64d21ea](https://github.com/Amplicode/amplicode-frontend/commit/64d21ea073e594f3477a96d8858cdb74de50e1bc))
+
+
+
+
+
 ## [0.8.1](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.8.0...@amplicode/react-core@0.8.1) (2022-03-21)
 
 **Note:** Version bump only for package @amplicode/react-core

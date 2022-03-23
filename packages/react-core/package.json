@@ -1,6 +1,6 @@
 {
   "name": "@amplicode/react-core",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "description": "Core runtime for Amplicode Frontend",
   "publishConfig": {
     "access": "public"
@@ -52,11 +52,11 @@
     "jest": "^26.0.0",
     "jest-expect-message": "^1.0.2",
     "less": "^3.10.3",
-    "postcss": "^8.3.6",
     "mobx": "^6.3.3",
     "mobx-react": "^7.2.0",
-    "react-test-renderer": "^17.0.1",
+    "postcss": "^8.3.6",
     "react-intl": "~5.22.0",
+    "react-test-renderer": "^17.0.1",
     "rollup": "^2.53.2",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",

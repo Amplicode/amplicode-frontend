@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.12.0...@amplicode/codegen@0.13.0) (2022-03-23)
+
+
+### Bug Fixes
+
+* read only list should not have action buttons [#207](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/207) ([671259a](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/671259a538f3e847a9770ad82719b1df48533235))
+
+
+### Features
+
+* i18nStore api [#127](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/127) ([64d21ea](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/64d21ea073e594f3477a96d8858cdb74de50e1bc))
+
+
+
+
+
 # [0.12.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.11.0...@amplicode/codegen@0.12.0) (2022-03-21)
 
 
