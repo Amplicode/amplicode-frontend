@@ -17,6 +17,9 @@ import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
+import { toListPresentation } from "../../../core/transform/presentation/list-presentation";
+import {deserializeCustomScalars} from "../../../core/transform/model/deserializeCustomScalars";
+import {Dayjs} from "dayjs";
 
 const ROUTE = "pet-cards";
 const REFETCH_QUERIES = ["Get_Pet_List"];
@@ -204,7 +207,7 @@ function Cards({ items, loading, error }: ItemCardsListProps) {
 
   return (
     <Space direction="vertical" className="card-space">
-      {items.map(item => (
+      {toListPresentation(deserializeCustomScalars(items)).map(item => (
         <ItemCard item={item} key={item?.id} />
       ))}
     </Space>

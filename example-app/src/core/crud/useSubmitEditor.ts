@@ -9,8 +9,8 @@ import { useIntl } from "react-intl";
 import { message } from "antd";
 import { GraphQLError } from "graphql/error/GraphQLError";
 import { useCallback } from "react";
-import { form2gql } from "../format/form2gql";
 import { useCloseNestedScreen } from "./useCloseNestedScreen";
+import {serializeCustomScalars} from "../transform/model/serializeCustomScalars";
 
 /**
  * Returns an object containing `handleSubmit` callback that is executed after user clicks `Submit` button on an editor form
@@ -20,10 +20,9 @@ import { useCloseNestedScreen } from "./useCloseNestedScreen";
  * @param setFormError
  * @param refetchQueries
  * @param id entity instance id (when editing an entity, otherwise undefined)
- * @param serializeFieldValues a function that converts the form field values into the shape expected by backend
- * (serialization, format conversion).
  */
 export function useSubmitEditor<TData>(
+  // TODO change to single object arg
   mutation: TypedDocumentNode,
   setFormError: (message: string) => void,
   refetchQueries:
@@ -31,9 +30,7 @@ export function useSubmitEditor<TData>(
     | InternalRefetchQueriesInclude
     | undefined,
   id?: string,
-  serializeFieldValues: (
-    fieldValues: Record<string, unknown>
-  ) => Record<string, unknown> = form2gql
+  typename?: string
 ) {
   const intl = useIntl();
   const closeEditor = useCloseNestedScreen();
@@ -93,7 +90,7 @@ export function useSubmitEditor<TData>(
        * Otherwise a new instance will be created.
        */
       const input = {
-        ...serializeFieldValues(formFieldValues),
+        ...serializeCustomScalars(formFieldValues, typename),
         id: id
       };
 

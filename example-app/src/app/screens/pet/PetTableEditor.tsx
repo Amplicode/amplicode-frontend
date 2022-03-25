@@ -1,28 +1,19 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useLazyQuery } from "@apollo/client";
-import { ResultOf } from "@graphql-typed-document-node/core";
-import {
-  Button,
-  Card,
-  Form,
-  FormInstance,
-  Input,
-  message,
-  Space,
-  Spin
-} from "antd";
-import { useForm } from "antd/es/form/Form";
-import { EntityLookupField } from "@amplicode/react-antd";
-import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
-import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
-import { gql } from "@amplicode/gql";
-import { RequestFailedError } from "../../../core/crud/RequestFailedError";
-import { useSubmitEditor } from "../../../core/crud/useSubmitEditor";
-import { ErrorMessage } from "../../../core/crud/ErrorMessage";
-import { useCloseNestedScreen } from "../../../core/crud/useCloseNestedScreen";
-import { FormattedMessage, useIntl } from "react-intl";
-import { gql2form } from "../../../core/format/gql2form";
-import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
+import React, {useCallback, useEffect, useState} from "react";
+import {useLazyQuery} from "@apollo/client";
+import {ResultOf} from "@graphql-typed-document-node/core";
+import {Button, Card, DatePicker, Form, FormInstance, Input, message, Space, Spin} from "antd";
+import {useForm} from "antd/es/form/Form";
+import {EntityLookupField} from "@amplicode/react-antd";
+import {getOwnerDTODisplayName} from "../../../core/display-name/getOwnerDTODisplayName";
+import {getPetTypeDTODisplayName} from "../../../core/display-name/getPetTypeDTODisplayName";
+import {gql} from "@amplicode/gql";
+import {RequestFailedError} from "../../../core/crud/RequestFailedError";
+import {useSubmitEditor} from "../../../core/crud/useSubmitEditor";
+import {ErrorMessage} from "../../../core/crud/ErrorMessage";
+import {useCloseNestedScreen} from "../../../core/crud/useCloseNestedScreen";
+import {FormattedMessage, useIntl} from "react-intl";
+import {RefetchQueries} from "../../../core/type-aliases/RefetchQueries";
+import {deserializeCustomScalars} from "../../../core/transform/model/deserializeCustomScalars";
 
 const PET = gql(`
   query Get_Pet($id: ID) {
@@ -115,7 +106,8 @@ function EditorForm<TData>({
     UPDATE_PET,
     setFormError,
     refetchQueries,
-    id
+    id,
+    'PetDTO'
   );
   const handleClientValidationFailed = useClientValidationFailed();
 
@@ -143,7 +135,7 @@ function FormFields() {
   return (
     <>
       <Form.Item name="birthDate" label="Birth Date">
-        <Input />
+        <DatePicker/>
       </Form.Item>
 
       <Form.Item name="identificationNumber" label="Identification Number">
@@ -237,14 +229,13 @@ function useLoadItem(id?: string) {
  * @param form
  * @param item
  */
-function useFormData<ItemType extends Record<string, unknown> | null>(
+function useFormData(
   form: FormInstance,
   item?: ItemType
 ) {
   useEffect(() => {
     if (item != null) {
-      const fieldValues = gql2form(item);
-      form.setFieldsValue(fieldValues);
+      form.setFieldsValue(deserializeCustomScalars(item));
     }
   }, [item, form]);
 }

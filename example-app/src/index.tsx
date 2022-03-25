@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React  from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import "./core/screen-api/screen-registry";
@@ -6,7 +6,7 @@ import App from "./app/App";
 import {
   ApolloClient,
   ApolloProvider,
-  createHttpLink,
+  createHttpLink, from,
   InMemoryCache
 } from "@apollo/client";
 import "antd/dist/antd.min.css";
@@ -51,7 +51,7 @@ const errorLink = onError(errorResponse =>
 );
 
 const client = new ApolloClient({
-  link: errorLink.concat(httpLink),
+  link: from([errorLink, httpLink]),
   cache: new InMemoryCache(),
   defaultOptions: {
     query: {

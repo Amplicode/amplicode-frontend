@@ -2,6 +2,13 @@ import { useI18nStore } from "@amplicode/react-core";
 import dayjs from "dayjs";
 import { observer } from "mobx-react";
 import { useEffect } from "react";
+import weekday from "dayjs/plugin/weekday";
+import localeData from "dayjs/plugin/localeData";
+import LocalizedFormat from "dayjs/plugin/localizedFormat";
+
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+dayjs.extend(LocalizedFormat)
 
 export interface DayjsProviderProps {
   children: React.ReactNode;
