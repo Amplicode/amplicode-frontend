@@ -1,3 +1,4 @@
+import { StandaloneOwnerEditor } from "../../app/screens/owner/StandaloneOwnerEditor";
 import { StandaloneOwnerList } from "../../app/screens/standalone-list/StandaloneOwnerList";
 import { StandaloneOwnerTable } from "../../app/screens/standalone-list/StandaloneOwnerTable";
 import { StandaloneOwnerCards } from "../../app/screens/standalone-list/StandaloneOwnerCards";
@@ -76,4 +77,9 @@ screenStore.registerScreen("standalone-owner-table", {
 screenStore.registerScreen("standalone-owner-list", {
   component: StandaloneOwnerList,
   captionKey: "screen.StandaloneOwnerList"
+});
+
+screenStore.registerScreen("standalone-owner-editor", {
+  component: StandaloneOwnerEditor,
+  captionKey: "screen.StandaloneOwnerEditor"
 });
