@@ -1,4 +1,5 @@
 import React from "react";
+import { StandaloneOwnerEditor } from "../app/screens/owner/StandaloneOwnerEditor";
 import { StandaloneOwnerList } from "../app/screens/standalone-list/StandaloneOwnerList";
 import { StandaloneOwnerTable } from "../app/screens/standalone-list/StandaloneOwnerTable";
 import { StandaloneOwnerCards } from "../app/screens/standalone-list/StandaloneOwnerCards";
@@ -88,6 +89,9 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/StandaloneOwnerList">
         <StandaloneOwnerList />
+      </ComponentPreview>
+      <ComponentPreview path="/StandaloneOwnerEditor">
+        <StandaloneOwnerEditor />
       </ComponentPreview>
     </Previews>
   );

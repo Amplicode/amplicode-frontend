@@ -53,5 +53,6 @@
   "screen.ReadOnlyOwnerList": "Read Only Owner List",
   "screen.StandaloneOwnerCards": "Standalone Owner Cards",
   "screen.StandaloneOwnerTable": "Standalone Owner Table",
-  "screen.StandaloneOwnerList": "Standalone Owner List"
+  "screen.StandaloneOwnerList": "Standalone Owner List",
+  "screen.StandaloneOwnerEditor": "Standalone Owner Editor"
 }
