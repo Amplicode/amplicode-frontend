@@ -1,28 +1,10 @@
-import {Entity, Enum} from "../common/model/cuba-model";
-import {ProjectEntityInfo} from "../building-blocks/stages/writing/pieces/sdk/model/entities-generation"
 import assert from "assert";
-import {collectModelContext, ModelContext} from "../building-blocks/stages/writing/pieces/sdk/model/model-utils"
 import fs from "fs";
 import prettier = require('prettier');
 import path from "path";
 import {strictEqual} from "assert";
 import {loadSchema} from "@graphql-tools/load";
 import {expect} from "chai";
-
-const enumsModel: Enum[] = require('./fixtures/enums-model.json');
-const entityModel: Entity = require('./fixtures/entity-model.json');
-
-export function modelCtx(): ModelContext {
-  return collectModelContext({entities: [entityModel], enums: enumsModel} as any);
-}
-
-export function createTestProjectEntityInfo(className: string, isBase: boolean = false): ProjectEntityInfo {
-  const shortName = className.split('.').pop();
-  return {
-    type: {className: className},
-    entity: {className: shortName, name: (isBase ? 'sys$' : 'mpg$') + shortName, fqn: className}
-  } as any;
-}
 
 export function assertContent(actual: string, expect: string, multiline: boolean = true) {
   assert.strictEqual(drain(actual, multiline), drain(expect, multiline));
