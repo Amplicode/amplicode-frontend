@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.1](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.13.0...@amplicode/codegen@0.13.1) (2022-03-28)
+
+**Note:** Version bump only for package @amplicode/codegen
+
+
+
+
+
 # [0.13.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.12.0...@amplicode/codegen@0.13.0) (2022-03-23)
 
 
