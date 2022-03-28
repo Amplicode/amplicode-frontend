@@ -60,7 +60,7 @@ function getScreenParams<TData>(
     }
   };
 
-  if (id != null) {
+  if (id != null && id != 'new') {
     params.props = {
       ...params.props,
       id
