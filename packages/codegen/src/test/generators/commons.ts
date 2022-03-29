@@ -10,6 +10,10 @@ export const GENERATORS_DIR = path.join(__dirname, '..', '..', 'generators');
 export async function cleanup(destDir: string) {
   await rimraf(`${destDir}/{*,.*}`);
   !fs.existsSync(destDir) && fs.mkdirSync(destDir, {recursive: true});
+
+  // avoid exception on read i18n messages in mvp.ts, create file first TODO - fix in mpv.ts 'addScreenI18nKeyEn'
+  fs.mkdirSync(path.join(destDir, 'core', 'i18n', 'messages'), {recursive: true});
+  fs.writeFileSync(path.join(destDir, 'core', 'i18n', 'messages', 'en.json'), '{}');
 }
 
 export function opts(dir: string, answers: any, schema: string) {

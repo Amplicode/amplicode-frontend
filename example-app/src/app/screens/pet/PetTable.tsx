@@ -220,10 +220,20 @@ function TableSection({
     return <Empty />;
   }
 
+  const dataSource = items
+    .filter(item => item != null)
+    .map(item => ({
+      ...item,
+      ...{
+        owner: getOwnerDTODisplayName(item!.owner ?? undefined),
+        type: getPetTypeDTODisplayName(item!.type ?? undefined)
+      }
+    }));
+
   return (
     <Space direction="vertical" className="table-space">
       <Table
-        dataSource={items.filter(item => item != null) as object[]}
+        dataSource={dataSource as object[]}
         columns={columns}
         rowClassName={record =>
           (record as ItemType)?.id === selectedRowId ? "table-row-selected" : ""

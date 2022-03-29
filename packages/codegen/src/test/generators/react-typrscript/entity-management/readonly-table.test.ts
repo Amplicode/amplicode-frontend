@@ -1,7 +1,7 @@
 import fs from "fs";
 import {promisify} from "util";
 import path from "path";
-import {generate, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
+import {cleanup, generate, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
 import {expect} from "chai";
 import {expectFileContainsIgnoreSpace} from "../../../test-commons";
 import {
@@ -15,7 +15,9 @@ const rimraf = promisify(require('rimraf'));
 const GENERATOR_DIR = 'entity-management';
 
 const DEST_DIR = path.join(process.cwd(), 'src', 'test', 'generated', 'generators', 'react-typescript', GENERATOR_DIR);
-const displayNameFunctionFile = path.join(DEST_DIR, 'display-name', 'getOwnerDTODisplayName.ts');
+const displayNameFiles = [
+  path.join(DEST_DIR, 'core', 'display-name', 'getOwnerDTODisplayName.ts'),
+  path.join(DEST_DIR, 'core', 'display-name', 'getPetTypeDTODisplayName.ts')];
 
 const expectTag = `
       <Space direction="vertical" className="table-space">
@@ -31,14 +33,7 @@ const expectTag = `
 
 describe('codegen readonly table', () => {
 
-  before(async () => {
-    await rimraf(`${DEST_DIR}/{*,.*}`);
-    !fs.existsSync(DEST_DIR) && fs.mkdirSync(DEST_DIR, {recursive: true});
-
-    // avoid exception on read i18n messages in mvp.ts, create file first TODO - fix in mpv.ts 'addScreenI18nKeyEn'
-    fs.mkdirSync(path.join(DEST_DIR, 'core', 'i18n', 'messages'), {recursive: true});
-    fs.writeFileSync(path.join(DEST_DIR, 'core', 'i18n', 'messages', 'en.json'), '{}');
-  });
+  beforeEach(async () => await cleanup(DEST_DIR));
 
   it('should generate readonly table screen - Owner', async () => {
 
@@ -55,8 +50,7 @@ describe('codegen readonly table', () => {
     const componentPath = path.join(DEST_DIR, 'ReadOnlyOwnerTable.tsx');
     const detailsComponentPath = path.join(DEST_DIR, 'ReadOnlyOwnerTableDetails.tsx');
     // check that cleanup is completed, before test start
-    expect(!fs.existsSync(componentPath));
-    expect(!fs.existsSync(displayNameFunctionFile));
+    expect(fs.existsSync(componentPath)).to.be.false;
 
     await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, SCHEMA_PATH));
 
@@ -75,6 +69,9 @@ describe('codegen readonly table', () => {
     expect(componentFile).to.contain('title: "First Name",');
     expect(componentFile).to.contain('title: "Last Name",');
     expect(componentFile).to.contain('title: "Telephone",');
+
+    // getXXXName files
+    displayNameFiles.forEach(file => expect(fs.existsSync(file)).to.be.false);
   });
 
   it('should generate readonly table screen - Pet', async () => {
@@ -92,8 +89,7 @@ describe('codegen readonly table', () => {
     const componentPath = path.join(DEST_DIR, 'ReadOnlyPetTable.tsx');
     const detailsComponentPath = path.join(DEST_DIR, 'ReadOnlyPetTableDetails.tsx');
     // check that cleanup is completed, before test start
-    expect(!fs.existsSync(componentPath));
-    expect(!fs.existsSync(displayNameFunctionFile));
+    expect(fs.existsSync(componentPath)).to.be.false;
 
     await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, SCHEMA_PATH));
 
@@ -110,6 +106,9 @@ describe('codegen readonly table', () => {
     expect(componentFile).to.contain('title: "Identification Number",');
     expect(componentFile).to.contain('title: "Owner",');
     expect(componentFile).to.contain('title: "Type",');
+
+    // getXXXName files
+    displayNameFiles.forEach(file => expect(fs.existsSync(file)).to.be.true);
   });
 
 });
