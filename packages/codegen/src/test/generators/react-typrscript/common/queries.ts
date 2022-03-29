@@ -1,3 +1,25 @@
+export const getOwnerQuery = `
+query Get_Owner($id: BigInteger) {
+  owner(id: $id) {
+    id
+    firstName
+    lastName
+    city
+    address
+    email
+    telephone
+  }
+}
+`;
+
+export const ownerUpsertMutation = `
+mutation Update_Owner($input: OwnerInputDTOInput) {
+  update_Owner(input: $input) {
+    id
+  }
+}
+`;
+
 export const ownerListQuery = `
 query Get_Owner_List {
   ownerList {

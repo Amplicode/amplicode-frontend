@@ -1,5 +1,4 @@
 import fs from "fs";
-import {promisify} from "util";
 import path from "path";
 import {cleanup, generate, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
 import {expect} from "chai";
@@ -11,7 +10,6 @@ import {
   petListQuery
 } from "../common/queries";
 
-const rimraf = promisify(require('rimraf'));
 const GENERATOR_DIR = 'entity-management';
 
 const DEST_DIR = path.join(process.cwd(), 'src', 'test', 'generated', 'generators', 'react-typescript', GENERATOR_DIR);

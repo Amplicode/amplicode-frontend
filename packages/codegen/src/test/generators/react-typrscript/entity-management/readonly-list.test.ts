@@ -1,7 +1,6 @@
 import fs from "fs";
-import {promisify} from "util";
 import path from "path";
-import {generate, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
+import {cleanup, generate, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
 import {expect} from "chai";
 import {expectFileContainsIgnoreSpace} from "../../../test-commons";
 import {
@@ -12,11 +11,9 @@ import {
 } from "../common/queries";
 import {capitalizeFirst, unCapitalizeFirst} from "../../../../common/utils";
 
-const rimraf = promisify(require('rimraf'));
 const GENERATOR_DIR = 'entity-management';
 
 const DEST_DIR = path.join(process.cwd(), 'src', 'test', 'generated', 'generators', 'react-typescript', GENERATOR_DIR);
-const displayNameFunctionFile = path.join(DEST_DIR, 'display-name', 'getOwnerDTODisplayName.ts');
 
 const expectTag = `
       <Space direction="vertical" className="list-space">
@@ -30,14 +27,7 @@ const expectTag = `
 
 describe('codegen readonly list', () => {
 
-  before(async () => {
-    await rimraf(`${DEST_DIR}/{*,.*}`);
-    !fs.existsSync(DEST_DIR) && fs.mkdirSync(DEST_DIR, {recursive: true});
-
-    // avoid exception on read i18n messages in mvp.ts, create file first TODO - fix in mpv.ts 'addScreenI18nKeyEn'
-    fs.mkdirSync(path.join(DEST_DIR, 'core', 'i18n', 'messages'), {recursive: true});
-    fs.writeFileSync(path.join(DEST_DIR, 'core', 'i18n', 'messages', 'en.json'), '{}');
-  });
+  beforeEach(async () => await cleanup(DEST_DIR));
 
   it('should generate readonly list screen - Owner', async () => {
 
@@ -53,9 +43,6 @@ describe('codegen readonly list', () => {
     };
     const componentPath = path.join(DEST_DIR, 'ReadOnlyOwnerList.tsx');
     const detailsComponentPath = path.join(DEST_DIR, 'ReadOnlyOwnerListDetails.tsx');
-    // check that cleanup is completed, before test start
-    expect(!fs.existsSync(componentPath));
-    expect(!fs.existsSync(displayNameFunctionFile));
 
     await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, SCHEMA_PATH));
 
@@ -102,9 +89,6 @@ describe('codegen readonly list', () => {
     };
     const componentPath = path.join(DEST_DIR, 'ReadOnlyPetList.tsx');
     const detailsComponentPath = path.join(DEST_DIR, 'ReadOnlyPetListDetails.tsx');
-    // check that cleanup is completed, before test start
-    expect(!fs.existsSync(componentPath));
-    expect(!fs.existsSync(displayNameFunctionFile));
 
     await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, SCHEMA_PATH));
 
