@@ -23,6 +23,10 @@ runCmdSync('node generate-standalone-collection/owner-list-standalone.js', './sc
 
 runCmdSync('node generate-standalone-editor/owner-editor-standalone.js', './scripts');
 
+runCmdSync('node generate-lookup/owner-lookup-cards.js', './scripts');
+runCmdSync('node generate-lookup/pet-lookup-cards.js', './scripts');
+runCmdSync('node generate-lookup/pet-type-lookup-cards.js', './scripts');
+
 runCmdSync('lerna run prepublishOnly');
 runCmdSync(`lerna exec --scope '{@amplicode/react-core,@amplicode/react-antd}' "npm pack"`);
 

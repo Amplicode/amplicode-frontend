@@ -59,7 +59,7 @@ export function EntityLookupField(props: EntityLookupFieldProps) {
       className='entity-lookup-field'
       onClick={handleClick}
       prefix={<LinkOutlined onClick={handleClick} />}
-      suffix={<CloseCircleOutlined onClick={handleClear} />}
+      suffix={value != null && <CloseCircleOutlined onClick={handleClear} />}
       value={value ? getDisplayName(value) : ''}
     />
   );

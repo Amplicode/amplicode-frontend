@@ -111,6 +111,21 @@ export const AppMenu = observer(() => {
       >
         {getCaption("standalone-owner-editor")}
       </Menu.Item>
+      <Menu.Item
+        title={getCaption("owner-lookup-cards")}
+        key="owner-lookup-cards"
+      >
+        {getCaption("owner-lookup-cards")}
+      </Menu.Item>
+      <Menu.Item title={getCaption("pet-lookup-cards")} key="pet-lookup-cards">
+        {getCaption("pet-lookup-cards")}
+      </Menu.Item>
+      <Menu.Item
+        title={getCaption("pet-type-lookup-cards")}
+        key="pet-type-lookup-cards"
+      >
+        {getCaption("pet-type-lookup-cards")}
+      </Menu.Item>
       <AddonsMenu key={"addonsMenu"} />
       {/*If you don't need Screen API (tabs / breadcrumbs) you can just use React Router components*/}
       {/*<Menu.Item*/}

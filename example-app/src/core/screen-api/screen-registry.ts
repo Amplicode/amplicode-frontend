@@ -1,3 +1,6 @@
+import { PetTypeLookup } from "../../app/screens/lookup/PetTypeLookup";
+import { PetLookup } from "../../app/screens/lookup/PetLookup";
+import { OwnerLookup } from "../../app/screens/lookup/OwnerLookup";
 import { StandaloneOwnerEditor } from "../../app/screens/owner/StandaloneOwnerEditor";
 import { StandaloneOwnerList } from "../../app/screens/standalone-list/StandaloneOwnerList";
 import { StandaloneOwnerTable } from "../../app/screens/standalone-list/StandaloneOwnerTable";
@@ -82,4 +85,19 @@ screenStore.registerScreen("standalone-owner-list", {
 screenStore.registerScreen("standalone-owner-editor", {
   component: StandaloneOwnerEditor,
   captionKey: "screen.StandaloneOwnerEditor"
+});
+
+screenStore.registerScreen("owner-lookup-cards", {
+  component: OwnerLookup,
+  captionKey: "screen.OwnerLookup"
+});
+
+screenStore.registerScreen("pet-lookup-cards", {
+  component: PetLookup,
+  captionKey: "screen.PetLookup"
+});
+
+screenStore.registerScreen("pet-type-lookup-cards", {
+  component: PetTypeLookup,
+  captionKey: "screen.PetTypeLookup"
 });

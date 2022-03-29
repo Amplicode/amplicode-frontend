@@ -1,4 +1,7 @@
 import React from "react";
+import { PetTypeLookup } from "../app/screens/lookup/PetTypeLookup";
+import { PetLookup } from "../app/screens/lookup/PetLookup";
+import { OwnerLookup } from "../app/screens/lookup/OwnerLookup";
 import { StandaloneOwnerEditor } from "../app/screens/owner/StandaloneOwnerEditor";
 import { StandaloneOwnerList } from "../app/screens/standalone-list/StandaloneOwnerList";
 import { StandaloneOwnerTable } from "../app/screens/standalone-list/StandaloneOwnerTable";
@@ -92,6 +95,15 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/StandaloneOwnerEditor">
         <StandaloneOwnerEditor />
+      </ComponentPreview>
+      <ComponentPreview path="/OwnerLookup">
+        <OwnerLookup />
+      </ComponentPreview>
+      <ComponentPreview path="/PetLookup">
+        <PetLookup />
+      </ComponentPreview>
+      <ComponentPreview path="/PetTypeLookup">
+        <PetTypeLookup />
       </ComponentPreview>
     </Previews>
   );
