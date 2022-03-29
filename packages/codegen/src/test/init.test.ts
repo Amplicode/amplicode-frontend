@@ -9,7 +9,7 @@ describe('init', function () {
     expect(clients.length).to.eq(1);
 
     const genCountOfClient: Map<string, number> = new Map();
-    genCountOfClient.set('react-typescript', 7);
+    genCountOfClient.set('react-typescript', 8);
 
     genCountOfClient.forEach((num, client) =>
         expect(clients.find(c => c.name == client)!.generators.length).eq(num));

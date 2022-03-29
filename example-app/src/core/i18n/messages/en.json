@@ -56,5 +56,8 @@
   "screen.StandaloneOwnerCards": "Standalone Owner Cards",
   "screen.StandaloneOwnerTable": "Standalone Owner Table",
   "screen.StandaloneOwnerList": "Standalone Owner List",
-  "screen.StandaloneOwnerEditor": "Standalone Owner Editor"
+  "screen.StandaloneOwnerEditor": "Standalone Owner Editor",
+  "screen.OwnerLookup": "Owner Lookup",
+  "screen.PetLookup": "Pet Lookup",
+  "screen.PetTypeLookup": "Pet Type Lookup"
 }
