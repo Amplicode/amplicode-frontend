@@ -1,5 +1,6 @@
 <% var withItemComponent = locals.itemComponentName != null; -%>
 <% var withDeleteAction = locals.deleteMutationString != null && locals.deleteMutationName != null; -%>
+<% var hasRelationFields = attributes.some(attr => attr.isRelationField) -%>
 <% const QUERY_CONST = toFatSnakeCase(queryName); -%>
 <% const MUTATION_CONST = deleteMutationName ? toFatSnakeCase(deleteMutationName) : undefined; -%>
 <%# ------- TEMPLATE STARTS HERE ------- -%>
@@ -301,10 +302,24 @@ function TableSection({
     return <Empty />;
   }
 
+  const dataSource = items
+      .filter(item => item != null)
+    <% if (hasRelationFields) { %> <%# relation field display names -%>
+      .map(item => ({
+        ...item,
+        ...{
+      <% attributes.forEach(attr => { -%>
+        <% if (attr.isRelationField) { -%>
+          <%= attr.name %>: get<%= capitalizeFirst(attr.type) %>DisplayName(item!.<%= attr.name %> ?? undefined),
+        <% } -%>
+      <% }) -%>
+      }}))
+    <% } -%>
+
   return (
     <Space direction="vertical" className="table-space">
       <Table
-        dataSource={items.filter(item => item != null) as object[]}
+        dataSource={dataSource as object[]}
         columns={columns}
         rowClassName={record =>
           (record as ItemType)?.id === selectedRowId ? "table-row-selected" : ""
