@@ -1,28 +1,16 @@
 import fs from "fs";
-import {promisify} from "util";
 import path from "path";
-import {generate, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
+import {cleanup, generate, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
 import {expect} from "chai";
 import {expectFileContainsIgnoreSpace} from "../../../test-commons";
 import {ownerDeleteMutation, ownerListQuery, petDeleteMutation, petListQuery} from "../common/queries";
 
-
-const rimraf = promisify(require('rimraf'));
-
 const DEST_DIR = path.join(process.cwd(), 'src', 'test', 'generated', 'generators', 'react-typescript', 'entity-list');
-const displayNameFunctionFile = path.join(DEST_DIR, 'display-name', 'getOwnerDTODisplayName.ts');
+const displayNameFunctionFile = path.join(DEST_DIR, 'core', 'display-name', 'getOwnerDTODisplayName.ts');
 
 describe('codegen standalone list', () => {
 
-  before(async () => {
-    await rimraf(`${DEST_DIR}/{*,.*}`);
-    !fs.existsSync(DEST_DIR) && fs.mkdirSync(DEST_DIR, {recursive: true});
-
-    // avoid exception on read i18n messages in mvp.ts, create file first TODO - fix in mpv.ts 'addScreenI18nKeyEn'
-    fs.mkdirSync(path.join(DEST_DIR, 'core', 'i18n', 'messages'), {recursive: true});
-    fs.writeFileSync(path.join(DEST_DIR, 'core', 'i18n', 'messages', 'en.json'), '{}');
-  });
-
+  beforeEach(async () => await cleanup(DEST_DIR));
 
   it('should generate standalone list screen - Owner', async () => {
 
@@ -37,8 +25,7 @@ describe('codegen standalone list', () => {
     };
     const componentPath = path.join(DEST_DIR, 'StandaloneOwnerList.tsx');
     // check that cleanup is completed, before test start
-    expect(!fs.existsSync(componentPath));
-    expect(!fs.existsSync(displayNameFunctionFile));
+    expect(fs.existsSync(displayNameFunctionFile)).to.be.false;
 
     await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, standaloneListAnswers, SCHEMA_PATH));
 
@@ -59,7 +46,7 @@ describe('codegen standalone list', () => {
     expectFileContainsIgnoreSpace(componentFile, expectListTag);
 
     // check that displayName function is NOT written for 'list'
-    expect(!fs.existsSync(displayNameFunctionFile));
+    expect(fs.existsSync(displayNameFunctionFile)).to.be.false;
   });
 
   it('should generate standalone list screen - Pet', async () => {
@@ -75,8 +62,7 @@ describe('codegen standalone list', () => {
     };
     const componentPath = path.join(DEST_DIR, 'StandalonePetList.tsx');
     // check that cleanup is completed, before test start
-    expect(!fs.existsSync(componentPath));
-    expect(!fs.existsSync(displayNameFunctionFile));
+    expect(fs.existsSync(displayNameFunctionFile)).to.be.false;
 
     await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, answers, SCHEMA_PATH));
 
@@ -97,7 +83,7 @@ describe('codegen standalone list', () => {
     expectFileContainsIgnoreSpace(componentFile, expectCardsTag);
 
     // check that displayName function is written for 'list'
-    expect(!fs.existsSync(displayNameFunctionFile));
+    expect(fs.existsSync(displayNameFunctionFile)).to.be.true;
   });
 
 });

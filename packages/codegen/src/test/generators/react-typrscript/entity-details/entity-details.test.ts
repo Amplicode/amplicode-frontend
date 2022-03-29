@@ -1,46 +1,16 @@
 import fs from "fs";
-import {promisify} from "util";
 import path from "path";
-import {generate, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
+import {cleanup, generate, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
 import {expect} from "chai";
 import {MvpEntityEditorAnswers} from "../../../../generators/react-typescript/entity-details/answers";
 import {expectFileContainsIgnoreSpace} from "../../../test-commons";
-const rimraf = promisify(require('rimraf'));
+import {getOwnerQuery, ownerUpsertMutation} from "../common/queries";
 
 const DEST_DIR = path.join(process.cwd(), 'src', 'test', 'generated', 'generators', 'react-typescript', 'entity-details');
 
-const getOwnerQuery = `
-query Get_Owner($id: BigInteger) {
-  owner(id: $id) {
-    id
-    firstName
-    lastName
-    city
-    address
-    email
-    telephone
-  }
-}
-`;
-
-const ownerUpsertMutation = `
-mutation Update_Owner($input: OwnerInputDTOInput) {
-  update_Owner(input: $input) {
-    id
-  }
-}
-`;
-
 describe('codegen entity-details test', () => {
 
-  before(async () => {
-    await rimraf(`${DEST_DIR}/{*,.*}`);
-    !fs.existsSync(DEST_DIR) && fs.mkdirSync(DEST_DIR, {recursive: true});
-
-    // avoid exception on read i18n messages in mvp.ts, create file first TODO - fix in mpv.ts 'addScreenI18nKeyEn'
-    fs.mkdirSync(path.join(DEST_DIR, 'core', 'i18n', 'messages'), {recursive: true});
-    fs.writeFileSync(path.join(DEST_DIR, 'core', 'i18n', 'messages', 'en.json'), '{}');
-  });
+  beforeEach(async () => await cleanup(DEST_DIR));
 
   it('should generate entity details screen', async () => {
 
@@ -51,7 +21,6 @@ describe('codegen entity-details test', () => {
     };
 
     const componentPath = path.join(DEST_DIR, 'OwnerDetails.tsx');
-    expect(!fs.existsSync(componentPath));
 
     await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-details'), opts(DEST_DIR, detailsAnswers, SCHEMA_PATH));
 
@@ -73,7 +42,6 @@ describe('codegen entity-details test', () => {
     };
 
     const componentPath = path.join(DEST_DIR, 'OwnerEditor.tsx');
-    expect(!fs.existsSync(componentPath));
 
     await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-details'), opts(DEST_DIR, editorAnswers, SCHEMA_PATH));
 
