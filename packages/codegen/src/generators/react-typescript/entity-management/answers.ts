@@ -1,5 +1,5 @@
 import {EntityListMode, EntityListType} from "../entity-list/answers";
-import {StudioTemplatePropertyType} from "../../../common/studio/studio-model";
+import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/studio/studio-model";
 import {ScreenAnswers} from "../../../building-blocks/stages/answers/amplicode/ScreenAnswers";
 
 export interface EntityManagementAnswers extends ScreenAnswers {
@@ -12,10 +12,11 @@ export interface EntityManagementAnswers extends ScreenAnswers {
   detailsQuery: string,
   upsertMutation?: string,
   deleteMutation?: string,
-  idField?: string
+  idField?: string,
+  filterByAttributes: Array<string[]>;
 }
 
-export const commonEntityManagementQuestions =  [
+export const commonEntityManagementQuestions: StudioTemplateProperty[] =  [
   {
     caption: 'List component name',
     code: 'listComponentName',
@@ -70,6 +71,17 @@ export const commonEntityManagementQuestions =  [
     step: {
       name: "Entity List",
       order: "1"
+    }
+  },
+  {
+    caption: "Select attributes to filter by",
+    code: "filterByAttributes",
+    propertyType: StudioTemplatePropertyType.ATTRIBUTES_ARRAY,
+    required: false,
+    defaultValue: [],
+    step: {
+      name: "Entity List",
+      order: "1",
     }
   },
   {

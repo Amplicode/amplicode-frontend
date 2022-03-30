@@ -4,15 +4,15 @@ import {ScreenAnswers} from "../../../building-blocks/stages/answers/amplicode/S
 export type EntityListMode = 'edit' | 'view' | 'view with details';
 export type EntityListType = 'list' | 'cards' | 'table';
 
-export type EntityListAnswers =
-  ScreenAnswers & {
+export interface EntityListAnswers extends ScreenAnswers {
   type?: EntityListType;
   mode?: EntityListMode;
   route: string;
   query: string;
   mutation?: string;
   idField?: string;
-};
+  filterByAttributes: Array<string[]>;
+}
 
 export const entityListQuestions = [
   {
@@ -70,10 +70,17 @@ export const entityListQuestions = [
     defaultValue: 'id'
   },
   {
+    caption: "Select attributes to filter by",
+    code: "filterByAttributes",
+    propertyType: StudioTemplatePropertyType.ATTRIBUTES_ARRAY,
+    required: false,
+    defaultValue: [],
+  },
+  {
     caption: "Add to menu",
     code: "shouldAddToMenu",
     propertyType: StudioTemplatePropertyType.BOOLEAN,
     required: true,
     defaultValue: true
-  },
+  }
 ];

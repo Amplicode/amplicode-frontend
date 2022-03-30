@@ -2,7 +2,8 @@ import { ReactNode, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
-import { Button, Card, Empty, Space, Spin } from "antd";
+import { Button, Row, Col, Form, Input, Card, Empty, Space, Spin } from "antd";
+import { useForm } from "antd/lib/form/Form";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { useRouteMatch } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -58,6 +59,14 @@ export function PetCards() {
     <div className="narrow-layout">
       <Space direction="vertical" className="card-space">
         <ButtonPanel />
+        <Card>
+          <Filters
+            // TODO define when we will know about graphQL filters API
+            // eslint-disable-next-line no-console
+            onApplyFilters={filters => console.log(filters)}
+            onErrorFilters={error => console.error(error)}
+          />
+        </Card>
         <Cards items={items} loading={loading} error={error} />
         {/* <Pagination /> - in future */}
       </Space>
@@ -119,6 +128,55 @@ function ButtonPanel() {
         </span>
       </Button>
     </div>
+  );
+}
+
+interface FiltersProps {
+  onApplyFilters: (filters: Record<string, unknown>) => void;
+  onErrorFilters: (errorInfo: any) => void;
+}
+function Filters({ onApplyFilters, onErrorFilters }: FiltersProps) {
+  const [form] = useForm();
+
+  return (
+    <Form
+      form={form}
+      layout="vertical"
+      onFinish={onApplyFilters}
+      onFinishFailed={onErrorFilters}
+    >
+      <Row gutter={16}>
+        <Col span={8}>
+          <Form.Item label="Owner First Name" name={["owner", "firstName"]}>
+            <Input />
+          </Form.Item>
+        </Col>
+
+        <Col span={8}>
+          <Form.Item label="Owner Last Name" name={["owner", "lastName"]}>
+            <Input />
+          </Form.Item>
+        </Col>
+
+        <Col span={8}>
+          <Form.Item
+            label="Identification Number"
+            name={"identificationNumber"}
+          >
+            <Input />
+          </Form.Item>
+        </Col>
+      </Row>
+
+      <Space>
+        <Button type="primary" htmlType="submit">
+          <FormattedMessage id="filters.apply" />
+        </Button>
+        <Button onClick={() => form.resetFields()}>
+          <FormattedMessage id="filters.reset" />
+        </Button>
+      </Space>
+    </Form>
   );
 }
 

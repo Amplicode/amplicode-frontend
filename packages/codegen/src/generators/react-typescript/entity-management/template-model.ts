@@ -37,6 +37,7 @@ export const deriveManagementTemplateModel = async (
     upsertMutation,
     deleteMutation,
     shouldAddToMenu,
+    filterByAttributes,
   } = answers;
 
   const queryNode = gql(listQuery);
@@ -62,6 +63,7 @@ export const deriveManagementTemplateModel = async (
       query: listQuery,
       mutation: deleteMutation,
       shouldAddToMenu: shouldAddToMenu,
+      filterByAttributes,
     },
     schema
   );

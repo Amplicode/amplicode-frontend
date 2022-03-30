@@ -40,7 +40,7 @@
     color: rgba(0,0,0,.25);
 }
 
-.card-space, .list-space, .table-space {
+.card-space, .list-space, .table-space, .input-space {
     width: 100%;
 }
 

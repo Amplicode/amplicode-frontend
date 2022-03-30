@@ -227,6 +227,8 @@ const EXPECTED_I18N_KEYS = [
   "common.requestFailed",
   "common.retry",
   "common.back",
+  "filters.apply",
+  "filters.reset",
   "default",
   "editor.doesNotExist",
   "home.welcome",

@@ -54,6 +54,7 @@ const petManagementAnswers = btoa(JSON.stringify({
   detailsQuery: esc(petDetailsQuery),
   deleteMutation: esc(petDeleteMutation),
   upsertMutation: esc(petUpsertMutation),
+  filterByAttributes: [['owner', 'firstName'], ['owner', 'lastName'], ['identificationNumber']],
 }));
 
 const petManagementCommand = `node ${amplicodegen} react-typescript:entity-management`
