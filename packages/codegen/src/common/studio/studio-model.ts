@@ -16,17 +16,23 @@ export const enum StudioTemplatePropertyType {
   GRAPHQL_QUERY = 'GRAPHQL_QUERY',
   GRAPHQL_MUTATION = 'GRAPHQL_MUTATION',
   MENU_ITEM = 'MENU_ITEM',
-  ROUTE = 'ROUTE'
+  ROUTE = 'ROUTE',
+  ATTRIBUTE = 'ATTRIBUTE',
+  ATTRIBUTES_ARRAY = 'ATTRIBUTES_ARRAY',
 }
 
 export interface StudioTemplateProperty {
   code: string;
   caption: string;
   propertyType: StudioTemplatePropertyType;
-  defaultValue?: string | boolean;
+  defaultValue?: string | boolean | string[] | Array<string[]>;
   required?: boolean;
   relatedProperty?: string;
   options?: string[];
+  step?: {
+    name: string;
+    order: "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+  }
   // --not supported
   //advanced: boolean;
   //filterScript: string;

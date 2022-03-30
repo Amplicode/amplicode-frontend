@@ -18,14 +18,35 @@ import {
 import {ApolloError} from "@apollo/client/errors";
 import {ResultOf} from "@graphql-typed-document-node/core";
 import {
-  <% if (mode === 'edit') { -%>
+  <% if (withFilters || mode === 'edit') { -%>
     Button,
   <% } -%>
+  <% if (withFilters) { -%>
+    Card,
+    Row,
+    Col,
+    Form,
+    <% if (filterImports.withFilterNumber) { -%>
+      InputNumber,
+    <% } -%>
+    <% if (filterImports.withFilterString) { -%>
+      Input,
+    <% } -%>
+    <% if (filterImports.withFilterCheckbox) { -%>
+      Checkbox,
+    <% } -%>
+    <% if (filterImports.withFilterDate) { -%>
+      DatePicker,
+    <% } -%>
+  <% } -%> 
   Empty,
   List,
   Space,
   Spin
 } from "antd";
+<% if (withFilters) { -%>
+  import { useForm } from "antd/lib/form/Form";
+<% } -%>
 <% if (withDeleteAction || mode === 'edit' || mode === 'view with details') { -%>
   import {
     <% if (withDeleteAction) { -%>
@@ -100,6 +121,16 @@ export function <%= componentName %>() {
       <Space direction="vertical" className="list-space">
         <% if (mode === 'edit') { -%>
           <ButtonPanel />
+        <% } -%>
+        <% if (withFilters) { -%>
+          <Card>
+            <Filters
+              // TODO define when we will know about graphQL filters API
+              // eslint-disable-next-line no-console
+              onApplyFilters={filters => console.log(filters)}
+              onErrorFilters={error => console.error(error)}  
+            />
+          </Card>
         <% } -%>
         <ListItems
           items={items}
@@ -195,6 +226,10 @@ export function <%= componentName %>() {
       </div>
     );
   }
+<% } -%>
+
+<% if (withFilters) { -%>
+  <%- include('Filters', filters) %>
 <% } -%>
 
 interface ListItemsProps {

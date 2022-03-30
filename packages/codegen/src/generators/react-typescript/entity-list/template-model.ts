@@ -18,9 +18,13 @@ import {getEntityName} from "../../../building-blocks/stages/template-model/piec
 import {getAttributeNames} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getAttributeNames";
 import {getTopFieldName} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getTopFieldName";
 import {getOperationDefinitionName} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getOperationDefinitionName";
+import { getGraphQLStringTypeByPath } from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getGraphQLStringTypeByPath";
+import { capitalizeFirst, splitByCapitalLetter } from "../../../common/utils";
+import { convertToNullableGraphQLStringType } from "../../../building-blocks/stages/template-model/pieces/graphql-utils/convertToNullableGraphQLStringType";
+
 
 export interface EntityListTemplateModel extends
-  BaseTemplateModel, UtilTemplateModel, ScreenTemplateModel {
+  BaseTemplateModel, UtilTemplateModel, ScreenTemplateModel, FiltersTemplateModel {
   queryName: string,
   route: string,
   queryString: string,
@@ -51,6 +55,7 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
     type = 'cards',
     mode = 'edit',
     idField = 'id',
+    filterByAttributes
   } = answers;
 
   const queryNode = gql(queryString);
@@ -66,6 +71,7 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
     ...baseTemplateModel,
     ...templateUtilities,
     ...deriveScreenTemplateModel(options, answers),
+    ...deriveFiltersTemplateModel(queryName, filterByAttributes, schema),
     componentName,
     route,
     queryName,
@@ -83,4 +89,55 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
 };
 
 
+interface EntityFilterData {
+  attributeName: string | string[];
+  caption: string;
+  type: string;
+}
+export interface FiltersTemplateModel {
+  filters: EntityFilterData[];
+  withFilters: boolean;
+  filterImports: {
+    withFilterCheckbox: boolean;
+    withFilterNumber: boolean;
+    withFilterString: boolean;
+    withFilterDate: boolean;
+  };
+}
+export function deriveFiltersTemplateModel(queryName: string, filterByAttributes: Array<string[]>, schema?: GraphQLSchema): FiltersTemplateModel {
 
+  let filters: EntityFilterData[] = [];
+  if (filterByAttributes != null) {
+    if (schema == null) throw new Error('Schema is required for generating filters');
+
+    const listQueryType = schema.getQueryType()?.getFields()[queryName];
+    if (listQueryType == null) throw new Error('Can\'t find query name in the schema for generating filters');
+
+    filters = filterByAttributes.map(attributeName => ({
+      attributeName: attributeName.length === 1 ? attributeName[0] : attributeName,
+      caption: attributeName
+        .map(attributeNameElem => capitalizeFirst(splitByCapitalLetter(attributeNameElem)))
+        .join(' '),
+      type: convertToNullableGraphQLStringType(getGraphQLStringTypeByPath(schema, listQueryType, attributeName))
+    }))
+  }
+
+  const filterImports = getFilterImports(filters);
+
+  const withFilters = filters.length > 0;
+
+  return {
+    filters,
+    filterImports,
+    withFilters,
+  }
+}
+
+function getFilterImports(filters: EntityFilterData[]) {
+  return {
+    withFilterCheckbox: filters.find(filter => filter.type === 'Boolean') != null,
+    withFilterNumber: filters.find(filter => filter.type === 'Int' || filter.type === 'BigInteger' || filter.type === 'Float' || filter.type === 'BigDecimal') != null,
+    withFilterString: filters.find(filter => filter.type === 'String') != null,
+    withFilterDate: filters.find(filter => filter.type === 'Date' || filter.type === 'Time' || filter.type === 'DateTime') != null,
+  }
+}

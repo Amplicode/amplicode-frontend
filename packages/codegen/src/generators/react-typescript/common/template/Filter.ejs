@@ -1,0 +1,25 @@
+<% if (type === 'Int' || type === 'BigInteger') { -%>
+  <Form.Item label="<%= caption %>" name={<%- include(includesPath('RenderValue'), {data: attributeName}) %>}>
+    <InputNumber precision={0} className="input-space" />
+  </Form.Item>
+<% } else if (type === 'Float' || type === 'BigDecimal') { -%>
+  <Form.Item label="<%= caption %>" name={<%- include(includesPath('RenderValue'), {data: attributeName}) %>}>
+    <InputNumber className="input-space" />
+  </Form.Item>
+<% } else if (type === 'String') { -%>
+  <Form.Item label="<%= caption %>" name={<%- include(includesPath('RenderValue'), {data: attributeName}) %>}>
+    <Input />
+  </Form.Item>
+<% } else if (type === 'Boolean') { -%>
+  <Form.Item
+    label="<%= caption %>"
+    name={<%- include(includesPath('RenderValue'), {data: attributeName}) %>}
+    valuePropName="checked"
+  >
+    <Checkbox />
+  </Form.Item>
+<% } else if (type === 'Date' || type === 'Time' || type === 'DateTime') { -%>
+  <Form.Item label="<%= caption %>" name={<%- include(includesPath('RenderValue'), {data: attributeName}) %>}>
+    <DatePicker.RangePicker showTime />
+  </Form.Item>
+<% } -%>

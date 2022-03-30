@@ -33,6 +33,8 @@
   "hotkeys.editor.saveEntity": "Save the entity",
   "hotkeys.screen.nextTab": "Go to the next tab",
   "hotkeys.screen.previousTab": "Go to the previous tab",
+  "filters.apply": "Apply",
+  "filters.reset": "Clear",
   "screen.OwnerCardsEditor": "Owner Cards Editor",
   "screen.OwnerCards": "Owner Cards",
   "screen.OwnerListEditor": "Owner List Editor",
