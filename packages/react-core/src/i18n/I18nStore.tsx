@@ -63,7 +63,7 @@ export class I18nStore {
     this.currentLocale = locale;
   }
 
-  get currentMessages(): Readonly<Record<string, string>> | undefined {
-    return this.localeConfigs[this.currentLocale]?.messages;
+  get currentMessages(): Readonly<Record<string, string>> {
+    return this.localeConfigs[this.currentLocale].messages;
   }
 }

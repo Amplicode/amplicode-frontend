@@ -3,10 +3,19 @@ import { useEffect, useState } from "react";
 import { useI18nStore } from "@amplicode/react-core";
 import enMessages from "../messages/en.json";
 import ruMessages from "../messages/ru.json";
+import enAntdLocale from "antd/es/locale/en_US";
+import ruAntdLocale from "antd/es/locale/ru_RU";
+import { convertAntdLocaleToMessages } from "../util/convertAntdLocaleToMessages";
 
 export const staticMessages: Record<string, Record<string, string>> = {
-  en: enMessages,
-  ru: ruMessages
+  en: {
+    ...convertAntdLocaleToMessages(enAntdLocale),
+    ...enMessages
+  },
+  ru: {
+    ...convertAntdLocaleToMessages(ruAntdLocale),
+    ...ruMessages
+  }
 };
 
 export interface StaticI18nMessagesProviderProps {
