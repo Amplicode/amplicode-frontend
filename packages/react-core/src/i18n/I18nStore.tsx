@@ -5,6 +5,7 @@ export type LocaleDirection = 'rtl' | 'ltr';
 export interface LocaleConfigOption {
   caption: string;
   direction?: LocaleDirection;
+  antdLocale?: any;
   messages?: Record<string, string>;
 }
 
@@ -63,7 +64,7 @@ export class I18nStore {
     this.currentLocale = locale;
   }
 
-  get currentMessages(): Readonly<Record<string, string>> | undefined {
-    return this.localeConfigs[this.currentLocale]?.messages;
+  get currentMessages(): Readonly<Record<string, string>> {
+    return this.localeConfigs[this.currentLocale].messages;
   }
 }

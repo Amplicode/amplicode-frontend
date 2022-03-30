@@ -6,7 +6,7 @@ import ruMessages from "../messages/ru.json";
 
 export const staticMessages: Record<string, Record<string, string>> = {
   en: enMessages,
-  ru: ruMessages
+  ru: ruMessages,
 };
 
 export interface StaticI18nMessagesProviderProps {
@@ -16,7 +16,7 @@ export const StaticI18nMessagesProvider = observer(
   ({ children }: StaticI18nMessagesProviderProps) => {
     const [staticMessagesLoading, setStaticMessagesLoading] = useState(true);
 
-    const {mergeMessages} = useI18nStore();
+    const { mergeMessages } = useI18nStore();
 
     useEffect(() => {
       if (staticMessagesLoading) {

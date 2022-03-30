@@ -9,6 +9,10 @@ export const I18nApiProvider = observer(
   ({ children }: I18nApiProviderProps) => {
     const { currentMessages, currentLocale } = useI18nStore();
 
-    return <IntlProvider locale={currentLocale} messages={currentMessages}>{children}</IntlProvider>;
+    return (
+      <IntlProvider locale={currentLocale} messages={currentMessages}>
+        {children}
+      </IntlProvider>
+    );
   }
 );
