@@ -1,8 +1,9 @@
 import {Input, notification} from "antd";
-import {LinkOutlined} from "@ant-design/icons";
+import {CloseCircleOutlined, LinkOutlined} from "@ant-design/icons";
 import {useCallback} from "react";
 import {useIntl} from "react-intl";
 import {ReactComponent, useScreens} from "@amplicode/react-core";
+import './EntityLookupField.css';
 
 export interface EntityLookupFieldProps {
   value?: Record<string, unknown>;
@@ -18,6 +19,12 @@ export function EntityLookupField(props: EntityLookupFieldProps) {
 
   const screens = useScreens();
   const intl = useIntl();
+
+  const handleClear = useCallback(() => {
+    if (onChange != null) {
+      onChange(undefined);
+    }
+  }, [onChange]);
 
   const handleClick = useCallback(() => {
     const enableSelectModeProps = {
@@ -48,9 +55,12 @@ export function EntityLookupField(props: EntityLookupFieldProps) {
   }, [onChange, lookupComponent, intl, label, lookupComponentProps, screens]);
 
   return (
-    <Input prefix={<LinkOutlined />}
-           onClick={handleClick}
-           value={value ? getDisplayName(value) : ''}
+    <Input
+      className='entity-lookup-field'
+      onClick={handleClick}
+      prefix={<LinkOutlined onClick={handleClick} />}
+      suffix={<CloseCircleOutlined onClick={handleClear} />}
+      value={value ? getDisplayName(value) : ''}
     />
   );
 }
