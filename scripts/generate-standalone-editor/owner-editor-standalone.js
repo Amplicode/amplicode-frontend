@@ -1,22 +1,5 @@
 const { runCmdSync, esc, btoa, amplicodegen } = require("../common");
-
-const ownerDetailsQuery = `query Get_Owner($id: BigInteger) {
-    owner(id: $id) {
-      id
-      firstName
-      lastName
-      city
-      address
-      telephone
-      email
-    }
-  }`;
-
-const ownerUpsertMutation = `mutation Update_Owner($input: OwnerInputDTOInput) {
-    update_Owner(input: $input) {
-      id
-    }
-  }`;
+const {ownerDetailsQuery, ownerUpsertMutation} = require("../bootstrap-app/queries");
 
 const ownerEditorAnswers = btoa(JSON.stringify({
   componentName: 'StandaloneOwnerEditor',
