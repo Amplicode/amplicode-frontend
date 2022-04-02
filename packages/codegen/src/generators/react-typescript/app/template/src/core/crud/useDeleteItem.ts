@@ -1,7 +1,7 @@
-import {MutationFn} from "../type-aliases/MutationFn";
-import {useIntl} from "react-intl";
-import {Modal} from "antd";
-import {RefetchQueries} from "../type-aliases/RefetchQueries";
+import { MutationFn } from "../type-aliases/MutationFn";
+import { useIntl } from "react-intl";
+import { Modal } from "antd";
+import { RefetchQueries } from "../type-aliases/RefetchQueries";
 
 /**
  * Returns a callback that deletes an entity instance.
@@ -13,7 +13,7 @@ import {RefetchQueries} from "../type-aliases/RefetchQueries";
  * @param refetchQueries queries that needs to be refetched after the item is deleted
  */
 export function useDeleteItem(
-  id: string,
+  id: string | null | undefined,
   runDeleteMutation: MutationFn<any, any>,
   refetchQueries?: RefetchQueries
 ) {
@@ -24,6 +24,10 @@ export function useDeleteItem(
    * Callback that is invoked when the user confirms the intention to delete the item.
    */
   function handleConfirm() {
+    if (id == null) {
+      throw new Error("Can't perform delete mutation with id = 'null'");
+    }
+
     return runDeleteMutation({
       variables: {
         id
@@ -40,5 +44,6 @@ export function useDeleteItem(
       okText: intl.formatMessage({ id: "common.ok" }),
       cancelText: intl.formatMessage({ id: "common.cancel" }),
       onOk: handleConfirm
-    })};
+    });
+  };
 }

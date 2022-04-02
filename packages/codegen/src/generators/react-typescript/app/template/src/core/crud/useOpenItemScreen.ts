@@ -1,15 +1,19 @@
-import {OpenInBreadcrumbParams, ReactComponent, useScreens} from "@amplicode/react-core";
-import {useHistory} from "react-router-dom";
-import {useCallback} from "react";
-import {RefetchQueries} from "../type-aliases/RefetchQueries";
-import {useIntl} from "react-intl";
+import {
+  OpenInBreadcrumbParams,
+  ReactComponent,
+  useScreens
+} from "@amplicode/react-core";
+import { useHistory } from "react-router-dom";
+import { useCallback } from "react";
+import { RefetchQueries } from "../type-aliases/RefetchQueries";
+import { useIntl } from "react-intl";
 
 export interface OpenItemScreenParams<TData> {
   route: string;
   screenComponent: ReactComponent;
   screenCaptionKey: string;
   refetchQueries?: RefetchQueries<TData>;
-  id?: string;
+  id?: string | null;
 }
 
 /**
@@ -35,21 +39,31 @@ export function useOpenItemScreen<TData = any>({
   const history = useHistory();
   const intl = useIntl();
 
-  const screenCaption = intl.formatMessage({id: screenCaptionKey});
+  const screenCaption = intl.formatMessage({ id: screenCaptionKey });
 
   return useCallback(() => {
     // Open editor/details screen
-    screens.openInBreadcrumb(getScreenParams<TData>(screenComponent, screenCaption, refetchQueries, id));
+    screens.openInBreadcrumb(
+      getScreenParams<TData>(screenComponent, screenCaption, refetchQueries, id)
+    );
     // Append /id to existing url
     history.push(id ? `/${route}/${id}` : `/${route}/new`);
-  }, [screens, screenComponent, screenCaption, refetchQueries, id, history, route]);
+  }, [
+    screens,
+    screenComponent,
+    screenCaption,
+    refetchQueries,
+    id,
+    history,
+    route
+  ]);
 }
 
 function getScreenParams<TData>(
   screenComponent: ReactComponent,
   screenCaption: string,
   refetchQueries?: RefetchQueries<TData>,
-  id?: string,
+  id?: string | null
 ) {
   const params: OpenInBreadcrumbParams = {
     breadcrumbCaption: screenCaption,
@@ -60,7 +74,7 @@ function getScreenParams<TData>(
     }
   };
 
-  if (id != null && id != 'new') {
+  if (id != null && id != "new") {
     params.props = {
       ...params.props,
       id

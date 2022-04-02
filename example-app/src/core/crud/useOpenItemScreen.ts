@@ -13,7 +13,7 @@ export interface OpenItemScreenParams<TData> {
   screenComponent: ReactComponent;
   screenCaptionKey: string;
   refetchQueries?: RefetchQueries<TData>;
-  id?: string;
+  id?: string | null;
 }
 
 /**
@@ -63,7 +63,7 @@ function getScreenParams<TData>(
   screenComponent: ReactComponent,
   screenCaption: string,
   refetchQueries?: RefetchQueries<TData>,
-  id?: string
+  id?: string | null
 ) {
   const params: OpenInBreadcrumbParams = {
     breadcrumbCaption: screenCaption,
