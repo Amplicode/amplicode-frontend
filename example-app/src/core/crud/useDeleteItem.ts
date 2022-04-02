@@ -13,7 +13,7 @@ import { RefetchQueries } from "../type-aliases/RefetchQueries";
  * @param refetchQueries queries that needs to be refetched after the item is deleted
  */
 export function useDeleteItem(
-  id: string,
+  id: string | null | undefined,
   runDeleteMutation: MutationFn<any, any>,
   refetchQueries?: RefetchQueries
 ) {
@@ -24,6 +24,10 @@ export function useDeleteItem(
    * Callback that is invoked when the user confirms the intention to delete the item.
    */
   function handleConfirm() {
+    if (id == null) {
+      throw new Error("Can't perform delete mutation with id = 'null'");
+    }
+
     return runDeleteMutation({
       variables: {
         id
