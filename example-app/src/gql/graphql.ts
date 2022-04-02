@@ -18,82 +18,80 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** BigDecimal */
+  /** Java Type: BigDecimal */
   BigDecimal: any;
-  /** BigInteger */
+  /** Java Type: BigInteger */
   BigInteger: any;
-  /** Date */
+  /** Java Type: LocalDate */
   Date: any;
-  /** DateTime */
+  /** Java Type: OffsetDateTime */
   DateTime: any;
-  /** Time */
+  /** Java Type: LocalDateTime */
+  LocalDateTime: any;
+  /** Java Type: LocalTime */
+  LocalTime: any;
+  /** Java Type: Long, long */
+  Long: any;
+  /** Java Type: OffsetTime */
   Time: any;
-  /** Void */
+  /** Java Type: Date */
+  Timestamp: any;
+  /** Java Type: URL */
+  Url: any;
+  /** Java Type: Void */
   Void: any;
 };
 
 /** Mutation root */
 export type Mutation = {
   __typename?: "Mutation";
-  delete_Owner?: Maybe<Scalars["Void"]>;
-  delete_Pet?: Maybe<Scalars["Void"]>;
-  delete_PetType?: Maybe<Scalars["Void"]>;
-  delete_Test?: Maybe<Scalars["Void"]>;
-  delete_Visit?: Maybe<Scalars["Void"]>;
-  update_Owner?: Maybe<OwnerDto>;
-  update_Pet?: Maybe<PetDto>;
-  update_PetType?: Maybe<PetTypeDto>;
-  update_Test?: Maybe<TestDto>;
-  update_Visit?: Maybe<VisitDto>;
+  deleteOwner?: Maybe<Scalars["Void"]>;
+  deletePet?: Maybe<Scalars["Void"]>;
+  deletePetType?: Maybe<Scalars["Void"]>;
+  deleteVisit?: Maybe<Scalars["Void"]>;
+  updateOwner?: Maybe<OwnerDto>;
+  updatePet?: Maybe<PetDto>;
+  updatePetType?: Maybe<PetTypeDto>;
+  updateVisit?: Maybe<VisitDto>;
 };
 
 /** Mutation root */
-export type MutationDelete_OwnerArgs = {
-  id?: InputMaybe<Scalars["BigInteger"]>;
+export type MutationDeleteOwnerArgs = {
+  id: Scalars["ID"];
 };
 
 /** Mutation root */
-export type MutationDelete_PetArgs = {
-  id?: InputMaybe<Scalars["BigInteger"]>;
+export type MutationDeletePetArgs = {
+  id: Scalars["ID"];
 };
 
 /** Mutation root */
-export type MutationDelete_PetTypeArgs = {
-  id?: InputMaybe<Scalars["BigInteger"]>;
+export type MutationDeletePetTypeArgs = {
+  id: Scalars["ID"];
 };
 
 /** Mutation root */
-export type MutationDelete_TestArgs = {
-  id?: InputMaybe<Scalars["BigInteger"]>;
+export type MutationDeleteVisitArgs = {
+  id?: InputMaybe<Scalars["ID"]>;
 };
 
 /** Mutation root */
-export type MutationDelete_VisitArgs = {
-  id?: InputMaybe<Scalars["BigInteger"]>;
-};
-
-/** Mutation root */
-export type MutationUpdate_OwnerArgs = {
+export type MutationUpdateOwnerArgs = {
   input?: InputMaybe<OwnerInputDtoInput>;
 };
 
 /** Mutation root */
-export type MutationUpdate_PetArgs = {
+export type MutationUpdatePetArgs = {
   input?: InputMaybe<PetInputDtoInput>;
 };
 
 /** Mutation root */
-export type MutationUpdate_PetTypeArgs = {
+export type MutationUpdatePetTypeArgs = {
   input?: InputMaybe<PetTypeInputDtoInput>;
 };
 
 /** Mutation root */
-export type MutationUpdate_TestArgs = {
-  input?: InputMaybe<TestInputDtoInput>;
-};
-
-/** Mutation root */
-export type MutationUpdate_VisitArgs = {
+export type MutationUpdateVisitArgs = {
   input?: InputMaybe<VisitInputDtoInput>;
 };
 
@@ -103,7 +101,7 @@ export type OwnerDto = {
   city?: Maybe<Scalars["String"]>;
   email?: Maybe<Scalars["String"]>;
   firstName?: Maybe<Scalars["String"]>;
-  id?: Maybe<Scalars["BigInteger"]>;
+  id?: Maybe<Scalars["ID"]>;
   lastName?: Maybe<Scalars["String"]>;
   telephone?: Maybe<Scalars["String"]>;
 };
@@ -113,7 +111,7 @@ export type OwnerDtoInput = {
   city?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
   firstName?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["BigInteger"]>;
+  id?: InputMaybe<Scalars["ID"]>;
   lastName?: InputMaybe<Scalars["String"]>;
   telephone?: InputMaybe<Scalars["String"]>;
 };
@@ -123,7 +121,7 @@ export type OwnerInputDtoInput = {
   city?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
   firstName?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["BigInteger"]>;
+  id?: InputMaybe<Scalars["ID"]>;
   lastName?: InputMaybe<Scalars["String"]>;
   telephone?: InputMaybe<Scalars["String"]>;
 };
@@ -131,7 +129,7 @@ export type OwnerInputDtoInput = {
 export type PetDto = {
   __typename?: "PetDTO";
   birthDate?: Maybe<Scalars["Date"]>;
-  id?: Maybe<Scalars["BigInteger"]>;
+  id?: Maybe<Scalars["ID"]>;
   identificationNumber?: Maybe<Scalars["String"]>;
   owner?: Maybe<OwnerDto>;
   type?: Maybe<PetTypeDto>;
@@ -139,7 +137,7 @@ export type PetDto = {
 
 export type PetDtoInput = {
   birthDate?: InputMaybe<Scalars["Date"]>;
-  id?: InputMaybe<Scalars["BigInteger"]>;
+  id?: InputMaybe<Scalars["ID"]>;
   identificationNumber?: InputMaybe<Scalars["String"]>;
   owner?: InputMaybe<OwnerDtoInput>;
   type?: InputMaybe<PetTypeDtoInput>;
@@ -147,7 +145,7 @@ export type PetDtoInput = {
 
 export type PetInputDtoInput = {
   birthDate?: InputMaybe<Scalars["Date"]>;
-  id?: InputMaybe<Scalars["BigInteger"]>;
+  id?: InputMaybe<Scalars["ID"]>;
   identificationNumber?: InputMaybe<Scalars["String"]>;
   owner?: InputMaybe<OwnerDtoInput>;
   type?: InputMaybe<PetTypeDtoInput>;
@@ -155,17 +153,17 @@ export type PetInputDtoInput = {
 
 export type PetTypeDto = {
   __typename?: "PetTypeDTO";
-  id?: Maybe<Scalars["BigInteger"]>;
+  id?: Maybe<Scalars["ID"]>;
   name?: Maybe<Scalars["String"]>;
 };
 
 export type PetTypeDtoInput = {
-  id?: InputMaybe<Scalars["BigInteger"]>;
+  id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
 };
 
 export type PetTypeInputDtoInput = {
-  id?: InputMaybe<Scalars["BigInteger"]>;
+  id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
 };
 
@@ -178,137 +176,51 @@ export type Query = {
   petList?: Maybe<Array<Maybe<PetDto>>>;
   petType?: Maybe<PetTypeDto>;
   petTypeList?: Maybe<Array<Maybe<PetTypeDto>>>;
-  test?: Maybe<TestDto>;
-  testList?: Maybe<Array<Maybe<TestDto>>>;
+  userInfo?: Maybe<UserInfo>;
   visit?: Maybe<VisitDto>;
   visitList?: Maybe<Array<Maybe<VisitDto>>>;
 };
 
 /** Query root */
 export type QueryOwnerArgs = {
-  id?: InputMaybe<Scalars["BigInteger"]>;
+  id?: InputMaybe<Scalars["ID"]>;
 };
 
 /** Query root */
 export type QueryPetArgs = {
-  id?: InputMaybe<Scalars["BigInteger"]>;
+  id?: InputMaybe<Scalars["ID"]>;
 };
 
 /** Query root */
 export type QueryPetTypeArgs = {
-  id?: InputMaybe<Scalars["BigInteger"]>;
-};
-
-/** Query root */
-export type QueryTestArgs = {
-  id?: InputMaybe<Scalars["BigInteger"]>;
+  id?: InputMaybe<Scalars["ID"]>;
 };
 
 /** Query root */
 export type QueryVisitArgs = {
-  id?: InputMaybe<Scalars["BigInteger"]>;
+  id?: InputMaybe<Scalars["ID"]>;
 };
 
-export type TestDto = {
-  __typename?: "TestDTO";
-  bigDecimal?: Maybe<Scalars["BigDecimal"]>;
-  bigInt?: Maybe<Scalars["BigInteger"]>;
-  bool?: Maybe<Scalars["Boolean"]>;
-  boolPrimitive: Scalars["Boolean"];
-  byteArray?: Maybe<Scalars["String"]>;
-  bytePrimitive: Scalars["Int"];
-  bytePrimitiveArray?: Maybe<Scalars["String"]>;
-  byteTest?: Maybe<Scalars["Int"]>;
-  calendar?: Maybe<Scalars["String"]>;
-  charArray?: Maybe<Scalars["String"]>;
-  charPrimitive: Scalars["String"];
-  charPrimitiveArray?: Maybe<Scalars["String"]>;
-  character?: Maybe<Scalars["String"]>;
-  currency?: Maybe<Scalars["String"]>;
-  date?: Maybe<Scalars["String"]>;
-  dateUtil?: Maybe<Scalars["DateTime"]>;
-  doubleTest?: Maybe<Scalars["Float"]>;
-  duration?: Maybe<Scalars["String"]>;
-  floatTest?: Maybe<Scalars["Float"]>;
-  id?: Maybe<Scalars["BigInteger"]>;
-  instant?: Maybe<Scalars["String"]>;
-  intTest?: Maybe<Scalars["Int"]>;
-  localDate?: Maybe<Scalars["Date"]>;
-  localDateTime?: Maybe<Scalars["DateTime"]>;
-  localTime?: Maybe<Scalars["Time"]>;
-  locale?: Maybe<Scalars["String"]>;
-  longTest?: Maybe<Scalars["BigInteger"]>;
-  offsetDateTime?: Maybe<Scalars["DateTime"]>;
-  offsetTime?: Maybe<Scalars["Time"]>;
-  shortPrimitive: Scalars["Int"];
-  shortTest?: Maybe<Scalars["Int"]>;
-  string?: Maybe<Scalars["String"]>;
-  time?: Maybe<Scalars["String"]>;
-  timeStamp?: Maybe<Scalars["String"]>;
-  url?: Maybe<Scalars["String"]>;
-  uuidTest?: Maybe<Scalars["String"]>;
-  zonedDateTime?: Maybe<Scalars["DateTime"]>;
-};
-
-export type TestInputDtoInput = {
-  bigDecimal?: InputMaybe<Scalars["BigDecimal"]>;
-  bigInt?: InputMaybe<Scalars["BigInteger"]>;
-  bool?: InputMaybe<Scalars["Boolean"]>;
-  boolPrimitive: Scalars["Boolean"];
-  byteArray?: InputMaybe<Scalars["String"]>;
-  bytePrimitive: Scalars["Int"];
-  bytePrimitiveArray?: InputMaybe<Scalars["String"]>;
-  byteTest?: InputMaybe<Scalars["Int"]>;
-  calendar?: InputMaybe<Scalars["String"]>;
-  charArray?: InputMaybe<Scalars["String"]>;
-  charPrimitive: Scalars["String"];
-  charPrimitiveArray?: InputMaybe<Scalars["String"]>;
-  character?: InputMaybe<Scalars["String"]>;
-  currency?: InputMaybe<Scalars["String"]>;
-  date?: InputMaybe<Scalars["String"]>;
-  dateUtil?: InputMaybe<Scalars["DateTime"]>;
-  doubleTest?: InputMaybe<Scalars["Float"]>;
-  duration?: InputMaybe<Scalars["String"]>;
-  floatTest?: InputMaybe<Scalars["Float"]>;
-  id?: InputMaybe<Scalars["BigInteger"]>;
-  instant?: InputMaybe<Scalars["String"]>;
-  intTest?: InputMaybe<Scalars["Int"]>;
-  localDate?: InputMaybe<Scalars["Date"]>;
-  localDateTime?: InputMaybe<Scalars["DateTime"]>;
-  localTime?: InputMaybe<Scalars["Time"]>;
-  locale?: InputMaybe<Scalars["String"]>;
-  longTest?: InputMaybe<Scalars["BigInteger"]>;
-  offsetDateTime?: InputMaybe<Scalars["DateTime"]>;
-  offsetTime?: InputMaybe<Scalars["Time"]>;
-  shortPrimitive: Scalars["Int"];
-  shortTest?: InputMaybe<Scalars["Int"]>;
-  string?: InputMaybe<Scalars["String"]>;
-  time?: InputMaybe<Scalars["String"]>;
-  timeStamp?: InputMaybe<Scalars["String"]>;
-  url?: InputMaybe<Scalars["String"]>;
-  uuidTest?: InputMaybe<Scalars["String"]>;
-  zonedDateTime?: InputMaybe<Scalars["DateTime"]>;
-};
-
-export type Visit = {
-  __typename?: "Visit";
-  getPet?: Maybe<PetDto>;
+export type UserInfo = {
+  __typename?: "UserInfo";
+  username?: Maybe<Scalars["String"]>;
 };
 
 export type VisitDto = {
   __typename?: "VisitDTO";
   description?: Maybe<Scalars["String"]>;
-  id?: Maybe<Scalars["BigInteger"]>;
-  visitEnd?: Maybe<Scalars["DateTime"]>;
-  visitStart?: Maybe<Scalars["DateTime"]>;
+  id?: Maybe<Scalars["ID"]>;
+  pet?: Maybe<PetDto>;
+  visitEnd?: Maybe<Scalars["LocalDateTime"]>;
+  visitStart?: Maybe<Scalars["LocalDateTime"]>;
 };
 
 export type VisitInputDtoInput = {
   description?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["BigInteger"]>;
+  id?: InputMaybe<Scalars["ID"]>;
   pet?: InputMaybe<PetDtoInput>;
-  visitEnd?: InputMaybe<Scalars["DateTime"]>;
-  visitStart?: InputMaybe<Scalars["DateTime"]>;
+  visitEnd?: InputMaybe<Scalars["LocalDateTime"]>;
+  visitStart?: InputMaybe<Scalars["LocalDateTime"]>;
 };
 
 export type Get_Owner_ListQueryVariables = Exact<{ [key: string]: never }>;
@@ -317,7 +229,7 @@ export type Get_Owner_ListQuery = {
   __typename?: "Query";
   ownerList?: Array<{
     __typename?: "OwnerDTO";
-    id?: any | null;
+    id?: string | null;
     firstName?: string | null;
     lastName?: string | null;
     city?: string | null;
@@ -328,23 +240,23 @@ export type Get_Owner_ListQuery = {
 };
 
 export type Delete_OwnerMutationVariables = Exact<{
-  id: Scalars["BigInteger"];
+  id: Scalars["ID"];
 }>;
 
 export type Delete_OwnerMutation = {
   __typename?: "Mutation";
-  delete_Owner?: any | null;
+  deleteOwner?: any | null;
 };
 
 export type Get_OwnerQueryVariables = Exact<{
-  id?: InputMaybe<Scalars["BigInteger"]>;
+  id?: InputMaybe<Scalars["ID"]>;
 }>;
 
 export type Get_OwnerQuery = {
   __typename?: "Query";
   owner?: {
     __typename?: "OwnerDTO";
-    id?: any | null;
+    id?: string | null;
     firstName?: string | null;
     lastName?: string | null;
     city?: string | null;
@@ -360,7 +272,7 @@ export type Update_OwnerMutationVariables = Exact<{
 
 export type Update_OwnerMutation = {
   __typename?: "Mutation";
-  update_Owner?: { __typename?: "OwnerDTO"; id?: any | null } | null;
+  updateOwner?: { __typename?: "OwnerDTO"; id?: string | null } | null;
 };
 
 export type Get_Pet_ListQueryVariables = Exact<{ [key: string]: never }>;
@@ -369,17 +281,17 @@ export type Get_Pet_ListQuery = {
   __typename?: "Query";
   petList?: Array<{
     __typename?: "PetDTO";
-    id?: any | null;
+    id?: string | null;
     identificationNumber?: string | null;
     birthDate?: any | null;
     type?: {
       __typename?: "PetTypeDTO";
-      id?: any | null;
+      id?: string | null;
       name?: string | null;
     } | null;
     owner?: {
       __typename?: "OwnerDTO";
-      id?: any | null;
+      id?: string | null;
       firstName?: string | null;
       lastName?: string | null;
     } | null;
@@ -387,33 +299,33 @@ export type Get_Pet_ListQuery = {
 };
 
 export type Delete_PetMutationVariables = Exact<{
-  id: Scalars["BigInteger"];
+  id: Scalars["ID"];
 }>;
 
 export type Delete_PetMutation = {
   __typename?: "Mutation";
-  delete_Pet?: any | null;
+  deletePet?: any | null;
 };
 
 export type Get_PetQueryVariables = Exact<{
-  id?: InputMaybe<Scalars["BigInteger"]>;
+  id?: InputMaybe<Scalars["ID"]>;
 }>;
 
 export type Get_PetQuery = {
   __typename?: "Query";
   pet?: {
     __typename?: "PetDTO";
-    id?: any | null;
+    id?: string | null;
     identificationNumber?: string | null;
     birthDate?: any | null;
     type?: {
       __typename?: "PetTypeDTO";
-      id?: any | null;
+      id?: string | null;
       name?: string | null;
     } | null;
     owner?: {
       __typename?: "OwnerDTO";
-      id?: any | null;
+      id?: string | null;
       firstName?: string | null;
       lastName?: string | null;
     } | null;
@@ -426,7 +338,7 @@ export type Update_PetMutationVariables = Exact<{
 
 export type Update_PetMutation = {
   __typename?: "Mutation";
-  update_Pet?: { __typename?: "PetDTO"; id?: any | null } | null;
+  updatePet?: { __typename?: "PetDTO"; id?: string | null } | null;
 };
 
 export const Get_Owner_ListDocument = {
@@ -473,10 +385,7 @@ export const Delete_OwnerDocument = {
           variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
           type: {
             kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "BigInteger" },
-            },
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
           },
         },
       ],
@@ -485,7 +394,7 @@ export const Delete_OwnerDocument = {
         selections: [
           {
             kind: "Field",
-            name: { kind: "Name", value: "delete_Owner" },
+            name: { kind: "Name", value: "deleteOwner" },
             arguments: [
               {
                 kind: "Argument",
@@ -516,10 +425,7 @@ export const Get_OwnerDocument = {
         {
           kind: "VariableDefinition",
           variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: {
-            kind: "NamedType",
-            name: { kind: "Name", value: "BigInteger" },
-          },
+          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
         },
       ],
       selectionSet: {
@@ -581,7 +487,7 @@ export const Update_OwnerDocument = {
         selections: [
           {
             kind: "Field",
-            name: { kind: "Name", value: "update_Owner" },
+            name: { kind: "Name", value: "updateOwner" },
             arguments: [
               {
                 kind: "Argument",
@@ -679,10 +585,7 @@ export const Delete_PetDocument = {
           variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
           type: {
             kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "BigInteger" },
-            },
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
           },
         },
       ],
@@ -691,7 +594,7 @@ export const Delete_PetDocument = {
         selections: [
           {
             kind: "Field",
-            name: { kind: "Name", value: "delete_Pet" },
+            name: { kind: "Name", value: "deletePet" },
             arguments: [
               {
                 kind: "Argument",
@@ -719,10 +622,7 @@ export const Get_PetDocument = {
         {
           kind: "VariableDefinition",
           variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: {
-            kind: "NamedType",
-            name: { kind: "Name", value: "BigInteger" },
-          },
+          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
         },
       ],
       selectionSet: {
@@ -812,7 +712,7 @@ export const Update_PetDocument = {
         selections: [
           {
             kind: "Field",
-            name: { kind: "Name", value: "update_Pet" },
+            name: { kind: "Name", value: "updatePet" },
             arguments: [
               {
                 kind: "Argument",
