@@ -49,9 +49,9 @@ const PET_LIST = gql(`
   }
 `);
 
-const DELETE__PET = gql(`
-  mutation Delete_Pet($id: BigInteger!) {
-    delete_Pet(id: $id)
+const DELETE_PET = gql(`
+  mutation Delete_Pet($id: ID!) {
+    deletePet(id: $id)
   }
 `);
 
@@ -160,7 +160,7 @@ function ButtonPanel(props: { selectedRowId?: string }) {
     id: props.selectedRowId!
   });
 
-  const [runDeleteMutation] = useMutation(DELETE__PET);
+  const [runDeleteMutation] = useMutation(DELETE_PET);
   // Callback that deletes the item
   const deleteItem = useDeleteItem(
     props.selectedRowId!,

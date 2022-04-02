@@ -30,9 +30,9 @@ const OWNER_LIST = gql(`
   }
 `);
 
-const DELETE__OWNER = gql(`
-  mutation Delete_Owner($id: BigInteger!) {
-    delete_Owner(id: $id)
+const DELETE_OWNER = gql(`
+  mutation Delete_Owner($id: ID!) {
+    deleteOwner(id: $id)
   }
 `);
 
@@ -143,7 +143,7 @@ function ButtonPanel(props: { selectedRowId?: string }) {
     id: props.selectedRowId!
   });
 
-  const [runDeleteMutation] = useMutation(DELETE__OWNER);
+  const [runDeleteMutation] = useMutation(DELETE_OWNER);
   // Callback that deletes the item
   const deleteItem = useDeleteItem(
     props.selectedRowId!,

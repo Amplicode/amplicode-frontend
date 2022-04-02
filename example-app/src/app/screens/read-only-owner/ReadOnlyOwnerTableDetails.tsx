@@ -9,7 +9,7 @@ import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODi
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 
 const OWNER = gql(`
-  query Get_Owner($id: BigInteger) {
+  query Get_Owner($id: ID) {
     owner(id: $id) {
       id
       firstName

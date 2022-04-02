@@ -25,7 +25,7 @@ import { gql2form } from "../../../core/format/gql2form";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 
 const PET = gql(`
-  query Get_Pet($id: BigInteger) {
+  query Get_Pet($id: ID) {
     pet(id: $id) {
       id
       identificationNumber
@@ -43,9 +43,9 @@ const PET = gql(`
   }
 `);
 
-const UPDATE__PET = gql(`
+const UPDATE_PET = gql(`
   mutation Update_Pet($input: PetInputDTOInput) {
-    update_Pet(input: $input) {
+    updatePet(input: $input) {
       id
     }
   }
@@ -112,7 +112,7 @@ function EditorForm<TData>({
   const [formError, setFormError] = useState<string | undefined>();
 
   const { handleSubmit, submitting } = useSubmitEditor(
-    UPDATE__PET,
+    UPDATE_PET,
     setFormError,
     refetchQueries,
     id

@@ -22,7 +22,7 @@ import { gql2form } from "../../../core/format/gql2form";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 
 const OWNER = gql(`
-  query Get_Owner($id: BigInteger) {
+  query Get_Owner($id: ID) {
     owner(id: $id) {
       id
       firstName
@@ -35,9 +35,9 @@ const OWNER = gql(`
   }
 `);
 
-const UPDATE__OWNER = gql(`
+const UPDATE_OWNER = gql(`
   mutation Update_Owner($input: OwnerInputDTOInput) {
-    update_Owner(input: $input) {
+    updateOwner(input: $input) {
       id
     }
   }
@@ -104,7 +104,7 @@ function EditorForm<TData>({
   const [formError, setFormError] = useState<string | undefined>();
 
   const { handleSubmit, submitting } = useSubmitEditor(
-    UPDATE__OWNER,
+    UPDATE_OWNER,
     setFormError,
     refetchQueries,
     id
