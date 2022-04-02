@@ -2,6 +2,7 @@ export * from './util/generateKey';
 export * from './util/guessDisplayName';
 export * from './util/guessLabel';
 export * from './util/EventEmitter';
+export * from './util/filterFieldValues';
 
 export * from './screen-api/getScreenKey';
 export * from './screen-api/Screens';
