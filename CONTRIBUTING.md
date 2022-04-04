@@ -706,4 +706,34 @@ Beside mode, there are additional options for template config:
   `deleteMutationString` provided
 * `withItemComponent` - defines if item component defined and passed in `itemComponentName`
 
+### Link Lookup Screen with One To Many Form Field
 
+At this moment we don't have ability to link lookup screens with one-to-many fields in the editor due to app generation. 
+Lookup screens are created separately with `entity-lookup` generator. When example app is bootstrapped 
+such screens could be mapped to lookup field using code below (example based on `PetListEditor.tsx`) 
+
+```
+import {PetTypeLookup} from "../lookup/PetTypeLookup";
+import {OwnerLookup} from "../lookup/OwnerLookup";
+
+...
+
+      <Form.Item name="owner" label="Owner">
+        <EntityLookupField
+          getDisplayName={getOwnerDTODisplayName}
+          label="Owner"
+          // TODO Uncomment the code and specify the list component
+          lookupComponent={OwnerLookup}
+        />
+      </Form.Item>
+
+      <Form.Item name="type" label="Type">
+        <EntityLookupField
+          getDisplayName={getPetTypeDTODisplayName}
+          label="Type"
+          // TODO Uncomment the code and specify the list component
+          lookupComponent={PetTypeLookup}
+        />
+      </Form.Item>
+
+```
