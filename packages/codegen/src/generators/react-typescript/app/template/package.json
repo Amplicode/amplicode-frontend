@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@amplicode/react-core": "^0.9.0",
-    "@amplicode/react-antd": "^0.8.0",
+    "@amplicode/react-antd": "^0.9.0",
     "@ant-design/icons": "^4.6.3",
     "@apollo/client": "~3.5.10",
     "@react-buddy/ide-toolbox": "^2.0.0",
