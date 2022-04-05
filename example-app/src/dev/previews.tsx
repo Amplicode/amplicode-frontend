@@ -6,6 +6,12 @@ import { StandaloneOwnerEditor } from "../app/screens/owner/StandaloneOwnerEdito
 import { StandaloneOwnerList } from "../app/screens/standalone-list/StandaloneOwnerList";
 import { StandaloneOwnerTable } from "../app/screens/standalone-list/StandaloneOwnerTable";
 import { StandaloneOwnerCards } from "../app/screens/standalone-list/StandaloneOwnerCards";
+import { ReadOnlyPetList } from "../app/screens/read-only-pet/ReadOnlyPetList";
+import { ReadOnlyPetListDetails } from "../app/screens/read-only-pet/ReadOnlyPetListDetails";
+import { ReadOnlyPetTable } from "../app/screens/read-only-pet/ReadOnlyPetTable";
+import { ReadOnlyPetTableDetails } from "../app/screens/read-only-pet/ReadOnlyPetTableDetails";
+import { ReadOnlyPetCards } from "../app/screens/read-only-pet/ReadOnlyPetCards";
+import { ReadOnlyPetCardsDetails } from "../app/screens/read-only-pet/ReadOnlyPetCardsDetails";
 import { ReadOnlyOwnerList } from "../app/screens/read-only-owner/ReadOnlyOwnerList";
 import { ReadOnlyOwnerListDetails } from "../app/screens/read-only-owner/ReadOnlyOwnerListDetails";
 import { ReadOnlyOwnerTable } from "../app/screens/read-only-owner/ReadOnlyOwnerTable";
@@ -83,6 +89,24 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/ReadOnlyOwnerList">
         <ReadOnlyOwnerList />
+      </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyPetCardsDetails">
+        <ReadOnlyPetCardsDetails />
+      </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyPetCards">
+        <ReadOnlyPetCards />
+      </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyPetTableDetails">
+        <ReadOnlyPetTableDetails />
+      </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyPetTable">
+        <ReadOnlyPetTable />
+      </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyPetListDetails">
+        <ReadOnlyPetListDetails />
+      </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyPetList">
+        <ReadOnlyPetList />
       </ComponentPreview>
       <ComponentPreview path="/StandaloneOwnerCards">
         <StandaloneOwnerCards />
