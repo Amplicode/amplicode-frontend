@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@amplicode/react-antd": "file:../packages/react-antd/amplicode-react-antd-0.8.0.tgz",
-    "@amplicode/react-core": "file:../packages/react-core/amplicode-react-core-0.9.0.tgz",
+    "@amplicode/react-antd": "file:../packages/react-antd/amplicode-react-antd-0.9.1.tgz",
+    "@amplicode/react-core": "file:../packages/react-core/amplicode-react-core-0.9.1.tgz",
     "@ant-design/icons": "^4.6.3",
     "@apollo/client": "~3.5.10",
     "@react-buddy/ide-toolbox": "^2.0.0",
@@ -18,6 +18,7 @@
     "@types/react-router-dom": "^5.1.9",
     "antd": "^4.16.12",
     "axios": "^0.21.1",
+    "dayjs": "^1.11.0",
     "graphql": "^15.5.1",
     "mobx": "^6.3.2",
     "mobx-react": "^7.2.0",
