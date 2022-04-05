@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.9.0...@amplicode/react-core@0.9.1) (2022-04-05)
+
+
+### Bug Fixes
+
+* pet editor failed to submit if owner or type is not empty [#267](https://github.com/Amplicode/amplicode-frontend/issues/267) ([85c3bfc](https://github.com/Amplicode/amplicode-frontend/commit/85c3bfcdf8017c93ff32dcc88b914d620f6f8561))
+
+
+
+
+
 # [0.9.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.8.1...@amplicode/react-core@0.9.0) (2022-03-23)
 
 

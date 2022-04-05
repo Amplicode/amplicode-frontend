@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.1](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.14.0...@amplicode/codegen@0.14.1) (2022-04-05)
+
+
+### Bug Fixes
+
+* pet editor failed to submit if owner or type is not empty [#267](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/267) ([85c3bfc](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/85c3bfcdf8017c93ff32dcc88b914d620f6f8561))
+
+
+
+
+
 # [0.14.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.13.2...@amplicode/codegen@0.14.0) (2022-04-05)
 
 

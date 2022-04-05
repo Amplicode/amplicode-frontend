@@ -1,6 +1,6 @@
 {
   "name": "@amplicode/react-core",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Core runtime for Amplicode Frontend",
   "publishConfig": {
     "access": "public"
@@ -36,9 +36,9 @@
     "@babel/preset-react": "^7.8.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@types/chai": "^4.2.3",
-    "@types/mocha": "^2.2.48",
     "@types/jest": "^26.0.0",
     "@types/jest-expect-message": "^1.0.3",
+    "@types/mocha": "^2.2.48",
     "@types/query-string": "^6.3.0",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
