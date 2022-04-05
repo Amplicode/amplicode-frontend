@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.13.2...@amplicode/codegen@0.14.0) (2022-04-05)
+
+
+### Bug Fixes
+
+* error when refreshing page with editor in "new entity" state [#102](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/102) ([6789248](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/67892482a676f6c46885c5019ac9bdd3a59e9987))
+* relation properties are not displayed in table screen ([8deff05](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/8deff05f089e6c9e3a70cdedad272aa5727a37f2))
+
+
+### Features
+
+* filters for browser templates [#139](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/139) ([e6ae907](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/e6ae9078c457e86c638e1fc7de1cc940798fc41d))
+* lookup screen template and generator [#268](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/268) ([df8445c](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/df8445cd5243b0eb391153d72c7d9b42454a42fe))
+
+
+
+
+
 ## [0.13.2](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.13.0...@amplicode/codegen@0.13.2) (2022-03-30)
 
 **Note:** Version bump only for package @amplicode/codegen

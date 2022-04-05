@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-antd@0.8.0...@amplicode/react-antd@0.9.0) (2022-04-05)
+
+
+### Features
+
+* add clear button in entity lookup field ([fe83b8f](https://github.com/Amplicode/amplicode-frontend/commit/fe83b8fa7b127e18d99b6e8dcf905b6e39df7577))
+* lookup screen template and generator [#268](https://github.com/Amplicode/amplicode-frontend/issues/268) ([df8445c](https://github.com/Amplicode/amplicode-frontend/commit/df8445cd5243b0eb391153d72c7d9b42454a42fe))
+
+
+
+
+
 # [0.8.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-antd@0.7.4...@amplicode/react-antd@0.8.0) (2022-03-23)
 
 
