@@ -4,10 +4,11 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { observer } from "mobx-react";
 import "./Login.css";
 import { useIntl } from "react-intl";
-import { securityStore } from "../../core/security/security-store";
+import { useSecurityStore } from "../../core/security/security-context";
 
 export const Login = observer(() => {
   const intl = useIntl();
+  const securityStore = useSecurityStore();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

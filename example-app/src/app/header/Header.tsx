@@ -6,12 +6,13 @@ import "./Header.css";
 import { useHotkey } from "@amplicode/react-core";
 import { HotkeyInfoModalButton } from "@amplicode/react-antd";
 import { observer } from "mobx-react";
-import { securityStore } from "../../core/security/security-store";
+import { useSecurityStore } from "../../core/security/security-context";
 import { KeyHandler } from "hotkeys-js";
 import { toggleHotkeyInfoHotkeyConfig } from "../../core/hotkeys/hotkey-info-config";
 
 export const AppHeader = observer(() => {
   const intl = useIntl();
+  const securityStore = useSecurityStore();
 
   const [visibleHotkeyInfo, setVisibleHotkeyInfo] = useState(false);
 

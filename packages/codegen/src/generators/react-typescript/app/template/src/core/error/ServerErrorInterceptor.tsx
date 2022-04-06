@@ -1,6 +1,6 @@
 import { ServerErrorEvents } from "./ServerErrorEvents";
 import { ErrorHandler } from "@apollo/client/link/error";
-import { securityStore } from "../security/security-store";
+import { useSecurityStore } from "../security/security-context";
 import { useEffect } from "react";
 import { notification } from "antd";
 import { useIntl } from "react-intl";
@@ -15,6 +15,7 @@ export function ServerErrorInterceptor({
   children
 }: ServerErrorInterceptorProps) {
   const intl = useIntl();
+  const securityStore = useSecurityStore();
 
   useEffect(() => {
     const graphQLErrorHandler: ErrorHandler = ({ networkError, graphQLErrors }) => {

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { InitialHookStatus } from "@react-buddy/ide-toolbox";
-import { securityStore } from "../core/security/security-store";
+import { useSecurityStore } from "../core/security/security-context";
 import { DEV_LOGIN, DEV_PASSWORD } from "../config";
 
 export const useInitial: () => InitialHookStatus = () => {
+  const securityStore = useSecurityStore();
+
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 

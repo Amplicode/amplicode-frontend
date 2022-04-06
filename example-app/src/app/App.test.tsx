@@ -21,7 +21,8 @@ import { defaultHotkeyConfigs } from "../core/hotkeys/hotkey-configs";
 import { GRAPHQL_URI, REQUEST_SAME_ORIGIN } from "../config";
 import { onError } from "@apollo/client/link/error";
 import { act } from "react-dom/test-utils";
-import { securityStore } from "../core/security/security-store";
+import { SecurityStore } from "../core/security/security";
+import { SecurityContext } from "../core/security/security-context";
 import "../core/screen-api/screen-registry";
 
 it("renders without crashing", () => {
@@ -58,21 +59,25 @@ it("renders without crashing", () => {
     }
   });
 
+  const securityStore = new SecurityStore(client);
+
   const div = document.createElement("div");
 
   act(() => {
     ReactDOM.render(
       <React.StrictMode>
         <ApolloProvider client={client}>
-          <IntlProvider locale="en" messages={en}>
-            <ScreenContext.Provider value={screens}>
-              <HashRouter>
-                <HotkeyContext.Provider value={hotkeys}>
-                  <App />
-                </HotkeyContext.Provider>
-              </HashRouter>
-            </ScreenContext.Provider>
-          </IntlProvider>
+          <SecurityContext.Provider value={securityStore}>
+            <IntlProvider locale="en" messages={en}>
+              <ScreenContext.Provider value={screens}>
+                <HashRouter>
+                  <HotkeyContext.Provider value={hotkeys}>
+                    <App />
+                  </HotkeyContext.Provider>
+                </HashRouter>
+              </ScreenContext.Provider>
+            </IntlProvider>
+          </SecurityContext.Provider>
         </ApolloProvider>
       </React.StrictMode>,
       div
