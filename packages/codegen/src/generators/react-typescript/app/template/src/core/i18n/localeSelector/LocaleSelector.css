@@ -1,0 +1,8 @@
+.app-header .locale-selector.ant-select {
+    background: none;
+    color: #CCCCCC;
+}
+
+.app-header .locale-selector .ant-select-arrow {
+    color: #CCCCCC;
+}

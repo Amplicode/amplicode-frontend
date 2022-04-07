@@ -3,8 +3,9 @@ import { Button, Form, Input, notification } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { observer } from "mobx-react";
 import "./Login.css";
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useSecurityStore } from "../../core/security/security-context";
+import { LocaleSelector } from "../../core/i18n/localeSelector/LocaleSelector";
 
 export const Login = observer(() => {
   const intl = useIntl();
@@ -77,6 +78,11 @@ export const Login = observer(() => {
             />
           </Form.Item>
           <Form.Item>
+            <div className="language-switcher-container">
+              <LocaleSelector />
+            </div>
+          </Form.Item>
+          <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
@@ -84,7 +90,7 @@ export const Login = observer(() => {
               block={true}
               loading={performingLoginRequest}
             >
-              Login
+              <FormattedMessage id="auth.login.submit" />
             </Button>
           </Form.Item>
         </Form>
