@@ -8,7 +8,8 @@ import { HotkeyInfoModalButton } from "@amplicode/react-antd";
 import { observer } from "mobx-react";
 import { useSecurityStore } from "../../core/security/security-context";
 import { KeyHandler } from "hotkeys-js";
-import {toggleHotkeyInfoHotkeyConfig} from '../../core/hotkeys/hotkey-info-config'
+import { toggleHotkeyInfoHotkeyConfig } from '../../core/hotkeys/hotkey-info-config'
+import { LocaleSelector } from "../../core/i18n/localeSelector/LocaleSelector";
 
 export const AppHeader = observer(() => {
   const intl = useIntl();
@@ -42,6 +43,7 @@ export const AppHeader = observer(() => {
   return (
     <div className="app-header">
       <Space className="app-header__user-panel">
+        <LocaleSelector />
         <HotkeyInfoModalButton
           visible={visibleHotkeyInfo}
           setVisible={setVisibleHotkeyInfo}
