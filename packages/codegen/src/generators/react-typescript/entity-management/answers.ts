@@ -77,6 +77,7 @@ export const commonEntityManagementQuestions: StudioTemplateProperty[] =  [
     caption: "Select attributes to filter by",
     code: "filterByAttributes",
     propertyType: StudioTemplatePropertyType.ATTRIBUTES_ARRAY,
+    relatedProperty: 'listQuery',
     required: false,
     defaultValue: [],
     step: {
