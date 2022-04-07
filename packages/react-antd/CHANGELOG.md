@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-antd@0.9.1...@amplicode/react-antd@0.10.0) (2022-04-07)
+
+
+### Features
+
+* support localisation for dayjs [#245](https://github.com/Amplicode/amplicode-frontend/issues/245) ([96e9458](https://github.com/Amplicode/amplicode-frontend/commit/96e9458e5409a878b8740893e60abbe10f8084ee))
+
+
+
+
+
 ## [0.9.1](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-antd@0.9.0...@amplicode/react-antd@0.9.1) (2022-04-05)
 
 **Note:** Version bump only for package @amplicode/react-antd

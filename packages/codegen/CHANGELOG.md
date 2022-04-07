@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.15.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.14.1...@amplicode/codegen@0.15.0) (2022-04-07)
+
+
+### Bug Fixes
+
+* aTTRIBUTES_ARRAY property type must contain relatedProperty [#294](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/294) ([aa01670](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/aa01670bd9f746bda054533a01301e13dbc814b7))
+
+
+### Features
+
+* support antd localisation [#246](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/246) ([970c410](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/970c4106b43346b308dfba051803665faf5ada71))
+* support localisation for dayjs [#245](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/245) ([96e9458](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/96e9458e5409a878b8740893e60abbe10f8084ee))
+
+
+
+
+
 ## [0.14.1](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.14.0...@amplicode/codegen@0.14.1) (2022-04-05)
 
 

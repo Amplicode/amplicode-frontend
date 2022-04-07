@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.9.1...@amplicode/react-core@0.10.0) (2022-04-07)
+
+
+### Features
+
+* support antd localisation [#246](https://github.com/Amplicode/amplicode-frontend/issues/246) ([970c410](https://github.com/Amplicode/amplicode-frontend/commit/970c4106b43346b308dfba051803665faf5ada71))
+
+
+
+
+
 ## [0.9.1](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.9.0...@amplicode/react-core@0.9.1) (2022-04-05)
 
 
