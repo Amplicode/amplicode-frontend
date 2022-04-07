@@ -1,4 +1,4 @@
-import {StudioTemplatePropertyType} from "../../../common/studio/studio-model";
+import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/studio/studio-model";
 import {ScreenAnswers} from "../../../building-blocks/stages/answers/amplicode/ScreenAnswers";
 
 export type EntityListMode = 'edit' | 'view' | 'view with details';
@@ -14,7 +14,7 @@ export interface EntityListAnswers extends ScreenAnswers {
   filterByAttributes: Array<string[]>;
 }
 
-export const entityListQuestions = [
+export const entityListQuestions: StudioTemplateProperty[] = [
   {
     caption: 'Component name',
     code: 'componentName',
@@ -73,6 +73,7 @@ export const entityListQuestions = [
     caption: "Select attributes to filter by",
     code: "filterByAttributes",
     propertyType: StudioTemplatePropertyType.ATTRIBUTES_ARRAY,
+    relatedProperty: 'query',
     required: false,
     defaultValue: [],
   },
