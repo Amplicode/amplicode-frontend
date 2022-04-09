@@ -23,7 +23,7 @@
   "EntityListScreen.deleteConfirmation": "Вы уверены, что хотите удалить эту запись",
   "EntityDetailsScreen.savedSuccessfully": "Запись успешно сохранена",
   "EntityDetailsScreen.validationError": "Ошибка валидации. Пожалуйста, проверьте данные, которые вы ввели",
-  "EntityLookupField.selectEntityInstance": "Выберете сущность",
+  "EntityLookupField.selectEntityInstance": "Выберете {label}",
   
   "screen.home": "Главная страница",
   

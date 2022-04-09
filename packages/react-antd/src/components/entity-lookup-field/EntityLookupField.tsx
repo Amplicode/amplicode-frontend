@@ -42,7 +42,7 @@ export function EntityLookupField(props: EntityLookupFieldProps) {
 
     const caption = intl.formatMessage({
       id: "EntityLookupField.selectEntityInstance"
-    });
+    }, {label});
 
     screens.openInBreadcrumb({
       breadcrumbCaption: caption,
