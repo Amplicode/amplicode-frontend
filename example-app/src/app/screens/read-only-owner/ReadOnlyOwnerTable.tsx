@@ -157,7 +157,7 @@ function TableSection({
   const dataSource = items.filter(item => item != null);
 
   return (
-    <Space direction="vertical" className="table-space">
+    <Space direction="vertical" className="table-space entity-table-readonly">
       <Table
         dataSource={dataSource as object[]}
         columns={columns}

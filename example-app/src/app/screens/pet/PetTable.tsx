@@ -300,7 +300,7 @@ function TableSection({
     }));
 
   return (
-    <Space direction="vertical" className="table-space">
+    <Space direction="vertical" className="table-space entity-table">
       <Table
         dataSource={dataSource as object[]}
         columns={columns}

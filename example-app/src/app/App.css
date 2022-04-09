@@ -40,7 +40,12 @@
     border: 1px solid rgb(217, 217, 217);
 }
 
-.ant-table-row.table-row-selected {
+.entity-table .ant-table-row, .entity-table-readonly .ant-table-row  {
+    cursor: pointer;
+}
+
+.entity-table .ant-table-row.table-row-selected,
+.entity-table tr.ant-table-row.table-row-selected>td.ant-table-cell-row-hover {
     background: #e6f7ff;
 }
 
