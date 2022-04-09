@@ -24,6 +24,10 @@
     margin: auto;
 }
 
+.lookup-cards .ant-card {
+    cursor: pointer;
+}
+
 .lookup-cards .ant-card:hover {
     background: #e6f7ff;
 }

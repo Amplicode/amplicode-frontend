@@ -36,10 +36,10 @@ export const entityLookupQuestions = [
     defaultValue: 'id'
   },
   {
-    caption: "Add to menu", // TODO
+    caption: "Add to menu",
     code: "shouldAddToMenu",
     propertyType: StudioTemplatePropertyType.BOOLEAN,
-    required: true,
-    defaultValue: true
+    required: false,
+    defaultValue: false
   },
 ];
