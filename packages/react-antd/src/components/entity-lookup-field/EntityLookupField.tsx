@@ -12,6 +12,7 @@ export interface EntityLookupFieldProps {
   lookupComponentProps?: Record<string, unknown>;
   getDisplayName: (value: Record<string, unknown>) => string;
   label: string;
+  hideClearButton?: boolean;
 }
 
 export function EntityLookupField(props: EntityLookupFieldProps) {
@@ -59,7 +60,7 @@ export function EntityLookupField(props: EntityLookupFieldProps) {
       className='entity-lookup-field'
       onClick={handleClick}
       prefix={<LinkOutlined onClick={handleClick} />}
-      suffix={value != null && <CloseCircleOutlined onClick={handleClear} />}
+      suffix={value != null && props.hideClearButton !== true && <CloseCircleOutlined onClick={handleClear} />}
       value={value ? getDisplayName(value) : ''}
     />
   );
