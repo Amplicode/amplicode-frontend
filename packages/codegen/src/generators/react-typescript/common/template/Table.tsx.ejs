@@ -1,6 +1,7 @@
-<% var withItemComponent = locals.itemComponentName != null; -%>
-<% var withDeleteAction = locals.deleteMutationString != null && locals.deleteMutationName != null; -%>
-<% var hasRelationFields = attributes.some(attr => attr.isRelationField) -%>
+<% const withItemComponent = locals.itemComponentName != null; -%>
+<% const withDeleteAction = locals.deleteMutationString != null && locals.deleteMutationName != null; -%>
+<% const hasRelationFields = attributes.some(attr => attr.isRelationField) -%>
+<% const tableCssClass = mode === 'edit' ? 'entity-table' : 'entity-table-readonly' -%>
 <% const QUERY_CONST = toFatSnakeCase(queryName); -%>
 <% const MUTATION_CONST = deleteMutationName ? toFatSnakeCase(deleteMutationName) : undefined; -%>
 <%# ------- TEMPLATE STARTS HERE ------- -%>
@@ -352,7 +353,7 @@ function TableSection({
     <% } -%>
 
   return (
-    <Space direction="vertical" className="table-space">
+    <Space direction="vertical" className="table-space <%= tableCssClass %>">
       <Table
         dataSource={dataSource as object[]}
         columns={columns}
