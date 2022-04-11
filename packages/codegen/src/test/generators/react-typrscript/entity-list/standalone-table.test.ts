@@ -10,6 +10,26 @@ const displayNameFiles = [
   path.join(DEST_DIR, 'core', 'display-name', 'getOwnerDTODisplayName.ts'),
   path.join(DEST_DIR, 'core', 'display-name', 'getPetTypeDTODisplayName.ts')];
 
+const expectTag = `
+    <Space direction="vertical" className="table-space entity-table">
+      <Table
+        dataSource={dataSource as object[]}
+        columns={columns}
+        rowClassName={record =>
+          (record as ItemType)?.id === selectedRowId ? "table-row-selected" : ""
+        }
+        onRow={data => {
+          return {
+            onClick: () => {
+              const id = (data as ItemType)?.id;
+              setSelectedRowId(id === selectedRowId ? null : id);
+            }
+          };
+        }}
+      />
+    </Space>`;
+
+
 describe('codegen standalone table', () => {
 
   beforeEach(async () => await cleanup(DEST_DIR));
@@ -30,20 +50,6 @@ describe('codegen standalone table', () => {
     expect(fs.existsSync(componentPath)).to.be.false;
 
     await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, answers, SCHEMA_PATH));
-
-    const expectTag = `
-    <Space direction="vertical" className="table-space entity-table">
-      <Table
-        dataSource={dataSource as object[]}
-        columns={columns}
-        rowClassName={record =>
-          (record as ItemType)?.id === selectedRowId ? "table-row-selected" : ""
-        }
-        onRow={data => {
-          return { onClick: () => setSelectedRowId((data as ItemType)?.id) };
-        }}
-      />
-    </Space>`;
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function StandaloneOwnerTable() ');
@@ -81,20 +87,6 @@ describe('codegen standalone table', () => {
     expect(fs.existsSync(componentPath)).to.be.false;
 
     await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, answers, SCHEMA_PATH));
-
-    const expectTag = `
-    <Space direction="vertical" className="table-space entity-table">
-      <Table
-        dataSource={dataSource as object[]}
-        columns={columns}
-        rowClassName={record =>
-          (record as ItemType)?.id === selectedRowId ? "table-row-selected" : ""
-        }
-        onRow={data => {
-          return { onClick: () => setSelectedRowId((data as ItemType)?.id) };
-        }}
-      />
-    </Space>`;
 
     const expectDataSource = `
       const dataSource = items

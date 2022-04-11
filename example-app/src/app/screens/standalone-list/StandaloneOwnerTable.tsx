@@ -235,7 +235,12 @@ function TableSection({
           (record as ItemType)?.id === selectedRowId ? "table-row-selected" : ""
         }
         onRow={data => {
-          return { onClick: () => setSelectedRowId((data as ItemType)?.id) };
+          return {
+            onClick: () => {
+              const id = (data as ItemType)?.id;
+              setSelectedRowId(id === selectedRowId ? null : id);
+            }
+          };
         }}
       />
     </Space>
