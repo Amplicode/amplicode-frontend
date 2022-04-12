@@ -11,7 +11,7 @@ export const LocaleSelector = observer(() => {
 
   const handleChange = useCallback(
     (locale: string) => runInAction(() => setCurrentLocale(locale)),
-    [currentLocale]
+    [setCurrentLocale]
   );
 
   if (locales.length === 1) {

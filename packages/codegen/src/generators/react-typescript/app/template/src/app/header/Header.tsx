@@ -8,7 +8,7 @@ import { HotkeyInfoModalButton } from "@amplicode/react-antd";
 import { observer } from "mobx-react";
 import { useSecurityStore } from "../../core/security/security-context";
 import { KeyHandler } from "hotkeys-js";
-import { toggleHotkeyInfoHotkeyConfig } from '../../core/hotkeys/hotkey-info-config'
+import { toggleHotkeyInfoHotkeyConfig } from "../../core/hotkeys/hotkey-info-config";
 import { LocaleSelector } from "../../core/i18n/localeSelector/LocaleSelector";
 
 export const AppHeader = observer(() => {
@@ -16,7 +16,7 @@ export const AppHeader = observer(() => {
   const securityStore = useSecurityStore();
 
   const [visibleHotkeyInfo, setVisibleHotkeyInfo] = useState(false);
-  
+
   const toggleHotkeyInfo = useCallback<KeyHandler>(
     () => setVisibleHotkeyInfo(!visibleHotkeyInfo),
     [visibleHotkeyInfo]
@@ -25,20 +25,20 @@ export const AppHeader = observer(() => {
 
   const showLogoutConfirm = useCallback(() => {
     Modal.confirm({
-      content: intl.formatMessage({id: 'auth.logout.confirm'}),
-      okText: intl.formatMessage({id: 'common.ok'}),
-      cancelText: intl.formatMessage({id: 'common.cancel'}),
+      content: intl.formatMessage({ id: "auth.logout.confirm" }),
+      okText: intl.formatMessage({ id: "common.ok" }),
+      cancelText: intl.formatMessage({ id: "common.cancel" }),
       onOk: () => {
-        securityStore.logout((status) => {
+        securityStore.logout(status => {
           if (status !== 200) {
             notification.error({
-              message: intl.formatMessage({id: "auth.logout.unknownError"})
+              message: intl.formatMessage({ id: "auth.logout.unknownError" })
             });
           }
         });
       }
     });
-  }, [intl]);
+  }, [intl, securityStore]);
 
   return (
     <div className="app-header">

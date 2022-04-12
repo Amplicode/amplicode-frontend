@@ -79,7 +79,7 @@ export function ReadOnlyPetTable() {
     if (selectedRowId != null) {
       openEditorWithItem();
     }
-  }, [selectedRowId]);
+  }, [openEditorWithItem, selectedRowId]);
 
   return (
     <div className="narrow-layout">

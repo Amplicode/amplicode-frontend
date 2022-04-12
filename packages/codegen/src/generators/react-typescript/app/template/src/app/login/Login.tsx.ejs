@@ -15,12 +15,12 @@ export const Login = observer(() => {
   const [password, setPassword] = useState("");
   const [performingLoginRequest, setPerformingLoginRequest] = useState(false);
 
-    useEffect(() => {
-      if (process.env.NODE_ENV === 'development') {
-        setUsername("admin")
-        setPassword("admin")
-      }
-    })
+  useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      setUsername("admin");
+      setPassword("admin");
+    }
+  }, []);
 
   const changeLogin = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value),
@@ -33,23 +33,23 @@ export const Login = observer(() => {
 
   const doLogin = useCallback(async () => {
     setPerformingLoginRequest(true);
-    await securityStore.login(username, password, (status) => {
+    await securityStore.login(username, password, status => {
       switch (status) {
         case 200:
           break;
         case 401:
           notification.error({
-            message: intl.formatMessage({id: "auth.login.unauthorized"})
+            message: intl.formatMessage({ id: "auth.login.unauthorized" })
           });
           break;
         default:
           notification.error({
-            message: intl.formatMessage({id: "auth.login.unknownError"})
+            message: intl.formatMessage({ id: "auth.login.unknownError" })
           });
       }
       setPerformingLoginRequest(false);
     });
-  }, [setPerformingLoginRequest, username, password, intl]);
+  }, [securityStore, username, password, intl]);
 
   return (
     <div className="login-form-container">
@@ -59,7 +59,7 @@ export const Login = observer(() => {
           <Form.Item>
             <Input
               id="input_login"
-              placeholder='Login'
+              placeholder="Login"
               onChange={changeLogin}
               value={username}
               prefix={<UserOutlined className="login-icon" />}
@@ -69,7 +69,7 @@ export const Login = observer(() => {
           <Form.Item>
             <Input
               id="input_password"
-              placeholder='Password'
+              placeholder="Password"
               onChange={changePassword}
               value={password}
               type="password"
@@ -78,7 +78,7 @@ export const Login = observer(() => {
             />
           </Form.Item>
           <Form.Item>
-            <div className='language-switcher-container'>
+            <div className="language-switcher-container">
               <LocaleSelector />
             </div>
           </Form.Item>

@@ -1,4 +1,4 @@
-import React, {createContext} from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import "./core/screen-api/screen-registry";
@@ -19,7 +19,7 @@ import {
   HotkeyStore,
   ScreenContext,
   Screens,
-  EventEmitter,
+  EventEmitter
 } from "@amplicode/react-core";
 import { DevSupport } from "@react-buddy/ide-toolbox";
 import { ComponentPreviews, useInitial } from "./dev";
@@ -43,10 +43,12 @@ axios.defaults.withCredentials = !REQUEST_SAME_ORIGIN;
 
 const httpLink = createHttpLink({
   uri: GRAPHQL_URI,
-  credentials: REQUEST_SAME_ORIGIN ? "same-origin" : "include",
+  credentials: REQUEST_SAME_ORIGIN ? "same-origin" : "include"
 });
 
-const errorLink = onError(errorResponse => serverErrorEmitter.emit('graphQLError', errorResponse));
+const errorLink = onError(errorResponse =>
+  serverErrorEmitter.emit("graphQLError", errorResponse)
+);
 
 const client = new ApolloClient({
   link: errorLink.concat(httpLink),
@@ -61,7 +63,7 @@ const client = new ApolloClient({
   }
 });
 
-const securityStore = new SecurityStore(client)
+const securityStore = new SecurityStore(client);
 
 // To customize screens behavior, pass a config object to Screens constructor
 const screens = new Screens();

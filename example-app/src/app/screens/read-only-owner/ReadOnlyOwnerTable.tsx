@@ -82,7 +82,7 @@ export function ReadOnlyOwnerTable() {
     if (selectedRowId != null) {
       openEditorWithItem();
     }
-  }, [selectedRowId]);
+  }, [openEditorWithItem, selectedRowId]);
 
   return (
     <div className="narrow-layout">
