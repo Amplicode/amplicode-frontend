@@ -212,7 +212,7 @@ function useLoadItem(id?: string) {
   // Get the received item, if any
   useEffect(() => {
     if (data?.pet != null) {
-      setItem(data?.pet);
+      setItem(deserializeCustomScalars((data?.pet)));
     }
   }, [data, setItem]);
 
@@ -235,7 +235,7 @@ function useFormData(
 ) {
   useEffect(() => {
     if (item != null) {
-      form.setFieldsValue(deserializeCustomScalars(item));
+      form.setFieldsValue(item);
     }
   }, [item, form]);
 }

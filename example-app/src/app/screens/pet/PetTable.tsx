@@ -27,7 +27,6 @@ import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import {deserializeCustomScalars} from "../../../core/transform/model/deserializeCustomScalars";
-import {toListPresentation} from "../../../core/transform/presentation/list-presentation";
 
 const ROUTE = "pet-table";
 const REFETCH_QUERIES = ["Get_Pet_List"];
@@ -83,8 +82,7 @@ const columns = [
 export function PetTable() {
   // Load the items from server
   const { loading, error, data } = useQuery(PET_LIST);
-  // const items  = data?.petList;
-  const items = data?.petList;
+  const items = deserializeCustomScalars(data?.petList);
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
@@ -295,8 +293,9 @@ function TableSection({
   const dataSource = items
     .filter(item => item != null)
     .map(item => ({
-      ...toListPresentation(deserializeCustomScalars(item)),
+      ...item,
       ...{
+        birthDate: item!.birthDate?.format('LL'),
         owner: getOwnerDTODisplayName(item!.owner ?? undefined),
         type: getPetTypeDTODisplayName(item!.type ?? undefined)
       }

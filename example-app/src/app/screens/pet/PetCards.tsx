@@ -17,9 +17,7 @@ import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
-import { toListPresentation } from "../../../core/transform/presentation/list-presentation";
 import {deserializeCustomScalars} from "../../../core/transform/model/deserializeCustomScalars";
-import {Dayjs} from "dayjs";
 
 const ROUTE = "pet-cards";
 const REFETCH_QUERIES = ["Get_Pet_List"];
@@ -52,7 +50,7 @@ const DELETE_PET = gql(`
 export function PetCards() {
   // Load the items from server
   const { loading, error, data } = useQuery(PET_LIST);
-  const items = data?.petList;
+  const items = deserializeCustomScalars(data?.petList);
 
   // If we have navigated here using a link, or a page has been refreshed,
   // we need to check whether the url contains the item id, and if yes - open item editor/details screen.
@@ -207,7 +205,7 @@ function Cards({ items, loading, error }: ItemCardsListProps) {
 
   return (
     <Space direction="vertical" className="card-space">
-      {toListPresentation(deserializeCustomScalars(items)).map(item => (
+      {items.map(item => (
         <ItemCard item={item} key={item?.id} />
       ))}
     </Space>
@@ -232,7 +230,7 @@ function ItemCard({ item }: { item: ItemType }) {
       <ValueWithLabel
         key="birthDate"
         label="Birth Date"
-        value={item.birthDate ?? undefined}
+        value={item.birthDate?.format('LL') ?? undefined}
       />
       <ValueWithLabel
         key="identificationNumber"
