@@ -1,3 +1,4 @@
+// TODO unused
 export function getDisplayedAttributes<
   TItemType extends Record<string, unknown>
 >(item: TItemType, idAttrName: string = "id"): string[] {

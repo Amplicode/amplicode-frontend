@@ -18,7 +18,10 @@ export function ServerErrorInterceptor({
   const securityStore = useSecurityStore();
 
   useEffect(() => {
-    const graphQLErrorHandler: ErrorHandler = ({ networkError, graphQLErrors }) => {
+    const graphQLErrorHandler: ErrorHandler = ({
+      networkError,
+      graphQLErrors
+    }) => {
       // TODO code below assumes that GraphQL server returns
       // {"errors":[{"extensions":{"classification":"UNAUTHORIZED"}}], ...}
       // for not authenticated user
@@ -60,13 +63,13 @@ export function ServerErrorInterceptor({
     const unauthorizedHandler = () => securityStore.logout();
 
     serverErrorEmitter.on("graphQLError", graphQLErrorHandler);
-    serverErrorEmitter.on('unauthorized', unauthorizedHandler);
+    serverErrorEmitter.on("unauthorized", unauthorizedHandler);
 
     return () => {
       serverErrorEmitter.off("graphQLError", graphQLErrorHandler);
       serverErrorEmitter.off("unauthorized", unauthorizedHandler);
     };
-  }, [serverErrorEmitter, intl]);
+  }, [serverErrorEmitter, intl, securityStore]);
 
   return <>{children}</>;
 }

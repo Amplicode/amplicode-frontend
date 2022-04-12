@@ -1,9 +1,15 @@
-import {ApolloError, FetchResult, InternalRefetchQueriesInclude, TypedDocumentNode, useMutation} from "@apollo/client";
-import {useIntl} from "react-intl";
-import {message} from "antd";
-import {GraphQLError} from "graphql/error/GraphQLError";
-import {useCallback} from "react";
-import {form2gql} from "../format/form2gql";
+import {
+  ApolloError,
+  FetchResult,
+  InternalRefetchQueriesInclude,
+  TypedDocumentNode,
+  useMutation
+} from "@apollo/client";
+import { useIntl } from "react-intl";
+import { message } from "antd";
+import { GraphQLError } from "graphql/error/GraphQLError";
+import { useCallback } from "react";
+import { form2gql } from "../format/form2gql";
 import { useCloseNestedScreen } from "./useCloseNestedScreen";
 
 /**
@@ -20,59 +26,63 @@ import { useCloseNestedScreen } from "./useCloseNestedScreen";
 export function useSubmitEditor<TData>(
   mutation: TypedDocumentNode,
   setFormError: (message: string) => void,
-  refetchQueries: ((result: FetchResult<TData>) => InternalRefetchQueriesInclude) | InternalRefetchQueriesInclude | undefined,
+  refetchQueries:
+    | ((result: FetchResult<TData>) => InternalRefetchQueriesInclude)
+    | InternalRefetchQueriesInclude
+    | undefined,
   id?: string,
-  serializeFieldValues: (fieldValues: Record<string, unknown>) => Record<string, unknown> = form2gql
+  serializeFieldValues: (
+    fieldValues: Record<string, unknown>
+  ) => Record<string, unknown> = form2gql
 ) {
   const intl = useIntl();
   const closeEditor = useCloseNestedScreen();
 
   // Get the function that will run the mutation
   // and a boolean indicating that submit is in progress
-  const [runMutation, { loading: submitting }] = useMutation(
-    mutation,
-    {
-      refetchQueries
-    }
-  );
+  const [runMutation, { loading: submitting }] = useMutation(mutation, {
+    refetchQueries
+  });
 
   /**
    * Function that is executed when mutation is successful
    */
-  function handleSuccess() {
+  const handleSuccess = useCallback(() => {
     closeEditor();
     return message.success(
       intl.formatMessage({
         id: "EntityDetailsScreen.savedSuccessfully"
       })
     );
-  }
+  }, [closeEditor, intl]);
 
   /**
    * Function that is executed when mutation results in a GraphQL error
    *
    * @param errors
    */
-  function handleGraphQLError(errors: ReadonlyArray<GraphQLError>) {
-    setFormError(errors.join("\n"));
-    console.error(errors);
-    return message.error(
-      intl.formatMessage({ id: "common.requestFailed" })
-    );
-  }
+  const handleGraphQLError = useCallback(
+    (errors: ReadonlyArray<GraphQLError>) => {
+      setFormError(errors.join("\n"));
+      console.error(errors);
+      return message.error(intl.formatMessage({ id: "common.requestFailed" }));
+    },
+    [intl, setFormError]
+  );
 
   /**
    * Function that is executed when mutation results in a network error (such as 4xx or 5xx).
    *
    * @param error
    */
-  function handleNetworkError(error: Error | ApolloError) {
-    setFormError(error.message);
-    console.error(error);
-    return message.error(
-      intl.formatMessage({ id: "common.requestFailed" })
-    );
-  }
+  const handleNetworkError = useCallback(
+    (error: Error | ApolloError) => {
+      setFormError(error.message);
+      console.error(error);
+      return message.error(intl.formatMessage({ id: "common.requestFailed" }));
+    },
+    [intl, setFormError]
+  );
 
   /**
    * Callback that is executed when a user clicks `Submit` button.
@@ -107,7 +117,14 @@ export function useSubmitEditor<TData>(
         })
         .catch(handleNetworkError);
     },
-    [runMutation, intl, closeEditor, id]
+    [
+      serializeFieldValues,
+      id,
+      runMutation,
+      handleNetworkError,
+      handleGraphQLError,
+      handleSuccess
+    ]
   );
 
   return {

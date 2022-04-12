@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import "./core/screen-api/screen-registry";

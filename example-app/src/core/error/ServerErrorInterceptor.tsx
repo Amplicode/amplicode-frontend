@@ -69,7 +69,7 @@ export function ServerErrorInterceptor({
       serverErrorEmitter.off("graphQLError", graphQLErrorHandler);
       serverErrorEmitter.off("unauthorized", unauthorizedHandler);
     };
-  }, [serverErrorEmitter, intl]);
+  }, [serverErrorEmitter, intl, securityStore]);
 
   return <>{children}</>;
 }

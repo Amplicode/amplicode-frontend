@@ -38,7 +38,7 @@ export const AppHeader = observer(() => {
         });
       }
     });
-  }, [intl]);
+  }, [intl, securityStore]);
 
   return (
     <div className="app-header">

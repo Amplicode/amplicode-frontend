@@ -20,7 +20,7 @@ export const Login = observer(() => {
       setUsername("admin");
       setPassword("admin");
     }
-  });
+  }, []);
 
   const changeLogin = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value),
@@ -49,7 +49,7 @@ export const Login = observer(() => {
       }
       setPerformingLoginRequest(false);
     });
-  }, [setPerformingLoginRequest, username, password, intl]);
+  }, [securityStore, username, password, intl]);
 
   return (
     <div className="login-form-container">
