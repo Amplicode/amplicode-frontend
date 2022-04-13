@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.15.0...@amplicode/codegen@0.16.0) (2022-04-13)
+
+
+### Features
+
+* ability to deselect row in table screen [#295](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/295) ([747133a](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/747133af45fb3a1fe7741eaff15fb063e251f76c))
+* automatic relogin on session [#228](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/228) ([67a9ae3](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/67a9ae31df281620e9f6e04fc1c5b5926f935b5f))
+* locale selector component [#229](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/229) ([f3a978b](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/f3a978b0b7b7f272c8b473e00274328db1cdbc27))
+
+
+
+
+
 # [0.15.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.14.1...@amplicode/codegen@0.15.0) (2022-04-07)
 
 
