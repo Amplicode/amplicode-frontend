@@ -50,11 +50,6 @@
             }
         ],
 
-        "react/react-in-jsx-scope": "off",
-
-        // Need to turn on
-        "@typescript-eslint/no-non-null-assertion": "off",
-        "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/ban-types": "off"
+        "react/react-in-jsx-scope": "off"
     }
 }

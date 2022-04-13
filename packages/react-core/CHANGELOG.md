@@ -49,7 +49,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* restructure CRUD screens for better readbility [#162](https://github.com/Amplicode/amplicode-frontend/issues/162) ([6369582](https://github.com/Amplicode/amplicode-frontend/commit/636958233a7153227b766d63bfab995e7c99b5b4))
+* restructure CRUD screens for better readability [#162](https://github.com/Amplicode/amplicode-frontend/issues/162) ([6369582](https://github.com/Amplicode/amplicode-frontend/commit/636958233a7153227b766d63bfab995e7c99b5b4))
 
 
 

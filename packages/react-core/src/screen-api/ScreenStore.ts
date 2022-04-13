@@ -4,13 +4,13 @@ import {ReactComponent} from "./ReactComponent";
 export type ScreenInfo = {
   captionKey: string;
   component: ReactComponent;
-  props?: any;
+  props?: unknown;
 }
 
 type ScreenRegistry = Record<string, ScreenInfo>;
 
 class ScreenStore {
-  private _screenRegistry: ScreenRegistry;
+  private readonly _screenRegistry: ScreenRegistry;
 
   constructor() {
     this._screenRegistry = {};

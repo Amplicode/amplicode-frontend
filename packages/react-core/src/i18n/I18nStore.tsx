@@ -5,7 +5,7 @@ export type LocaleDirection = 'rtl' | 'ltr';
 export interface LocaleConfigOption {
   caption: string;
   direction?: LocaleDirection;
-  antdLocale?: any;
+  antdLocale?: unknown;
   messages?: Record<string, string>;
 }
 

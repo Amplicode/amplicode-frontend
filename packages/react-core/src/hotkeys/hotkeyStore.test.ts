@@ -80,7 +80,7 @@ describe('HotkeyStore', () => {
     ]);
   });
 
-  it('dynamicHotkeyConfigs redifing defaultHotkeyConfigs', () => {
+  it('dynamicHotkeyConfigs redefining defaultHotkeyConfigs', () => {
     const hotkeyStore = new HotkeyStore([
       {description: '1', hotkey: '1', categoryName: '1'},
       {description: '2', hotkey: '2', categoryName: '2'},

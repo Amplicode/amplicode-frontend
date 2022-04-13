@@ -40,10 +40,10 @@ export class HotkeyStore {
   }
 
   removeHotkeyConfigs = (hotkeyConfig: HotkeyConfig) => {
-    const filtredDynamicHotkeyConfigs = this.dynamicHotkeyConfigs.filter(
+    const filteredDynamicHotkeyConfigs = this.dynamicHotkeyConfigs.filter(
       hotkeyConfigItem => !equalsHotkeyConfig(hotkeyConfig, hotkeyConfigItem)
     );
-    this.dynamicHotkeyConfigs = filtredDynamicHotkeyConfigs;
+    this.dynamicHotkeyConfigs = filteredDynamicHotkeyConfigs;
   }
 }
 

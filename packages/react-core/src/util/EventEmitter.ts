@@ -1,5 +1,6 @@
 interface IKeyFuncVal {
-  [k: string]: (...args: any[]) => any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [k: string]: (...args: any) => unknown;
 }
 
 export class EventEmitter<Events extends IKeyFuncVal, Key extends keyof Events = keyof Events> {
@@ -7,7 +8,6 @@ export class EventEmitter<Events extends IKeyFuncVal, Key extends keyof Events =
   private listeners: Map<Key, Set<Events[Key]>> = new Map();
 
   emit<K extends Key>(eventName: K, ...restParams: Parameters<Events[K]>) {    const events = this.listeners.get(eventName);
-
 
     if (events) {
       events.forEach((fn) => {
@@ -34,7 +34,7 @@ export class EventEmitter<Events extends IKeyFuncVal, Key extends keyof Events =
   once<K extends Key>(eventName: K, fn: Events[K]): () => void {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const unsubscribe = this.on(eventName, (...args: any[]) => {
+    const unsubscribe = this.on(eventName, (...args: unknown[]) => {
       fn(...args);
       unsubscribe();
     });

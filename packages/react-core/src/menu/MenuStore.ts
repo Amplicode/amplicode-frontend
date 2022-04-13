@@ -5,22 +5,23 @@ type CommonItemProps = {
   key: string;
 };
 
-export type AddonMenuItem<MenuItemProps = any> = {
+export type AddonMenuItem<MenuItemProps = unknown> = {
   type: "MenuItem",
   menuItemProps: MenuItemProps & CommonItemProps,
 }
 
-export type AddonSubMenuItem<MenuItemProps = any ,SubMenuItemProp = any> = {
+export type AddonSubMenuItem<MenuItemProps = unknown ,SubMenuItemProp = unknown> = {
   type: "SubMenuItem",
   subMenuItemProps: SubMenuItemProp & CommonItemProps,
   childItems: Array<AddonMenuItem<MenuItemProps> | AddonSubMenuItem<SubMenuItemProp>>
 }
 
-export type AddonItem<MenuItemProps = any ,SubMenuItemProp = any> = 
+export type AddonItem<MenuItemProps = unknown ,SubMenuItemProp = unknown> =
     AddonMenuItem<MenuItemProps> 
   | AddonSubMenuItem<MenuItemProps, SubMenuItemProp>;
+
 class MenuStore {
-  private _addonItems: AddonItem[];
+  private readonly _addonItems: AddonItem[];
 
   constructor() {
     this._addonItems = [];
@@ -31,7 +32,7 @@ class MenuStore {
     });
   }
 
-  addAddonItem<MenuItemProps = any ,SubMenuItemProp = any>(
+  addAddonItem<MenuItemProps = unknown ,SubMenuItemProp = unknown>(
     itemInfo: AddonItem<MenuItemProps, SubMenuItemProp>
   ) {
     this._addonItems.push(itemInfo);
