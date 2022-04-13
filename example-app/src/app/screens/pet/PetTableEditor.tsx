@@ -7,6 +7,7 @@ import {
   Form,
   FormInstance,
   Input,
+  DatePicker,
   message,
   Space,
   Spin
@@ -21,8 +22,8 @@ import { useSubmitEditor } from "../../../core/crud/useSubmitEditor";
 import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 import { useCloseNestedScreen } from "../../../core/crud/useCloseNestedScreen";
 import { FormattedMessage, useIntl } from "react-intl";
-import { gql2form } from "../../../core/format/gql2form";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
+import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
 
 const PET = gql(`
   query Get_Pet($id: ID) {
@@ -115,6 +116,7 @@ function EditorForm<TData>({
     UPDATE_PET,
     setFormError,
     refetchQueries,
+    "PetInputDTOInput",
     id
   );
   const handleClientValidationFailed = useClientValidationFailed();
@@ -143,7 +145,7 @@ function FormFields() {
   return (
     <>
       <Form.Item name="birthDate" label="Birth Date">
-        <Input />
+        <DatePicker />
       </Form.Item>
 
       <Form.Item name="identificationNumber" label="Identification Number">
@@ -220,7 +222,7 @@ function useLoadItem(id?: string) {
   // Get the received item, if any
   useEffect(() => {
     if (data?.pet != null) {
-      setItem(data?.pet);
+      setItem(deserializeCustomScalars(data?.pet));
     }
   }, [data, setItem]);
 
@@ -237,14 +239,10 @@ function useLoadItem(id?: string) {
  * @param form
  * @param item
  */
-function useFormData<ItemType extends Record<string, unknown> | null>(
-  form: FormInstance,
-  item?: ItemType
-) {
+function useFormData(form: FormInstance, item?: ItemType) {
   useEffect(() => {
     if (item != null) {
-      const fieldValues = gql2form(item);
-      form.setFieldsValue(fieldValues);
+      form.setFieldsValue(item);
     }
   }, [item, form]);
 }

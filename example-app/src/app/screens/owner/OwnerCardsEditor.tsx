@@ -18,8 +18,8 @@ import { useSubmitEditor } from "../../../core/crud/useSubmitEditor";
 import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 import { useCloseNestedScreen } from "../../../core/crud/useCloseNestedScreen";
 import { FormattedMessage, useIntl } from "react-intl";
-import { gql2form } from "../../../core/format/gql2form";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
+import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
 
 const OWNER = gql(`
   query Get_Owner($id: ID) {
@@ -107,6 +107,7 @@ function EditorForm<TData>({
     UPDATE_OWNER,
     setFormError,
     refetchQueries,
+    "OwnerInputDTOInput",
     id
   );
   const handleClientValidationFailed = useClientValidationFailed();
@@ -210,7 +211,7 @@ function useLoadItem(id?: string) {
   // Get the received item, if any
   useEffect(() => {
     if (data?.owner != null) {
-      setItem(data?.owner);
+      setItem(deserializeCustomScalars(data?.owner));
     }
   }, [data, setItem]);
 
@@ -227,14 +228,10 @@ function useLoadItem(id?: string) {
  * @param form
  * @param item
  */
-function useFormData<ItemType extends Record<string, unknown> | null>(
-  form: FormInstance,
-  item?: ItemType
-) {
+function useFormData(form: FormInstance, item?: ItemType) {
   useEffect(() => {
     if (item != null) {
-      const fieldValues = gql2form(item);
-      form.setFieldsValue(fieldValues);
+      form.setFieldsValue(item);
     }
   }, [item, form]);
 }

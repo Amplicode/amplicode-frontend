@@ -25,6 +25,8 @@
                        // TODO Uncomment the code and specify the list component
                        // lookupComponent={YourEntityListComponentName}
     />
+  <% } else if (attr.type === 'Date') { %>
+    <DatePicker />
   <% } else { -%>
     <Input />
   <% } -%>

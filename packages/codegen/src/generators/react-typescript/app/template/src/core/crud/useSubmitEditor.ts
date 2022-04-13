@@ -9,7 +9,7 @@ import { useIntl } from "react-intl";
 import { message } from "antd";
 import { GraphQLError } from "graphql/error/GraphQLError";
 import { useCallback } from "react";
-import { form2gql } from "../format/form2gql";
+import {serializeCustomScalars} from "../transform/model/serializeCustomScalars";
 import { useCloseNestedScreen } from "./useCloseNestedScreen";
 
 /**
@@ -19,9 +19,8 @@ import { useCloseNestedScreen } from "./useCloseNestedScreen";
  * @param mutation
  * @param setFormError
  * @param refetchQueries
+ * @param typename GraphQL input type name
  * @param id entity instance id (when editing an entity, otherwise undefined)
- * @param serializeFieldValues a function that converts the form field values into the shape expected by backend
- * (serialization, format conversion).
  */
 export function useSubmitEditor<TData>(
   mutation: TypedDocumentNode,
@@ -30,10 +29,8 @@ export function useSubmitEditor<TData>(
     | ((result: FetchResult<TData>) => InternalRefetchQueriesInclude)
     | InternalRefetchQueriesInclude
     | undefined,
+  typename: string,
   id?: string,
-  serializeFieldValues: (
-    fieldValues: Record<string, unknown>
-  ) => Record<string, unknown> = form2gql
 ) {
   const intl = useIntl();
   const closeEditor = useCloseNestedScreen();
@@ -99,7 +96,7 @@ export function useSubmitEditor<TData>(
        * Otherwise a new instance will be created.
        */
       const input = {
-        ...serializeFieldValues(formFieldValues),
+        ...serializeCustomScalars(formFieldValues, typename),
         id: id
       };
 
@@ -118,7 +115,6 @@ export function useSubmitEditor<TData>(
         .catch(handleNetworkError);
     },
     [
-      serializeFieldValues,
       id,
       runMutation,
       handleNetworkError,

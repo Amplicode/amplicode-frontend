@@ -12,6 +12,7 @@ import { ReadOnlyPetCardsDetails } from "./ReadOnlyPetCardsDetails";
 import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
+import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
 import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
@@ -40,7 +41,7 @@ const PET_LIST = gql(`
 export function ReadOnlyPetCards() {
   // Load the items from server
   const { loading, error, data } = useQuery(PET_LIST);
-  const items = data?.petList;
+  const items = deserializeCustomScalars(data?.petList);
 
   // If we have navigated here using a link, or a page has been refreshed,
   // we need to check whether the url contains the item id, and if yes - open item editor/details screen.
@@ -129,7 +130,7 @@ function ItemCard({ item }: { item: ItemType }) {
       <ValueWithLabel
         key="birthDate"
         label="Birth Date"
-        value={item.birthDate ?? undefined}
+        value={item.birthDate?.format("LL") ?? undefined}
       />
       <ValueWithLabel
         key="identificationNumber"

@@ -11,6 +11,7 @@ import { gql } from "@amplicode/gql";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
+import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
 
 const ROUTE = "standalone-owner-list";
 const REFETCH_QUERIES = ["Get_Owner_List"];
@@ -38,7 +39,7 @@ const DELETE_OWNER = gql(`
 export function StandaloneOwnerList() {
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
-  const items = data?.ownerList;
+  const items = deserializeCustomScalars(data?.ownerList);
 
   // If we have navigated here using a link, or a page has been refreshed,
   // we need to check whether the url contains the item id, and if yes - open item editor/details screen.

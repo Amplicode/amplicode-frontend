@@ -94,6 +94,7 @@ describe('codegen standalone table', () => {
         .map(item => ({
           ...item,
           ...{
+            birthDate: item!.birthDate?.format("LL") ?? undefined,
             owner: getOwnerDTODisplayName(item!.owner ?? undefined),
             type: getPetTypeDTODisplayName(item!.type ?? undefined)
           }
