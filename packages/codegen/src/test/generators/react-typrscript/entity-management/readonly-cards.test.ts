@@ -103,7 +103,7 @@ describe('codegen readonly cards', () => {
     expect(detailsComponentFile).to.contain('query Get_Pet($id: BigInteger) {');
 
     // fields
-    ['Identification Number', 'Birth Date'].forEach(label => {
+    ['Identification Number'].forEach(label => {
       const field = unCapitalizeFirst(label.replace(" ", ""));
       const valueWithLabel = `
       <ValueWithLabel
@@ -117,6 +117,26 @@ describe('codegen readonly cards', () => {
       const descriptions = `
         <Descriptions.Item label={<strong>${label}</strong>}>
           {item.${field} ?? undefined}
+        </Descriptions.Item>`;
+
+      expectFileContainsIgnoreSpace(detailsComponentFile, descriptions);
+    });
+
+    // Date fields
+    ['Birth Date'].forEach(label => {
+      const field = unCapitalizeFirst(label.replace(" ", ""));
+      const valueWithLabel = `
+      <ValueWithLabel
+        key="${field}"
+        label="${label}"
+        value={item.${field}?.format("LL") ?? undefined}
+      />`;
+
+      expectFileContainsIgnoreSpace(componentFile, valueWithLabel);
+
+      const descriptions = `
+        <Descriptions.Item label={<strong>${label}</strong>}>
+          {item.${field}?.format("LL") ?? undefined}
         </Descriptions.Item>`;
 
       expectFileContainsIgnoreSpace(detailsComponentFile, descriptions);

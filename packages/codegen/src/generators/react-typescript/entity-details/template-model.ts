@@ -37,6 +37,7 @@ type GraphQLEditorModel = {
   entityName?: string,
   attributes: AttributeModel[],
   inputVariableName?: string;
+  inputTypeName?: string;
 
   // We need these in order to have correct imports in the templates
   hasStringScalars?: boolean;
@@ -211,6 +212,7 @@ export function deriveGraphQLEditorModel(
     hasEnumScalars,
     hasCustomScalars,
     hasRelationFields,
-    inputVariableName
+    inputVariableName,
+    inputTypeName
   };
 }

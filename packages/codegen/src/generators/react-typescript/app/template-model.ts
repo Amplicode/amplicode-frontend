@@ -1,14 +1,22 @@
 import {AppAnswers} from "./answers";
 import { AmplicodeCommonOptions } from "../../../building-blocks/stages/options/pieces/amplicode";
-import {GraphQLSchema} from "graphql";
+import {GraphQLSchema, printSchema} from "graphql";
 
-export type AppTemplateModel = AppAnswers & {schemaPath: string};
-
-export const deriveTemplateModel = async <O extends AmplicodeCommonOptions, A, T>(
-  options: O,
-  answers: A,
-  _schema?: GraphQLSchema,
+export type AppTemplateModel = AppAnswers & {
   schemaPath?: string
-): Promise<T> => {
-  return {... answers as unknown as T, schemaPath: schemaPath?.replace(/\\/g, "/")};
+  typeDefs?: string
+};
+
+export const deriveTemplateModel = async (
+  options: AmplicodeCommonOptions,
+  answers: AppAnswers,
+  schema?: GraphQLSchema,
+  schemaPath?: string
+): Promise<AppTemplateModel> => {
+  return {
+    ... answers,
+    schemaPath: schemaPath?.replace(/\\/g, "/"),
+    // TODO: For now the whole schema is bundled. We should only bundle type defs.
+    typeDefs: schema ? printSchema(schema, { commentDescriptions: true }) : undefined
+  };
 }

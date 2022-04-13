@@ -10,6 +10,7 @@ import { useScreens } from "@amplicode/react-core";
 import { gql } from "@amplicode/gql";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
+import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
 
 const ROUTE = "standalone-owner-table";
 const REFETCH_QUERIES = ["Get_Owner_List"];
@@ -70,7 +71,7 @@ const columns = [
 export function StandaloneOwnerTable() {
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
-  const items = data?.ownerList;
+  const items = deserializeCustomScalars(data?.ownerList);
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
@@ -224,7 +225,11 @@ function TableSection({
     return <Empty />;
   }
 
-  const dataSource = items.filter(item => item != null);
+  const dataSource = items
+    .filter(item => item != null)
+    .map(item => ({
+      ...item
+    }));
 
   return (
     <Space direction="vertical" className="table-space entity-table">

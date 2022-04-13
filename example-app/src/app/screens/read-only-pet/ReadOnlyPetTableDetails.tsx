@@ -9,6 +9,7 @@ import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODispla
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
+import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
 
 const PET = gql(`
   query Get_Pet($id: ID) {
@@ -47,12 +48,12 @@ export function ReadOnlyPetTableDetails({ id }: ReadOnlyPetTableDetailsProps) {
     }
   });
 
+  const item = deserializeCustomScalars(data?.pet);
+
   const goToParentScreen = useCallback(() => {
     history.push("."); // Remove entity id part from url
     screens.closeActiveBreadcrumb();
   }, [screens, history]);
-
-  const item = data?.pet;
 
   if (queryLoading) {
     return <Spin />;
@@ -74,7 +75,7 @@ export function ReadOnlyPetTableDetails({ id }: ReadOnlyPetTableDetailsProps) {
         column={1}
       >
         <Descriptions.Item label={<strong>Birth Date</strong>}>
-          {item.birthDate ?? undefined}
+          {item.birthDate?.format("LL") ?? undefined}
         </Descriptions.Item>
         <Descriptions.Item label={<strong>Identification Number</strong>}>
           {item.identificationNumber ?? undefined}

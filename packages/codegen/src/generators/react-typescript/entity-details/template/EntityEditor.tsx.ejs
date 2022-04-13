@@ -21,6 +21,11 @@ import {
   <% if (locals.hasEnumScalars) { -%>
     Select,
   <% } -%>
+  <% if (locals.hasCustomScalars) { -%>
+    <% if (attributes.some(attr => attr.type === 'Date')) { -%>
+      DatePicker,
+    <% } -%>
+  <% } -%>
   message,
   Space,
   Spin,
@@ -38,8 +43,8 @@ import { useSubmitEditor } from "<%= relDirShift %>core/crud/useSubmitEditor";
 import { ErrorMessage } from "<%= relDirShift %>core/crud/ErrorMessage";
 import {useCloseNestedScreen} from "<%= relDirShift %>core/crud/useCloseNestedScreen";
 import {FormattedMessage, useIntl} from "react-intl";
-import {gql2form} from "<%= relDirShift %>core/format/gql2form";
 import {RefetchQueries} from "<%= relDirShift %>core/type-aliases/RefetchQueries";
+import {deserializeCustomScalars} from "../../../core/transform/model/deserializeCustomScalars";
 
 const <%= QUERY_CONST %> = gql(`
   <%= queryString %>
@@ -107,7 +112,7 @@ function EditorForm<TData>({item, refetchQueries, id}: EditorFormProps<TData>) {
   // Examples: cross-validation, network errors.
   const [formError, setFormError] = useState<string | undefined>();
 
-  const {handleSubmit, submitting} = useSubmitEditor(<%= MUTATION_CONST %>, setFormError, refetchQueries, id);
+  const {handleSubmit, submitting} = useSubmitEditor(<%= MUTATION_CONST %>, setFormError, refetchQueries, '<%= inputTypeName %>', id);
   const handleClientValidationFailed = useClientValidationFailed();
 
   // Put the item into the form.
@@ -195,7 +200,7 @@ function useLoadItem(id?: string) {
   // Get the received item, if any
   useEffect(() => {
     if (data?.<%= queryName %> != null) {
-      setItem(data?.<%= queryName %>);
+      setItem(deserializeCustomScalars(data?.<%= queryName %>));
     }
   }, [data, setItem]);
 
@@ -212,11 +217,10 @@ function useLoadItem(id?: string) {
  * @param form
  * @param item
  */
-function useFormData<ItemType extends Record<string, unknown> | null>(form: FormInstance, item?: ItemType) {
+function useFormData(form: FormInstance, item?: ItemType) {
   useEffect(() => {
     if (item != null) {
-      const fieldValues = gql2form(item);
-      form.setFieldsValue(fieldValues);
+      form.setFieldsValue(item);
     }
   }, [item, form]);
 }

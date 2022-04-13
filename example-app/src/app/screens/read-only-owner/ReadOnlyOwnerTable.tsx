@@ -9,6 +9,7 @@ import { gql } from "@amplicode/gql";
 import { ReadOnlyOwnerTableDetails } from "./ReadOnlyOwnerTableDetails";
 import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
+import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
 
 const ROUTE = "read-only-owner-table";
 
@@ -62,7 +63,7 @@ const columns = [
 export function ReadOnlyOwnerTable() {
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
-  const items = data?.ownerList;
+  const items = deserializeCustomScalars(data?.ownerList);
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
@@ -154,7 +155,11 @@ function TableSection({
     return <Empty />;
   }
 
-  const dataSource = items.filter(item => item != null);
+  const dataSource = items
+    .filter(item => item != null)
+    .map(item => ({
+      ...item
+    }));
 
   return (
     <Space direction="vertical" className="table-space entity-table-readonly">
