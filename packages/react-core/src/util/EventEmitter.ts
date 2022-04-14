@@ -1,4 +1,5 @@
 interface IKeyFuncVal {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [k: string]: (...args: any[]) => any;
 }
 
@@ -34,7 +35,7 @@ export class EventEmitter<Events extends IKeyFuncVal, Key extends keyof Events =
   once<K extends Key>(eventName: K, fn: Events[K]): () => void {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const unsubscribe = this.on(eventName, (...args: any[]) => {
+    const unsubscribe = this.on(eventName, (...args: unknown[]) => {
       fn(...args);
       unsubscribe();
     });
