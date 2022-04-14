@@ -4,7 +4,7 @@ import {ReactComponent} from "./ReactComponent";
 export type ScreenInfo = {
   captionKey: string;
   component: ReactComponent;
-  props?: any;
+  props?: Record<string, unknown>;
 }
 
 type ScreenRegistry = Record<string, ScreenInfo>;

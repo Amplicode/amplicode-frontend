@@ -91,8 +91,8 @@ describe('filterFieldValues()', () => {
     expect(result.birthDate).eq("2022-06-01");
     expect(result.identificationNumber).eq("1232");
 
-    const owner0 = (result.owner as any)[0];
-    const owner1 = (result.owner as any)[1];
+    const owner0 = (result.owner as Array<unknown>)[0];
+    const owner1 = (result.owner as Array<unknown>)[1];
 
     expect(owner0).not.have.property('id');
     expect(owner0).not.have.property('__typename');

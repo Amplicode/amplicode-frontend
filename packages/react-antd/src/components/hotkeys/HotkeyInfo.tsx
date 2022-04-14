@@ -3,14 +3,13 @@ import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
 import { HotkeyConfig } from "@amplicode/react-core";
 
-function groupBy<T extends Record<string, any>>(arr: T[], propName: string): Record<string, T[]> {
-  return arr.reduce<any>((acc, el) => {
-    if (acc[el[propName]]) {
-      acc[el[propName]].push(el);
-    } else {
-      acc[el[propName]] = []
-      acc[el[propName]].push(el);
+function groupBy<T extends HotkeyConfig, K extends keyof T>(configs: T[], propName: K): Record<string, T[]> {
+  return configs.reduce<Record<string, T[]>>((acc: Record<string, T[]>, el) => {
+    const propValue = el[propName] as unknown as string;
+    if (acc[propValue] == null) {
+      acc[propValue] = [];
     }
+    acc[propValue].push(el);
     return acc;
   }, {});
 }

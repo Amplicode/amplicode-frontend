@@ -8,14 +8,14 @@ import { EventEmitter } from "../util/EventEmitter";
 import { ScreenMeta } from "./ScreenMetaContext";
 
 export type ScreenEventEmitter = EventEmitter<{
-  switchScreen: (screenMeta: ScreenMeta) => any;
+  switchScreen: (screenMeta: ScreenMeta) => void;
 }>;
 
 export interface OpenInBreadcrumbParams {
   breadcrumbCaption: string;
   screenId?: string;
   component: ReactComponent;
-  props?: any;
+  props?: Record<string, unknown>;
 }
 
 export interface OpenInTabParams extends OpenInBreadcrumbParams {
