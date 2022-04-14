@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.1](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.16.0...@amplicode/codegen@0.16.1) (2022-04-14)
+
+
+### Bug Fixes
+
+* env.production file should not be gitignored [#318](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/318) ([546300b](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/546300b7eef6543de233a84654c7ee53c6254f50))
+
+
+
+
+
 # [0.16.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.15.0...@amplicode/codegen@0.16.0) (2022-04-13)
 
 
