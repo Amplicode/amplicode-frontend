@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.16.1...@amplicode/codegen@0.17.0) (2022-04-14)
+
+
+### Features
+
+* implement custom scalars support ([f2b39bb](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/f2b39bbe2cf553a48ad4db698e82d53282b950f4))
+* improve eslint config in generated app [#196](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/196) ([d199ae9](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/d199ae968cbdf0d4333710026a158fa0d85382c7))
+
+
+
+
+
 ## [0.16.1](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.16.0...@amplicode/codegen@0.16.1) (2022-04-14)
 
 
