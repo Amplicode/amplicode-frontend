@@ -1,4 +1,4 @@
-import {makeObservable, action, observable, computed} from "mobx";
+import {makeObservable, action, observable, computed, autorun} from "mobx";
 
 export type LocaleDirection = 'rtl' | 'ltr';
 
@@ -15,8 +15,12 @@ export interface LocaleConfig extends LocaleConfigOption {
 }
 
 export class I18nStore {
+  static LOCALE_STORAGE_KEY = 'amplicodeLocale';
+
   localeConfigs: { [locale: string]: LocaleConfig } = {};
   currentLocale: string;
+
+  private storage: Storage;
 
   constructor(localeConfigOptions: Record<string, LocaleConfigOption>, defaultLocale: string) {
     this.setLocaleConfigs(localeConfigOptions);
@@ -24,7 +28,8 @@ export class I18nStore {
     if (!Object.keys(localeConfigOptions).includes(defaultLocale)) {
       throw new Error(`LocaleConfigOptions should contain ${defaultLocale} defaultLocale`)
     }
-    this.currentLocale = defaultLocale;
+    this.storage = window.localStorage;
+    this.currentLocale = this.storage.getItem(I18nStore.LOCALE_STORAGE_KEY) ?? defaultLocale;
     
     makeObservable<I18nStore>(this, {
       localeConfigs: observable,
@@ -33,6 +38,14 @@ export class I18nStore {
       setCurrentLocale: action,
       currentMessages: computed,
     });
+
+    autorun(() => {
+      if (this.currentLocale != null) {
+        this.storage.setItem(I18nStore.LOCALE_STORAGE_KEY, this.currentLocale)
+      } else {
+        this.storage.removeItem(I18nStore.LOCALE_STORAGE_KEY)
+      }
+    })
   }
 
   private setLocaleConfigs(localeConfigOptions: Record<string, LocaleConfigOption>) {
