@@ -29,21 +29,6 @@ const OWNER_LIST = gql(`
 
 const columns = [
   {
-    title: "Address",
-    dataIndex: "address",
-    key: "address"
-  },
-  {
-    title: "City",
-    dataIndex: "city",
-    key: "city"
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-    key: "email"
-  },
-  {
     title: "First Name",
     dataIndex: "firstName",
     key: "firstName"
@@ -54,9 +39,24 @@ const columns = [
     key: "lastName"
   },
   {
+    title: "City",
+    dataIndex: "city",
+    key: "city"
+  },
+  {
+    title: "Address",
+    dataIndex: "address",
+    key: "address"
+  },
+  {
     title: "Telephone",
     dataIndex: "telephone",
     key: "telephone"
+  },
+  {
+    title: "Email",
+    dataIndex: "email",
+    key: "email"
   }
 ];
 

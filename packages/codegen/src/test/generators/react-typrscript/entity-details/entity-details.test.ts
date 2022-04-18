@@ -52,7 +52,8 @@ describe('codegen entity-details test', () => {
   });
 
 
-  it('should generate entity editor screen - TestDTO ', async () => {
+  // TODO enable when TestDTO will be added to the graphql schema
+  xit('should generate entity editor screen - TestDTO ', async () => {
 
     const updateMutation = `
       mutation Update_TestDto($input: TestInputDTOInput) {

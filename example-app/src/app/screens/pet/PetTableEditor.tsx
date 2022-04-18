@@ -14,8 +14,8 @@ import {
 } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { EntityLookupField } from "@amplicode/react-antd";
-import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
+import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { gql } from "@amplicode/gql";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { useSubmitEditor } from "../../../core/crud/useSubmitEditor";
@@ -144,27 +144,27 @@ function EditorForm<TData>({
 function FormFields() {
   return (
     <>
-      <Form.Item name="birthDate" label="Birth Date">
-        <DatePicker />
-      </Form.Item>
-
       <Form.Item name="identificationNumber" label="Identification Number">
         <Input />
       </Form.Item>
 
-      <Form.Item name="owner" label="Owner">
-        <EntityLookupField
-          getDisplayName={getOwnerDTODisplayName}
-          label="Owner"
-          // TODO Uncomment the code and specify the list component
-          // lookupComponent={YourEntityListComponentName}
-        />
+      <Form.Item name="birthDate" label="Birth Date">
+        <DatePicker />
       </Form.Item>
 
       <Form.Item name="type" label="Type">
         <EntityLookupField
           getDisplayName={getPetTypeDTODisplayName}
           label="Type"
+          // TODO Uncomment the code and specify the list component
+          // lookupComponent={YourEntityListComponentName}
+        />
+      </Form.Item>
+
+      <Form.Item name="owner" label="Owner">
+        <EntityLookupField
+          getDisplayName={getOwnerDTODisplayName}
+          label="Owner"
           // TODO Uncomment the code and specify the list component
           // lookupComponent={YourEntityListComponentName}
         />

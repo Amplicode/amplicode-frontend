@@ -25,8 +25,8 @@ import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
-import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
+import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
 const ROUTE = "pet-table";
 const REFETCH_QUERIES = ["Get_Pet_List"];
@@ -58,24 +58,24 @@ const DELETE_PET = gql(`
 
 const columns = [
   {
-    title: "Birth Date",
-    dataIndex: "birthDate",
-    key: "birthDate"
-  },
-  {
     title: "Identification Number",
     dataIndex: "identificationNumber",
     key: "identificationNumber"
   },
   {
-    title: "Owner",
-    dataIndex: "owner",
-    key: "owner"
+    title: "Birth Date",
+    dataIndex: "birthDate",
+    key: "birthDate"
   },
   {
     title: "Type",
     dataIndex: "type",
     key: "type"
+  },
+  {
+    title: "Owner",
+    dataIndex: "owner",
+    key: "owner"
   }
 ];
 
@@ -296,8 +296,8 @@ function TableSection({
       ...item,
       ...{
         birthDate: item!.birthDate?.format("LL") ?? undefined,
-        owner: getOwnerDTODisplayName(item!.owner ?? undefined),
-        type: getPetTypeDTODisplayName(item!.type ?? undefined)
+        type: getPetTypeDTODisplayName(item!.type ?? undefined),
+        owner: getOwnerDTODisplayName(item!.owner ?? undefined)
       }
     }));
 

@@ -6,6 +6,7 @@ import {getAttributeNames} from "./getAttributeNames";
 import {getEntityName} from "./getEntityName";
 import {getTypeFields} from "./getTypeFields";
 import {isAnyLeafType} from "./isAnyLeafType";
+import { getSelectedFieldNamesFromTopField } from "./getSelectedFieldNamesFromTopField";
 
 export function getEntityAttributes(documentNode: DocumentNode, schema: GraphQLSchema): AttributeModel[] {
   // e.g. "petList"
@@ -15,7 +16,9 @@ export function getEntityAttributes(documentNode: DocumentNode, schema: GraphQLS
 
   const typeFields = getTypeFields(entityName, schema);
 
-  return Object.keys(typeFields)
+  const selectedFieldNames = getSelectedFieldNamesFromTopField(documentNode);
+
+  return selectedFieldNames
     .filter(fieldKey => {
       // Do not include id attribute
       return typeFields[fieldKey].name !== 'id' // TODO determine id field from schema

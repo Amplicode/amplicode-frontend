@@ -95,8 +95,8 @@ describe('codegen standalone table', () => {
           ...item,
           ...{
             birthDate: item!.birthDate?.format("LL") ?? undefined,
-            owner: getOwnerDTODisplayName(item!.owner ?? undefined),
-            type: getPetTypeDTODisplayName(item!.type ?? undefined)
+            type: getPetTypeDTODisplayName(item!.type ?? undefined),
+            owner: getOwnerDTODisplayName(item!.owner ?? undefined)
           }
         }));    
     `;
