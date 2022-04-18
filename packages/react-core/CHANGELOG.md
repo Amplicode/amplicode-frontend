@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.1](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.10.0...@amplicode/react-core@0.10.1) (2022-04-18)
+
+
+### Bug Fixes
+
+* locale resets to English when page is reloaded [#309](https://github.com/Amplicode/amplicode-frontend/issues/309) ([b83bb2d](https://github.com/Amplicode/amplicode-frontend/commit/b83bb2d6b0181f59a4adb81383bcac1b6ecb7cff))
+
+
+### Reverts
+
+* Revert "chore: bump versions" ([eda0893](https://github.com/Amplicode/amplicode-frontend/commit/eda0893c0a44f8d64bd3aca01cde390f0521942c))
+
+
+
+
+
 # [0.10.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.9.1...@amplicode/react-core@0.10.0) (2022-04-07)
 
 

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.1](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.17.0...@amplicode/codegen@0.17.1) (2022-04-18)
+
+
+### Bug Fixes
+
+* entity list contains extra items in Card [#323](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/323) ([bacd03f](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/bacd03f0a721d033fdd893fa129c3472b97545ed))
+* graphql typedefs should be updated after new screen is generated [#329](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/329) ([2a3d269](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/2a3d2693acf2353b2213ea199ae6d708dd430c92))
+* support boolean and number in ValueWithLabel ([3c37ef7](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/3c37ef7c031296ac8f855da30a9e3faf5590f275))
+
+
+### Reverts
+
+* Revert "chore: bump versions" ([eda0893](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/eda0893c0a44f8d64bd3aca01cde390f0521942c))
+
+
+
+
+
 # [0.17.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.16.1...@amplicode/codegen@0.17.0) (2022-04-14)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.1](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-antd@0.11.0...@amplicode/react-antd@0.11.1) (2022-04-18)
+
+
+### Reverts
+
+* Revert "chore: bump versions" ([eda0893](https://github.com/Amplicode/amplicode-frontend/commit/eda0893c0a44f8d64bd3aca01cde390f0521942c))
+
+
+
+
+
 # [0.11.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-antd@0.10.0...@amplicode/react-antd@0.11.0) (2022-04-13)
 
 
