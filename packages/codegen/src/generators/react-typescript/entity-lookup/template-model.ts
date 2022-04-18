@@ -52,7 +52,7 @@ export const deriveEntityLookupTemplateModel: AmplicodeTemplateModelStage<Amplic
   return {
     ...baseTemplateModel,
     ...templateUtilities,
-    ...deriveScreenTemplateModel(options, answers),
+    ...deriveScreenTemplateModel(options, answers, schema),
     componentName,
     route,
     queryName,

@@ -70,7 +70,7 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
   return {
     ...baseTemplateModel,
     ...templateUtilities,
-    ...deriveScreenTemplateModel(options, answers),
+    ...deriveScreenTemplateModel(options, answers, schema),
     ...deriveFiltersTemplateModel(queryName, filterByAttributes, schema),
     componentName,
     route,

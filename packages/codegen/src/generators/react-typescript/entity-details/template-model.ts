@@ -72,7 +72,7 @@ export const deriveEntityDetailsTemplateModel: AmplicodeTemplateModelStage<
   return {
     ...baseTemplateModel,
     ...templateUtilities,
-    ...deriveScreenTemplateModel(options, answers),
+    ...deriveScreenTemplateModel(options, answers, schema),
     ...deriveGraphQLEditorModel(queryNode, idField, schema, mutationNode),
     // TODO problem with $id: String = "", quotation marks get messed up
     queryString,

@@ -1,6 +1,7 @@
 import {AmplicodeComponentOptions} from "../../../options/pieces/amplicode";
 import {normalizeRelativePath, splitByCapitalLetter} from "../../../../../common/utils";
 import {ScreenAnswers} from "../../../answers/amplicode/ScreenAnswers";
+import {GraphQLSchema, printSchema} from "graphql";
 
 export interface ScreenTemplateModel {
   componentName: string,
@@ -8,9 +9,10 @@ export interface ScreenTemplateModel {
   route: string,
   relDirShift: string,
   shouldAddToMenu: boolean,
+  typeDefs?: string
 }
 
-export function deriveScreenTemplateModel(options: AmplicodeComponentOptions, answers: ScreenAnswers): ScreenTemplateModel {
+export function deriveScreenTemplateModel(options: AmplicodeComponentOptions, answers: ScreenAnswers, schema?: GraphQLSchema): ScreenTemplateModel {
   const {componentName, shouldAddToMenu, route} = answers;
 
   return {
@@ -18,6 +20,7 @@ export function deriveScreenTemplateModel(options: AmplicodeComponentOptions, an
     componentName,
     route,
     caption: splitByCapitalLetter(componentName),
-    shouldAddToMenu
+    shouldAddToMenu,
+    typeDefs: schema ? printSchema(schema, { commentDescriptions: true }) : undefined
   };
 }
