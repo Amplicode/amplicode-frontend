@@ -89,6 +89,7 @@ describe('codegen entity-details test', () => {
           name="bool"
           label="Bool"
           valuePropName="checked"
+          initialValue={false}
         >
           <Checkbox />
         </Form.Item>`;
