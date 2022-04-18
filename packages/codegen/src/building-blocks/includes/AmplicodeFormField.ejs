@@ -2,7 +2,8 @@
            label='<%= attr.displayName %>'
            <% if (attr?.type === 'Boolean') { -%>
              valuePropName='checked'
-           <% } -%>
+             initialValue={false}
+        <% } -%>
 >
   <% if (attr.type === 'Int') { -%>
     <InputNumber precision={0} />
