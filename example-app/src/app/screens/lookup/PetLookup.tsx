@@ -10,8 +10,8 @@ import { useScreens } from "@amplicode/react-core";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
-import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
+import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
 const PET_LIST = gql(`
   query Get_Pet_List {
@@ -142,24 +142,24 @@ function ItemCard({ item, onSelect }: ItemCardProps) {
       onClick={() => onSelect(item)}
     >
       <ValueWithLabel
-        key="birthDate"
-        label="Birth Date"
-        value={item.birthDate ?? undefined}
-      />
-      <ValueWithLabel
         key="identificationNumber"
         label="Identification Number"
         value={item.identificationNumber ?? undefined}
       />
       <ValueWithLabel
-        key="owner"
-        label="Owner"
-        value={getOwnerDTODisplayName(item.owner ?? undefined)}
+        key="birthDate"
+        label="Birth Date"
+        value={item.birthDate ?? undefined}
       />
       <ValueWithLabel
         key="type"
         label="Type"
         value={getPetTypeDTODisplayName(item.type ?? undefined)}
+      />
+      <ValueWithLabel
+        key="owner"
+        label="Owner"
+        value={getOwnerDTODisplayName(item.owner ?? undefined)}
       />
     </Card>
   );

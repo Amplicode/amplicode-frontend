@@ -119,21 +119,6 @@ function ListItem({ item }: { item: ItemType }) {
     <List.Item actions={rowActions}>
       <div className="list-wrapper">
         <ValueWithLabel
-          key="address"
-          label="Address"
-          value={item.address ?? undefined}
-        />
-        <ValueWithLabel
-          key="city"
-          label="City"
-          value={item.city ?? undefined}
-        />
-        <ValueWithLabel
-          key="email"
-          label="Email"
-          value={item.email ?? undefined}
-        />
-        <ValueWithLabel
           key="firstName"
           label="First Name"
           value={item.firstName ?? undefined}
@@ -144,9 +129,24 @@ function ListItem({ item }: { item: ItemType }) {
           value={item.lastName ?? undefined}
         />
         <ValueWithLabel
+          key="city"
+          label="City"
+          value={item.city ?? undefined}
+        />
+        <ValueWithLabel
+          key="address"
+          label="Address"
+          value={item.address ?? undefined}
+        />
+        <ValueWithLabel
           key="telephone"
           label="Telephone"
           value={item.telephone ?? undefined}
+        />
+        <ValueWithLabel
+          key="email"
+          label="Email"
+          value={item.email ?? undefined}
         />
       </div>
     </List.Item>

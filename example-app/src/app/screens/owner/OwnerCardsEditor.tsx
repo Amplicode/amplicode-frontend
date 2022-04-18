@@ -135,18 +135,6 @@ function EditorForm<TData>({
 function FormFields() {
   return (
     <>
-      <Form.Item name="address" label="Address">
-        <Input />
-      </Form.Item>
-
-      <Form.Item name="city" label="City">
-        <Input />
-      </Form.Item>
-
-      <Form.Item name="email" label="Email">
-        <Input />
-      </Form.Item>
-
       <Form.Item name="firstName" label="First Name">
         <Input />
       </Form.Item>
@@ -155,7 +143,19 @@ function FormFields() {
         <Input />
       </Form.Item>
 
+      <Form.Item name="city" label="City">
+        <Input />
+      </Form.Item>
+
+      <Form.Item name="address" label="Address">
+        <Input />
+      </Form.Item>
+
       <Form.Item name="telephone" label="Telephone">
+        <Input />
+      </Form.Item>
+
+      <Form.Item name="email" label="Email">
         <Input />
       </Form.Item>
     </>

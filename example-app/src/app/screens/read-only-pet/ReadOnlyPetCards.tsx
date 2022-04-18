@@ -14,8 +14,8 @@ import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
 import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
-import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
+import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
 const ROUTE = "read-only-pet-cards";
 
@@ -128,24 +128,24 @@ function ItemCard({ item }: { item: ItemType }) {
       className="narrow-layout"
     >
       <ValueWithLabel
-        key="birthDate"
-        label="Birth Date"
-        value={item.birthDate?.format("LL") ?? undefined}
-      />
-      <ValueWithLabel
         key="identificationNumber"
         label="Identification Number"
         value={item.identificationNumber ?? undefined}
       />
       <ValueWithLabel
-        key="owner"
-        label="Owner"
-        value={getOwnerDTODisplayName(item.owner ?? undefined)}
+        key="birthDate"
+        label="Birth Date"
+        value={item.birthDate?.format("LL") ?? undefined}
       />
       <ValueWithLabel
         key="type"
         label="Type"
         value={getPetTypeDTODisplayName(item.type ?? undefined)}
+      />
+      <ValueWithLabel
+        key="owner"
+        label="Owner"
+        value={getOwnerDTODisplayName(item.owner ?? undefined)}
       />
     </Card>
   );

@@ -6,8 +6,8 @@ import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router-dom";
 import { useScreens } from "@amplicode/react-core";
 import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
-import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
+import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
 
@@ -74,17 +74,17 @@ export function ReadOnlyPetListDetails({ id }: ReadOnlyPetListDetailsProps) {
         title={getPetDTODisplayName(item)}
         column={1}
       >
-        <Descriptions.Item label={<strong>Birth Date</strong>}>
-          {item.birthDate?.format("LL") ?? undefined}
-        </Descriptions.Item>
         <Descriptions.Item label={<strong>Identification Number</strong>}>
           {item.identificationNumber ?? undefined}
         </Descriptions.Item>
-        <Descriptions.Item label={<strong>Owner</strong>}>
-          {getOwnerDTODisplayName(item.owner ?? undefined)}
+        <Descriptions.Item label={<strong>Birth Date</strong>}>
+          {item.birthDate?.format("LL") ?? undefined}
         </Descriptions.Item>
         <Descriptions.Item label={<strong>Type</strong>}>
           {getPetTypeDTODisplayName(item.type ?? undefined)}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>Owner</strong>}>
+          {getOwnerDTODisplayName(item.owner ?? undefined)}
         </Descriptions.Item>
       </Descriptions>
       <Button htmlType="button" onClick={goToParentScreen}>

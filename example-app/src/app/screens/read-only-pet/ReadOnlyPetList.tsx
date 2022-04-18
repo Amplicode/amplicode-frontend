@@ -13,8 +13,8 @@ import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
-import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
+import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
 const ROUTE = "read-only-pet-list";
 
@@ -126,24 +126,24 @@ function ListItem({ item }: { item: ItemType }) {
     <List.Item actions={rowActions}>
       <div className="list-wrapper">
         <ValueWithLabel
-          key="birthDate"
-          label="Birth Date"
-          value={item.birthDate?.format("LL") ?? undefined}
-        />
-        <ValueWithLabel
           key="identificationNumber"
           label="Identification Number"
           value={item.identificationNumber ?? undefined}
         />
         <ValueWithLabel
-          key="owner"
-          label="Owner"
-          value={getOwnerDTODisplayName(item.owner ?? undefined)}
+          key="birthDate"
+          label="Birth Date"
+          value={item.birthDate?.format("LL") ?? undefined}
         />
         <ValueWithLabel
           key="type"
           label="Type"
           value={getPetTypeDTODisplayName(item.type ?? undefined)}
+        />
+        <ValueWithLabel
+          key="owner"
+          label="Owner"
+          value={getOwnerDTODisplayName(item.owner ?? undefined)}
         />
       </div>
     </List.Item>
