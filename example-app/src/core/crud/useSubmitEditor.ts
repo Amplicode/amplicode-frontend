@@ -2,7 +2,7 @@ import {
   ApolloError,
   FetchResult,
   InternalRefetchQueriesInclude,
-  TypedDocumentNode,
+  DocumentNode,
   useMutation
 } from "@apollo/client";
 import { useIntl } from "react-intl";
@@ -23,7 +23,7 @@ import { useCloseNestedScreen } from "./useCloseNestedScreen";
  * @param id entity instance id (when editing an entity, otherwise undefined)
  */
 export function useSubmitEditor<TData>(
-  mutation: TypedDocumentNode,
+  mutation: DocumentNode,
   setFormError: (message: string) => void,
   refetchQueries:
     | ((result: FetchResult<TData>) => InternalRefetchQueriesInclude)

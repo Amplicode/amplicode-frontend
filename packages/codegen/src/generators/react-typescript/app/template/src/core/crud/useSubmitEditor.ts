@@ -2,14 +2,14 @@ import {
   ApolloError,
   FetchResult,
   InternalRefetchQueriesInclude,
-  TypedDocumentNode,
+  DocumentNode,
   useMutation
 } from "@apollo/client";
 import { useIntl } from "react-intl";
 import { message } from "antd";
 import { GraphQLError } from "graphql/error/GraphQLError";
 import { useCallback } from "react";
-import {serializeCustomScalars} from "../transform/model/serializeCustomScalars";
+import { serializeCustomScalars } from "../transform/model/serializeCustomScalars";
 import { useCloseNestedScreen } from "./useCloseNestedScreen";
 
 /**
@@ -23,14 +23,14 @@ import { useCloseNestedScreen } from "./useCloseNestedScreen";
  * @param id entity instance id (when editing an entity, otherwise undefined)
  */
 export function useSubmitEditor<TData>(
-  mutation: TypedDocumentNode,
+  mutation: DocumentNode,
   setFormError: (message: string) => void,
   refetchQueries:
     | ((result: FetchResult<TData>) => InternalRefetchQueriesInclude)
     | InternalRefetchQueriesInclude
     | undefined,
   typename: string,
-  id?: string,
+  id?: string
 ) {
   const intl = useIntl();
   const closeEditor = useCloseNestedScreen();
@@ -114,13 +114,7 @@ export function useSubmitEditor<TData>(
         })
         .catch(handleNetworkError);
     },
-    [
-      id,
-      runMutation,
-      handleNetworkError,
-      handleGraphQLError,
-      handleSuccess
-    ]
+    [id, runMutation, handleNetworkError, handleGraphQLError, handleSuccess]
   );
 
   return {
