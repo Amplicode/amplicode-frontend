@@ -8,7 +8,10 @@
 <%# ------- TEMPLATE STARTS HERE ------- -%>
 import {
   <% if (mode === 'edit' || mode === 'view with details') { -%>
-    useEffect, useState
+    useEffect,
+  <% } -%>
+  <% if (withFilters || mode === 'edit' || mode === 'view with details') { -%>
+    useState,
   <% } -%>
 } from "react";
 import {
@@ -18,7 +21,12 @@ import {
   <% } -%>
 } from "@apollo/client";
 import {ApolloError} from "@apollo/client/errors";
-import {ResultOf} from "@graphql-typed-document-node/core";
+import {
+  ResultOf,
+  <% if (withFilters) { -%>
+    VariablesOf,
+  <% } -%>
+} from "@graphql-typed-document-node/core";
 import {
   <% if (withFilters || mode === 'edit') { -%>
     Button,
@@ -40,7 +48,7 @@ import {
     <% if (filterImports.withFilterDate) { -%>
       DatePicker,
     <% } -%>
-  <% } -%> 
+  <% } -%>
   Empty,
   Space,
   Spin,
@@ -49,7 +57,7 @@ import {
 <% if (withFilters) { -%>
   import { useForm } from "antd/lib/form/Form";
 <% } -%>
-<% if (withDeleteAction || mode === 'edit') { -%>
+<% if (withFilters || withDeleteAction || mode === 'edit') { -%>
   import {
     <% if (mode === 'edit') { -%>
       PlusOutlined,
@@ -57,13 +65,21 @@ import {
     <% if (mode === 'view with details') { -%>
       EnterOutlined,
     <% } -%>
+    <% if (filterImports.withFilterNumber || filterImports.withFilterString) { -%>
+      CloseCircleOutlined,
+    <% } -%>
   } from "@ant-design/icons";
 <% } -%>
 <% if (mode === 'edit' || mode === 'view with details') { -%>
   import {useRouteMatch} from "react-router-dom";
 <% } -%>
-<% if (mode === 'edit') { -%>
-import {FormattedMessage, useIntl} from "react-intl";
+<% if (withFilters || mode === 'edit') { -%>
+  import {
+    FormattedMessage,
+    <% if (mode === 'edit') { -%>
+        useIntl,
+    <% } -%>
+  } from "react-intl";
 <% } -%>
 <% if (mode === 'edit' || mode === 'view with details') { -%>
   import {useScreens} from "@amplicode/react-core";
@@ -113,10 +129,22 @@ const columns = [
 
 ];
 
+<% if (withFilters) { -%>
+  const initialFilterVars: QueryVariablesType = {};
+<% } -%>
+
 export function <%= componentName %>() {
-  // Load the items from server
-  const { loading, error, data } = useQuery(<%= QUERY_CONST %>);
-  const items = deserializeCustomScalars(data?.<%= queryName %>);
+  <% if (withFilters) { -%>
+    const [filterVars, setFilterVars] = useState<QueryVariablesType>(initialFilterVars);
+
+    // Load the items from server. Will be reloaded reactively if one of variable changes
+    const { loading, error, data } = useQuery(<%= QUERY_CONST %>, { variables: filterVars });
+    const items = deserializeCustomScalars(data?.<%= queryName %>);
+  <% } else { -%>
+    // Load the items from server
+    const { loading, error, data } = useQuery(<%= QUERY_CONST %>);
+    const items = deserializeCustomScalars(data?.<%= queryName %>);
+  <% } -%>
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
@@ -150,12 +178,7 @@ export function <%= componentName %>() {
         <% } -%>
         <% if (withFilters) { -%>
           <Card>
-            <Filters
-              // TODO define when we will know about graphQL filters API
-              // eslint-disable-next-line no-console
-              onApplyFilters={filters => console.log(filters)}
-              onErrorFilters={error => console.error(error)}  
-            />
+            <Filters onApplyFilters={setFilterVars} />
           </Card>
         <% } -%>
         <TableSection
@@ -382,6 +405,12 @@ function TableSection({
  * Type of data object received when executing the query
  */
 type QueryResultType = ResultOf<typeof <%= QUERY_CONST %>>;
+<% if (withFilters) { -%>
+  /**
+  * Type of variables used to filter the items list
+  */
+  type QueryVariablesType = VariablesOf<typeof <%= QUERY_CONST %>>;
+<% } -%>
 /**
  * Type of the items list
  */

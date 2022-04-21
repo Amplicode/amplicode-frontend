@@ -46,6 +46,8 @@ type PetTypeDTO {
 type Query {
   owner(id: BigInteger): OwnerDTO
   ownerList: [OwnerDTO]
+  ownerByNamesList(filter: OwnerFilterInput): [OwnerDTO]
+  petByIdentificationNumberList(identificationNumber: String): [PetDTO]
   pet(id: BigInteger): PetDTO
   petList: [PetDTO]
   petType(id: BigInteger): PetTypeDTO
@@ -124,6 +126,11 @@ scalar Time
 
 "Void"
 scalar Void
+
+input OwnerFilterInput {
+  firstName: String
+  lastName: String
+}
 
 input OwnerDTOInput {
   address: String

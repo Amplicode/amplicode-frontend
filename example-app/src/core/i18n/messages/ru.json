@@ -37,5 +37,8 @@
   "hotkeys.browser.createEntity": "Перейти на экран создания сущности",
   "hotkeys.editor.saveEntity": "Сохранить сущность",
   "hotkeys.screen.nextTab": "Перейти на следующий вкладку",
-  "hotkeys.screen.previousTab": "Перейти на предыдущий вкладку"
+  "hotkeys.screen.previousTab": "Перейти на предыдущий вкладку",
+
+  "filters.apply": "Применить",
+  "filters.reset": "Сбросить"
 }

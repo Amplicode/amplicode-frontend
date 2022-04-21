@@ -1,8 +1,7 @@
 interface FiltersProps {
-  onApplyFilters: (filters: Record<string, unknown>) => void;
-  onErrorFilters: (errorInfo: any) => void;
+  onApplyFilters: (filters: QueryVariablesType) => void;
 }
-function Filters({onApplyFilters, onErrorFilters}: FiltersProps) {
+function Filters({onApplyFilters}: FiltersProps) {
   const [form] = useForm();
 
   return (
@@ -10,21 +9,30 @@ function Filters({onApplyFilters, onErrorFilters}: FiltersProps) {
       form={form}
       layout="vertical"
       onFinish={onApplyFilters}
-      onFinishFailed={onErrorFilters}
+      initialValues={initialFilterVars}
     >
-      <Row gutter={16}>
-        <% filters.forEach((filter) => { %>
-          <Col span={8}>
-            <%- include('Filter', filter) %>
-          </Col>
-        <% }) %>
-      </Row>
+      <Form.Item shouldUpdate>
+        {() =>
+          <Row gutter={16}>
+            <% filters.forEach((filter) => { %>
+              <Col span={8}>
+                <%- include('Filter', filter) %>
+              </Col>
+            <% }) %>
+          </Row>
+        }
+      </Form.Item>
 
       <Space>
         <Button type="primary" htmlType="submit">
           <FormattedMessage id="filters.apply" />
         </Button>
-        <Button onClick={() => form.resetFields()}>
+        <Button
+          onClick={() => {
+            form.resetFields();
+            onApplyFilters(form.getFieldsValue());
+          }}
+        >
           <FormattedMessage id="filters.reset" />
         </Button>
       </Space>

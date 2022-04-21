@@ -10,6 +10,18 @@ exports.ownerListQuery = `query Get_Owner_List {
     }
   }`;
 
+exports.ownerListQueryWithFilter = `query Get_Owner_List_With_Filter($filter: OwnerFilterInput) {
+    ownerByNamesList(filter: $filter) {
+      id
+      firstName
+      lastName
+      city
+      address
+      telephone
+      email
+    }
+  }`;
+
 exports.ownerDeleteMutation = `mutation Delete_Owner($id: ID!) {
     deleteOwner(id: $id)
   }`;
@@ -35,6 +47,23 @@ exports.ownerUpsertMutation = `mutation Update_Owner($input: OwnerInputDTOInput)
 
 exports.petListQuery = `query Get_Pet_List {
     petList {
+      id
+      identificationNumber
+      birthDate
+      type {
+        id
+        name
+      }
+      owner {
+        id
+        firstName
+        lastName
+      }
+    }
+  }`;
+
+exports.petListQueryWithFilter = `query Get_New_Pet_List_With_Filter($identificationNumber: String) {
+    petByIdentificationNumberList(identificationNumber: $identificationNumber) {
       id
       identificationNumber
       birthDate

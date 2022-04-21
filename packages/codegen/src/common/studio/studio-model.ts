@@ -19,6 +19,7 @@ export const enum StudioTemplatePropertyType {
   ROUTE = 'ROUTE',
   ATTRIBUTE = 'ATTRIBUTE',
   ATTRIBUTES_ARRAY = 'ATTRIBUTES_ARRAY',
+  FILTER_QUERY_ARGUMENT_ARRAY = 'FILTER_QUERY_ARGUMENT_ARRAY',
 }
 
 export interface StudioTemplateProperty {

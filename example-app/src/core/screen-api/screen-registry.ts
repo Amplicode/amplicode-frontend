@@ -14,6 +14,7 @@ import { ReadOnlyOwnerCards } from "../../app/screens/read-only-owner/ReadOnlyOw
 import { PetTable } from "../../app/screens/pet/PetTable";
 import { PetList } from "../../app/screens/pet/PetList";
 import { PetCards } from "../../app/screens/pet/PetCards";
+import { OwnerWithFilter } from "../../app/screens/owner/OwnerWithFilter";
 import { OwnerTable } from "../../app/screens/owner/OwnerTable";
 import { OwnerList } from "../../app/screens/owner/OwnerList";
 import { OwnerCards } from "../../app/screens/owner/OwnerCards";
@@ -38,6 +39,11 @@ screenStore.registerScreen("owner-list", {
 screenStore.registerScreen("owner-table", {
   component: OwnerTable,
   captionKey: "screen.OwnerTable"
+});
+
+screenStore.registerScreen("owner-with-filter", {
+  component: OwnerWithFilter,
+  captionKey: "screen.OwnerWithFilter"
 });
 
 screenStore.registerScreen("pet-cards", {

@@ -1,4 +1,4 @@
-const {petListQuery, petDetailsQuery, petDeleteMutation, petUpsertMutation} = require("../bootstrap-app/queries");
+const {petListQueryWithFilter, petDetailsQuery, petDeleteMutation, petUpsertMutation} = require("../bootstrap-app/queries");
 const { runCmdSync, esc, btoa, amplicodegen } = require("../common");
 
 const petManagementAnswers = btoa(JSON.stringify({
@@ -6,11 +6,11 @@ const petManagementAnswers = btoa(JSON.stringify({
   itemComponentName: 'PetCardsEditor',
   route: 'pet-cards',
   shouldAddToMenu: true,
-  listQuery: esc(petListQuery),
+  listQuery: esc(petListQueryWithFilter),
   detailsQuery: esc(petDetailsQuery),
   deleteMutation: esc(petDeleteMutation),
   upsertMutation: esc(petUpsertMutation),
-  filterByAttributes: [['owner', 'firstName'], ['owner', 'lastName'], ['identificationNumber']],
+  filterByArguments: [['identificationNumber']],
 }));
 
 const petManagementCommand = `node ${amplicodegen} react-typescript:entity-management`

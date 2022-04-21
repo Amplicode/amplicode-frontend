@@ -2,7 +2,7 @@ import {templateUtilities, UtilTemplateModel} from "../../../building-blocks/sta
 import {AmplicodeTemplateModelStage} from "../../../building-blocks/pipelines/amplicodePipeline";
 import {AmplicodeComponentOptions} from "../../../building-blocks/stages/options/pieces/amplicode";
 import {EntityListMode, EntityListAnswers, EntityListType} from "./answers";
-import {GraphQLSchema} from "graphql";
+import {getNamedType, GraphQLSchema} from "graphql";
 import gql from "graphql-tag";
 import {
   baseTemplateModel,
@@ -18,9 +18,8 @@ import {getEntityName} from "../../../building-blocks/stages/template-model/piec
 import {getAttributeNames} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getAttributeNames";
 import {getTopFieldName} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getTopFieldName";
 import {getOperationDefinitionName} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getOperationDefinitionName";
-import { getGraphQLStringTypeByPath } from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getGraphQLStringTypeByPath";
+import { getGraphQLTypeByArgumentName } from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getGraphQLTypeByArgumentName";
 import { capitalizeFirst, splitByCapitalLetter } from "../../../common/utils";
-import { convertToNullableGraphQLStringType } from "../../../building-blocks/stages/template-model/pieces/graphql-utils/convertToNullableGraphQLStringType";
 
 
 export interface EntityListTemplateModel extends
@@ -55,7 +54,7 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
     type = 'cards',
     mode = 'edit',
     idField = 'id',
-    filterByAttributes
+    filterByArguments
   } = answers;
 
   const queryNode = gql(queryString);
@@ -71,7 +70,7 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
     ...baseTemplateModel,
     ...templateUtilities,
     ...deriveScreenTemplateModel(options, answers, schema),
-    ...deriveFiltersTemplateModel(queryName, filterByAttributes, schema),
+    ...deriveFiltersTemplateModel(queryName, filterByArguments, schema),
     componentName,
     route,
     queryName,
@@ -90,7 +89,7 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
 
 
 interface EntityFilterData {
-  attributeName: string | string[];
+  argumentName: string | string[];
   caption: string;
   type: string;
 }
@@ -104,21 +103,18 @@ export interface FiltersTemplateModel {
     withFilterDate: boolean;
   };
 }
-export function deriveFiltersTemplateModel(queryName: string, filterByAttributes: Array<string[]>, schema?: GraphQLSchema): FiltersTemplateModel {
-
+export function deriveFiltersTemplateModel(queryName: string, filterByArguments: Array<string[]>, schema?: GraphQLSchema): FiltersTemplateModel {
   let filters: EntityFilterData[] = [];
-  if (filterByAttributes != null) {
+  if (filterByArguments != null) {
     if (schema == null) throw new Error('Schema is required for generating filters');
 
     const listQueryType = schema.getQueryType()?.getFields()[queryName];
     if (listQueryType == null) throw new Error('Can\'t find query name in the schema for generating filters');
 
-    filters = filterByAttributes.map(attributeName => ({
-      attributeName: attributeName.length === 1 ? attributeName[0] : attributeName,
-      caption: attributeName
-        .map(attributeNameElem => capitalizeFirst(splitByCapitalLetter(attributeNameElem)))
-        .join(' '),
-      type: convertToNullableGraphQLStringType(getGraphQLStringTypeByPath(schema, listQueryType, attributeName))
+    filters = filterByArguments.map(argumentName => ({
+      argumentName: argumentName.length === 1 ? argumentName[0] : argumentName,
+      caption: getFilterCaption(argumentName),
+      type: getNamedType(getGraphQLTypeByArgumentName(schema, listQueryType, argumentName)).toString()
     }))
   }
 
@@ -131,6 +127,20 @@ export function deriveFiltersTemplateModel(queryName: string, filterByAttributes
     filterImports,
     withFilters,
   }
+}
+
+function getFilterCaption(argumentName: string[]) {
+  return removeFirstFilterPathString(argumentName)
+    .map(argumentNameElem => capitalizeFirst(splitByCapitalLetter(argumentNameElem)))
+    .join(' ');
+}
+
+function removeFirstFilterPathString(argumentName: string[]) {
+  if(argumentName[0] === 'filter' && argumentName.length > 1) {
+    const [, ...tail] = argumentName;
+    return tail;
+  }
+  return argumentName;
 }
 
 function getFilterImports(filters: EntityFilterData[]) {
