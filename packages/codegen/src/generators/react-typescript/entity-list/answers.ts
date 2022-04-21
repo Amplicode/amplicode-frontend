@@ -11,7 +11,7 @@ export interface EntityListAnswers extends ScreenAnswers {
   query: string;
   mutation?: string;
   idField?: string;
-  filterByAttributes: Array<string[]>;
+  filterByArguments: Array<string[]>;
 }
 
 export const entityListQuestions: StudioTemplateProperty[] = [
@@ -70,12 +70,11 @@ export const entityListQuestions: StudioTemplateProperty[] = [
     defaultValue: 'id'
   },
   {
-    caption: "Select attributes to filter by",
-    code: "filterByAttributes",
-    propertyType: StudioTemplatePropertyType.ATTRIBUTES_ARRAY,
+    caption: "Select arguments to filter by",
+    code: "filterByArguments",
+    propertyType: StudioTemplatePropertyType.FILTER_QUERY_ARGUMENT_ARRAY,
     relatedProperty: 'query',
     required: false,
-    defaultValue: [],
   },
   {
     caption: "Add to menu",

@@ -1,10 +1,15 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
-import { ResultOf } from "@graphql-typed-document-node/core";
+import { ResultOf, VariablesOf } from "@graphql-typed-document-node/core";
 import { Button, Row, Col, Form, Input, Card, Empty, Space, Spin } from "antd";
 import { useForm } from "antd/lib/form/Form";
-import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  PlusOutlined,
+  CloseCircleOutlined
+} from "@ant-design/icons";
 import { useRouteMatch } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useScreens } from "@amplicode/react-core";
@@ -20,11 +25,11 @@ import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeD
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
 const ROUTE = "pet-cards";
-const REFETCH_QUERIES = ["Get_Pet_List"];
+const REFETCH_QUERIES = ["Get_New_Pet_List_With_Filter"];
 
-const PET_LIST = gql(`
-  query Get_Pet_List {
-    petList {
+const PET_BY_IDENTIFICATION_NUMBER_LIST = gql(`
+  query Get_New_Pet_List_With_Filter($identificationNumber: String) {
+    petByIdentificationNumberList(identificationNumber: $identificationNumber) {
       id
       identificationNumber
       birthDate
@@ -47,10 +52,18 @@ const DELETE_PET = gql(`
   }
 `);
 
+const initialFilterVars: QueryVariablesType = {};
+
 export function PetCards() {
-  // Load the items from server
-  const { loading, error, data } = useQuery(PET_LIST);
-  const items = deserializeCustomScalars(data?.petList);
+  const [filterVars, setFilterVars] = useState<QueryVariablesType>(
+    initialFilterVars
+  );
+
+  // Load the items from server. Will be reloaded reactively if one of variable changes
+  const { loading, error, data } = useQuery(PET_BY_IDENTIFICATION_NUMBER_LIST, {
+    variables: filterVars
+  });
+  const items = deserializeCustomScalars(data?.petByIdentificationNumberList);
 
   // If we have navigated here using a link, or a page has been refreshed,
   // we need to check whether the url contains the item id, and if yes - open item editor/details screen.
@@ -61,12 +74,7 @@ export function PetCards() {
       <Space direction="vertical" className="card-space">
         <ButtonPanel />
         <Card>
-          <Filters
-            // TODO define when we will know about graphQL filters API
-            // eslint-disable-next-line no-console
-            onApplyFilters={filters => console.log(filters)}
-            onErrorFilters={error => console.error(error)}
-          />
+          <Filters onApplyFilters={setFilterVars} />
         </Card>
         <Cards items={items} loading={loading} error={error} />
         {/* <Pagination /> - in future */}
@@ -133,10 +141,9 @@ function ButtonPanel() {
 }
 
 interface FiltersProps {
-  onApplyFilters: (filters: Record<string, unknown>) => void;
-  onErrorFilters: (errorInfo: any) => void;
+  onApplyFilters: (filters: QueryVariablesType) => void;
 }
-function Filters({ onApplyFilters, onErrorFilters }: FiltersProps) {
+function Filters({ onApplyFilters }: FiltersProps) {
   const [form] = useForm();
 
   return (
@@ -144,36 +151,45 @@ function Filters({ onApplyFilters, onErrorFilters }: FiltersProps) {
       form={form}
       layout="vertical"
       onFinish={onApplyFilters}
-      onFinishFailed={onErrorFilters}
+      initialValues={initialFilterVars}
     >
-      <Row gutter={16}>
-        <Col span={8}>
-          <Form.Item label="Owner First Name" name={["owner", "firstName"]}>
-            <Input />
-          </Form.Item>
-        </Col>
-
-        <Col span={8}>
-          <Form.Item label="Owner Last Name" name={["owner", "lastName"]}>
-            <Input />
-          </Form.Item>
-        </Col>
-
-        <Col span={8}>
-          <Form.Item
-            label="Identification Number"
-            name={"identificationNumber"}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-      </Row>
+      <Form.Item shouldUpdate>
+        {() => (
+          <Row gutter={16}>
+            <Col span={8}>
+              <Form.Item
+                label="Identification Number"
+                name={"identificationNumber"}
+              >
+                <Input
+                  suffix={
+                    form.isFieldTouched("identificationNumber") ? (
+                      <CloseCircleOutlined
+                        onClick={() =>
+                          form.resetFields(["identificationNumber"])
+                        }
+                      />
+                    ) : (
+                      <span />
+                    )
+                  }
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+        )}
+      </Form.Item>
 
       <Space>
         <Button type="primary" htmlType="submit">
           <FormattedMessage id="filters.apply" />
         </Button>
-        <Button onClick={() => form.resetFields()}>
+        <Button
+          onClick={() => {
+            form.resetFields();
+            onApplyFilters(form.getFieldsValue());
+          }}
+        >
           <FormattedMessage id="filters.reset" />
         </Button>
       </Space>
@@ -292,11 +308,15 @@ function useCardActions(item: ItemType): ReactNode[] {
 /**
  * Type of data object received when executing the query
  */
-type QueryResultType = ResultOf<typeof PET_LIST>;
+type QueryResultType = ResultOf<typeof PET_BY_IDENTIFICATION_NUMBER_LIST>;
+/**
+ * Type of variables used to filter the items list
+ */
+type QueryVariablesType = VariablesOf<typeof PET_BY_IDENTIFICATION_NUMBER_LIST>;
 /**
  * Type of the items list
  */
-type ItemListType = QueryResultType["petList"];
+type ItemListType = QueryResultType["petByIdentificationNumberList"];
 /**
  * Type of a single item
  */

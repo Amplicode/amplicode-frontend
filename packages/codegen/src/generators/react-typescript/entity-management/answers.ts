@@ -13,7 +13,7 @@ export interface EntityManagementAnswers extends ScreenAnswers {
   upsertMutation?: string,
   deleteMutation?: string,
   idField?: string,
-  filterByAttributes: Array<string[]>;
+  filterByArguments: Array<string[]>;
 }
 
 export const commonEntityManagementQuestions: StudioTemplateProperty[] =  [
@@ -74,12 +74,11 @@ export const commonEntityManagementQuestions: StudioTemplateProperty[] =  [
     }
   },
   {
-    caption: "Select attributes to filter by",
-    code: "filterByAttributes",
-    propertyType: StudioTemplatePropertyType.ATTRIBUTES_ARRAY,
+    caption: "Select arguments to filter by",
+    code: "filterByArguments",
+    propertyType: StudioTemplatePropertyType.FILTER_QUERY_ARGUMENT_ARRAY,
     relatedProperty: 'listQuery',
     required: false,
-    defaultValue: [],
     step: {
       name: "Entity List",
       order: "1",

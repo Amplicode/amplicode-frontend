@@ -116,6 +116,11 @@ export type OwnerDtoInput = {
   telephone?: InputMaybe<Scalars["String"]>;
 };
 
+export type OwnerFilterInput = {
+  firstName?: InputMaybe<Scalars["String"]>;
+  lastName?: InputMaybe<Scalars["String"]>;
+};
+
 export type OwnerInputDtoInput = {
   address?: InputMaybe<Scalars["String"]>;
   city?: InputMaybe<Scalars["String"]>;
@@ -171,8 +176,10 @@ export type PetTypeInputDtoInput = {
 export type Query = {
   __typename?: "Query";
   owner?: Maybe<OwnerDto>;
+  ownerByNamesList?: Maybe<Array<Maybe<OwnerDto>>>;
   ownerList?: Maybe<Array<Maybe<OwnerDto>>>;
   pet?: Maybe<PetDto>;
+  petByIdentificationNumberList?: Maybe<Array<Maybe<PetDto>>>;
   petList?: Maybe<Array<Maybe<PetDto>>>;
   petType?: Maybe<PetTypeDto>;
   petTypeList?: Maybe<Array<Maybe<PetTypeDto>>>;
@@ -187,8 +194,18 @@ export type QueryOwnerArgs = {
 };
 
 /** Query root */
+export type QueryOwnerByNamesListArgs = {
+  filter?: InputMaybe<OwnerFilterInput>;
+};
+
+/** Query root */
 export type QueryPetArgs = {
   id?: InputMaybe<Scalars["ID"]>;
+};
+
+/** Query root */
+export type QueryPetByIdentificationNumberListArgs = {
+  identificationNumber?: InputMaybe<Scalars["String"]>;
 };
 
 /** Query root */
@@ -307,6 +324,49 @@ export type Update_OwnerMutationVariables = Exact<{
 export type Update_OwnerMutation = {
   __typename?: "Mutation";
   updateOwner?: { __typename?: "OwnerDTO"; id?: string | null } | null;
+};
+
+export type Get_Owner_List_With_FilterQueryVariables = Exact<{
+  filter?: InputMaybe<OwnerFilterInput>;
+}>;
+
+export type Get_Owner_List_With_FilterQuery = {
+  __typename?: "Query";
+  ownerByNamesList?: Array<{
+    __typename?: "OwnerDTO";
+    id?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    city?: string | null;
+    address?: string | null;
+    telephone?: string | null;
+    email?: string | null;
+  } | null> | null;
+};
+
+export type Get_New_Pet_List_With_FilterQueryVariables = Exact<{
+  identificationNumber?: InputMaybe<Scalars["String"]>;
+}>;
+
+export type Get_New_Pet_List_With_FilterQuery = {
+  __typename?: "Query";
+  petByIdentificationNumberList?: Array<{
+    __typename?: "PetDTO";
+    id?: string | null;
+    identificationNumber?: string | null;
+    birthDate?: any | null;
+    type?: {
+      __typename?: "PetTypeDTO";
+      id?: string | null;
+      name?: string | null;
+    } | null;
+    owner?: {
+      __typename?: "OwnerDTO";
+      id?: string | null;
+      firstName?: string | null;
+      lastName?: string | null;
+    } | null;
+  } | null> | null;
 };
 
 export type Delete_PetMutationVariables = Exact<{
@@ -611,6 +671,145 @@ export const Update_OwnerDocument = {
 } as unknown as DocumentNode<
   Update_OwnerMutation,
   Update_OwnerMutationVariables
+>;
+export const Get_Owner_List_With_FilterDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Get_Owner_List_With_Filter" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "filter" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "OwnerFilterInput" },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "ownerByNamesList" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "filter" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "filter" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "firstName" } },
+                { kind: "Field", name: { kind: "Name", value: "lastName" } },
+                { kind: "Field", name: { kind: "Name", value: "city" } },
+                { kind: "Field", name: { kind: "Name", value: "address" } },
+                { kind: "Field", name: { kind: "Name", value: "telephone" } },
+                { kind: "Field", name: { kind: "Name", value: "email" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Get_Owner_List_With_FilterQuery,
+  Get_Owner_List_With_FilterQueryVariables
+>;
+export const Get_New_Pet_List_With_FilterDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Get_New_Pet_List_With_Filter" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "identificationNumber" },
+          },
+          type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "petByIdentificationNumberList" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "identificationNumber" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "identificationNumber" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "identificationNumber" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "birthDate" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "type" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "owner" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "firstName" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "lastName" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Get_New_Pet_List_With_FilterQuery,
+  Get_New_Pet_List_With_FilterQueryVariables
 >;
 export const Delete_PetDocument = {
   kind: "Document",

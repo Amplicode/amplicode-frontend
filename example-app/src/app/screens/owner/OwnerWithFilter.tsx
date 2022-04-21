@@ -2,18 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf, VariablesOf } from "@graphql-typed-document-node/core";
-import {
-  Button,
-  Card,
-  Row,
-  Col,
-  Form,
-  Input,
-  Empty,
-  List,
-  Space,
-  Spin
-} from "antd";
+import { Button, Row, Col, Form, Input, Card, Empty, Space, Spin } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import {
   DeleteOutlined,
@@ -25,55 +14,49 @@ import { useRouteMatch } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useScreens } from "@amplicode/react-core";
 import { gql } from "@amplicode/gql";
-import { PetListEditor } from "./PetListEditor";
-import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
+import { OwnerWithFilterEditor } from "./OwnerWithFilterEditor";
 import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
+import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
-import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
-const ROUTE = "pet-list";
-const REFETCH_QUERIES = ["Get_New_Pet_List_With_Filter"];
+const ROUTE = "owner-with-filter";
+const REFETCH_QUERIES = ["Get_Owner_List_With_Filter"];
 
-const PET_BY_IDENTIFICATION_NUMBER_LIST = gql(`
-  query Get_New_Pet_List_With_Filter($identificationNumber: String) {
-    petByIdentificationNumberList(identificationNumber: $identificationNumber) {
+const OWNER_BY_NAMES_LIST = gql(`
+  query Get_Owner_List_With_Filter($filter: OwnerFilterInput) {
+    ownerByNamesList(filter: $filter) {
       id
-      identificationNumber
-      birthDate
-      type {
-        id
-        name
-      }
-      owner {
-        id
-        firstName
-        lastName
-      }
+      firstName
+      lastName
+      city
+      address
+      telephone
+      email
     }
   }
 `);
 
-const DELETE_PET = gql(`
-  mutation Delete_Pet($id: ID!) {
-    deletePet(id: $id)
+const DELETE_OWNER = gql(`
+  mutation Delete_Owner($id: ID!) {
+    deleteOwner(id: $id)
   }
 `);
 
 const initialFilterVars: QueryVariablesType = {};
 
-export function PetList() {
+export function OwnerWithFilter() {
   const [filterVars, setFilterVars] = useState<QueryVariablesType>(
     initialFilterVars
   );
 
   // Load the items from server. Will be reloaded reactively if one of variable changes
-  const { loading, error, data } = useQuery(PET_BY_IDENTIFICATION_NUMBER_LIST, {
+  const { loading, error, data } = useQuery(OWNER_BY_NAMES_LIST, {
     variables: filterVars
   });
-  const items = deserializeCustomScalars(data?.petByIdentificationNumberList);
+  const items = deserializeCustomScalars(data?.ownerByNamesList);
 
   // If we have navigated here using a link, or a page has been refreshed,
   // we need to check whether the url contains the item id, and if yes - open item editor/details screen.
@@ -81,12 +64,12 @@ export function PetList() {
 
   return (
     <div className="narrow-layout">
-      <Space direction="vertical" className="list-space">
+      <Space direction="vertical" className="card-space">
         <ButtonPanel />
         <Card>
           <Filters onApplyFilters={setFilterVars} />
         </Card>
-        <ListItems items={items} loading={loading} error={error} />
+        <Cards items={items} loading={loading} error={error} />
         {/* <Pagination /> - in future */}
       </Space>
     </div>
@@ -102,8 +85,8 @@ function useItemUrl() {
 
   const openItem = useOpenItemScreen({
     route: ROUTE,
-    screenComponent: PetListEditor,
-    screenCaptionKey: "screen.PetListEditor",
+    screenComponent: OwnerWithFilterEditor,
+    screenCaptionKey: "screen.OwnerWithFilterEditor",
     refetchQueries: REFETCH_QUERIES,
     id: match?.params.id
   });
@@ -119,7 +102,7 @@ function useItemUrl() {
 }
 
 /**
- * Button panel above
+ * Button panel above the cards
  */
 function ButtonPanel() {
   const intl = useIntl();
@@ -127,8 +110,8 @@ function ButtonPanel() {
   // A callback that will open an empty editor form so that a new entity instance can be created
   const openEmptyEditor = useOpenItemScreen({
     route: ROUTE,
-    screenComponent: PetListEditor,
-    screenCaptionKey: "screen.PetListEditor",
+    screenComponent: OwnerWithFilterEditor,
+    screenCaptionKey: "screen.OwnerWithFilterEditor",
     refetchQueries: REFETCH_QUERIES
   });
 
@@ -167,16 +150,31 @@ function Filters({ onApplyFilters }: FiltersProps) {
         {() => (
           <Row gutter={16}>
             <Col span={8}>
-              <Form.Item
-                label="Identification Number"
-                name={"identificationNumber"}
-              >
+              <Form.Item label="First Name" name={["filter", "firstName"]}>
                 <Input
                   suffix={
-                    form.isFieldTouched("identificationNumber") ? (
+                    form.isFieldTouched(["filter", "firstName"]) ? (
                       <CloseCircleOutlined
                         onClick={() =>
-                          form.resetFields(["identificationNumber"])
+                          form.resetFields([["filter", "firstName"]])
+                        }
+                      />
+                    ) : (
+                      <span />
+                    )
+                  }
+                />
+              </Form.Item>
+            </Col>
+
+            <Col span={8}>
+              <Form.Item label="Last Name" name={["filter", "lastName"]}>
+                <Input
+                  suffix={
+                    form.isFieldTouched(["filter", "lastName"]) ? (
+                      <CloseCircleOutlined
+                        onClick={() =>
+                          form.resetFields([["filter", "lastName"]])
                         }
                       />
                     ) : (
@@ -207,16 +205,16 @@ function Filters({ onApplyFilters }: FiltersProps) {
   );
 }
 
-interface ListItemsProps {
+interface ItemCardsListProps {
   items?: ItemListType;
   loading?: boolean;
   error?: ApolloError;
 }
 
 /**
- * Collection of items
+ * Collection of cards, each card representing an item
  */
-function ListItems({ items, loading, error }: ListItemsProps) {
+function Cards({ items, loading, error }: ItemCardsListProps) {
   if (loading) {
     return <Spin />;
   }
@@ -230,70 +228,76 @@ function ListItems({ items, loading, error }: ListItemsProps) {
   }
 
   return (
-    <Space direction="vertical" className="list-space">
-      <List
-        itemLayout="horizontal"
-        bordered
-        dataSource={items}
-        renderItem={item => <ListItem item={item} key={item?.id} />}
-      />
+    <Space direction="vertical" className="card-space">
+      {items.map(item => (
+        <ItemCard item={item} key={item?.id} />
+      ))}
     </Space>
   );
 }
 
-function ListItem({ item }: { item: ItemType }) {
-  // Get the action buttons that will be displayed in the row
-  const rowActions: ReactNode[] = useRowActions(item);
+function ItemCard({ item }: { item: ItemType }) {
+  // Get the action buttons that will be displayed in the card
+  const cardActions: ReactNode[] = useCardActions(item);
 
   if (item == null) {
     return null;
   }
 
   return (
-    <List.Item actions={rowActions}>
-      <div className="list-wrapper">
-        <ValueWithLabel
-          key="identificationNumber"
-          label="Identification Number"
-          value={item.identificationNumber ?? undefined}
-        />
-        <ValueWithLabel
-          key="birthDate"
-          label="Birth Date"
-          value={item.birthDate?.format("LL") ?? undefined}
-        />
-        <ValueWithLabel
-          key="type"
-          label="Type"
-          value={getPetTypeDTODisplayName(item.type ?? undefined)}
-        />
-        <ValueWithLabel
-          key="owner"
-          label="Owner"
-          value={getOwnerDTODisplayName(item.owner ?? undefined)}
-        />
-      </div>
-    </List.Item>
+    <Card
+      key={item.id}
+      title={getOwnerDTODisplayName(item)}
+      actions={cardActions}
+      className="narrow-layout"
+    >
+      <ValueWithLabel
+        key="firstName"
+        label="First Name"
+        value={item.firstName ?? undefined}
+      />
+      <ValueWithLabel
+        key="lastName"
+        label="Last Name"
+        value={item.lastName ?? undefined}
+      />
+      <ValueWithLabel key="city" label="City" value={item.city ?? undefined} />
+      <ValueWithLabel
+        key="address"
+        label="Address"
+        value={item.address ?? undefined}
+      />
+      <ValueWithLabel
+        key="telephone"
+        label="Telephone"
+        value={item.telephone ?? undefined}
+      />
+      <ValueWithLabel
+        key="email"
+        label="Email"
+        value={item.email ?? undefined}
+      />
+    </Card>
   );
 }
 
 /**
- * Returns action buttons that will be displayed inside the item row.
+ * Returns action buttons that will be displayed inside the card.
  */
-function useRowActions(item: ItemType): ReactNode[] {
+function useCardActions(item: ItemType): ReactNode[] {
   const intl = useIntl();
 
-  // Callback that opens an editor either for creating or for editing an item
+  // Callback that opens a details screen or an editor either for creating or for editing an item
   // depending on whether `item` is provided
   const openItem = useOpenItemScreen({
     route: ROUTE,
-    screenComponent: PetListEditor,
-    screenCaptionKey: "screen.PetListEditor",
+    screenComponent: OwnerWithFilterEditor,
+    screenCaptionKey: "screen.OwnerWithFilterEditor",
     refetchQueries: REFETCH_QUERIES,
     id: item?.id
   });
 
-  const [runDeleteMutation] = useMutation(DELETE_PET);
+  const [runDeleteMutation] = useMutation(DELETE_OWNER);
   // Callback that deletes the item
   const deleteItem = useDeleteItem(
     item?.id,
@@ -318,15 +322,15 @@ function useRowActions(item: ItemType): ReactNode[] {
 /**
  * Type of data object received when executing the query
  */
-type QueryResultType = ResultOf<typeof PET_BY_IDENTIFICATION_NUMBER_LIST>;
+type QueryResultType = ResultOf<typeof OWNER_BY_NAMES_LIST>;
 /**
  * Type of variables used to filter the items list
  */
-type QueryVariablesType = VariablesOf<typeof PET_BY_IDENTIFICATION_NUMBER_LIST>;
+type QueryVariablesType = VariablesOf<typeof OWNER_BY_NAMES_LIST>;
 /**
  * Type of the items list
  */
-type ItemListType = QueryResultType["petByIdentificationNumberList"];
+type ItemListType = QueryResultType["ownerByNamesList"];
 /**
  * Type of a single item
  */

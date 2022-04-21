@@ -34,6 +34,19 @@ query Get_Owner_List {
 }
 `;
 
+export const ownerListQueryWithFilter = `
+query Get_Owner_List_With_Filter($filter: OwnerFilterInput) {
+  ownerByNamesList(filter: $filter) {
+    id
+    firstName
+    lastName
+    city
+    address
+    telephone
+    email
+  }
+}`;
+
 export const ownerDetailsQuery = `
 query Get_Owner($id: BigInteger) {
   owner(id: $id) {

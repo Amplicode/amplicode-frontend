@@ -8,6 +8,9 @@ import {
   <% if (mode === 'edit' || mode === 'view with details') { -%>
     useEffect,
   <% } -%>
+  <% if (withFilters) { -%>
+    useState,
+  <% } -%>
 } from "react";
 import {
   useQuery,
@@ -16,7 +19,12 @@ import {
   <% } -%>
 } from "@apollo/client";
 import {ApolloError} from "@apollo/client/errors";
-import {ResultOf} from "@graphql-typed-document-node/core";
+import {
+  ResultOf,
+  <% if (withFilters) { -%>
+    VariablesOf,
+  <% } -%>
+} from "@graphql-typed-document-node/core";
 import {
   <% if (withFilters || mode === 'edit') { -%>
     Button,
@@ -47,7 +55,7 @@ import {
 <% if (withFilters) { -%>
   import { useForm } from "antd/lib/form/Form";
 <% } -%>
-<% if (withDeleteAction || mode === 'edit' || mode === 'view with details') { -%>
+<% if (withFilters || withDeleteAction || mode === 'edit' || mode === 'view with details') { -%>
   import {
     <% if (withDeleteAction) { -%>
       DeleteOutlined,
@@ -59,13 +67,16 @@ import {
     <% if (mode === 'view with details') { -%>
       EnterOutlined,
     <% } -%>
+    <% if (filterImports.withFilterNumber || filterImports.withFilterString) { -%>
+      CloseCircleOutlined,
+    <% } -%>
   } from "@ant-design/icons";
 <% } -%>
 <% if (mode === 'edit' || mode === 'view with details') { -%>
   import {useRouteMatch} from "react-router-dom";
 <% } -%>
 import {
-<% if (mode === 'edit') { -%>
+<% if (withFilters || mode === 'edit') { -%>
 FormattedMessage,
 <% } -%>
 useIntl} from "react-intl";
@@ -106,10 +117,22 @@ const <%= MUTATION_CONST %> = gql(`
 `);
 <% } -%>
 
+<% if (withFilters) { -%>
+  const initialFilterVars: QueryVariablesType = {};
+<% } -%>
+
 export function <%= componentName %>() {
-  // Load the items from server
-  const { loading, error, data } = useQuery(<%= QUERY_CONST %>);
-  const items = deserializeCustomScalars(data?.<%= queryName %>);
+  <% if (withFilters) { -%>
+    const [filterVars, setFilterVars] = useState<QueryVariablesType>(initialFilterVars);
+
+    // Load the items from server. Will be reloaded reactively if one of variable changes
+    const { loading, error, data } = useQuery(<%= QUERY_CONST %>, { variables: filterVars });
+    const items = deserializeCustomScalars(data?.<%= queryName %>);
+  <% } else { -%>
+    // Load the items from server
+    const { loading, error, data } = useQuery(<%= QUERY_CONST %>);
+    const items = deserializeCustomScalars(data?.<%= queryName %>);
+  <% } -%>
 
   <% if (mode === 'edit' || mode === 'view with details') { -%>
     // If we have navigated here using a link, or a page has been refreshed,
@@ -125,12 +148,7 @@ export function <%= componentName %>() {
         <% } -%>
         <% if (withFilters) { -%>
           <Card>
-            <Filters
-              // TODO define when we will know about graphQL filters API
-              // eslint-disable-next-line no-console
-              onApplyFilters={filters => console.log(filters)}
-              onErrorFilters={error => console.error(error)}  
-            />
+            <Filters onApplyFilters={setFilterVars} />
           </Card>
         <% } -%>
         <ListItems
@@ -365,6 +383,12 @@ function useRowActions(item: ItemType): ReactNode[] {
  * Type of data object received when executing the query
  */
 type QueryResultType = ResultOf<typeof <%= QUERY_CONST %>>;
+<% if (withFilters) { -%>
+  /**
+  * Type of variables used to filter the items list
+  */
+  type QueryVariablesType = VariablesOf<typeof <%= QUERY_CONST %>>;
+<% } -%>
 /**
  * Type of the items list
  */

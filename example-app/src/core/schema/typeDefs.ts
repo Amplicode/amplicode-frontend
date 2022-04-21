@@ -38,6 +38,8 @@ export const typeDefs = /* GraphQL */ `
   type Query {
     owner(id: ID): OwnerDTO
     ownerList: [OwnerDTO]
+    ownerByNamesList(filter: OwnerFilterInput): [OwnerDTO]
+    petByIdentificationNumberList(identificationNumber: String): [PetDTO]
     pet(id: ID): PetDTO
     petList: [PetDTO]
     petType(id: ID): PetTypeDTO
@@ -91,6 +93,11 @@ export const typeDefs = /* GraphQL */ `
 
   # Java Type: Void
   scalar Void
+
+  input OwnerFilterInput {
+    firstName: String
+    lastName: String
+  }
 
   input OwnerDTOInput {
     address: String

@@ -9,7 +9,7 @@ const answers = btoa(JSON.stringify({
   shouldAddToMenu: true,
   listQuery: esc(petListQuery),
   detailsQuery: esc(petDetailsQuery),
-  mode: 'view with details'
+  mode: 'view with details',
 }));
 
 const readOnlyManagementCommand = `node ${amplicodegen} react-typescript:entity-management`

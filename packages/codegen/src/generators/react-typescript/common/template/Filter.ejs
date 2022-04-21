@@ -1,25 +1,46 @@
 <% if (type === 'Int' || type === 'BigInteger') { -%>
-  <Form.Item label="<%= caption %>" name={<%- include(includesPath('RenderValue'), {data: attributeName}) %>}>
-    <InputNumber precision={0} className="input-space" />
+  <Form.Item label="<%= caption %>" name={<%- include(includesPath('RenderValue'), {data: argumentName}) %>}>
+    <InputNumber
+      precision={0}
+      className="input-space"
+      suffix={
+        form.isFieldTouched(<%- include(includesPath('RenderValue'), {data: argumentName}) %>)
+          ? <CloseCircleOutlined onClick={() => form.resetFields([<%- include(includesPath('RenderValue'), {data: argumentName}) %>])} />
+          : <span />
+      }
+    />
   </Form.Item>
 <% } else if (type === 'Float' || type === 'BigDecimal') { -%>
-  <Form.Item label="<%= caption %>" name={<%- include(includesPath('RenderValue'), {data: attributeName}) %>}>
-    <InputNumber className="input-space" />
+  <Form.Item label="<%= caption %>" name={<%- include(includesPath('RenderValue'), {data: argumentName}) %>}>
+    <InputNumber
+      className="input-space"
+      suffix={
+        form.isFieldTouched(<%- include(includesPath('RenderValue'), {data: argumentName}) %>)
+          ? <CloseCircleOutlined onClick={() => form.resetFields([<%- include(includesPath('RenderValue'), {data: argumentName}) %>])} />
+          : <span />
+        }
+    />
   </Form.Item>
 <% } else if (type === 'String') { -%>
-  <Form.Item label="<%= caption %>" name={<%- include(includesPath('RenderValue'), {data: attributeName}) %>}>
-    <Input />
+  <Form.Item label="<%= caption %>" name={<%- include(includesPath('RenderValue'), {data: argumentName}) %>}>
+    <Input
+      suffix={
+        form.isFieldTouched(<%- include(includesPath('RenderValue'), {data: argumentName}) %>)
+          ? <CloseCircleOutlined onClick={() => form.resetFields([<%- include(includesPath('RenderValue'), {data: argumentName}) %>])} />
+          : <span />
+        }
+    />
   </Form.Item>
 <% } else if (type === 'Boolean') { -%>
   <Form.Item
     label="<%= caption %>"
-    name={<%- include(includesPath('RenderValue'), {data: attributeName}) %>}
+    name={<%- include(includesPath('RenderValue'), {data: argumentName}) %>}
     valuePropName="checked"
   >
     <Checkbox />
   </Form.Item>
 <% } else if (type === 'Date' || type === 'Time' || type === 'DateTime') { -%>
-  <Form.Item label="<%= caption %>" name={<%- include(includesPath('RenderValue'), {data: attributeName}) %>}>
+  <Form.Item label="<%= caption %>" name={<%- include(includesPath('RenderValue'), {data: argumentName}) %>}>
     <DatePicker.RangePicker showTime />
   </Form.Item>
 <% } -%>

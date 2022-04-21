@@ -1,5 +1,5 @@
 const { runCmdSync, esc, btoa, amplicodegen } = require("../common");
-const {petListQuery, petDetailsQuery, petDeleteMutation, petUpsertMutation} = require("../bootstrap-app/queries");
+const {petListQueryWithFilter, petDetailsQuery, petDeleteMutation, petUpsertMutation} = require("../bootstrap-app/queries");
 
 const petManagementAnswers = btoa(JSON.stringify({
   listComponentName: 'PetTable',
@@ -7,11 +7,11 @@ const petManagementAnswers = btoa(JSON.stringify({
   route: 'pet-table',
   type: 'table',
   shouldAddToMenu: true,
-  listQuery: esc(petListQuery),
+  listQuery: esc(petListQueryWithFilter),
   detailsQuery: esc(petDetailsQuery),
   deleteMutation: esc(petDeleteMutation),
   upsertMutation: esc(petUpsertMutation),
-  filterByAttributes: [['owner', 'firstName'], ['owner', 'lastName'], ['identificationNumber']],
+  filterByArguments: [['identificationNumber']],
 }));
 
 const petManagementCommand = `node ${amplicodegen} react-typescript:entity-management`
