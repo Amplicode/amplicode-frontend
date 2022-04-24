@@ -1,26 +1,35 @@
-import {getTypeDefs} from "../schema/util/getTypeDefs";
+import { getTypeDefs } from "../schema/util/getTypeDefs";
 import {
   GraphQLEnumType,
   GraphQLFieldMap,
   GraphQLInputObjectType,
-  GraphQLInterfaceType, GraphQLObjectType,
+  GraphQLInterfaceType,
+  GraphQLObjectType,
   GraphQLSchema,
   GraphQLUnionType
 } from "graphql";
-import {GraphQLInputFieldMap, GraphQLScalarType} from "graphql/type/definition";
-import {getTypeFields} from "../schema/util/getTypeFields";
-import {NullableObjectOrList, ScalarTransformer} from "./types";
-import {customScalarTransformers} from "./model/custom-scalars";
+import {
+  GraphQLInputFieldMap,
+  GraphQLScalarType
+} from "graphql/type/definition";
+import { getTypeFields } from "../schema/util/getTypeFields";
+import { NullableObjectOrList, ScalarTransformer } from "./types";
+import { customScalarTransformers } from "./model/custom-scalars";
 
 export interface TransformOptions {
   typename?: string;
-  transformers?: Record<string, ScalarTransformer>
+  transformers?: Record<string, ScalarTransformer>;
 }
 
+/**
+ * Transform data object between frontend and backend format. Two operations are supported:
+ * * `serialize` - transform frontend data before sending to backend
+ * * `deserialize` - transform data recieved from backend for frontend reperesentation
+ */
 export function transform<T extends NullableObjectOrList>(
   data: T,
-  operation: 'serialize' | 'deserialize',
-  options?: TransformOptions,
+  operation: "serialize" | "deserialize",
+  options?: TransformOptions
 ): T {
   if (data == null) {
     return data;
@@ -30,10 +39,11 @@ export function transform<T extends NullableObjectOrList>(
     return data.map(item => transform(item, operation, options)) as T;
   }
 
-  const typename = options?.typename ?? data['__typename'] as string;
+  const typename = options?.typename ?? (data["__typename"] as string);
   if (typename == null) {
-    console.warn(`Cannot determine typename.` +
-      ` Custom scalars will not be ${operation}d.`)
+    console.warn(
+      `Cannot determine typename. Custom scalars will not be ${operation}d.`
+    );
     return data;
   }
 
@@ -42,11 +52,11 @@ export function transform<T extends NullableObjectOrList>(
 
   const transformerMap = {
     ...customScalarTransformers,
-    ...options?.transformers,
+    ...options?.transformers
   };
 
   Object.keys(data as object).forEach((fieldName: string) => {
-    if (fieldName === '__typename') {
+    if (fieldName === "__typename") {
       // Leave __typename in the output so that it can be further transformed
       processedItem[fieldName] = data[fieldName];
       return;
@@ -61,8 +71,9 @@ export function transform<T extends NullableObjectOrList>(
       return;
     }
 
-    const unsupportedOperationErrorMessage = `Error when attempting to ${operation} field ${fieldName} of custom scalar type ${fieldTypeName}.`
-      + `Provided transformer does not support ${operation} operation.`;
+    const unsupportedOperationErrorMessage =
+      `Error when attempting to ${operation} field ${fieldName} of custom scalar type ${fieldTypeName}.` +
+      `Provided transformer does not support ${operation} operation.`;
 
     switch (operation) {
       case "serialize":
@@ -85,15 +96,22 @@ export function transform<T extends NullableObjectOrList>(
   return processedItem as T;
 }
 
-function getFieldTypeName(fieldName: string, typename: string, schema: GraphQLSchema): string {
-  const fields: GraphQLFieldMap<any, any> | GraphQLInputFieldMap = getTypeFields(typename, schema);
+function getFieldTypeName(
+  fieldName: string,
+  typename: string,
+  schema: GraphQLSchema
+): string {
+  const fields:
+    | GraphQLFieldMap<any, any>
+    | GraphQLInputFieldMap = getTypeFields(typename, schema);
   const fieldType = fields[fieldName].type;
-  if (fieldType instanceof GraphQLScalarType
-    || fieldType instanceof GraphQLEnumType
-    || fieldType instanceof GraphQLInputObjectType
-    || fieldType instanceof GraphQLInterfaceType
-    || fieldType instanceof GraphQLUnionType
-    || fieldType instanceof GraphQLObjectType
+  if (
+    fieldType instanceof GraphQLScalarType ||
+    fieldType instanceof GraphQLEnumType ||
+    fieldType instanceof GraphQLInputObjectType ||
+    fieldType instanceof GraphQLInterfaceType ||
+    fieldType instanceof GraphQLUnionType ||
+    fieldType instanceof GraphQLObjectType
   ) {
     return fieldType.name;
   }

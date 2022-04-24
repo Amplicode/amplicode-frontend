@@ -3,8 +3,8 @@ import { NullableObjectOrList } from "../types";
 import { transform } from "../transform";
 
 /**
- * In order to change how custom scalars are serialized,
- * make changes to {@link customScalarTransformers}.
+ * Serialize form data before sending to server - additional formatting required for custom scalar types
+ * and objects with `__typename` field.
  *
  * In addition, this function recursively removes `__typename` from data object
  * (`__typename` can be present, for example, in relation fields).
@@ -12,7 +12,7 @@ import { transform } from "../transform";
  * @param data
  * @param typename
  */
-export function serializeCustomScalars<T extends NullableObjectOrList>(
+export function serialize<T extends NullableObjectOrList>(
   data: T,
   typename?: string
 ): T {

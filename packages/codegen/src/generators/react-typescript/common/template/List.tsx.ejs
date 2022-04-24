@@ -84,7 +84,7 @@ import {ValueWithLabel} from "<%= relDirShift %>core/crud/ValueWithLabel";
   import {useDeleteItem} from "<%= relDirShift %>core/crud/useDeleteItem";
 <% } -%>
 import {RequestFailedError} from "<%= relDirShift %>core/crud/RequestFailedError";
-import {deserializeCustomScalars} from "../../../core/transform/model/deserializeCustomScalars";
+import {deserialize} from "../../../core/transform/model/deserialize";
 <% attributes.filter(a => a.isRelationField).forEach(attribute => { -%>
   import { get<%= capitalizeFirst(attribute.type) %>DisplayName } from '<%= relDirShift %>core/display-name/get<%= capitalizeFirst(attribute.type) %>DisplayName';
 <% }) -%>
@@ -109,7 +109,7 @@ const <%= MUTATION_CONST %> = gql(`
 export function <%= componentName %>() {
   // Load the items from server
   const { loading, error, data } = useQuery(<%= QUERY_CONST %>);
-  const items = deserializeCustomScalars(data?.<%= queryName %>);
+  const items = deserialize(data?.<%= queryName %>);
 
   <% if (mode === 'edit' || mode === 'view with details') { -%>
     // If we have navigated here using a link, or a page has been refreshed,

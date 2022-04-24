@@ -21,6 +21,11 @@ export interface TransformOptions {
   transformers?: Record<string, ScalarTransformer>;
 }
 
+/**
+ * Transform data object between frontend and backend format. Two operations are supported:
+ * * `serialize` - transform frontend data before sending to backend
+ * * `deserialize` - transform data recieved from backend for frontend reperesentation
+ */
 export function transform<T extends NullableObjectOrList>(
   data: T,
   operation: "serialize" | "deserialize",
@@ -37,8 +42,7 @@ export function transform<T extends NullableObjectOrList>(
   const typename = options?.typename ?? (data["__typename"] as string);
   if (typename == null) {
     console.warn(
-      `Cannot determine typename.` +
-        ` Custom scalars will not be ${operation}d.`
+      `Cannot determine typename. Custom scalars will not be ${operation}d.`
     );
     return data;
   }
