@@ -82,6 +82,9 @@ export const AppMenu = observer(() => {
       <Menu.Item title={getCaption("pet-table")} key="pet-table">
         {getCaption("pet-table")}
       </Menu.Item>
+      <Menu.Item title={getCaption("scalars-cards")} key="scalars-cards">
+        {getCaption("scalars-cards")}
+      </Menu.Item>
       <Menu.Item
         title={getCaption("read-only-owner-cards")}
         key="read-only-owner-cards"
