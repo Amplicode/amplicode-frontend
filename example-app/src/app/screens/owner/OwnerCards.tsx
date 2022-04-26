@@ -13,7 +13,7 @@ import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
-import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
+import { deserialize } from "../../../core/transform/model/deserialize";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
 const ROUTE = "owner-cards";
@@ -42,7 +42,7 @@ const DELETE_OWNER = gql(`
 export function OwnerCards() {
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
-  const items = deserializeCustomScalars(data?.ownerList);
+  const items = deserialize(data?.ownerList);
 
   // If we have navigated here using a link, or a page has been refreshed,
   // we need to check whether the url contains the item id, and if yes - open item editor/details screen.

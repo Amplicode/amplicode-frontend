@@ -9,7 +9,7 @@ import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODispla
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
-import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
+import { deserialize } from "../../../core/transform/model/deserialize";
 
 const PET = gql(`
   query Get_Pet($id: ID) {
@@ -48,7 +48,7 @@ export function ReadOnlyPetCardsDetails({ id }: ReadOnlyPetCardsDetailsProps) {
     }
   });
 
-  const item = deserializeCustomScalars(data?.pet);
+  const item = deserialize(data?.pet);
 
   const goToParentScreen = useCallback(() => {
     history.push("."); // Remove entity id part from url

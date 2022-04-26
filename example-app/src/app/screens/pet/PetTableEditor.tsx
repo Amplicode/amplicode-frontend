@@ -23,7 +23,7 @@ import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 import { useCloseNestedScreen } from "../../../core/crud/useCloseNestedScreen";
 import { FormattedMessage, useIntl } from "react-intl";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
-import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
+import { deserialize } from "../../../core/transform/model/deserialize";
 
 const PET = gql(`
   query Get_Pet($id: ID) {
@@ -222,7 +222,7 @@ function useLoadItem(id?: string) {
   // Get the received item, if any
   useEffect(() => {
     if (data?.pet != null) {
-      setItem(deserializeCustomScalars(data?.pet));
+      setItem(deserialize(data?.pet));
     }
   }, [data, setItem]);
 

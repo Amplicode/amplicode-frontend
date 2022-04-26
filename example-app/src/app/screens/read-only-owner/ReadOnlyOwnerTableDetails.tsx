@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import { useScreens } from "@amplicode/react-core";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
-import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
+import { deserialize } from "../../../core/transform/model/deserialize";
 
 const OWNER = gql(`
   query Get_Owner($id: ID) {
@@ -43,7 +43,7 @@ export function ReadOnlyOwnerTableDetails({
     }
   });
 
-  const item = deserializeCustomScalars(data?.owner);
+  const item = deserialize(data?.owner);
 
   const goToParentScreen = useCallback(() => {
     history.push("."); // Remove entity id part from url
