@@ -48,10 +48,14 @@ export type Mutation = {
   deleteOwner?: Maybe<Scalars["Void"]>;
   deletePet?: Maybe<Scalars["Void"]>;
   deletePetType?: Maybe<Scalars["Void"]>;
+  deleteScalarsTestEntity?: Maybe<Scalars["Void"]>;
+  deleteTag?: Maybe<Scalars["Void"]>;
   deleteVisit?: Maybe<Scalars["Void"]>;
   updateOwner?: Maybe<OwnerDto>;
   updatePet?: Maybe<PetDto>;
   updatePetType?: Maybe<PetTypeDto>;
+  updateScalarsTestEntity?: Maybe<ScalarsTestEntity>;
+  updateTag?: Maybe<TagDto>;
   updateVisit?: Maybe<VisitDto>;
 };
 
@@ -68,6 +72,16 @@ export type MutationDeletePetArgs = {
 /** Mutation root */
 export type MutationDeletePetTypeArgs = {
   id: Scalars["ID"];
+};
+
+/** Mutation root */
+export type MutationDeleteScalarsTestEntityArgs = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+/** Mutation root */
+export type MutationDeleteTagArgs = {
+  id?: InputMaybe<Scalars["ID"]>;
 };
 
 /** Mutation root */
@@ -88,6 +102,16 @@ export type MutationUpdatePetArgs = {
 /** Mutation root */
 export type MutationUpdatePetTypeArgs = {
   input?: InputMaybe<PetTypeInputDtoInput>;
+};
+
+/** Mutation root */
+export type MutationUpdateScalarsTestEntityArgs = {
+  input?: InputMaybe<ScalarsTestEntityInput>;
+};
+
+/** Mutation root */
+export type MutationUpdateTagArgs = {
+  input?: InputMaybe<TagInputDtoInput>;
 };
 
 /** Mutation root */
@@ -137,6 +161,7 @@ export type PetDto = {
   id?: Maybe<Scalars["ID"]>;
   identificationNumber?: Maybe<Scalars["String"]>;
   owner?: Maybe<OwnerDto>;
+  tags?: Maybe<Array<Maybe<TagDto>>>;
   type?: Maybe<PetTypeDto>;
 };
 
@@ -145,6 +170,7 @@ export type PetDtoInput = {
   id?: InputMaybe<Scalars["ID"]>;
   identificationNumber?: InputMaybe<Scalars["String"]>;
   owner?: InputMaybe<OwnerDtoInput>;
+  tags?: InputMaybe<Array<InputMaybe<TagDtoInput>>>;
   type?: InputMaybe<PetTypeDtoInput>;
 };
 
@@ -153,6 +179,7 @@ export type PetInputDtoInput = {
   id?: InputMaybe<Scalars["ID"]>;
   identificationNumber?: InputMaybe<Scalars["String"]>;
   owner?: InputMaybe<OwnerDtoInput>;
+  tags?: InputMaybe<Array<InputMaybe<TagDtoInput>>>;
   type?: InputMaybe<PetTypeDtoInput>;
 };
 
@@ -177,12 +204,17 @@ export type Query = {
   __typename?: "Query";
   owner?: Maybe<OwnerDto>;
   ownerByNamesList?: Maybe<Array<Maybe<OwnerDto>>>;
+  ownerByNamesSeparateMethodsList?: Maybe<Array<Maybe<OwnerDto>>>;
   ownerList?: Maybe<Array<Maybe<OwnerDto>>>;
   pet?: Maybe<PetDto>;
   petByIdentificationNumberList?: Maybe<Array<Maybe<PetDto>>>;
   petList?: Maybe<Array<Maybe<PetDto>>>;
   petType?: Maybe<PetTypeDto>;
   petTypeList?: Maybe<Array<Maybe<PetTypeDto>>>;
+  scalarsTestEntity?: Maybe<ScalarsTestEntity>;
+  scalarsTestEntityList?: Maybe<Array<Maybe<ScalarsTestEntity>>>;
+  tag?: Maybe<TagDto>;
+  tagList?: Maybe<Array<Maybe<TagDto>>>;
   userInfo?: Maybe<UserInfo>;
   visit?: Maybe<VisitDto>;
   visitList?: Maybe<Array<Maybe<VisitDto>>>;
@@ -195,6 +227,11 @@ export type QueryOwnerArgs = {
 
 /** Query root */
 export type QueryOwnerByNamesListArgs = {
+  filter?: InputMaybe<OwnerFilterInput>;
+};
+
+/** Query root */
+export type QueryOwnerByNamesSeparateMethodsListArgs = {
   filter?: InputMaybe<OwnerFilterInput>;
 };
 
@@ -214,8 +251,57 @@ export type QueryPetTypeArgs = {
 };
 
 /** Query root */
+export type QueryScalarsTestEntityArgs = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+/** Query root */
+export type QueryTagArgs = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+/** Query root */
 export type QueryVisitArgs = {
   id?: InputMaybe<Scalars["ID"]>;
+};
+
+export type ScalarsTestEntity = {
+  __typename?: "ScalarsTestEntity";
+  bigDecimal?: Maybe<Scalars["BigDecimal"]>;
+  bigInt?: Maybe<Scalars["BigInteger"]>;
+  bool?: Maybe<Scalars["Boolean"]>;
+  floatTest?: Maybe<Scalars["Float"]>;
+  id?: Maybe<Scalars["ID"]>;
+  intTest?: Maybe<Scalars["Int"]>;
+  longTest?: Maybe<Scalars["Long"]>;
+  string?: Maybe<Scalars["String"]>;
+};
+
+export type ScalarsTestEntityInput = {
+  bigDecimal?: InputMaybe<Scalars["BigDecimal"]>;
+  bigInt?: InputMaybe<Scalars["BigInteger"]>;
+  bool?: InputMaybe<Scalars["Boolean"]>;
+  floatTest?: InputMaybe<Scalars["Float"]>;
+  id?: InputMaybe<Scalars["ID"]>;
+  intTest?: InputMaybe<Scalars["Int"]>;
+  longTest?: InputMaybe<Scalars["Long"]>;
+  string?: InputMaybe<Scalars["String"]>;
+};
+
+export type TagDto = {
+  __typename?: "TagDTO";
+  id?: Maybe<Scalars["ID"]>;
+  name?: Maybe<Scalars["String"]>;
+};
+
+export type TagDtoInput = {
+  id?: InputMaybe<Scalars["ID"]>;
+  name?: InputMaybe<Scalars["String"]>;
+};
+
+export type TagInputDtoInput = {
+  id?: InputMaybe<Scalars["ID"]>;
+  name?: InputMaybe<Scalars["String"]>;
 };
 
 export type UserInfo = {
@@ -410,6 +496,57 @@ export type Update_PetMutationVariables = Exact<{
 export type Update_PetMutation = {
   __typename?: "Mutation";
   updatePet?: { __typename?: "PetDTO"; id?: string | null } | null;
+};
+
+export type Get_Scalars_ListQueryVariables = Exact<{ [key: string]: never }>;
+
+export type Get_Scalars_ListQuery = {
+  __typename?: "Query";
+  scalarsTestEntityList?: Array<{
+    __typename?: "ScalarsTestEntity";
+    id?: string | null;
+    intTest?: number | null;
+    floatTest?: number | null;
+    string?: string | null;
+    bool?: boolean | null;
+  } | null> | null;
+};
+
+export type Delete_ScalarsMutationVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type Delete_ScalarsMutation = {
+  __typename?: "Mutation";
+  deleteScalarsTestEntity?: any | null;
+};
+
+export type Get_ScalarsQueryVariables = Exact<{
+  id?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type Get_ScalarsQuery = {
+  __typename?: "Query";
+  scalarsTestEntity?: {
+    __typename?: "ScalarsTestEntity";
+    id?: string | null;
+    intTest?: number | null;
+    floatTest?: number | null;
+    string?: string | null;
+    bool?: boolean | null;
+  } | null;
+};
+
+export type Update_ScalarsMutationVariables = Exact<{
+  input?: InputMaybe<ScalarsTestEntityInput>;
+}>;
+
+export type Update_ScalarsMutation = {
+  __typename?: "Mutation";
+  updateScalarsTestEntity?: {
+    __typename?: "ScalarsTestEntity";
+    id?: string | null;
+  } | null;
 };
 
 export const Get_Owner_ListDocument = {
@@ -974,3 +1111,174 @@ export const Update_PetDocument = {
     },
   ],
 } as unknown as DocumentNode<Update_PetMutation, Update_PetMutationVariables>;
+export const Get_Scalars_ListDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Get_Scalars_List" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "scalarsTestEntityList" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "intTest" } },
+                { kind: "Field", name: { kind: "Name", value: "floatTest" } },
+                { kind: "Field", name: { kind: "Name", value: "string" } },
+                { kind: "Field", name: { kind: "Name", value: "bool" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Get_Scalars_ListQuery,
+  Get_Scalars_ListQueryVariables
+>;
+export const Delete_ScalarsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Delete_Scalars" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "deleteScalarsTestEntity" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Delete_ScalarsMutation,
+  Delete_ScalarsMutationVariables
+>;
+export const Get_ScalarsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Get_Scalars" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "scalarsTestEntity" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "intTest" } },
+                { kind: "Field", name: { kind: "Name", value: "floatTest" } },
+                { kind: "Field", name: { kind: "Name", value: "string" } },
+                { kind: "Field", name: { kind: "Name", value: "bool" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<Get_ScalarsQuery, Get_ScalarsQueryVariables>;
+export const Update_ScalarsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Update_Scalars" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "input" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "ScalarsTestEntityInput" },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "updateScalarsTestEntity" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "input" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "input" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Update_ScalarsMutation,
+  Update_ScalarsMutationVariables
+>;

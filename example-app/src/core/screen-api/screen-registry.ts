@@ -11,6 +11,7 @@ import { ReadOnlyPetCards } from "../../app/screens/read-only-pet/ReadOnlyPetCar
 import { ReadOnlyOwnerList } from "../../app/screens/read-only-owner/ReadOnlyOwnerList";
 import { ReadOnlyOwnerTable } from "../../app/screens/read-only-owner/ReadOnlyOwnerTable";
 import { ReadOnlyOwnerCards } from "../../app/screens/read-only-owner/ReadOnlyOwnerCards";
+import { TestScalarsCards } from "../../app/screens/scalars/TestScalarsCards";
 import { PetTable } from "../../app/screens/pet/PetTable";
 import { PetList } from "../../app/screens/pet/PetList";
 import { PetCards } from "../../app/screens/pet/PetCards";
@@ -59,6 +60,11 @@ screenStore.registerScreen("pet-list", {
 screenStore.registerScreen("pet-table", {
   component: PetTable,
   captionKey: "screen.PetTable"
+});
+
+screenStore.registerScreen("scalars-cards", {
+  component: TestScalarsCards,
+  captionKey: "screen.TestScalarsCards"
 });
 
 screenStore.registerScreen("read-only-owner-cards", {

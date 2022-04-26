@@ -1,3 +1,37 @@
+/* Scalars */
+
+exports.scalarsListQuery = `query Get_Scalars_List {
+    scalarsTestEntityList {
+      id
+      intTest
+      floatTest
+      string
+      bool
+    }
+  }`;
+
+exports.scalarsDeleteMutation = `mutation Delete_Scalars($id: ID!) {
+    deleteScalarsTestEntity(id: $id)
+  }`;
+
+exports.scalarsDetailsQuery = `query Get_Scalars($id: ID) {
+    scalarsTestEntity(id: $id) {
+      id
+      intTest
+      floatTest
+      string
+      bool
+    }
+  }`;
+
+exports.scalarsUpsertMutation = `mutation Update_Scalars($input: ScalarsTestEntityInput) {
+    updateScalarsTestEntity(input: $input) {
+      id
+    }
+  }`;
+
+/* Owner */
+
 exports.ownerListQuery = `query Get_Owner_List {
     ownerList {
       id
@@ -44,6 +78,7 @@ exports.ownerUpsertMutation = `mutation Update_Owner($input: OwnerInputDTOInput)
     }
   }`;
 
+/* Pet */
 
 exports.petListQuery = `query Get_Pet_List {
     petList {

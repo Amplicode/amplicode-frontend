@@ -13,6 +13,7 @@ runCmdSync('node generate-management/owner-management-cards-with-filter.js', './
 runCmdSync('node generate-management/pet-management-cards.js', './scripts');
 runCmdSync('node generate-management/pet-management-list.js', './scripts');
 runCmdSync('node generate-management/pet-management-table.js', './scripts');
+runCmdSync('node generate-management/test-scalars-management-cards.js', './scripts');
 
 runCmdSync('node generate-readonly/owner-cards-readonly.js', './scripts');
 runCmdSync('node generate-readonly/owner-table-readonly.js', './scripts');

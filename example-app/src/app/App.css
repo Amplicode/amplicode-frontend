@@ -64,3 +64,7 @@
 .list-wrapper {
     flex-grow: 1;
 }
+
+form.ant-form .ant-input-number {
+    width: 200px;
+}

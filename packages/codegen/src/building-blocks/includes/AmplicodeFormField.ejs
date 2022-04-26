@@ -6,9 +6,14 @@
         <% } -%>
 >
   <% if (attr.type === 'Int') { -%>
-    <InputNumber precision={0} />
+    <InputNumber
+      type={"number"}
+      precision={0}
+      max={2147483647}
+      min={-2147483648}
+    />
   <% } else if (attr.type === 'Float') { -%>
-    <InputNumber />
+    <InputNumber type={"number"} />
   <% } else if (attr.type === 'String') { -%>
     <Input />
   <% } else if (attr.type === 'Boolean') { -%>

@@ -18,6 +18,8 @@ import { ReadOnlyOwnerTable } from "../app/screens/read-only-owner/ReadOnlyOwner
 import { ReadOnlyOwnerTableDetails } from "../app/screens/read-only-owner/ReadOnlyOwnerTableDetails";
 import { ReadOnlyOwnerCards } from "../app/screens/read-only-owner/ReadOnlyOwnerCards";
 import { ReadOnlyOwnerCardsDetails } from "../app/screens/read-only-owner/ReadOnlyOwnerCardsDetails";
+import { TestScalarsCards } from "../app/screens/scalars/TestScalarsCards";
+import { TestScalarsCardsEditor } from "../app/screens/scalars/TestScalarsCardsEditor";
 import { PetTable } from "../app/screens/pet/PetTable";
 import { PetTableEditor } from "../app/screens/pet/PetTableEditor";
 import { PetList } from "../app/screens/pet/PetList";
@@ -79,6 +81,12 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/PetTable">
         <PetTable />
+      </ComponentPreview>
+      <ComponentPreview path="/TestScalarsCardsEditor">
+        <TestScalarsCardsEditor />
+      </ComponentPreview>
+      <ComponentPreview path="/TestScalarsCards">
+        <TestScalarsCards />
       </ComponentPreview>
       <ComponentPreview path="/ReadOnlyOwnerCardsDetails">
         <ReadOnlyOwnerCardsDetails />

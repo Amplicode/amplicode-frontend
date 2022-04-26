@@ -50,6 +50,8 @@
   "screen.PetList": "Pet List",
   "screen.PetTableEditor": "Pet Table Editor",
   "screen.PetTable": "Pet Table",
+  "screen.TestScalarsCardsEditor": "Test Scalars Cards Editor",
+  "screen.TestScalarsCards": "Test Scalars Cards",
   "screen.ReadOnlyOwnerCardsDetails": "Read Only Owner Cards Details",
   "screen.ReadOnlyOwnerCards": "Read Only Owner Cards",
   "screen.ReadOnlyOwnerTableDetails": "Read Only Owner Table Details",
