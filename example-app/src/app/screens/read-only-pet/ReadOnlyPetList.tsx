@@ -12,7 +12,7 @@ import { ReadOnlyPetListDetails } from "./ReadOnlyPetListDetails";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
-import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
+import { deserialize } from "../../../core/transform/model/deserialize";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
@@ -40,7 +40,7 @@ const PET_LIST = gql(`
 export function ReadOnlyPetList() {
   // Load the items from server
   const { loading, error, data } = useQuery(PET_LIST);
-  const items = deserializeCustomScalars(data?.petList);
+  const items = deserialize(data?.petList);
 
   // If we have navigated here using a link, or a page has been refreshed,
   // we need to check whether the url contains the item id, and if yes - open item editor/details screen.

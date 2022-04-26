@@ -9,7 +9,7 @@ import { useIntl } from "react-intl";
 import { message } from "antd";
 import { GraphQLError } from "graphql/error/GraphQLError";
 import { useCallback } from "react";
-import { serializeCustomScalars } from "../transform/model/serializeCustomScalars";
+import { serialize } from "../transform/model/serialize";
 import { useCloseNestedScreen } from "./useCloseNestedScreen";
 
 /**
@@ -96,7 +96,7 @@ export function useSubmitEditor<TData>(
        * Otherwise a new instance will be created.
        */
       const input = {
-        ...serializeCustomScalars(formFieldValues, typename),
+        ...serialize(formFieldValues, typename),
         id: id
       };
 

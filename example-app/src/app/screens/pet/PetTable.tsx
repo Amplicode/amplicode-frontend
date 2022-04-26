@@ -24,7 +24,7 @@ import { PetTableEditor } from "./PetTableEditor";
 import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
-import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
+import { deserialize } from "../../../core/transform/model/deserialize";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
@@ -90,7 +90,7 @@ export function PetTable() {
   const { loading, error, data } = useQuery(PET_BY_IDENTIFICATION_NUMBER_LIST, {
     variables: filterVars
   });
-  const items = deserializeCustomScalars(data?.petByIdentificationNumberList);
+  const items = deserialize(data?.petByIdentificationNumberList);
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
