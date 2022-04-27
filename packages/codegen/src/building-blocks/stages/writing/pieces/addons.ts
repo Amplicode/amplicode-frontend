@@ -10,6 +10,7 @@ import jscodeshift, {
 } from "jscodeshift";
 import path from "path";
 
+// @deprecated - The code is not used. We keep it as the example of working with the jscodeshift library
 export function addAddonImport(
   gen: YeomanGenerator,
   dirShift: string,
@@ -29,6 +30,7 @@ export function addAddonImport(
   injectAddonImport(gen, dirShift, addonsAst, addonPackageName);
 }
 
+// @deprecated - The code is not used. We keep it as the example of working with the jscodeshift library
 export function addAddonPalette(
   gen: YeomanGenerator,
   dirShift: string,
@@ -47,6 +49,7 @@ export function addAddonPalette(
   gen.fs.write(appPalettePath, updatedAppPaletteContentns);
 }
 
+// @deprecated - The code is not used. We keep it as the example of working with the jscodeshift library
 export function removeAddonImport (
   gen: YeomanGenerator,
   dirShift: string,
@@ -72,6 +75,7 @@ export function removeAddonImport (
   gen.fs.write(getAddonsPath(gen, dirShift), addonImport.toSource());
 }
 
+// @deprecated - The code is not used. We keep it as the example of working with the jscodeshift library
 export function removeAddonsPalette (
   gen: YeomanGenerator,
   dirShift: string,
@@ -109,7 +113,7 @@ export function removeAddonsPalette (
   gen.fs.write(getPalettePath(gen, dirShift), addonImport.toSource());
 }
 
-export function getAddonsAST(
+function getAddonsAST(
   gen: YeomanGenerator,
   dirShift: string,
 ) : Collection<any> | null {
@@ -133,7 +137,7 @@ function injectAddonImport(
   gen.fs.write(getAddonsPath(gen, dirShift), transformedAddonsContent);
 }
 
-export function getAddonsPath(
+function getAddonsPath(
   gen: YeomanGenerator,
   dirShift: string,
 ) {
@@ -148,14 +152,14 @@ function transformAddonsContent(content: string, addonPackageName: string) {
     ${content}`;
 }
 
-export function isAddonAlreadyImported(ast: Collection<any>, addonPackageName: string): boolean {
+function isAddonAlreadyImported(ast: Collection<any>, addonPackageName: string): boolean {
   return ast
     .find(ImportDeclaration)
     .filter(path => path.node.source.value === addonPackageName)
     .length > 0
 }
 
-export function getPalettePath(
+function getPalettePath(
   gen: YeomanGenerator,
   dirShift: string,
 ) {
@@ -167,7 +171,7 @@ export function getPalettePath(
   );
 }
 
-export function getPaletteAST(
+function getPaletteAST(
   gen: YeomanGenerator,
   dirShift: string,
 ) : Collection<any> | null {
@@ -181,7 +185,7 @@ export function getPaletteAST(
   return tsxParser(paletteContents);
 }
 
-export function injectAddonPalette(
+function injectAddonPalette(
   appPaletteContents: string,
   addonPackageName: string,
   paletteComponentName: string
@@ -199,11 +203,11 @@ export function injectAddonPalette(
   return paletteAst.toSource();
 }
 
-export function createAddonPaletteJSX(paletteComponentName: string) {
+function createAddonPaletteJSX(paletteComponentName: string) {
   return `<${paletteComponentName}/>`;
 }
 
-export function isPaletteAlreadyImported(ast: Collection<any>, paletteComponentName: string): boolean {
+function isPaletteAlreadyImported(ast: Collection<any>, paletteComponentName: string): boolean {
   return ast.find(ImportDeclaration)
   .find(ImportSpecifier)
   .filter(path => path.node.imported.name === paletteComponentName)

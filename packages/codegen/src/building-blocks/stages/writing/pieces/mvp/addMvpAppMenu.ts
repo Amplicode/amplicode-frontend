@@ -52,12 +52,6 @@ function transformAddMenuItem(source: string, route: string): string {
   const tsxParser = j.withParser('tsx');
   const appMenuAST = tsxParser(source);
 
-  const addonsMenu = appMenuAST.findJSXElements("AddonsMenu");
-  if(addonsMenu.length) {
-    addonsMenu.insertBefore(stringLiteral(menuItemJSX));
-    return addonsMenu.toSource();
-  }
-
   const menu = appMenuAST.findJSXElements('Menu');
   const [{value: {children}}] = menu.paths();
   children?.push(stringLiteral(menuItemJSX));

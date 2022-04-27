@@ -5,7 +5,6 @@ import { useCallback } from "react";
 import { observer } from "mobx-react";
 import { useLocation } from "react-router-dom";
 import { useScreens, getScreenKey, screenStore } from "@amplicode/react-core";
-import { AddonsMenu } from "@amplicode/react-antd";
 
 export const AppMenu = observer(() => {
   const intl = useIntl();
@@ -48,6 +47,14 @@ export const AppMenu = observer(() => {
 
   return (
     <Menu onClick={handleClick} selectedKeys={activeItem ? [activeItem] : []}>
+      {/*If you don't need Screen API (tabs / breadcrumbs) you can just use React Router components*/}
+      {/*<Menu.Item
+          title='Component1'
+          key='component1'
+        >
+          <Link to='/component1'>Component 1</Link>
+        </Menu.Item>
+      */}
       <Menu.Item icon={<HomeOutlined />} title={getCaption("home")} key="home">
         {getCaption("home")}
       </Menu.Item>
@@ -150,14 +157,6 @@ export const AppMenu = observer(() => {
       >
         {getCaption("pet-type-lookup-cards")}
       </Menu.Item>
-      <AddonsMenu key={"addonsMenu"} />
-      {/*If you don't need Screen API (tabs / breadcrumbs) you can just use React Router components*/}
-      {/*<Menu.Item*/}
-      {/*  title='Component1'*/}
-      {/*  key='component1'*/}
-      {/*>*/}
-      {/*  <Link to='/component1'>Component 1</Link>*/}
-      {/*</Menu.Item>*/}
     </Menu>
   );
 });
