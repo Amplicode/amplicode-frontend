@@ -5,6 +5,5 @@ export * from './components/entity-lookup-field/EntityLookupField';
 export * from './components/tab-heading/TabHeading';
 export * from './components/hotkeys/HotkeyInfo';
 export * from './components/hotkeys/HotkeyInfoModalButton';
-export * from './components/menu/AddonsMenu';
 export * from './components/date/DatePicker';
 export * from './components/date/TimePicker';

@@ -24,7 +24,6 @@ import {
 import { DevSupport } from "@react-buddy/ide-toolbox";
 import { ComponentPreviews, useInitial } from "./dev";
 import { defaultHotkeyConfigs } from "./core/hotkeys/hotkey-configs";
-import "./core/addons/addons";
 import { I18nProvider } from "./core/i18n/providers/I18nProvider";
 import { ServerErrorInterceptor } from "./core/error/ServerErrorInterceptor";
 import { ServerErrorEvents } from "./core/error/ServerErrorEvents";

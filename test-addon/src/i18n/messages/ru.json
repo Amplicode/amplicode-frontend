@@ -1,0 +1,6 @@
+{
+  "screen.TestAddonScreen1": "Экран тест аддона 1",
+  "screen.TestAddonScreen2": "Экран тест аддона 2",
+  "TestAddon.TestAddonScreen1Caption": "Экран тест аддона 1 текст",
+  "TestAddon.TestAddonScreen2Caption": "Экран тест аддона 2 текст"
+}

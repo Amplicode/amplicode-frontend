@@ -24,3 +24,5 @@ export * from './menu/MenuStore';
 
 export * from './i18n/I18nStore';
 export * from './i18n/I18nStoreContext';
+
+export * from './addon/AddonMetadata';
