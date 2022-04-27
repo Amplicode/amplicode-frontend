@@ -344,11 +344,11 @@ export type Get_Owner_List_With_FilterQuery = {
   } | null> | null;
 };
 
-export type Get_New_Pet_List_With_FilterQueryVariables = Exact<{
+export type Get_Pet_List_With_FilterQueryVariables = Exact<{
   identificationNumber?: InputMaybe<Scalars["String"]>;
 }>;
 
-export type Get_New_Pet_List_With_FilterQuery = {
+export type Get_Pet_List_With_FilterQuery = {
   __typename?: "Query";
   petByIdentificationNumberList?: Array<{
     __typename?: "PetDTO";
@@ -729,13 +729,13 @@ export const Get_Owner_List_With_FilterDocument = {
   Get_Owner_List_With_FilterQuery,
   Get_Owner_List_With_FilterQueryVariables
 >;
-export const Get_New_Pet_List_With_FilterDocument = {
+export const Get_Pet_List_With_FilterDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "query",
-      name: { kind: "Name", value: "Get_New_Pet_List_With_Filter" },
+      name: { kind: "Name", value: "Get_Pet_List_With_Filter" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
@@ -808,8 +808,8 @@ export const Get_New_Pet_List_With_FilterDocument = {
     },
   ],
 } as unknown as DocumentNode<
-  Get_New_Pet_List_With_FilterQuery,
-  Get_New_Pet_List_With_FilterQueryVariables
+  Get_Pet_List_With_FilterQuery,
+  Get_Pet_List_With_FilterQueryVariables
 >;
 export const Delete_PetDocument = {
   kind: "Document",

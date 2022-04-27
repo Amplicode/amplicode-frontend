@@ -14,7 +14,7 @@ import { useRouteMatch } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useScreens } from "@amplicode/react-core";
 import { gql } from "@amplicode/gql";
-import { OwnerWithFilterEditor } from "./OwnerWithFilterEditor";
+import { OwnerCardsWithFilterEditor } from "./OwnerCardsWithFilterEditor";
 import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
@@ -22,7 +22,7 @@ import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserializeCustomScalars } from "../../../core/transform/model/deserializeCustomScalars";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
-const ROUTE = "owner-with-filter";
+const ROUTE = "owner-cards-with-filter";
 const REFETCH_QUERIES = ["Get_Owner_List_With_Filter"];
 
 const OWNER_BY_NAMES_LIST = gql(`
@@ -47,7 +47,7 @@ const DELETE_OWNER = gql(`
 
 const initialFilterVars: QueryVariablesType = {};
 
-export function OwnerWithFilter() {
+export function OwnerCardsWithFilter() {
   const [filterVars, setFilterVars] = useState<QueryVariablesType>(
     initialFilterVars
   );
@@ -85,8 +85,8 @@ function useItemUrl() {
 
   const openItem = useOpenItemScreen({
     route: ROUTE,
-    screenComponent: OwnerWithFilterEditor,
-    screenCaptionKey: "screen.OwnerWithFilterEditor",
+    screenComponent: OwnerCardsWithFilterEditor,
+    screenCaptionKey: "screen.OwnerCardsWithFilterEditor",
     refetchQueries: REFETCH_QUERIES,
     id: match?.params.id
   });
@@ -110,8 +110,8 @@ function ButtonPanel() {
   // A callback that will open an empty editor form so that a new entity instance can be created
   const openEmptyEditor = useOpenItemScreen({
     route: ROUTE,
-    screenComponent: OwnerWithFilterEditor,
-    screenCaptionKey: "screen.OwnerWithFilterEditor",
+    screenComponent: OwnerCardsWithFilterEditor,
+    screenCaptionKey: "screen.OwnerCardsWithFilterEditor",
     refetchQueries: REFETCH_QUERIES
   });
 
@@ -291,8 +291,8 @@ function useCardActions(item: ItemType): ReactNode[] {
   // depending on whether `item` is provided
   const openItem = useOpenItemScreen({
     route: ROUTE,
-    screenComponent: OwnerWithFilterEditor,
-    screenCaptionKey: "screen.OwnerWithFilterEditor",
+    screenComponent: OwnerCardsWithFilterEditor,
+    screenCaptionKey: "screen.OwnerCardsWithFilterEditor",
     refetchQueries: REFETCH_QUERIES,
     id: item?.id
   });
