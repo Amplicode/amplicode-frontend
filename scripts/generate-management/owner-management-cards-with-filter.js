@@ -2,9 +2,9 @@ const { runCmdSync, esc, btoa, amplicodegen } = require("../common");
 const {ownerListQueryWithFilter, ownerDetailsQuery, ownerDeleteMutation, ownerUpsertMutation} = require("../bootstrap-app/queries");
 
 const ownerManagementAnswers = btoa(JSON.stringify({
-  listComponentName: 'OwnerWithFilter',
-  itemComponentName: 'OwnerWithFilterEditor',
-  route: 'owner-with-filter',
+  listComponentName: 'OwnerCardsWithFilter',
+  itemComponentName: 'OwnerCardsWithFilterEditor',
+  route: 'owner-cards-with-filter',
   shouldAddToMenu: true,
   listQuery: esc(ownerListQueryWithFilter),
   detailsQuery: esc(ownerDetailsQuery),

@@ -43,7 +43,7 @@ const UPDATE_OWNER = gql(`
   }
 `);
 
-export interface OwnerWithFilterEditorProps<TData = any> {
+export interface OwnerCardsWithFilterEditorProps<TData = any> {
   /**
    * id of entity instance to be loaded when editing an instance.
    * Will be `undefined` when creating an instance.
@@ -59,10 +59,10 @@ export interface OwnerWithFilterEditorProps<TData = any> {
   refetchQueries?: RefetchQueries<TData>;
 }
 
-export function OwnerWithFilterEditor({
+export function OwnerCardsWithFilterEditor({
   id,
   refetchQueries
-}: OwnerWithFilterEditorProps<QueryResultType>) {
+}: OwnerCardsWithFilterEditorProps<QueryResultType>) {
   // Load the item if `id` is provided
   const { item, itemLoading, itemError } = useLoadItem(id);
 

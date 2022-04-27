@@ -9,7 +9,7 @@ runCmdSync('node generate-app.js', './scripts');
 runCmdSync('node generate-management/owner-management-cards.js', './scripts');
 runCmdSync('node generate-management/owner-management-list.js', './scripts');
 runCmdSync('node generate-management/owner-management-table.js', './scripts');
-runCmdSync('node generate-management/owner-management-with-filter.js', './scripts');
+runCmdSync('node generate-management/owner-management-cards-with-filter.js', './scripts');
 runCmdSync('node generate-management/pet-management-cards.js', './scripts');
 runCmdSync('node generate-management/pet-management-list.js', './scripts');
 runCmdSync('node generate-management/pet-management-table.js', './scripts');

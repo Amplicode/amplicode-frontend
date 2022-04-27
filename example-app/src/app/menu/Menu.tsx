@@ -61,10 +61,10 @@ export const AppMenu = observer(() => {
         {getCaption("owner-table")}
       </Menu.Item>
       <Menu.Item
-        title={getCaption("owner-with-filter")}
-        key="owner-with-filter"
+        title={getCaption("owner-cards-with-filter")}
+        key="owner-cards-with-filter"
       >
-        {getCaption("owner-with-filter")}
+        {getCaption("owner-cards-with-filter")}
       </Menu.Item>
       <Menu.Item title={getCaption("pet-cards")} key="pet-cards">
         {getCaption("pet-cards")}

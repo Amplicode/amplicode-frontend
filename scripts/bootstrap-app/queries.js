@@ -62,7 +62,7 @@ exports.petListQuery = `query Get_Pet_List {
     }
   }`;
 
-exports.petListQueryWithFilter = `query Get_New_Pet_List_With_Filter($identificationNumber: String) {
+exports.petListQueryWithFilter = `query Get_Pet_List_With_Filter($identificationNumber: String) {
     petByIdentificationNumberList(identificationNumber: $identificationNumber) {
       id
       identificationNumber

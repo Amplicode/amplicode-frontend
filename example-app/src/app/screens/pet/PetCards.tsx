@@ -25,10 +25,10 @@ import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeD
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
 const ROUTE = "pet-cards";
-const REFETCH_QUERIES = ["Get_New_Pet_List_With_Filter"];
+const REFETCH_QUERIES = ["Get_Pet_List_With_Filter"];
 
 const PET_BY_IDENTIFICATION_NUMBER_LIST = gql(`
-  query Get_New_Pet_List_With_Filter($identificationNumber: String) {
+  query Get_Pet_List_With_Filter($identificationNumber: String) {
     petByIdentificationNumberList(identificationNumber: $identificationNumber) {
       id
       identificationNumber
