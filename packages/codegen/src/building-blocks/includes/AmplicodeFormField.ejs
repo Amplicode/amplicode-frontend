@@ -33,6 +33,12 @@
     />
   <% } else if (attr.type === 'Date') { %>
     <DatePicker />
+  <% } else if (attr.type === 'BigInteger') { %>
+    <InputNumber type={"number"} precision={0} stringMode={true}/>
+  <% } else if (attr.type === 'Long') { %>
+    <InputNumber type={"number"} precision={0} stringMode={true}/>
+  <% } else if (attr.type === 'BigDecimal') { %>
+    <InputNumber type={"number"} stringMode={true}/>
   <% } else { -%>
     <Input />
   <% } -%>

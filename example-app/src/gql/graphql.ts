@@ -509,6 +509,9 @@ export type Get_Scalars_ListQuery = {
     floatTest?: number | null;
     string?: string | null;
     bool?: boolean | null;
+    bigInt?: any | null;
+    longTest?: any | null;
+    bigDecimal?: any | null;
   } | null> | null;
 };
 
@@ -534,6 +537,9 @@ export type Get_ScalarsQuery = {
     floatTest?: number | null;
     string?: string | null;
     bool?: boolean | null;
+    bigInt?: any | null;
+    longTest?: any | null;
+    bigDecimal?: any | null;
   } | null;
 };
 
@@ -1132,6 +1138,9 @@ export const Get_Scalars_ListDocument = {
                 { kind: "Field", name: { kind: "Name", value: "floatTest" } },
                 { kind: "Field", name: { kind: "Name", value: "string" } },
                 { kind: "Field", name: { kind: "Name", value: "bool" } },
+                { kind: "Field", name: { kind: "Name", value: "bigInt" } },
+                { kind: "Field", name: { kind: "Name", value: "longTest" } },
+                { kind: "Field", name: { kind: "Name", value: "bigDecimal" } },
               ],
             },
           },
@@ -1223,6 +1232,9 @@ export const Get_ScalarsDocument = {
                 { kind: "Field", name: { kind: "Name", value: "floatTest" } },
                 { kind: "Field", name: { kind: "Name", value: "string" } },
                 { kind: "Field", name: { kind: "Name", value: "bool" } },
+                { kind: "Field", name: { kind: "Name", value: "bigInt" } },
+                { kind: "Field", name: { kind: "Name", value: "longTest" } },
+                { kind: "Field", name: { kind: "Name", value: "bigDecimal" } },
               ],
             },
           },

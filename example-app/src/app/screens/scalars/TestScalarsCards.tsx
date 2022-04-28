@@ -27,6 +27,9 @@ const SCALARS_TEST_ENTITY_LIST = gql(`
       floatTest
       string
       bool
+      bigInt
+      longTest
+      bigDecimal
     }
   }
 `);
@@ -176,6 +179,21 @@ function ItemCard({ item }: { item: ItemType }) {
         value={item.string ?? undefined}
       />
       <ValueWithLabel key="bool" label="Bool" value={item.bool ?? undefined} />
+      <ValueWithLabel
+        key="bigInt"
+        label="Big Int"
+        value={item.bigInt ?? undefined}
+      />
+      <ValueWithLabel
+        key="longTest"
+        label="Long Test"
+        value={item.longTest ?? undefined}
+      />
+      <ValueWithLabel
+        key="bigDecimal"
+        label="Big Decimal"
+        value={item.bigDecimal ?? undefined}
+      />
     </Card>
   );
 }
