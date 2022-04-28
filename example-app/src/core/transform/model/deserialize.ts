@@ -2,10 +2,10 @@ import { NullableObjectOrList } from "../types";
 import { transform } from "../transform";
 
 /**
- * Used to process fetched data (for example, data received from `useQuery`).
- * Apollo Client deserializes built-in scalars, but not custom scalars, therefore data will contain
- * custom scalar fields in serialized format. These fields will be deserialized using the functions
- * in {@link customScalarTransformers}.
+ * Adjust backend data for frontend usage.
+ *
+ * In order to change how custom scalars are deserialized,
+ * make changes to {@link customScalarTransformers}
  *
  * @param data
  * @param typename

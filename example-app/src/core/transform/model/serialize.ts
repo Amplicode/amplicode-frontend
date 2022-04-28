@@ -3,10 +3,9 @@ import { NullableObjectOrList } from "../types";
 import { transform } from "../transform";
 
 /**
- * Used to process data that is intended to be sent to backend (for example, a mutation input).
- * Apollo Client serializes built-in scalars, but not custom scalars. 
- * This function will serialize custom scalar fields using the functions
- * in {@link customScalarTransformers}.
+ * Serialize form data before sending to server - additional formatting required for custom scalar types
+ * and objects with `__typename` field.
+ *
  * In addition, this function recursively removes `__typename` from data object
  * (`__typename` can be present, for example, in relation fields).
  *
