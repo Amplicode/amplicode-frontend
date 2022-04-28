@@ -706,13 +706,74 @@ Beside mode, there are additional options for template config:
   `deleteMutationString` provided
 * `withItemComponent` - defines if item component defined and passed in `itemComponentName`
 
+### Localization
+Based on `react-intl` library.
+
+#### I18nProvider
+Contains all the logic for setting up localization. `I18nProvider` consists of `I18nStoreProvider`, `StaticMessagesProvider`, `I18nApiProvider` and other addon messages Providers.
+
+##### I18nProvider tsx tree:
+```jsx
+<I18nStoreProvider localeConfigs={localeConfigs} defaultLocale="en">
+ <AnyAddonMessagesProvider> // Provide static messages specific to an addon
+  <StaticMessagesProvider>
+    <I18nApiProvider>
+     {children}
+```
+
+#### I18nStoreProvider
+Providing `I18nStore`. Place for configure available locales.
+
+#### I18nStore
+Mobx store using for working with localization messages and available locales.
+
+#### StaticMessagesProvider
+Loads static messages to `I18nStore`.
+
+#### I18nApiProvider
+Connects `I18nStore` with `react-intl` library.
+
+#### Addon metadata.tsx
+The file is in the root of an addon. Contain information on how to mount addon Providers, menu items, and screens.
+```jsx
+import Component from "...";
+
+export default {
+  mountedComponents: [
+    {
+      element: <ComponentThatLoadsSomething prop1="value1" />, // Using JSX provides possibility to setup props
+      mountingPoint: 'ROOT', // Studio knows that it resolves to src/index.tsx 
+      below: 'ApolloProvider'
+    },
+    {
+      element: <ComponentThatProvidesAddonSpecificI18nMessages>,
+      mountingPoint: 'I18N', // Studio knows that it resolves to src/core/i18n/I18nProvider.tsx (or perhaps to a different path depending on frontend version)
+      above: 'StaticI18nMessagesProvider'
+    }
+  ],
+  screenItems: [
+    {
+      key: 'screen-id',
+      captionKey: "screenCaptionId",
+      component: <ComponentScreen />
+    }
+  ],
+  menuItems: [
+    {
+      key: 'addon-name_some-key-unique-within-addon',
+      screenId: 'screen-id' // Optional, defaults to key value
+    }
+  ] // NOTE: This is a simple case with a single menu item, but we should also support nested menu items here. I.e. an addon can add a top level menu item "User Management" with second level menu items "Item1", "Item2",  "Item3"
+} as AddonMetadata;
+```
+
 ### Link Lookup Screen with One To Many Form Field
 
 At this moment we don't have ability to link lookup screens with one-to-many fields in the editor due to app generation. 
 Lookup screens are created separately with `entity-lookup` generator. When example app is bootstrapped 
 such screens could be mapped to lookup field using code below (example based on `PetListEditor.tsx`) 
 
-```
+```jsx
 import {PetTypeLookup} from "../lookup/PetTypeLookup";
 import {OwnerLookup} from "../lookup/OwnerLookup";
 
