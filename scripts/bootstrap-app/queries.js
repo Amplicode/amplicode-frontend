@@ -7,6 +7,9 @@ exports.scalarsListQuery = `query Get_Scalars_List {
       floatTest
       string
       bool
+      bigInt
+      longTest
+      bigDecimal
     }
   }`;
 
@@ -21,6 +24,9 @@ exports.scalarsDetailsQuery = `query Get_Scalars($id: ID) {
       floatTest
       string
       bool
+      bigInt
+      longTest
+      bigDecimal
     }
   }`;
 

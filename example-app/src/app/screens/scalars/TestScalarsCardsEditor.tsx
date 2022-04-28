@@ -31,6 +31,9 @@ const SCALARS_TEST_ENTITY = gql(`
       floatTest
       string
       bool
+      bigInt
+      longTest
+      bigDecimal
     }
   }
 `);
@@ -159,6 +162,18 @@ function FormFields() {
         initialValue={false}
       >
         <Checkbox />
+      </Form.Item>
+
+      <Form.Item name="bigInt" label="Big Int">
+        <InputNumber type={"number"} precision={0} stringMode={true} />
+      </Form.Item>
+
+      <Form.Item name="longTest" label="Long Test">
+        <InputNumber type={"number"} precision={0} stringMode={true} />
+      </Form.Item>
+
+      <Form.Item name="bigDecimal" label="Big Decimal">
+        <InputNumber type={"number"} stringMode={true} />
       </Form.Item>
     </>
   );
