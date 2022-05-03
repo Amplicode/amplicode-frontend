@@ -42,6 +42,10 @@ export type Scalars = {
   Void: any;
 };
 
+export type DateInput = {
+  fastTime: Scalars["Long"];
+};
+
 /** Mutation root */
 export type Mutation = {
   __typename?: "Mutation";
@@ -270,22 +274,36 @@ export type ScalarsTestEntity = {
   bigDecimal?: Maybe<Scalars["BigDecimal"]>;
   bigInt?: Maybe<Scalars["BigInteger"]>;
   bool?: Maybe<Scalars["Boolean"]>;
+  date?: Maybe<Scalars["Date"]>;
   floatTest?: Maybe<Scalars["Float"]>;
   id?: Maybe<Scalars["ID"]>;
   intTest?: Maybe<Scalars["Int"]>;
+  localDate?: Maybe<Scalars["Date"]>;
+  localDateTime?: Maybe<Scalars["LocalDateTime"]>;
+  localTime?: Maybe<Scalars["LocalTime"]>;
   longTest?: Maybe<Scalars["Long"]>;
+  offsetDateTime?: Maybe<Scalars["DateTime"]>;
+  offsetTime?: Maybe<Scalars["Time"]>;
   string?: Maybe<Scalars["String"]>;
+  url?: Maybe<Scalars["Url"]>;
 };
 
 export type ScalarsTestEntityInput = {
   bigDecimal?: InputMaybe<Scalars["BigDecimal"]>;
   bigInt?: InputMaybe<Scalars["BigInteger"]>;
   bool?: InputMaybe<Scalars["Boolean"]>;
+  date?: InputMaybe<DateInput>;
   floatTest?: InputMaybe<Scalars["Float"]>;
   id?: InputMaybe<Scalars["ID"]>;
   intTest?: InputMaybe<Scalars["Int"]>;
+  localDate?: InputMaybe<Scalars["Date"]>;
+  localDateTime?: InputMaybe<Scalars["LocalDateTime"]>;
+  localTime?: InputMaybe<Scalars["LocalTime"]>;
   longTest?: InputMaybe<Scalars["Long"]>;
+  offsetDateTime?: InputMaybe<Scalars["DateTime"]>;
+  offsetTime?: InputMaybe<Scalars["Time"]>;
   string?: InputMaybe<Scalars["String"]>;
+  url?: InputMaybe<Scalars["Url"]>;
 };
 
 export type TagDto = {
@@ -512,6 +530,7 @@ export type Get_Scalars_ListQuery = {
     bigInt?: any | null;
     longTest?: any | null;
     bigDecimal?: any | null;
+    localDate?: any | null;
   } | null> | null;
 };
 
@@ -540,6 +559,7 @@ export type Get_ScalarsQuery = {
     bigInt?: any | null;
     longTest?: any | null;
     bigDecimal?: any | null;
+    localDate?: any | null;
   } | null;
 };
 
@@ -1141,6 +1161,7 @@ export const Get_Scalars_ListDocument = {
                 { kind: "Field", name: { kind: "Name", value: "bigInt" } },
                 { kind: "Field", name: { kind: "Name", value: "longTest" } },
                 { kind: "Field", name: { kind: "Name", value: "bigDecimal" } },
+                { kind: "Field", name: { kind: "Name", value: "localDate" } },
               ],
             },
           },
@@ -1235,6 +1256,7 @@ export const Get_ScalarsDocument = {
                 { kind: "Field", name: { kind: "Name", value: "bigInt" } },
                 { kind: "Field", name: { kind: "Name", value: "longTest" } },
                 { kind: "Field", name: { kind: "Name", value: "bigDecimal" } },
+                { kind: "Field", name: { kind: "Name", value: "localDate" } },
               ],
             },
           },

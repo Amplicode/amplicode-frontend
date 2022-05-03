@@ -63,11 +63,18 @@ export const typeDefs = /* GraphQL */ `
     bigDecimal: BigDecimal
     bigInt: BigInteger
     bool: Boolean
+    date: Date
     floatTest: Float
     id: ID
     intTest: Int
+    localDate: Date
+    localDateTime: LocalDateTime
+    localTime: LocalTime
     longTest: Long
+    offsetDateTime: DateTime
+    offsetTime: Time
     string: String
+    url: Url
   }
 
   type TagDTO {
@@ -119,6 +126,10 @@ export const typeDefs = /* GraphQL */ `
 
   # Java Type: Void
   scalar Void
+
+  input DateInput {
+    fastTime: Long!
+  }
 
   input OwnerDTOInput {
     address: String
@@ -177,11 +188,18 @@ export const typeDefs = /* GraphQL */ `
     bigDecimal: BigDecimal
     bigInt: BigInteger
     bool: Boolean
+    date: DateInput
     floatTest: Float
     id: ID
     intTest: Int
+    localDate: Date
+    localDateTime: LocalDateTime
+    localTime: LocalTime
     longTest: Long
+    offsetDateTime: DateTime
+    offsetTime: Time
     string: String
+    url: Url
   }
 
   input TagDTOInput {
