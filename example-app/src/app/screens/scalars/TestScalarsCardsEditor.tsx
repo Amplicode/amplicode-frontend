@@ -36,6 +36,7 @@ const SCALARS_TEST_ENTITY = gql(`
       longTest
       bigDecimal
       localDate
+      localDateTime
     }
   }
 `);
@@ -180,6 +181,10 @@ function FormFields() {
 
       <Form.Item name="localDate" label="Local Date">
         <DatePicker />
+      </Form.Item>
+
+      <Form.Item name="localDateTime" label="Local Date Time">
+        <DatePicker showTime={{ format: 'HH:mm:ss' }} />
       </Form.Item>
     </>
   );

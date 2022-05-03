@@ -11,6 +11,7 @@ exports.scalarsListQuery = `query Get_Scalars_List {
       longTest
       bigDecimal
       localDate
+      localDateTime
     }
   }`;
 
@@ -29,6 +30,7 @@ exports.scalarsDetailsQuery = `query Get_Scalars($id: ID) {
       longTest
       bigDecimal
       localDate
+      localDateTime
     }
   }`;
 
