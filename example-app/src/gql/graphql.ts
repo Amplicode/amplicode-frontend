@@ -531,6 +531,7 @@ export type Get_Scalars_ListQuery = {
     longTest?: any | null;
     bigDecimal?: any | null;
     localDate?: any | null;
+    localDateTime?: any | null;
   } | null> | null;
 };
 
@@ -560,6 +561,7 @@ export type Get_ScalarsQuery = {
     longTest?: any | null;
     bigDecimal?: any | null;
     localDate?: any | null;
+    localDateTime?: any | null;
   } | null;
 };
 
@@ -1162,6 +1164,10 @@ export const Get_Scalars_ListDocument = {
                 { kind: "Field", name: { kind: "Name", value: "longTest" } },
                 { kind: "Field", name: { kind: "Name", value: "bigDecimal" } },
                 { kind: "Field", name: { kind: "Name", value: "localDate" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "localDateTime" },
+                },
               ],
             },
           },
@@ -1257,6 +1263,10 @@ export const Get_ScalarsDocument = {
                 { kind: "Field", name: { kind: "Name", value: "longTest" } },
                 { kind: "Field", name: { kind: "Name", value: "bigDecimal" } },
                 { kind: "Field", name: { kind: "Name", value: "localDate" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "localDateTime" },
+                },
               ],
             },
           },
