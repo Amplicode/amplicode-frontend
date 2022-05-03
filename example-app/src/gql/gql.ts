@@ -25,11 +25,11 @@ const documents = {
     graphql.Get_PetDocument,
   "\n  mutation Update_Pet($input: PetInputDTOInput) {\n    updatePet(input: $input) {\n      id\n    }\n  }\n":
     graphql.Update_PetDocument,
-  "\n  query Get_Scalars_List {\n    scalarsTestEntityList {\n      id\n      intTest\n      floatTest\n      string\n      bool\n      bigInt\n      longTest\n      bigDecimal\n    }\n  }\n":
+  "\n  query Get_Scalars_List {\n    scalarsTestEntityList {\n      id\n      intTest\n      floatTest\n      string\n      bool\n      bigInt\n      longTest\n      bigDecimal\n      localDate\n    }\n  }\n":
     graphql.Get_Scalars_ListDocument,
   "\n  mutation Delete_Scalars($id: ID!) {\n    deleteScalarsTestEntity(id: $id)\n  }\n":
     graphql.Delete_ScalarsDocument,
-  "\n  query Get_Scalars($id: ID) {\n    scalarsTestEntity(id: $id) {\n      id\n      intTest\n      floatTest\n      string\n      bool\n      bigInt\n      longTest\n      bigDecimal\n    }\n  }\n":
+  "\n  query Get_Scalars($id: ID) {\n    scalarsTestEntity(id: $id) {\n      id\n      intTest\n      floatTest\n      string\n      bool\n      bigInt\n      longTest\n      bigDecimal\n      localDate\n    }\n  }\n":
     graphql.Get_ScalarsDocument,
   "\n  mutation Update_Scalars($input: ScalarsTestEntityInput) {\n    updateScalarsTestEntity(input: $input) {\n      id\n    }\n  }\n":
     graphql.Update_ScalarsDocument,
@@ -69,14 +69,14 @@ export function gql(
   source: "\n  mutation Update_Pet($input: PetInputDTOInput) {\n    updatePet(input: $input) {\n      id\n    }\n  }\n"
 ): typeof documents["\n  mutation Update_Pet($input: PetInputDTOInput) {\n    updatePet(input: $input) {\n      id\n    }\n  }\n"];
 export function gql(
-  source: "\n  query Get_Scalars_List {\n    scalarsTestEntityList {\n      id\n      intTest\n      floatTest\n      string\n      bool\n      bigInt\n      longTest\n      bigDecimal\n    }\n  }\n"
-): typeof documents["\n  query Get_Scalars_List {\n    scalarsTestEntityList {\n      id\n      intTest\n      floatTest\n      string\n      bool\n      bigInt\n      longTest\n      bigDecimal\n    }\n  }\n"];
+  source: "\n  query Get_Scalars_List {\n    scalarsTestEntityList {\n      id\n      intTest\n      floatTest\n      string\n      bool\n      bigInt\n      longTest\n      bigDecimal\n      localDate\n    }\n  }\n"
+): typeof documents["\n  query Get_Scalars_List {\n    scalarsTestEntityList {\n      id\n      intTest\n      floatTest\n      string\n      bool\n      bigInt\n      longTest\n      bigDecimal\n      localDate\n    }\n  }\n"];
 export function gql(
   source: "\n  mutation Delete_Scalars($id: ID!) {\n    deleteScalarsTestEntity(id: $id)\n  }\n"
 ): typeof documents["\n  mutation Delete_Scalars($id: ID!) {\n    deleteScalarsTestEntity(id: $id)\n  }\n"];
 export function gql(
-  source: "\n  query Get_Scalars($id: ID) {\n    scalarsTestEntity(id: $id) {\n      id\n      intTest\n      floatTest\n      string\n      bool\n      bigInt\n      longTest\n      bigDecimal\n    }\n  }\n"
-): typeof documents["\n  query Get_Scalars($id: ID) {\n    scalarsTestEntity(id: $id) {\n      id\n      intTest\n      floatTest\n      string\n      bool\n      bigInt\n      longTest\n      bigDecimal\n    }\n  }\n"];
+  source: "\n  query Get_Scalars($id: ID) {\n    scalarsTestEntity(id: $id) {\n      id\n      intTest\n      floatTest\n      string\n      bool\n      bigInt\n      longTest\n      bigDecimal\n      localDate\n    }\n  }\n"
+): typeof documents["\n  query Get_Scalars($id: ID) {\n    scalarsTestEntity(id: $id) {\n      id\n      intTest\n      floatTest\n      string\n      bool\n      bigInt\n      longTest\n      bigDecimal\n      localDate\n    }\n  }\n"];
 export function gql(
   source: "\n  mutation Update_Scalars($input: ScalarsTestEntityInput) {\n    updateScalarsTestEntity(input: $input) {\n      id\n    }\n  }\n"
 ): typeof documents["\n  mutation Update_Scalars($input: ScalarsTestEntityInput) {\n    updateScalarsTestEntity(input: $input) {\n      id\n    }\n  }\n"];
