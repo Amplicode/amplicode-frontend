@@ -4,7 +4,7 @@ import {GraphQLSchema, printSchema} from "graphql";
 
 export type AppTemplateModel = AppAnswers & {
   schemaPath?: string
-  typeDefs?: string
+  schema?: string
 };
 
 export const deriveTemplateModel = async (
@@ -16,7 +16,6 @@ export const deriveTemplateModel = async (
   return {
     ... answers,
     schemaPath: schemaPath?.replace(/\\/g, "/"),
-    // TODO: For now the whole schema is bundled. We should only bundle type defs.
-    typeDefs: schema ? printSchema(schema, { commentDescriptions: true }) : undefined
+    schema: schema ? printSchema(schema, { commentDescriptions: true }) : undefined
   };
 }

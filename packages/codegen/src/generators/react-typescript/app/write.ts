@@ -1,7 +1,7 @@
 import {YeomanGenerator} from "../../../building-blocks/YeomanGenerator";
 import {amplicodeWrite} from "../../../building-blocks/stages/writing/amplicodeWrite"
 import { AppTemplateModel } from "./template-model";
-import {writeTypeDefs} from "../common/writeTypeDefs";
+import {writeGraphQLSchema} from "../common/writeGraphQLSchema";
 
 export async function writeApp(
   templateModel: AppTemplateModel, gen: YeomanGenerator
@@ -9,5 +9,5 @@ export async function writeApp(
   amplicodeWrite(templateModel, gen);
   gen.fs.move(gen.destinationPath('_gitignore'), gen.destinationPath('.gitignore'));
 
-  writeTypeDefs(gen, templateModel);
+  writeGraphQLSchema(gen, templateModel);
 }

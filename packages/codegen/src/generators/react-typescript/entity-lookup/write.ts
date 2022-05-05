@@ -4,7 +4,7 @@ import {writeDisplayNameFunction} from "../../../building-blocks/stages/writing/
 import {writeDisplayNameFunctionsForRelations} from "../../../building-blocks/stages/writing/pieces/display-name/writeDisplayNameFunctionsForRelations";
 import {EntityLookupTemplateModel} from "./template-model";
 import path from "path";
-import {writeTypeDefs} from "../common/writeTypeDefs";
+import {writeGraphQLSchema} from "../common/writeGraphQLSchema";
 
 export async function writeEntityLookup(
   templateModel: EntityLookupTemplateModel, gen: YeomanGenerator
@@ -24,5 +24,5 @@ export async function writeEntityLookup(
 
   await writeDisplayNameFunctionsForRelations(gen, templateModel.attributes, templateModel.relDirShift);
 
-  writeTypeDefs(gen, templateModel, path.join('..', templateModel.relDirShift));
+  writeGraphQLSchema(gen, templateModel, path.join('..', templateModel.relDirShift));
 }
