@@ -10,6 +10,7 @@ export interface AddAppMenuInput {
   dirShift: string;
   route: string;
   componentName: string;
+  menuItemName?: string;
   pathToComponent?: string;
 }
 
@@ -18,12 +19,13 @@ export function addMvpAppMenu({
   dirShift,
   route,
   componentName,
+  menuItemName,
   pathToComponent
 }: AddAppMenuInput) {
-
   const destRoot = gen.destinationRoot();
   const srcDir = path.join(destRoot, dirShift ? dirShift : '');
-  const componentPath = pathToComponent ?? `${getRelativePath(path.join(srcDir, 'core/screen-api'), destRoot)}/${componentName}`;
+
+  // Add menu item
 
   const appMenuPath = path.join(srcDir, 'app', 'menu', 'Menu.tsx');
   if (!gen.fs.exists(appMenuPath)) {
@@ -31,23 +33,30 @@ export function addMvpAppMenu({
     return;
   }
   const appMenuContents = gen.fs.read(appMenuPath);
-  const appMenuTransformed = transformAddMenuItem(appMenuContents, route);
+  const appMenuTransformed = transformAddMenuItem(appMenuContents, route, componentName, menuItemName);
   gen.fs.write(appMenuPath, appMenuTransformed);
+  gen.log(`✓ Menu item added for ${componentName}`);
 
-  const screenRegistryFilePath = path.join(srcDir, 'core', 'screen-api', 'screen-registry.ts');
-  if (!gen.fs.exists(screenRegistryFilePath)) {
-    gen.log('Unable to add component to menu: screen registry not found');
+  // Add route
+
+  const routeConfigPath = path.join(srcDir, 'app', 'routes', 'AppRoutes.tsx');
+  if (!gen.fs.exists(routeConfigPath)) {
+    gen.log('Unable to add component: route config not found');
     return;
   }
-  const screenRegistryFileContent = gen.fs.read(screenRegistryFilePath);
-  let screenRegistryTransformed;
-  screenRegistryTransformed = transformAddScreenItem(screenRegistryFileContent, route, componentName);
-  screenRegistryTransformed = transformAddScreenImport(screenRegistryTransformed, componentName, componentPath);
-  gen.fs.write(screenRegistryFilePath, screenRegistryTransformed);
+  const routeConfigFileContent = gen.fs.read(routeConfigPath);
+  let routeConfigTransformed;
+  routeConfigTransformed = transformAddRouteItem(routeConfigFileContent, route, componentName);
+  gen.log(`✓ Route item added for ${componentName}`);
+
+  const componentPath = pathToComponent ?? `${getRelativePath(path.join(srcDir, 'app/routes'), destRoot)}/${componentName}`;
+  routeConfigTransformed = transformAddRouteImport(routeConfigTransformed, componentName, componentPath);
+  gen.fs.write(routeConfigPath, routeConfigTransformed);
+  gen.log(`✓ Route import for ${componentName}`);
 }
 
-function transformAddMenuItem(source: string, route: string): string {
-  const menuItemJSX = createMenuItemJSX(route);
+function transformAddMenuItem(source: string, route: string, componentName: string, menuItemName?: string): string {
+  const menuItemJSX = createMenuItemJSX(route, componentName, menuItemName);
 
   const tsxParser = j.withParser('tsx');
   const appMenuAST = tsxParser(source);
@@ -59,7 +68,7 @@ function transformAddMenuItem(source: string, route: string): string {
   return appMenuAST.toSource();
 }
 
-export function transformAddScreenImport(
+export function transformAddRouteImport(
   source: string, 
   componentName: string, 
   componentPath: string, 
@@ -88,40 +97,39 @@ export function transformAddScreenImport(
   return ast.toSource();
 }
 
-export function transformAddScreenItem(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function transformAddRouteItem(
   source: string, route: string, componentName: string
 ): string {
+  const tsxParser = j.withParser('tsx');
+  const routeConfigAST = tsxParser(source);
 
-  const tsParser = j.withParser('ts');
-  const screenRegistryAST = tsParser(source);
+  const menu = routeConfigAST.findJSXElements('Routes');
+  const [{value: {children}}] = menu.paths();
+  const routeItemJSX = createRouteItemJSX(route, componentName);
+  children?.push(stringLiteral(routeItemJSX));
 
-  const content = screenRegistryAST.toSource();
-
-  const registerScreen = `
-    screenStore.registerScreen('${route}', {
-      component: ${componentName},
-      captionKey: 'screen.${componentName}'   
-    });
-  `;
-  
-  const updatedContent = `
-    ${content} 
-    ${registerScreen}
-  `;
-  
-  return updatedContent;
+  return routeConfigAST.toSource();
 }
 
 
-function createMenuItemJSX(key: string) {
+function createMenuItemJSX(route: string, componentName: string, menuItemName?: string) {
   return `
-    <Menu.Item
-      title={getCaption('${key}')}
-      key='${key}'
+    <Menu.Item title={intl.formatMessage({id: 'screen.${componentName}'})}
+               key={'/${route}'}
     >
-      {getCaption('${key}')}
+      <Link to={'/${route}'}>
+        <FormattedMessage id={'screen.${menuItemName ?? componentName}'} />
+      </Link>
     </Menu.Item>
+  `;
+}
+
+function createRouteItemJSX(route: string, componentName: string) {
+  return `
+    <Route path="${route}">
+      <Route index element={<${componentName}/>} />
+      <Route path=":recordId" element={<${componentName}/>} />
+    </Route>
   `;
 }
 

@@ -1,20 +1,16 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import { useQuery } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import { Empty, List, Space, Spin } from "antd";
 import { EnterOutlined } from "@ant-design/icons";
-import { useRouteMatch } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { useScreens } from "@amplicode/react-core";
 import { gql } from "@amplicode/gql";
-import { ReadOnlyOwnerListDetails } from "./ReadOnlyOwnerListDetails";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
-
-const ROUTE = "read-only-owner-list";
 
 const OWNER_LIST = gql(`
   query Get_Owner_List {
@@ -35,10 +31,6 @@ export function ReadOnlyOwnerList() {
   const { loading, error, data } = useQuery(OWNER_LIST);
   const items = deserialize(data?.ownerList);
 
-  // If we have navigated here using a link, or a page has been refreshed,
-  // we need to check whether the url contains the item id, and if yes - open item editor/details screen.
-  useItemUrl();
-
   return (
     <div className="narrow-layout">
       <Space direction="vertical" className="list-space">
@@ -47,30 +39,6 @@ export function ReadOnlyOwnerList() {
       </Space>
     </div>
   );
-}
-
-/**
- * Checks whether the url contains the item id, and if yes - open item editor/details screen.
- */
-function useItemUrl() {
-  const screens = useScreens();
-  const match = useRouteMatch<{ id: string }>(`/${ROUTE}/:id`);
-
-  const openItem = useOpenItemScreen({
-    route: ROUTE,
-    screenComponent: ReadOnlyOwnerListDetails,
-    screenCaptionKey: "screen.ReadOnlyOwnerListDetails",
-    id: match?.params.id
-  });
-
-  useEffect(() => {
-    if (
-      screens.activeTab?.breadcrumbs.length === 1 &&
-      match?.params.id != null
-    ) {
-      openItem();
-    }
-  });
 }
 
 interface ListItemsProps {
@@ -159,20 +127,13 @@ function ListItem({ item }: { item: ItemType }) {
 function useRowActions(item: ItemType): ReactNode[] {
   const intl = useIntl();
 
-  // Callback that opens an editor either for creating or for editing an item
-  // depending on whether `item` is provided
-  const openItem = useOpenItemScreen({
-    route: ROUTE,
-    screenComponent: ReadOnlyOwnerListDetails,
-    screenCaptionKey: "screen.ReadOnlyOwnerListDetails",
-    id: item?.id
-  });
+  const navigate = useNavigate();
 
   return [
     <EnterOutlined
       key="open"
       title={intl.formatMessage({ id: "common.open" })}
-      onClick={openItem}
+      onClick={() => navigate(item?.id)}
     />
   ];
 }

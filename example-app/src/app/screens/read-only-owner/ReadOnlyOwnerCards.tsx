@@ -1,21 +1,16 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import { useQuery } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import { Card, Empty, Space, Spin } from "antd";
 import { EnterOutlined } from "@ant-design/icons";
-import { useRouteMatch } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { useScreens } from "@amplicode/react-core";
 import { gql } from "@amplicode/gql";
-import { ReadOnlyOwnerCardsDetails } from "./ReadOnlyOwnerCardsDetails";
-import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
-
-const ROUTE = "read-only-owner-cards";
 
 const OWNER_LIST = gql(`
   query Get_Owner_List {
@@ -36,10 +31,6 @@ export function ReadOnlyOwnerCards() {
   const { loading, error, data } = useQuery(OWNER_LIST);
   const items = deserialize(data?.ownerList);
 
-  // If we have navigated here using a link, or a page has been refreshed,
-  // we need to check whether the url contains the item id, and if yes - open item editor/details screen.
-  useItemUrl();
-
   return (
     <div className="narrow-layout">
       <Space direction="vertical" className="card-space">
@@ -48,30 +39,6 @@ export function ReadOnlyOwnerCards() {
       </Space>
     </div>
   );
-}
-
-/**
- * Checks whether the url contains the item id, and if yes - open item editor/details screen.
- */
-function useItemUrl() {
-  const screens = useScreens();
-  const match = useRouteMatch<{ id: string }>(`/${ROUTE}/:id`);
-
-  const openItem = useOpenItemScreen({
-    route: ROUTE,
-    screenComponent: ReadOnlyOwnerCardsDetails,
-    screenCaptionKey: "screen.ReadOnlyOwnerCardsDetails",
-    id: match?.params.id
-  });
-
-  useEffect(() => {
-    if (
-      screens.activeTab?.breadcrumbs.length === 1 &&
-      match?.params.id != null
-    ) {
-      openItem();
-    }
-  });
 }
 
 interface ItemCardsListProps {
@@ -156,20 +123,13 @@ function ItemCard({ item }: { item: ItemType }) {
 function useCardActions(item: ItemType): ReactNode[] {
   const intl = useIntl();
 
-  // Callback that opens a details screen or an editor either for creating or for editing an item
-  // depending on whether `item` is provided
-  const openItem = useOpenItemScreen({
-    route: ROUTE,
-    screenComponent: ReadOnlyOwnerCardsDetails,
-    screenCaptionKey: "screen.ReadOnlyOwnerCardsDetails",
-    id: item?.id
-  });
+  const navigate = useNavigate();
 
   return [
     <EnterOutlined
       key="open"
       title={intl.formatMessage({ id: "common.open" })}
-      onClick={openItem}
+      onClick={() => navigate(item?.id)}
     />
   ];
 }

@@ -3,17 +3,13 @@ import { useQuery } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import { Empty, Space, Spin, Table } from "antd";
-import { useRouteMatch } from "react-router-dom";
-import { useScreens } from "@amplicode/react-core";
+import { useNavigate } from "react-router-dom";
 import { gql } from "@amplicode/gql";
 import { ReadOnlyPetTableDetails } from "./ReadOnlyPetTableDetails";
-import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
-
-const ROUTE = "read-only-pet-table";
 
 const PET_LIST = gql(`
   query Get_Pet_List {
@@ -64,23 +60,14 @@ export function ReadOnlyPetTable() {
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
-  // If we have navigated here using a link, or a page has been refreshed,
-  // we need to check whether the url contains the item id, and if yes - open item editor/details screen.
-  useItemUrl();
-
-  const openEditorWithItem = useOpenItemScreen({
-    route: ROUTE,
-    screenComponent: ReadOnlyPetTableDetails,
-    screenCaptionKey: "screen.ReadOnlyPetTableDetails",
-    id: selectedRowId
-  });
+  const navigate = useNavigate();
 
   // Open details if row selected
   useEffect(() => {
     if (selectedRowId != null) {
-      openEditorWithItem();
+      navigate(selectedRowId);
     }
-  }, [openEditorWithItem, selectedRowId]);
+  }, [selectedRowId]);
 
   return (
     <div className="narrow-layout">
@@ -96,30 +83,6 @@ export function ReadOnlyPetTable() {
       </Space>
     </div>
   );
-}
-
-/**
- * Checks whether the url contains the item id, and if yes - open item editor/details screen.
- */
-function useItemUrl() {
-  const screens = useScreens();
-  const match = useRouteMatch<{ id: string }>(`/${ROUTE}/:id`);
-
-  const openItem = useOpenItemScreen({
-    route: ROUTE,
-    screenComponent: ReadOnlyPetTableDetails,
-    screenCaptionKey: "screen.ReadOnlyPetTableDetails",
-    id: match?.params.id
-  });
-
-  useEffect(() => {
-    if (
-      screens.activeTab?.breadcrumbs.length === 1 &&
-      match?.params.id != null
-    ) {
-      openItem();
-    }
-  });
 }
 
 interface TableSectionProps {

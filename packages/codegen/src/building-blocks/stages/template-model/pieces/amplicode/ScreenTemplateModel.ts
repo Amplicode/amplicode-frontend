@@ -4,12 +4,13 @@ import {ScreenAnswers} from "../../../answers/amplicode/ScreenAnswers";
 import {GraphQLSchema, printSchema} from "graphql";
 
 export interface ScreenTemplateModel {
-  componentName: string,
-  caption: string,
-  route: string,
-  relDirShift: string,
-  shouldAddToMenu: boolean,
-  schema?: string
+  componentName: string;
+  caption: string;
+  route: string;
+  relDirShift: string;
+  shouldAddToMenu: boolean;
+  schema?: string;
+  menuItemName?: string;
 }
 
 export function deriveScreenTemplateModel(options: AmplicodeComponentOptions, answers: ScreenAnswers, schema?: GraphQLSchema): ScreenTemplateModel {

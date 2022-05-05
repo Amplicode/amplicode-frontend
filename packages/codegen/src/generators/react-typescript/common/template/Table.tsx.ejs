@@ -74,7 +74,7 @@ import {
   } from "@ant-design/icons";
 <% } -%>
 <% if (mode === 'edit' || mode === 'view with details') { -%>
-  import {useRouteMatch} from "react-router-dom";
+  import { useNavigate } from "react-router-dom";
 <% } -%>
 <% if (withFilters || mode === 'edit') { -%>
   import {
@@ -84,15 +84,9 @@ import {
     <% } -%>
   } from "react-intl";
 <% } -%>
-<% if (mode === 'edit' || mode === 'view with details') { -%>
-  import {useScreens} from "@amplicode/react-core";
-<% } -%>
 import {gql} from "@amplicode/gql";
 <% if (withItemComponent) { -%>
   import { <%= itemComponentName %> } from "./<%= itemComponentName %>"
-<% } -%>
-<% if (withItemComponent) { -%>
-  import {useOpenItemScreen} from "<%= relDirShift %>core/crud/useOpenItemScreen";
 <% } -%>
 <% if (withDeleteAction) { -%>
   import {useDeleteItem} from "<%= relDirShift %>core/crud/useDeleteItem";
@@ -100,14 +94,11 @@ import {gql} from "@amplicode/gql";
   import {FetchResult} from "@apollo/client/link/core";
 <% } -%>
 import {RequestFailedError} from "<%= relDirShift %>core/crud/RequestFailedError";
-import {deserialize} from "../../../core/transform/model/deserialize";
+import {deserialize} from "<%= relDirShift %>core/transform/model/deserialize";
 <% attributes.filter(a => a.isRelationField).forEach(attribute => { -%>
   import { get<%= capitalizeFirst(attribute.type) %>DisplayName } from '<%= relDirShift %>core/display-name/get<%= capitalizeFirst(attribute.type) %>DisplayName';
 <% }) -%>
 
-<% if (mode === 'edit' || mode === 'view with details') { -%>
-  const ROUTE = '<%= route %>';
-<% } -%>
 <% if (withDeleteAction || mode === 'edit') { -%>
   const REFETCH_QUERIES = ['<%= refetchQuery %>'];
 <% } -%>
@@ -153,26 +144,15 @@ export function <%= componentName %>() {
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
-  <% if (mode === 'edit' || mode === 'view with details') { -%>
-    // If we have navigated here using a link, or a page has been refreshed,
-    // we need to check whether the url contains the item id, and if yes - open item editor/details screen.
-    useItemUrl();
-  <% } -%>
-
   <% if (mode === 'view with details') { -%>
-    const openEditorWithItem = useOpenItemScreen({
-      route: ROUTE,
-      screenComponent: <%= itemComponentName %>,
-      screenCaptionKey: "screen.<%= itemComponentName %>",
-      id: selectedRowId
-    });
+    const navigate = useNavigate();
 
     // Open details if row selected
     useEffect(() => {
       if (selectedRowId != null) {
-        openEditorWithItem();
+        navigate(selectedRowId);
       }
-    }, [openEditorWithItem, selectedRowId]);
+    }, [selectedRowId]);
   <% } -%>
 
   return (
@@ -199,87 +179,16 @@ export function <%= componentName %>() {
   );
 }
 
-<% if (mode === 'edit' || mode === 'view with details') { -%>
-  /**
-   * Checks whether the url contains the item id, and if yes - open item editor/details screen.
-   */
-  function useItemUrl() {
-    const screens = useScreens();
-    const match = useRouteMatch<{ id: string }>(`/${ROUTE}/:id`);
-
-    <% if (!withItemComponent) { -%>
-      const openItem = () => alert('Please specify the editor/details component');
-      // TODO Uncomment the code below and use it in place of above callback
-      // const openItem = useOpenItemScreen({
-      //   route: ROUTE,
-      //   screenComponent: ExampleComponentName, // TODO specify component name
-      //   screenCaptionKey: 'screen.ExampleComponentName', // TODO specify screen caption key
-      //   refetchQueries: REFETCH_QUERIES,
-      //   id: match?.params.id
-      // });
-    <% } -%>
-    <% if (withItemComponent) { -%>
-      const openItem = useOpenItemScreen({
-        route: ROUTE,
-        screenComponent: <%= itemComponentName %>,
-        screenCaptionKey: 'screen.<%= itemComponentName %>',
-        <% if (mode === 'edit') { -%>
-          refetchQueries: REFETCH_QUERIES,
-        <% } -%>
-        id: match?.params.id
-      });
-    <% } -%>
-
-    useEffect(() => {
-      if (screens.activeTab?.breadcrumbs.length === 1 && match?.params.id != null) {
-        openItem();
-      }
-    });
-  }
-<% } -%>
-
 <% if (mode === 'edit') { -%>
   /**
    * Button panel above
    */
-  function ButtonPanel(props: { selectedRowId?: string }) {
+  function ButtonPanel({selectedRowId}: { selectedRowId?: string }) {
     const intl = useIntl();
+    const navigate = useNavigate();
+
     <% if (withDeleteAction) { -%>
-      const showDeleteConfirm = useDeleteConfirm(props.selectedRowId!);
-    <% } -%>
-
-    <% if (!withItemComponent) { -%>
-      const openEmptyEditor = () => alert('Please specify the editor component');
-      const openEditorWithItem = () => alert('Please specify the editor component');
-      // TODO Uncomment the code below and use it in place of above callback
-      // const openEditorProps = {
-      //   route: ROUTE,
-      //   screenComponent: ExampleComponentName,
-      //   screenCaptionKey: 'screen.ExampleComponentName',
-      //   refetchQueries: REFETCH_QUERIES
-      // };
-
-      // const openEmptyEditor = useOpenItemScreen(openEditorProps);
-      // const openEditorWithItem = useOpenItemScreen({
-      //   ...openEditorProps,
-      //   id: props.selectedRowId!
-      // });
-    <% } -%>
-    <% if (withItemComponent) { -%>
-      const openEditorProps = {
-        route: ROUTE,
-        screenComponent: <%= itemComponentName %>,
-        screenCaptionKey: 'screen.<%= itemComponentName %>',
-        refetchQueries: REFETCH_QUERIES
-      };
-
-      // A callback that will open an empty editor
-      const openEmptyEditor = useOpenItemScreen(openEditorProps);
-      // A callback that will open an editor with item
-      const openEditorWithItem = useOpenItemScreen({
-        ...openEditorProps,
-        id: props.selectedRowId!
-      });
+        const showDeleteConfirm = useDeleteConfirm(selectedRowId!);
     <% } -%>
 
     return (
@@ -290,7 +199,7 @@ export function <%= componentName %>() {
           title={intl.formatMessage({ id: "common.create" })}
           type="primary"
           icon={<PlusOutlined />}
-          onClick={openEmptyEditor}
+          onClick={() => navigate("new")}
         >
           <span>
             <FormattedMessage id="common.create" />
@@ -301,8 +210,8 @@ export function <%= componentName %>() {
           htmlType="button"
           key="edit"
           title={intl.formatMessage({ id: "common.edit" })}
-          disabled={props.selectedRowId == null}
-          onClick={openEditorWithItem}
+          disabled={selectedRowId == null}
+          onClick={() => selectedRowId && navigate(selectedRowId)}
         >
           <span>
             <FormattedMessage id="common.edit" />
@@ -314,7 +223,7 @@ export function <%= componentName %>() {
             htmlType="button"
             key="remove"
             title={intl.formatMessage({ id: "common.remove" })}
-            disabled={props.selectedRowId == null}
+            disabled={selectedRowId == null}
             onClick={showDeleteConfirm}
           >
             <span>
@@ -334,14 +243,14 @@ export function <%= componentName %>() {
    */
   function useDeleteConfirm(id: string | null | undefined) {
     const intl = useIntl();
-  
+
     const [runDeleteMutation, { loading }] = useMutation(<%= MUTATION_CONST %>);
     const deleteItem = useDeleteItem(
       id,
       runDeleteMutation,
       REFETCH_QUERIES
     );
-  
+
     // Callback that deletes the item
     const handleDeleteItem = () => {
       deleteItem()
@@ -353,24 +262,24 @@ export function <%= componentName %>() {
         })
         .catch(handleDeleteNetworkError);
     }
-  
+
     // Function that is executed when mutation is successful
     function handleDeleteSuccess() {
       return message.success(intl.formatMessage({ id: "EntityDetailsScreen.deletedSuccessfully" }));
     }
-  
+
     // Function that is executed when mutation results in a GraphQL error
     function handleDeleteGraphQLError(errors: ReadonlyArray<GraphQLError> | undefined) {
       console.error(errors);
       return message.error(intl.formatMessage({ id: "common.requestFailed" }));
     }
-  
+
     // Function that is executed when mutation results in a network error (such as 4xx or 5xx)
     function handleDeleteNetworkError(error: Error | ApolloError) {
       console.error(error);
       return message.error(intl.formatMessage({ id: "common.requestFailed" }));
     }
-    
+
     return () =>
       Modal.confirm({
         content: intl.formatMessage({

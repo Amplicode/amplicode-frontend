@@ -3,8 +3,7 @@ import { Card, Spin, Empty, Descriptions, Button } from "antd";
 import { gql } from "@amplicode/gql";
 import { useQuery } from "@apollo/client";
 import { FormattedMessage } from "react-intl";
-import { useHistory } from "react-router-dom";
-import { useScreens } from "@amplicode/react-core";
+import { useNavigate } from "react-router-dom";
 import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
@@ -30,30 +29,17 @@ const PET = gql(`
   }
 `);
 
-export interface ReadOnlyPetListDetailsProps {
-  /**
-   * id of entity instance to be loaded when editing an instance.
-   * Will be `undefined` when creating an instance.
-   */
-  id?: string;
-}
-
-export function ReadOnlyPetListDetails({ id }: ReadOnlyPetListDetailsProps) {
-  const screens = useScreens();
-  const history = useHistory();
+export function ReadOnlyPetListDetails() {
+  const { recordId } = useParams();
+  const navigate = useNavigate();
 
   const { loading: queryLoading, error: queryError, data } = useQuery(PET, {
     variables: {
-      id
+      id: recordId
     }
   });
 
   const item = deserialize(data?.pet);
-
-  const goToParentScreen = useCallback(() => {
-    history.push("."); // Remove entity id part from url
-    screens.closeActiveBreadcrumb();
-  }, [screens, history]);
 
   if (queryLoading) {
     return <Spin />;
@@ -87,7 +73,7 @@ export function ReadOnlyPetListDetails({ id }: ReadOnlyPetListDetailsProps) {
           {getOwnerDTODisplayName(item.owner ?? undefined)}
         </Descriptions.Item>
       </Descriptions>
-      <Button htmlType="button" onClick={goToParentScreen}>
+      <Button htmlType="button" onClick={() => navigate("..")}>
         <FormattedMessage id="common.close" />
       </Button>
     </Card>

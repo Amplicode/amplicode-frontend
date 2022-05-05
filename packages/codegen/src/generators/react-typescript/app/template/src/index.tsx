@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import "./core/screen-api/screen-registry";
 import App from "./app/App";
 import {
   ApolloClient,
@@ -11,14 +10,12 @@ import {
 } from "@apollo/client";
 import "antd/dist/antd.min.css";
 import axios from "axios";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { onError } from "@apollo/client/link/error";
 import { GRAPHQL_URI, REQUEST_SAME_ORIGIN } from "./config";
 import {
   HotkeyContext,
   HotkeyStore,
-  ScreenContext,
-  Screens,
   EventEmitter
 } from "@amplicode/react-core";
 import { DevSupport } from "@react-buddy/ide-toolbox";
@@ -64,9 +61,6 @@ const client = new ApolloClient({
 
 const securityStore = new SecurityStore(client);
 
-// To customize screens behavior, pass a config object to Screens constructor
-const screens = new Screens();
-
 const hotkeys = new HotkeyStore(defaultHotkeyConfigs);
 
 ReactDOM.render(
@@ -74,20 +68,18 @@ ReactDOM.render(
     <ApolloProvider client={client}>
       <SecurityContext.Provider value={securityStore}>
         <I18nProvider>
-          <ScreenContext.Provider value={screens}>
-            <HashRouter>
-              <HotkeyContext.Provider value={hotkeys}>
-                <ServerErrorInterceptor serverErrorEmitter={serverErrorEmitter}>
-                  <DevSupport
-                    ComponentPreviews={ComponentPreviews}
-                    useInitialHook={useInitial}
-                  >
-                    <App />
-                  </DevSupport>
-                </ServerErrorInterceptor>
-              </HotkeyContext.Provider>
-            </HashRouter>
-          </ScreenContext.Provider>
+          <BrowserRouter>
+            <HotkeyContext.Provider value={hotkeys}>
+              <ServerErrorInterceptor serverErrorEmitter={serverErrorEmitter}>
+                <DevSupport
+                  ComponentPreviews={ComponentPreviews}
+                  useInitialHook={useInitial}
+                >
+                  <App />
+                </DevSupport>
+              </ServerErrorInterceptor>
+            </HotkeyContext.Provider>
+          </BrowserRouter>
         </I18nProvider>
       </SecurityContext.Provider>
     </ApolloProvider>

@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf, VariablesOf } from "@graphql-typed-document-node/core";
@@ -22,12 +22,9 @@ import {
   PlusOutlined,
   CloseCircleOutlined
 } from "@ant-design/icons";
-import { useRouteMatch } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
-import { useScreens } from "@amplicode/react-core";
 import { gql } from "@amplicode/gql";
-import { PetCardsEditor } from "./PetCardsEditor";
-import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { GraphQLError } from "graphql/error/GraphQLError";
@@ -38,7 +35,6 @@ import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODispla
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
-const ROUTE = "pet-cards";
 const REFETCH_QUERIES = ["Get_Pet_List_With_Filter"];
 
 const PET_BY_IDENTIFICATION_NUMBER_LIST = gql(`
@@ -79,10 +75,6 @@ export function PetCards() {
   });
   const items = deserialize(data?.petByIdentificationNumberList);
 
-  // If we have navigated here using a link, or a page has been refreshed,
-  // we need to check whether the url contains the item id, and if yes - open item editor/details screen.
-  useItemUrl();
-
   return (
     <div className="narrow-layout">
       <Space direction="vertical" className="card-space">
@@ -98,43 +90,11 @@ export function PetCards() {
 }
 
 /**
- * Checks whether the url contains the item id, and if yes - open item editor/details screen.
- */
-function useItemUrl() {
-  const screens = useScreens();
-  const match = useRouteMatch<{ id: string }>(`/${ROUTE}/:id`);
-
-  const openItem = useOpenItemScreen({
-    route: ROUTE,
-    screenComponent: PetCardsEditor,
-    screenCaptionKey: "screen.PetCardsEditor",
-    refetchQueries: REFETCH_QUERIES,
-    id: match?.params.id
-  });
-
-  useEffect(() => {
-    if (
-      screens.activeTab?.breadcrumbs.length === 1 &&
-      match?.params.id != null
-    ) {
-      openItem();
-    }
-  });
-}
-
-/**
  * Button panel above the cards
  */
 function ButtonPanel() {
   const intl = useIntl();
-
-  // A callback that will open an empty editor form so that a new entity instance can be created
-  const openEmptyEditor = useOpenItemScreen({
-    route: ROUTE,
-    screenComponent: PetCardsEditor,
-    screenCaptionKey: "screen.PetCardsEditor",
-    refetchQueries: REFETCH_QUERIES
-  });
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -144,7 +104,7 @@ function ButtonPanel() {
         title={intl.formatMessage({ id: "common.create" })}
         type="primary"
         icon={<PlusOutlined />}
-        onClick={openEmptyEditor}
+        onClick={() => navigate("new")}
       >
         <span>
           <FormattedMessage id="common.create" />
@@ -288,21 +248,13 @@ function useCardActions(item: ItemType): ReactNode[] {
   const intl = useIntl();
   const showDeleteConfirm = useDeleteConfirm(item?.id);
 
-  // Callback that opens a details screen or an editor either for creating or for editing an item
-  // depending on whether `item` is provided
-  const openItem = useOpenItemScreen({
-    route: ROUTE,
-    screenComponent: PetCardsEditor,
-    screenCaptionKey: "screen.PetCardsEditor",
-    refetchQueries: REFETCH_QUERIES,
-    id: item?.id
-  });
+  const navigate = useNavigate();
 
   return [
     <EditOutlined
       key="edit"
       title={intl.formatMessage({ id: "common.edit" })}
-      onClick={openItem}
+      onClick={() => navigate(item?.id)}
     />,
     <DeleteOutlined
       key="delete"

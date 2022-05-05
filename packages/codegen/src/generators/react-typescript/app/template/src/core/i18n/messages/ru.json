@@ -28,6 +28,8 @@
   "EntityLookupField.selectEntityInstance": "Выберете {label}",
   
   "screen.home": "Главная страница",
+  "home.welcome": "Добро пожаловать в {appName}!",
+  "home.loggedInAs": "Вы вошли как {username}",
   
   "hotkeys.hotkeyInfo.title": "Горячие клавиши",
   "hotkeys.hotkeyInfo.toggleHotkeyInfo": "Открыть / закрыть окно горячих клавиш",
