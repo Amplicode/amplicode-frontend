@@ -145,7 +145,7 @@ function FormFields() {
   return (
     <>
       <Form.Item name="identificationNumber" label="Identification Number">
-        <Input />
+        <Input autoFocus />
       </Form.Item>
 
       <Form.Item name="birthDate" label="Birth Date">

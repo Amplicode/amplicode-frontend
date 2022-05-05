@@ -11,16 +11,17 @@
       precision={0}
       max={2147483647}
       min={-2147483648}
+      <% if (index === 0) { -%> autoFocus <% } -%>
     />
   <% } else if (attr.type === 'Float') { -%>
-    <InputNumber type={"number"} />
+    <InputNumber type={"number"} <% if (index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.type === 'String') { -%>
-    <Input />
+    <Input <% if (index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.type === 'Boolean') { -%>
-    <Checkbox />
+    <Checkbox <% if (index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.type === 'ID') { -%>
   <% } else if (attr.enumOptions != null) { -%>
-    <Select>
+    <Select <% if (index === 0) { -%> autoFocus <% } -%> >
       <% attr.enumOptions.forEach(opt => { -%>
         <Select.Option value="<%= opt.value %>"><%= opt.name %></Select.Option>
       <% }) -%>
@@ -28,18 +29,21 @@
   <% } else if (attr.isRelationField) { %>
     <EntityLookupField getDisplayName={get<%= capitalizeFirst(attr.type) %>DisplayName}
                        label="<%= attr.displayName %>"
+                       <% if (index === 0) { -%>
+                         autoFocus
+                       <% } -%>
                        // TODO Uncomment the code and specify the list component
                        // lookupComponent={YourEntityListComponentName}
     />
   <% } else if (attr.type === 'Date') { %>
-    <DatePicker />
+    <DatePicker <% if (index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.type === 'BigInteger') { %>
-    <InputNumber type={"number"} precision={0} stringMode={true}/>
+    <InputNumber type={"number"} precision={0} stringMode={true} <% if (index === 0) { -%> autoFocus <% } -%>/>
   <% } else if (attr.type === 'Long') { %>
-    <InputNumber type={"number"} precision={0} stringMode={true}/>
+    <InputNumber type={"number"} precision={0} stringMode={true} <% if (index === 0) { -%> autoFocus <% } -%>/>
   <% } else if (attr.type === 'BigDecimal') { %>
-    <InputNumber type={"number"} stringMode={true}/>
+    <InputNumber type={"number"} stringMode={true} <% if (index === 0) { -%> autoFocus <% } -%>/>
   <% } else { -%>
-    <Input />
+    <Input  <% if (index === 0) { -%> autoFocus <% } -%>/>
   <% } -%>
 </Form.Item>

@@ -146,9 +146,9 @@ function EditorForm<TData>({
 function FormFields() {
   return (
     <>
-      <% attributes.forEach((attr) => { %>
+      <% attributes.forEach((attr, index) => { %>
         <% if (attr.name !== idField) { %>
-          <%- include(includesPath('AmplicodeFormField'), {attr: attr}) %>
+          <%- include(includesPath('AmplicodeFormField'), {attr: attr, index: index}) %>
         <% } %>
       <% }) %>
     </>
