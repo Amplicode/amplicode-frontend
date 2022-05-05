@@ -34,14 +34,12 @@ describe('codegen lookup cards', () => {
     const expectTag = `
       <div className="narrow-layout">
         <Space direction="vertical" className="card-space">
-          <ButtonPanel goToParentScreen={goToParentScreen} />
           <Cards
             items={items}
             loading={loading}
             error={error}
             onSelect={item => {
               props.onSelect != null && props.onSelect(item);
-              goToParentScreen();
             }}
           />
           {/* <Pagination /> - in future */}

@@ -10,7 +10,7 @@ import { message } from "antd";
 import { GraphQLError } from "graphql/error/GraphQLError";
 import { useCallback } from "react";
 import { serialize } from "../transform/model/serialize";
-import { useCloseNestedScreen } from "./useCloseNestedScreen";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Returns an object containing `handleSubmit` callback that is executed after user clicks `Submit` button on an editor form
@@ -33,7 +33,7 @@ export function useSubmitEditor<TData>(
   id?: string
 ) {
   const intl = useIntl();
-  const closeEditor = useCloseNestedScreen();
+  const navigate = useNavigate();
 
   // Get the function that will run the mutation
   // and a boolean indicating that submit is in progress
@@ -45,13 +45,13 @@ export function useSubmitEditor<TData>(
    * Function that is executed when mutation is successful
    */
   const handleSuccess = useCallback(() => {
-    closeEditor();
+    navigate("..");
     return message.success(
       intl.formatMessage({
         id: "EntityDetailsScreen.savedSuccessfully"
       })
     );
-  }, [closeEditor, intl]);
+  }, [navigate, intl]);
 
   /**
    * Function that is executed when mutation results in a GraphQL error
@@ -97,7 +97,7 @@ export function useSubmitEditor<TData>(
        */
       const input = {
         ...serialize(formFieldValues, typename),
-        id: id
+        id: id !== "new" ? id : undefined
       };
 
       // Execute mutation and handle the result
@@ -114,7 +114,14 @@ export function useSubmitEditor<TData>(
         })
         .catch(handleNetworkError);
     },
-    [id, runMutation, handleNetworkError, handleGraphQLError, handleSuccess]
+    [
+      id,
+      runMutation,
+      handleNetworkError,
+      handleGraphQLError,
+      handleSuccess,
+      typename
+    ]
   );
 
   return {

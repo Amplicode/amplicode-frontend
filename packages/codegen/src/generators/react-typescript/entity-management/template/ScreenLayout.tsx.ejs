@@ -1,0 +1,38 @@
+<% const listComponentName = entityListTemplateModel.componentName; -%>
+<% const itemComponentName = entityDetailsTemplateModel.componentName; -%>
+<%# ------- TEMPLATE STARTS HERE ------- -%>
+import React, {useState} from "react";
+import {useParams } from "react-router-dom";
+import {Breadcrumb} from "antd";
+import {<%= listComponentName %>} from "./<%= listComponentName %>";
+import {<%= itemComponentName %>} from "./<%= itemComponentName %>";
+import {BreadcrumbContext} from "<%= relDirShift %>core/screen/BreadcrumbContext";
+import {usePageTitle} from "<%= relDirShift %>core/screen/usePageTitle";
+import {useIntl} from "react-intl";
+
+export function <%= listComponentName %>ScreenLayout() {
+  const intl = useIntl();
+  usePageTitle(intl.formatMessage({id: 'screen.<%= listComponentName %>'}));
+
+  const {recordId} = useParams();
+  const [breadcrumbItems, setBreadcrumbItems] = useState<string[]>([]);
+
+  return (
+    <>
+      {recordId && (
+        <Breadcrumb>
+          {breadcrumbItems.map(item => (
+            <Breadcrumb.Item>{item}</Breadcrumb.Item>
+          ))}
+        </Breadcrumb>
+      )}
+
+      <BreadcrumbContext.Provider value={{breadcrumbItems, setBreadcrumbItems}}>
+        <div style={{display: recordId ? 'none' : 'block'}}>
+          <<%= listComponentName %>/>
+        </div>
+        {recordId && <<%= itemComponentName %> refetchQueries={['<%= entityListTemplateModel.refetchQuery %>']} />}
+      </BreadcrumbContext.Provider>
+    </>
+  );
+}

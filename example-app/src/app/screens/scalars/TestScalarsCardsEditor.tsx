@@ -15,10 +15,10 @@ import {
 } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { gql } from "@amplicode/gql";
+import { useNavigate, useParams } from "react-router-dom";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { useSubmitEditor } from "../../../core/crud/useSubmitEditor";
 import { ErrorMessage } from "../../../core/crud/ErrorMessage";
-import { useCloseNestedScreen } from "../../../core/crud/useCloseNestedScreen";
 import { FormattedMessage, useIntl } from "react-intl";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 import { deserialize } from "../../../core/transform/model/deserialize";
@@ -48,11 +48,6 @@ const UPDATE_SCALARS_TEST_ENTITY = gql(`
 
 export interface TestScalarsCardsEditorProps<TData = any> {
   /**
-   * id of entity instance to be loaded when editing an instance.
-   * Will be `undefined` when creating an instance.
-   */
-  id?: string;
-  /**
    * A list of queries that needs to be refetched once the editor has been submitted.
    * For example, you might need to refresh entity list after editing an entity instance.
    * In simple cases this would be just an array of query names, e.g. ["Get_Pet_List"],
@@ -63,11 +58,12 @@ export interface TestScalarsCardsEditorProps<TData = any> {
 }
 
 export function TestScalarsCardsEditor({
-  id,
   refetchQueries
 }: TestScalarsCardsEditorProps<QueryResultType>) {
+  const { recordId } = useParams();
+
   // Load the item if `id` is provided
-  const { item, itemLoading, itemError } = useLoadItem(id);
+  const { item, itemLoading, itemError } = useLoadItem(recordId);
 
   if (itemLoading) {
     return <Spin />;
@@ -77,7 +73,9 @@ export function TestScalarsCardsEditor({
     return <RequestFailedError />;
   }
 
-  return <EditorForm item={item} id={id} refetchQueries={refetchQueries} />;
+  return (
+    <EditorForm item={item} id={recordId} refetchQueries={refetchQueries} />
+  );
 }
 
 interface EditorFormProps<TData> {
@@ -186,12 +184,12 @@ function FormFields() {
  * @param submitting flag indicating whether submit is in progress
  */
 function FormButtons({ submitting }: { submitting?: boolean }) {
-  const closeEditor = useCloseNestedScreen();
+  const navigate = useNavigate();
 
   return (
     <Form.Item className="form-buttons">
       <Space>
-        <Button htmlType="button" onClick={closeEditor}>
+        <Button htmlType="button" onClick={() => navigate("..")}>
           <FormattedMessage id="common.cancel" />
         </Button>
         <Button type="primary" htmlType="submit" loading={submitting}>
@@ -224,7 +222,7 @@ function useLoadItem(id?: string) {
 
   // Load item if `id` has been provided in props
   useEffect(() => {
-    if (id != null) {
+    if (id != null && id !== "new") {
       loadItem();
     }
   }, [loadItem, id]);

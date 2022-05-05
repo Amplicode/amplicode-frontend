@@ -62,7 +62,7 @@ export const deriveManagementTemplateModel = async (
       mode,
       query: listQuery,
       mutation: deleteMutation,
-      shouldAddToMenu: shouldAddToMenu,
+      shouldAddToMenu: false,
       filterByArguments,
     },
     schema
@@ -73,7 +73,8 @@ export const deriveManagementTemplateModel = async (
   return {
     ...baseTemplateModel,
     ...templateUtilities,
-    ...deriveScreenTemplateModel(options, {componentName: listComponentName, route, shouldAddToMenu}),
+    ...deriveScreenTemplateModel(options, {componentName: listComponentName + 'ScreenLayout', route, shouldAddToMenu}),
+    menuItemName: listComponentName,
     entityListTemplateModel,
     entityDetailsTemplateModel
   }

@@ -3,10 +3,7 @@ import { observer } from "mobx-react";
 import { Layout } from "antd";
 import { AppHeader } from "../header/Header";
 import { AppMenu } from "../menu/Menu";
-import { ScreenTabs } from "../../core/screen-api/ScreenTabs";
-import { Route, Switch } from "react-router-dom";
-import { Page404, CloseAllTabs } from "@amplicode/react-antd";
-import { screenStore } from "@amplicode/react-core";
+import { AppRoutes } from "../routes/AppRoutes";
 
 export const AppMain = observer(() => {
   return (
@@ -26,24 +23,7 @@ export const AppMain = observer(() => {
 
         <Layout className="layout-content">
           <Layout.Content>
-            <Switch>
-              {/*You can create your own routes in addition to or instead of using the Screen API*/}
-              {/*<Route path='/component1'>*/}
-              {/*  <Component1/>*/}
-              {/*</Route>*/}
-              {/*<Route path='/component2'>*/}
-              {/*  <Component2/>*/}
-              {/*</Route>*/}
-              <Route path={screenStore.screenPaths}>
-                <ScreenTabs />
-              </Route>
-              <Route path="/" exact>
-                <CloseAllTabs />
-              </Route>
-              <Route>
-                <Page404 />
-              </Route>
-            </Switch>
+            <AppRoutes />
           </Layout.Content>
         </Layout>
       </Layout>

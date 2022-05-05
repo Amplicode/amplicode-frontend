@@ -1,56 +1,29 @@
-import {Menu } from "antd";
-import {HomeOutlined} from "@ant-design/icons";
-import {useIntl} from "react-intl";
-import {useCallback} from "react";
-import {observer} from "mobx-react";
-import {useLocation} from "react-router-dom";
-import {useScreens, getScreenKey, screenStore} from "@amplicode/react-core";
+import { Menu } from "antd";
+import { HomeOutlined } from "@ant-design/icons";
+import {FormattedMessage, useIntl } from "react-intl";
+import React  from "react";
+import { Link, useLocation } from "react-router-dom";
 
-export const AppMenu = observer(() => {
+export const AppMenu = () => {
   const intl = useIntl();
-  const screens = useScreens();
   const location = useLocation();
-
-  const handleClick = useCallback(({key}: {key: string}) => {
-    const menuItemInfo = screenStore.screenRegistry[key];
-    if (menuItemInfo == null) {
-      // This might be a menu item that doesn't use Screen API
-      return;
-    }
-    const tabCaption = intl.formatMessage({id: menuItemInfo.captionKey});
-    const breadcrumbCaption = intl.formatMessage({
-      id: menuItemInfo.captionKey
-    });
-    const {component} = menuItemInfo;
-
-    screens.openInTab({tabCaption, breadcrumbCaption, component, tabKey: key});
-  }, [intl, screens]);
-
-  const getCaption = useCallback((key: string) => {
-    return intl.formatMessage({id: screenStore.screenRegistry[key].captionKey});
-  }, [intl]);
-
-  const activeItem = getScreenKey(location.pathname);
+  const {pathname} = location;
+  const selectedKey = toSelectedKey(pathname);
 
   return (
-    <Menu onClick={handleClick}
-          selectedKeys={activeItem ? [activeItem] : []}
-    >
-      {/*If you don't need Screen API (tabs / breadcrumbs) you can just use React Router components*/}
-      {/*<Menu.Item
-          title='Component1'
-          key='component1'
-        >
-          <Link to='/component1'>Component 1</Link>
-        </Menu.Item>
-      */}
-      <Menu.Item
-        icon={<HomeOutlined />}
-        title={getCaption('home')}
-        key='home'
+    <Menu selectedKeys={[selectedKey]}>
+      <Menu.Item title={intl.formatMessage({id: 'screen.home'})}
+                 key={'/'}
+                 icon={<HomeOutlined />}
       >
-        {getCaption('home')}
+        <Link to={'/'}>
+          <FormattedMessage id={'screen.home'} />
+        </Link>
       </Menu.Item>
     </Menu>
   );
-});
+};
+
+function toSelectedKey(pathname: string) {
+  return '/' + pathname.split('/', 2).join('');
+}

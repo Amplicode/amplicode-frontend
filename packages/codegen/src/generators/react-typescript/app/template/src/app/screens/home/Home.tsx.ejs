@@ -1,0 +1,51 @@
+import { gql, useQuery } from "@apollo/client";
+import {Result, Spin} from "antd";
+import React from "react";
+import './Home.css';
+import { Typography } from "antd";
+import { FormattedMessage } from "react-intl";
+import { SmileOutlined } from "@ant-design/icons";
+
+const { Paragraph, Title } = Typography;
+
+const QUERY = gql`
+  query {
+    userInfo {
+      username
+    }
+  }
+`;
+
+export const Home = () => {
+  const {loading, error, data} = useQuery(QUERY);
+
+  if (loading) {
+    return <Spin/>;
+  }
+
+  if (error != null) {
+    return (
+      <Result status='error'
+              title='Query failed'
+              subTitle={error.message}
+      />
+    );
+  }
+
+  const {username} = data?.userInfo;
+
+  return (
+    <Result icon={<SmileOutlined/>}
+            title={
+              <FormattedMessage id='home.welcome'
+                                values={{appName: '<%= appTitle %>'}}
+              />
+            }
+            subTitle={
+              <FormattedMessage id='home.loggedInAs'
+                                values={{username}}
+              />
+            }
+    />
+  );
+};

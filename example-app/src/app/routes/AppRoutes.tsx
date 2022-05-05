@@ -1,0 +1,121 @@
+import { PetTypeLookup } from "../screens/lookup/PetTypeLookup";
+import { PetLookup } from "../screens/lookup/PetLookup";
+import { OwnerLookup } from "../screens/lookup/OwnerLookup";
+import { StandaloneOwnerEditor } from "../screens/owner/StandaloneOwnerEditor";
+import { StandaloneOwnerList } from "../screens/standalone-list/StandaloneOwnerList";
+import { StandaloneOwnerTable } from "../screens/standalone-list/StandaloneOwnerTable";
+import { StandaloneOwnerCards } from "../screens/standalone-list/StandaloneOwnerCards";
+import { ReadOnlyPetListScreenLayout } from "../screens/read-only-pet/ReadOnlyPetListScreenLayout";
+import { ReadOnlyPetTableScreenLayout } from "../screens/read-only-pet/ReadOnlyPetTableScreenLayout";
+import { ReadOnlyPetCardsScreenLayout } from "../screens/read-only-pet/ReadOnlyPetCardsScreenLayout";
+import { ReadOnlyOwnerListScreenLayout } from "../screens/read-only-owner/ReadOnlyOwnerListScreenLayout";
+import { ReadOnlyOwnerTableScreenLayout } from "../screens/read-only-owner/ReadOnlyOwnerTableScreenLayout";
+import { ReadOnlyOwnerCardsScreenLayout } from "../screens/read-only-owner/ReadOnlyOwnerCardsScreenLayout";
+import { TestScalarsCardsScreenLayout } from "../screens/scalars/TestScalarsCardsScreenLayout";
+import { PetTableScreenLayout } from "../screens/pet/PetTableScreenLayout";
+import { PetListScreenLayout } from "../screens/pet/PetListScreenLayout";
+import { PetCardsScreenLayout } from "../screens/pet/PetCardsScreenLayout";
+import { OwnerCardsWithFilterScreenLayout } from "../screens/owner/OwnerCardsWithFilterScreenLayout";
+import { OwnerTableScreenLayout } from "../screens/owner/OwnerTableScreenLayout";
+import { OwnerListScreenLayout } from "../screens/owner/OwnerListScreenLayout";
+import { OwnerCardsScreenLayout } from "../screens/owner/OwnerCardsScreenLayout";
+import { Routes, Route } from "react-router-dom";
+import { Home } from "../screens/home/Home";
+import React from "react";
+import { Page404 } from "../../core/routing/Page404";
+
+export function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="*" element={<Page404 />} />
+      <Route path="owner-cards">
+        <Route index element={<OwnerCardsScreenLayout />} />
+        <Route path=":recordId" element={<OwnerCardsScreenLayout />} />
+      </Route>
+      <Route path="owner-list">
+        <Route index element={<OwnerListScreenLayout />} />
+        <Route path=":recordId" element={<OwnerListScreenLayout />} />
+      </Route>
+      <Route path="owner-table">
+        <Route index element={<OwnerTableScreenLayout />} />
+        <Route path=":recordId" element={<OwnerTableScreenLayout />} />
+      </Route>
+      <Route path="owner-cards-with-filter">
+        <Route index element={<OwnerCardsWithFilterScreenLayout />} />
+        <Route
+          path=":recordId"
+          element={<OwnerCardsWithFilterScreenLayout />}
+        />
+      </Route>
+      <Route path="pet-cards">
+        <Route index element={<PetCardsScreenLayout />} />
+        <Route path=":recordId" element={<PetCardsScreenLayout />} />
+      </Route>
+      <Route path="pet-list">
+        <Route index element={<PetListScreenLayout />} />
+        <Route path=":recordId" element={<PetListScreenLayout />} />
+      </Route>
+      <Route path="pet-table">
+        <Route index element={<PetTableScreenLayout />} />
+        <Route path=":recordId" element={<PetTableScreenLayout />} />
+      </Route>
+      <Route path="scalars-cards">
+        <Route index element={<TestScalarsCardsScreenLayout />} />
+        <Route path=":recordId" element={<TestScalarsCardsScreenLayout />} />
+      </Route>
+      <Route path="read-only-owner-cards">
+        <Route index element={<ReadOnlyOwnerCardsScreenLayout />} />
+        <Route path=":recordId" element={<ReadOnlyOwnerCardsScreenLayout />} />
+      </Route>
+      <Route path="read-only-owner-table">
+        <Route index element={<ReadOnlyOwnerTableScreenLayout />} />
+        <Route path=":recordId" element={<ReadOnlyOwnerTableScreenLayout />} />
+      </Route>
+      <Route path="read-only-owner-list">
+        <Route index element={<ReadOnlyOwnerListScreenLayout />} />
+        <Route path=":recordId" element={<ReadOnlyOwnerListScreenLayout />} />
+      </Route>
+      <Route path="read-only-pet-cards">
+        <Route index element={<ReadOnlyPetCardsScreenLayout />} />
+        <Route path=":recordId" element={<ReadOnlyPetCardsScreenLayout />} />
+      </Route>
+      <Route path="read-only-pet-table">
+        <Route index element={<ReadOnlyPetTableScreenLayout />} />
+        <Route path=":recordId" element={<ReadOnlyPetTableScreenLayout />} />
+      </Route>
+      <Route path="read-only-pet-list">
+        <Route index element={<ReadOnlyPetListScreenLayout />} />
+        <Route path=":recordId" element={<ReadOnlyPetListScreenLayout />} />
+      </Route>
+      <Route path="standalone-owner-cards">
+        <Route index element={<StandaloneOwnerCards />} />
+        <Route path=":recordId" element={<StandaloneOwnerCards />} />
+      </Route>
+      <Route path="standalone-owner-table">
+        <Route index element={<StandaloneOwnerTable />} />
+        <Route path=":recordId" element={<StandaloneOwnerTable />} />
+      </Route>
+      <Route path="standalone-owner-list">
+        <Route index element={<StandaloneOwnerList />} />
+        <Route path=":recordId" element={<StandaloneOwnerList />} />
+      </Route>
+      <Route path="standalone-owner-editor">
+        <Route index element={<StandaloneOwnerEditor />} />
+        <Route path=":recordId" element={<StandaloneOwnerEditor />} />
+      </Route>
+      <Route path="owner-lookup-cards">
+        <Route index element={<OwnerLookup />} />
+        <Route path=":recordId" element={<OwnerLookup />} />
+      </Route>
+      <Route path="pet-lookup-cards">
+        <Route index element={<PetLookup />} />
+        <Route path=":recordId" element={<PetLookup />} />
+      </Route>
+      <Route path="pet-type-lookup-cards">
+        <Route index element={<PetTypeLookup />} />
+        <Route path=":recordId" element={<PetTypeLookup />} />
+      </Route>
+    </Routes>
+  );
+}

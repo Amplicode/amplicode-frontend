@@ -4,9 +4,8 @@ import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import { Button, Modal, message, Empty, Space, Spin, Table } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { useRouteMatch } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
-import { useScreens } from "@amplicode/react-core";
 import { gql } from "@amplicode/gql";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { GraphQLError } from "graphql/error/GraphQLError";
@@ -14,7 +13,6 @@ import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 
-const ROUTE = "standalone-owner-table";
 const REFETCH_QUERIES = ["Get_Owner_List"];
 
 const OWNER_LIST = gql(`
@@ -77,10 +75,6 @@ export function StandaloneOwnerTable() {
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
-  // If we have navigated here using a link, or a page has been refreshed,
-  // we need to check whether the url contains the item id, and if yes - open item editor/details screen.
-  useItemUrl();
-
   return (
     <div className="narrow-layout">
       <Space direction="vertical" className="table-space">
@@ -99,54 +93,13 @@ export function StandaloneOwnerTable() {
 }
 
 /**
- * Checks whether the url contains the item id, and if yes - open item editor/details screen.
- */
-function useItemUrl() {
-  const screens = useScreens();
-  const match = useRouteMatch<{ id: string }>(`/${ROUTE}/:id`);
-
-  const openItem = () => alert("Please specify the editor/details component");
-  // TODO Uncomment the code below and use it in place of above callback
-  // const openItem = useOpenItemScreen({
-  //   route: ROUTE,
-  //   screenComponent: ExampleComponentName, // TODO specify component name
-  //   screenCaptionKey: 'screen.ExampleComponentName', // TODO specify screen caption key
-  //   refetchQueries: REFETCH_QUERIES,
-  //   id: match?.params.id
-  // });
-
-  useEffect(() => {
-    if (
-      screens.activeTab?.breadcrumbs.length === 1 &&
-      match?.params.id != null
-    ) {
-      openItem();
-    }
-  });
-}
-
-/**
  * Button panel above
  */
-function ButtonPanel(props: { selectedRowId?: string }) {
+function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
   const intl = useIntl();
-  const showDeleteConfirm = useDeleteConfirm(props.selectedRowId!);
+  const navigate = useNavigate();
 
-  const openEmptyEditor = () => alert("Please specify the editor component");
-  const openEditorWithItem = () => alert("Please specify the editor component");
-  // TODO Uncomment the code below and use it in place of above callback
-  // const openEditorProps = {
-  //   route: ROUTE,
-  //   screenComponent: ExampleComponentName,
-  //   screenCaptionKey: 'screen.ExampleComponentName',
-  //   refetchQueries: REFETCH_QUERIES
-  // };
-
-  // const openEmptyEditor = useOpenItemScreen(openEditorProps);
-  // const openEditorWithItem = useOpenItemScreen({
-  //   ...openEditorProps,
-  //   id: props.selectedRowId!
-  // });
+  const showDeleteConfirm = useDeleteConfirm(selectedRowId!);
 
   return (
     <Space direction="horizontal">
@@ -156,7 +109,7 @@ function ButtonPanel(props: { selectedRowId?: string }) {
         title={intl.formatMessage({ id: "common.create" })}
         type="primary"
         icon={<PlusOutlined />}
-        onClick={openEmptyEditor}
+        onClick={() => navigate("new")}
       >
         <span>
           <FormattedMessage id="common.create" />
@@ -167,8 +120,8 @@ function ButtonPanel(props: { selectedRowId?: string }) {
         htmlType="button"
         key="edit"
         title={intl.formatMessage({ id: "common.edit" })}
-        disabled={props.selectedRowId == null}
-        onClick={openEditorWithItem}
+        disabled={selectedRowId == null}
+        onClick={() => selectedRowId && navigate(selectedRowId)}
       >
         <span>
           <FormattedMessage id="common.edit" />
@@ -179,7 +132,7 @@ function ButtonPanel(props: { selectedRowId?: string }) {
         htmlType="button"
         key="remove"
         title={intl.formatMessage({ id: "common.remove" })}
-        disabled={props.selectedRowId == null}
+        disabled={selectedRowId == null}
         onClick={showDeleteConfirm}
       >
         <span>

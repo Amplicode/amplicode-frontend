@@ -3,43 +3,29 @@ import {Card, Spin, Empty, Descriptions, Button} from 'antd';
 import {gql} from '@amplicode/gql';
 import {useQuery} from '@apollo/client';
 import {FormattedMessage} from 'react-intl';
-import {useHistory} from "react-router-dom";
-import {useScreens} from "@amplicode/react-core";
+import {useNavigate} from "react-router-dom";
 import { get<%= capitalizeFirst(entityName) %>DisplayName } from '<%= relDirShift %>core/display-name/get<%= capitalizeFirst(entityName) %>DisplayName';
 <% attributes.filter(a => a.isRelationField).forEach(attribute => { -%>
   import { get<%= capitalizeFirst(attribute.type) %>DisplayName } from '<%= relDirShift %>core/display-name/get<%= capitalizeFirst(attribute.type) %>DisplayName';
 <% }) -%>
 import {RequestFailedError} from "../../../core/crud/RequestFailedError";
-import {deserialize} from "../../../core/transform/model/deserialize";
+import {deserialize} from "<%= relDirShift %>core/transform/model/deserialize";
 
 const <%= toFatSnakeCase(queryName) %> = gql(`
   <%= queryString %>
 `);
 
-export interface <%= componentName %>Props {
-  /**
-   * id of entity instance to be loaded when editing an instance.
-   * Will be `undefined` when creating an instance.
-   */
-  id?: string;
-}
-
-export function <%= componentName %>({id}: <%= componentName %>Props) {
-  const screens = useScreens();
-  const history = useHistory();
+export function <%= componentName %>() {
+  const {recordId} = useParams();
+  const navigate = useNavigate();
 
   const {loading: queryLoading, error: queryError, data} = useQuery(<%= toFatSnakeCase(queryName) %>, {
     variables: {
-      id
+      id: recordId
     }
   });
 
   const item = deserialize(data?.<%= queryName %>);
-
-  const goToParentScreen = useCallback(() => {
-    history.push('.'); // Remove entity id part from url
-    screens.closeActiveBreadcrumb();
-  }, [screens, history]);
 
   if (queryLoading) {
     return <Spin/>;
@@ -74,7 +60,7 @@ export function <%= componentName %>({id}: <%= componentName %>Props) {
         <% }) -%>
       </Descriptions>
       <Button htmlType="button"
-              onClick={goToParentScreen}
+              onClick={() => navigate("..")}
       >
         <FormattedMessage id="common.close" />
       </Button>

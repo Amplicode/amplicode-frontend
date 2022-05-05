@@ -28,6 +28,8 @@
   "EntityLookupField.selectEntityInstance": "Select {label}",
 
   "screen.home": "Home",
+  "home.welcome": "Welcome to {appName}!",
+  "home.loggedInAs": "You are logged in as {username}",
 
   "hotkeys.hotkeyInfo.title": "Keyboard Shortcuts",
   "hotkeys.hotkeyInfo.toggleHotkeyInfo": "Open / close the help page",

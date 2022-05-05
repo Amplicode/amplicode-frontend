@@ -1,12 +1,9 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { useQuery } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
-import { Button, Card, Empty, Space, Spin } from "antd";
-import { FormattedMessage, useIntl } from "react-intl";
+import { Card, Empty, Space, Spin } from "antd";
 import { gql } from "@amplicode/gql";
-import { CloseOutlined } from "@ant-design/icons";
-import { useScreens } from "@amplicode/react-core";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
@@ -41,53 +38,19 @@ export function PetLookup(props: PetLookupProps) {
   const { loading, error, data } = useQuery(PET_LIST);
   const items = data?.petList;
 
-  const screens = useScreens();
-  const goToParentScreen = useCallback(() => {
-    screens.closeActiveBreadcrumb();
-  }, [screens]);
-
   return (
     <div className="narrow-layout">
       <Space direction="vertical" className="card-space">
-        <ButtonPanel goToParentScreen={goToParentScreen} />
         <Cards
           items={items}
           loading={loading}
           error={error}
           onSelect={item => {
             props.onSelect != null && props.onSelect(item);
-            goToParentScreen();
           }}
         />
         {/* <Pagination /> - in future */}
       </Space>
-    </div>
-  );
-}
-
-interface ButtonPanelProps {
-  goToParentScreen: () => void;
-}
-
-/**
- * Button panel above
- */
-function ButtonPanel(props: ButtonPanelProps) {
-  const intl = useIntl();
-
-  return (
-    <div>
-      <Button
-        htmlType="button"
-        key="close"
-        title={intl.formatMessage({ id: "common.close" })}
-        icon={<CloseOutlined />}
-        onClick={props.goToParentScreen}
-      >
-        <span>
-          <FormattedMessage id="common.close" />
-        </span>
-      </Button>
     </div>
   );
 }

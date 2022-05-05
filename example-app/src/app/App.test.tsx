@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { IntlProvider } from "react-intl";
 import App from "./App";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
 import {
   ApolloClient,
@@ -11,23 +11,15 @@ import {
   InMemoryCache
 } from "@apollo/client";
 import en from "../core/i18n/messages/en.json";
-import {
-  HotkeyContext,
-  HotkeyStore,
-  ScreenContext,
-  Screens
-} from "@amplicode/react-core";
+import { HotkeyContext, HotkeyStore } from "@amplicode/react-core";
 import { defaultHotkeyConfigs } from "../core/hotkeys/hotkey-configs";
 import { GRAPHQL_URI, REQUEST_SAME_ORIGIN } from "../config";
 import { onError } from "@apollo/client/link/error";
 import { act } from "react-dom/test-utils";
 import { SecurityStore } from "../core/security/security";
 import { SecurityContext } from "../core/security/security-context";
-import "../core/screen-api/screen-registry";
 
 it("renders without crashing", () => {
-  const screens = new Screens();
-
   const hotkeys = new HotkeyStore(defaultHotkeyConfigs);
 
   axios.defaults.withCredentials = !REQUEST_SAME_ORIGIN;
@@ -69,13 +61,11 @@ it("renders without crashing", () => {
         <ApolloProvider client={client}>
           <SecurityContext.Provider value={securityStore}>
             <IntlProvider locale="en" messages={en}>
-              <ScreenContext.Provider value={screens}>
-                <HashRouter>
-                  <HotkeyContext.Provider value={hotkeys}>
-                    <App />
-                  </HotkeyContext.Provider>
-                </HashRouter>
-              </ScreenContext.Provider>
+              <BrowserRouter>
+                <HotkeyContext.Provider value={hotkeys}>
+                  <App />
+                </HotkeyContext.Provider>
+              </BrowserRouter>
             </IntlProvider>
           </SecurityContext.Provider>
         </ApolloProvider>

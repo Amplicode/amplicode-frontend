@@ -2,15 +2,16 @@ import { gql, useQuery } from "@apollo/client";
 import { Result, Spin } from "antd";
 import React from "react";
 import "./Home.css";
+import { Typography } from "antd";
+import { FormattedMessage } from "react-intl";
+import { SmileOutlined } from "@ant-design/icons";
+
+const { Paragraph, Title } = Typography;
 
 const QUERY = gql`
   query {
-    __schema {
-      queryType {
-        fields {
-          name
-        }
-      }
+    userInfo {
+      username
     }
   }
 `;
@@ -28,13 +29,18 @@ export const Home = () => {
     );
   }
 
+  const { username } = data?.userInfo;
+
   return (
-    <>
-      <h2>Welcome home!</h2>
-      <p>
-        <strong>Example query result:</strong>
-      </p>
-      <pre className="home-example-query">{JSON.stringify(data, null, 2)}</pre>
-    </>
+    <Result
+      icon={<SmileOutlined />}
+      title={
+        <FormattedMessage
+          id="home.welcome"
+          values={{ appName: "Jmix2 Petclinic" }}
+        />
+      }
+      subTitle={<FormattedMessage id="home.loggedInAs" values={{ username }} />}
+    />
   );
 };

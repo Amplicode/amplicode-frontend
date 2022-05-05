@@ -10,6 +10,7 @@ export interface MvpComponentTemplateModel {
   caption: string;
   relDirShift: string;
   shouldAddToMenu: boolean;
+  menuItemName?: string;
   includesPath: (...paths: string[]) => string;
 }
 
@@ -22,7 +23,8 @@ export async function writeAmplicodeComponent<T extends MvpComponentTemplateMode
     relDirShift,
     componentName,
     route,
-    shouldAddToMenu
+    shouldAddToMenu,
+    menuItemName
   } = templateModel;
 
   gen.log(`Generating to ${gen.destinationPath()}`);
@@ -33,23 +35,25 @@ export async function writeAmplicodeComponent<T extends MvpComponentTemplateMode
     templateModel
   );
 
+  gen.log(`✓ Component ${componentName} written`);
+
   if (shouldAddToMenu) {
     addMvpAppMenu({
       gen,
       dirShift: relDirShift,
       route,
-      componentName
+      componentName,
+      menuItemName
     });
+  } else {
+    gen.log(`✓ Menu item not required for ${componentName}`);
   }
 
-  // TODO Previews
-  // addComponentPreviews(gen, relDirShift, className, className, true, {
-  //   paginationConfig: {},
-  //   onPagingChange: () => {}
-  // });
-
   addScreenI18nKeyEn(componentName, relDirShift, gen);
+  gen.log(`✓ i18n messages added for ${componentName}`);
+
   addComponentPreviews(gen, relDirShift, componentName, componentName)
+  gen.log(`✓ Component previews added for ${componentName}`);
 }
 
 export function addScreenI18nKeyEn(
