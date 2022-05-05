@@ -9,7 +9,6 @@ import {
   Input,
   InputNumber,
   Checkbox,
-  DatePicker,
   message,
   Space,
   Spin
@@ -35,8 +34,6 @@ const SCALARS_TEST_ENTITY = gql(`
       bigInt
       longTest
       bigDecimal
-      localDate
-      localDateTime
     }
   }
 `);
@@ -177,14 +174,6 @@ function FormFields() {
 
       <Form.Item name="bigDecimal" label="Big Decimal">
         <InputNumber type={"number"} stringMode={true} />
-      </Form.Item>
-
-      <Form.Item name="localDate" label="Local Date">
-        <DatePicker />
-      </Form.Item>
-
-      <Form.Item name="localDateTime" label="Local Date Time">
-        <DatePicker showTime={{ format: 'HH:mm:ss' }} />
       </Form.Item>
     </>
   );
