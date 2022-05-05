@@ -47,6 +47,6 @@
   "author": "Haulmont",
   "license": "Apache-2.0",
   "amplicodeAddon": {
-    "paletteComponentName": "TestAddonPalette"
+    "metadata": "./metadata.tsx"
   }
 }

@@ -70,5 +70,8 @@
     "jest": "^27.0.0",
     "jest-raw-loader": "^1.0.1",
     "whatwg-fetch": "^3.6.2"
+  },
+  "amplicode": {
+    "generatorVersion": "<%= generatorVersion %>"
   }
 }
