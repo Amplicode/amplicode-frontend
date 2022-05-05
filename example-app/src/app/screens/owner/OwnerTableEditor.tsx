@@ -136,7 +136,7 @@ function FormFields() {
   return (
     <>
       <Form.Item name="firstName" label="First Name">
-        <Input />
+        <Input autoFocus />
       </Form.Item>
 
       <Form.Item name="lastName" label="Last Name">

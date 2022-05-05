@@ -144,6 +144,7 @@ function FormFields() {
           precision={0}
           max={2147483647}
           min={-2147483648}
+          autoFocus
         />
       </Form.Item>
 

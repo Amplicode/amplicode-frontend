@@ -13,10 +13,11 @@ export interface EntityLookupFieldProps {
   getDisplayName: (value: Record<string, unknown>) => string;
   label: string;
   hideClearButton?: boolean;
+  autoFocus?: boolean
 }
 
 export function EntityLookupField(props: EntityLookupFieldProps) {
-  const {value, onChange, lookupComponent, lookupComponentProps, getDisplayName, label} = props;
+  const {value, onChange, lookupComponent, lookupComponentProps, getDisplayName, label, autoFocus} = props;
 
   const screens = useScreens();
   const intl = useIntl();
@@ -62,6 +63,7 @@ export function EntityLookupField(props: EntityLookupFieldProps) {
       prefix={<LinkOutlined onClick={handleClick} />}
       suffix={value != null && props.hideClearButton !== true && <CloseCircleOutlined onClick={handleClear} />}
       value={value ? getDisplayName(value) : ''}
+      autoFocus={autoFocus}
     />
   );
 }
