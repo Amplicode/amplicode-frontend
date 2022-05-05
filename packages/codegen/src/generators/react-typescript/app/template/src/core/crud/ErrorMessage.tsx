@@ -15,6 +15,7 @@ export function ErrorMessage({errorMessage}: {errorMessage?: string}) {
     <Alert
       message={errorMessage}
       type="error"
+      className='form-error-message'
     />
   );
 }
