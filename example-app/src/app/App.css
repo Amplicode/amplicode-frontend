@@ -32,7 +32,7 @@
     background: #e6f7ff;
 }
 
-.narrow-layout .ant-form-item {
+.narrow-layout .ant-form-item, .narrow-layout .form-error-message {
     margin-bottom: 12px;
 }
 

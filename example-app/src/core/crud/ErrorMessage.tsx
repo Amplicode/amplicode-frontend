@@ -11,5 +11,7 @@ export function ErrorMessage({ errorMessage }: { errorMessage?: string }) {
     return null;
   }
 
-  return <Alert message={errorMessage} type="error" />;
+  return (
+    <Alert message={errorMessage} type="error" className="form-error-message" />
+  );
 }
