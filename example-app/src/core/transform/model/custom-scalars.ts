@@ -1,8 +1,6 @@
 import { ScalarTransformer } from "../types";
 import { serializeDate } from "./Date/serializeDate";
 import { deserializeDate } from "./Date/deserializeDate";
-import {serializeLocalDateTime} from "./LocalDateTime/serializeLocalDateTime";
-import {deserializeLocalDateTime} from "./LocalDateTime/deserializeLocalDateTime";
 
 export const customScalarTransformers: Record<string, ScalarTransformer> = {
   // We can use any GraphQLScalarType as ScalarTransformer,
@@ -14,10 +12,5 @@ export const customScalarTransformers: Record<string, ScalarTransformer> = {
     // This will deserialize to / serialize from Dayjs object
     serialize: serializeDate,
     parseValue: deserializeDate
-  },
-  LocalDateTime: {
-    // This will deserialize to / serialize from Dayjs object
-    serialize: serializeLocalDateTime,
-    parseValue: deserializeLocalDateTime
   }
 };
