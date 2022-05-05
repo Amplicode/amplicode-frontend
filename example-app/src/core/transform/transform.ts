@@ -1,4 +1,4 @@
-import { getTypeDefs } from "../schema/util/getTypeDefs";
+import { getGraphQLSchema } from "../schema/util/getGraphQLSchema";
 import {
   GraphQLEnumType,
   GraphQLFieldMap,
@@ -61,7 +61,7 @@ export function transform<T extends NullableObjectOrList>(
       processedItem[fieldName] = data[fieldName];
       return;
     }
-    const schema = getTypeDefs();
+    const schema = getGraphQLSchema();
     const fieldTypeName = getFieldTypeName(fieldName, typename, schema);
 
     const transformer = transformerMap[fieldTypeName];

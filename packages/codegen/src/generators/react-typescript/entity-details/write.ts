@@ -3,7 +3,7 @@ import {writeAmplicodeComponent} from "../../../building-blocks/stages/writing/p
 import {MvpEntityEditorTemplateModel} from "./template-model";
 import path from "path";
 import {writeDisplayNameFunctionsForRelations} from "../../../building-blocks/stages/writing/pieces/display-name/writeDisplayNameFunctionsForRelations";
-import {writeTypeDefs} from "../common/writeTypeDefs";
+import {writeGraphQLSchema} from "../common/writeGraphQLSchema";
 
 export async function writeEntityDetails(
   templateModel: MvpEntityEditorTemplateModel, gen: YeomanGenerator
@@ -17,5 +17,5 @@ export async function writeEntityDetails(
 
   await writeDisplayNameFunctionsForRelations(gen, templateModel.attributes, templateModel.relDirShift);
 
-  writeTypeDefs(gen, templateModel, path.join('..', templateModel.relDirShift));
+  writeGraphQLSchema(gen, templateModel, path.join('..', templateModel.relDirShift));
 }

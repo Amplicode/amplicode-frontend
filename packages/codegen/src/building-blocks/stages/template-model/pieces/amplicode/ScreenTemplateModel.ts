@@ -9,7 +9,7 @@ export interface ScreenTemplateModel {
   route: string,
   relDirShift: string,
   shouldAddToMenu: boolean,
-  typeDefs?: string
+  schema?: string
 }
 
 export function deriveScreenTemplateModel(options: AmplicodeComponentOptions, answers: ScreenAnswers, schema?: GraphQLSchema): ScreenTemplateModel {
@@ -21,6 +21,6 @@ export function deriveScreenTemplateModel(options: AmplicodeComponentOptions, an
     route,
     caption: splitByCapitalLetter(componentName),
     shouldAddToMenu,
-    typeDefs: schema ? printSchema(schema, { commentDescriptions: true }) : undefined
+    schema: schema ? printSchema(schema, { commentDescriptions: true }) : undefined
   };
 }

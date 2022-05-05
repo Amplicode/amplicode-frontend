@@ -1,16 +1,16 @@
 import { buildClientSchema, buildSchema, GraphQLSchema } from "graphql";
-import { typeDefs } from "../typeDefs";
+import schemaAsString from "./../schema.graphql?raw";
 
-export function getTypeDefs(): GraphQLSchema {
+export function getGraphQLSchema(): GraphQLSchema {
   let isSdlFormat = false;
   let introspection;
   try {
-    introspection = JSON.parse(typeDefs);
+    introspection = JSON.parse(schemaAsString);
   } catch (e) {
     isSdlFormat = true;
   }
 
   return isSdlFormat
-    ? buildSchema(typeDefs)
+    ? buildSchema(schemaAsString)
     : buildClientSchema(introspection.data);
 }

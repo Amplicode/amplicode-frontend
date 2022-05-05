@@ -4,7 +4,7 @@ import {writeAmplicodeComponent} from "../../../building-blocks/stages/writing/p
 import path from "path";
 import {writeDisplayNameFunction} from "../../../building-blocks/stages/writing/pieces/display-name/writeDisplayNameFunction";
 import {writeDisplayNameFunctionsForRelations} from "../../../building-blocks/stages/writing/pieces/display-name/writeDisplayNameFunctionsForRelations";
-import {writeTypeDefs} from "../common/writeTypeDefs";
+import {writeGraphQLSchema} from "../common/writeGraphQLSchema";
 
 export async function writeEntityList(
   templateModel: EntityListTemplateModel, gen: YeomanGenerator
@@ -41,5 +41,5 @@ export async function writeEntityList(
 
   await writeDisplayNameFunctionsForRelations(gen, templateModel.attributes, templateModel.relDirShift);
 
-  writeTypeDefs(gen, templateModel, path.join('..', templateModel.relDirShift));
+  writeGraphQLSchema(gen, templateModel, path.join('..', templateModel.relDirShift));
 }
