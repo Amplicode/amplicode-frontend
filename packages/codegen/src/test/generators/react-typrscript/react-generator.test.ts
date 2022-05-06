@@ -38,7 +38,7 @@ xdescribe('react generator test', () => {
     assert.ok(!fs.existsSync(`entities/base`));
     assert.ok(fs.existsSync(`enums/enums.ts`));
     assertFilesPlain('src/index.tsx', REACT_DIR, FIXTURES_DIR);
-    assertFilesPlain('.env.development.local', REACT_DIR, FIXTURES_DIR);
+    assertFilesPlain('.env.development', REACT_DIR, FIXTURES_DIR);
     assertFilesPlain('.env.production', REACT_DIR, FIXTURES_DIR);
   });
 
