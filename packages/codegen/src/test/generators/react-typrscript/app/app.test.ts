@@ -20,7 +20,7 @@ describe('codegen app test', () => {
     await cleanup(DEST_DIR);
 
     const codegenConfigPath = path.join(DEST_DIR, 'codegen.yml');
-    const devEnvPath = path.join(DEST_DIR, '.env.development.local');
+    const devEnvPath = path.join(DEST_DIR, '.env.development');
     const prodEnvPath = path.join(DEST_DIR, '.env.production');
 
       // check that we remove previously generated app
