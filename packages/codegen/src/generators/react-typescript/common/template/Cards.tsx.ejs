@@ -41,9 +41,6 @@ import {
     <% if (filterImports.withFilterCheckbox) { -%>
       Checkbox,
     <% } -%>
-    <% if (filterImports.withFilterDate) { -%>
-      DatePicker,
-    <% } -%>
   <% } -%> 
   Card,
   Empty,
@@ -52,6 +49,9 @@ import {
 } from "antd";
 <% if (withFilters) { -%>
   import { useForm } from "antd/lib/form/Form";
+<% } -%>
+<% if (withFilters && filterImports.withFilterDate) { -%>
+  import { DatePicker } from "@amplicode/react-antd";
 <% } -%>
 <% if (withFilters || withDeleteAction || mode === 'edit' || mode === 'view with details') { -%>
   import {

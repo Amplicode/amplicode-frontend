@@ -7,6 +7,7 @@ import {
   GraphQLScalarType,
   GraphQLSchema,
   GraphQLUnionType,
+  GraphQLField,
 } from "graphql";
 import {templateUtilities, UtilTemplateModel} from "../../../building-blocks/stages/template-model/pieces/util";
 import gql from "graphql-tag";
@@ -46,8 +47,11 @@ type GraphQLEditorModel = {
   hasIDScalars?: boolean;
   hasBooleanScalars?: boolean;
   hasEnumScalars?: boolean;
-  hasCustomScalars?: boolean;
+  hasUnknownCustomScalars?: boolean;
   hasRelationFields?: boolean;
+
+  withDatePicker?: boolean;
+  withTimePicker?: boolean;
 };
 
 export const deriveEntityDetailsTemplateModel: AmplicodeTemplateModelStage<
@@ -156,14 +160,17 @@ export function deriveGraphQLEditorModel(
   const hasIDScalars: boolean = false;
   let hasBooleanScalars: boolean = false;
   let hasEnumScalars: boolean = false;
-  let hasCustomScalars: boolean = false;
+  let hasUnknownCustomScalars: boolean = false;
   let hasRelationFields: boolean = false;
+  
+  let withDatePicker: boolean = false;
+  let withTimePicker: boolean = false;
 
   // We take attributes from query, otherwise it won't be possible to pair the entity type from editor with entity type from list
   const attributes = getEntityAttributes(queryNode, schema);
 
   // We need to take some info from mutation input and add it to `attributes`
-  Object.values(namedType.getFields()).map((field: any) => {
+  Object.values(namedType.getFields()).map((field: GraphQLField<any, any>) => {
     const attr = attributes.find(a => a.name === field.name);
 
     if (attr == null) {
@@ -194,7 +201,20 @@ export function deriveGraphQLEditorModel(
           attr.isRelationField = true;
           hasRelationFields = true;
         } else if (field.type instanceof GraphQLScalarType) {
-          hasCustomScalars = true;
+          switch(field.type.name) {
+            case 'Date':
+            case 'DateTime':
+            case 'LocalDateTime':
+            case 'Timestamp':
+              withDatePicker = true;
+              break;
+            case 'Time':
+            case 'LocalTime':
+              withTimePicker = true;
+              break;
+            default:
+              hasUnknownCustomScalars = true;
+          }
         }
     }
   });
@@ -210,8 +230,10 @@ export function deriveGraphQLEditorModel(
     hasIDScalars,
     hasBooleanScalars,
     hasEnumScalars,
-    hasCustomScalars,
+    hasUnknownCustomScalars,
     hasRelationFields,
+    withDatePicker,
+    withTimePicker,
     inputVariableName,
     inputTypeName
   };
