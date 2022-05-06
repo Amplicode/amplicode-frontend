@@ -13,12 +13,11 @@ export const useInitial: () => InitialHookStatus = () => {
     setLoading(true);
 
     async function login() {
-      await securityStore.login(DEV_LOGIN, DEV_PASSWORD, status => {
-        if (status !== 200) {
-          setError(true);
-        }
-        setLoading(false);
-      });
+      const response = await securityStore.login(DEV_LOGIN, DEV_PASSWORD);
+      if (response?.status !== 200) {
+        setError(true);
+      }
+      setLoading(false);
     }
 
     login();

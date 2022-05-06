@@ -1,5 +1,6 @@
 import { Button, Modal, notification, Space } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
+import axios from "axios";
 import { useCallback, useState } from "react";
 import { useIntl } from "react-intl";
 import "./Header.css";
@@ -28,14 +29,21 @@ export const AppHeader = observer(() => {
       content: intl.formatMessage({ id: "auth.logout.confirm" }),
       okText: intl.formatMessage({ id: "common.ok" }),
       cancelText: intl.formatMessage({ id: "common.cancel" }),
-      onOk: () => {
-        securityStore.logout(status => {
-          if (status !== 200) {
+      onOk: async () => {
+        try {
+          const response = await securityStore.logout();
+          if (response.status !== 200) {
             notification.error({
               message: intl.formatMessage({ id: "auth.logout.unknownError" })
             });
           }
-        });
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            notification.error({
+              message: intl.formatMessage({ id: "auth.logout.unknownError" })
+            });
+          }
+        }
       }
     });
   }, [intl, securityStore]);

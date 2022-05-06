@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useCallback, useState, useEffect } from "react";
 import { Button, Form, Input, notification } from "antd";
+import axios from "axios";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { observer } from "mobx-react";
 import "./Login.css";
@@ -33,22 +34,32 @@ export const Login = observer(() => {
 
   const doLogin = useCallback(async () => {
     setPerformingLoginRequest(true);
-    await securityStore.login(username, password, status => {
-      switch (status) {
+    try {
+      const response = await securityStore.login(username, password);
+      switch (response.status) {
         case 200:
-          break;
-        case 401:
-          notification.error({
-            message: intl.formatMessage({ id: "auth.login.unauthorized" })
-          });
           break;
         default:
           notification.error({
             message: intl.formatMessage({ id: "auth.login.unknownError" })
           });
       }
-      setPerformingLoginRequest(false);
-    });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        switch (error.response?.data.status) {
+          case 401:
+            notification.error({
+              message: intl.formatMessage({ id: "auth.login.unauthorized" })
+            });
+            break;
+          default:
+            notification.error({
+              message: intl.formatMessage({ id: "auth.login.unknownError" })
+            });
+        }
+      }
+    }
+    setPerformingLoginRequest(false);
   }, [securityStore, username, password, intl]);
 
   return (

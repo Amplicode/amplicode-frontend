@@ -13,11 +13,7 @@ export class SecurityStore {
   }
 
   @action
-  login = async (
-    username: string,
-    password: string,
-    onResponseReceived?: (status: number) => void
-  ) => {
+  login = async (username: string, password: string) => {
     const response = await axios(LOGIN_URI, {
       method: "POST",
       headers: { "content-type": "application/x-www-form-urlencoded" },
@@ -26,25 +22,23 @@ export class SecurityStore {
         password
       })
     });
+
     if (response.status === 200) {
       this.isLoggedIn = true;
     }
-    if (onResponseReceived != null) {
-      onResponseReceived(response.status);
-    }
+
+    return response;
   };
 
   @action
-  logout = async (onResponseReceived?: (status: number) => void) => {
+  logout = async () => {
     this.isLoggedIn = false;
 
     const response = await axios(LOGOUT_URI, {
       method: "POST"
     });
 
-    if (onResponseReceived != null) {
-      onResponseReceived(response.status);
-    }
+    return response;
   };
 
   @action
