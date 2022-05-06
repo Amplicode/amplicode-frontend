@@ -52,7 +52,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8080",
   "devDependencies": {
     "@amplicode/gql": "file:src/gql",
     "@babel/preset-env": "^7.8.4",
