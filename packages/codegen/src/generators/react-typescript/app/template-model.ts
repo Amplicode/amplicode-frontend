@@ -14,8 +14,12 @@ export const deriveTemplateModel = async (
   schema?: GraphQLSchema,
   schemaPath?: string
 ): Promise<AppTemplateModel> => {
+
+  const {portNumber = '8080', ...appAnswers} = answers;
+
   return {
-    ...answers,
+    ...appAnswers,
+    portNumber,
     schemaPath: schemaPath?.replace(/\\/g, "/"),
     schema: schema ? printSchema(schema, { commentDescriptions: true }) : undefined,
     generatorVersion: require('../../../../package.json').version,

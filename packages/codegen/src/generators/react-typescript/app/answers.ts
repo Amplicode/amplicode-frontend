@@ -5,6 +5,7 @@ export interface AppAnswers {
   appShortName: string;
   graphqlUri: string;
   basePath: string;
+  portNumber?: string;
 }
 
 export const appQuestions: StudioTemplateProperty[] = [
@@ -29,5 +30,12 @@ export const appQuestions: StudioTemplateProperty[] = [
     caption: 'Base Path',
     propertyType: StudioTemplatePropertyType.STRING,
     defaultValue: 'front'
+  },
+  {
+    code: 'portNumber',
+    caption: 'Proxy server port',
+    propertyType: StudioTemplatePropertyType.STRING,
+    defaultValue: '8080',
+    required: false
   }
 ];
