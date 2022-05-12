@@ -5,7 +5,6 @@ import { ResultOf } from "@graphql-typed-document-node/core";
 import { Empty, Space, Spin, Table } from "antd";
 import { useNavigate } from "react-router-dom";
 import { gql } from "@amplicode/gql";
-import { ReadOnlyPetTableDetails } from "./ReadOnlyPetTableDetails";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
@@ -67,7 +66,7 @@ export function ReadOnlyPetTable() {
     if (selectedRowId != null) {
       navigate(selectedRowId);
     }
-  }, [selectedRowId]);
+  }, [navigate, selectedRowId]);
 
   return (
     <div className="narrow-layout">

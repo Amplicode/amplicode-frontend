@@ -167,7 +167,11 @@ function useCardActions(item: ItemType): ReactNode[] {
     <EditOutlined
       key="edit"
       title={intl.formatMessage({ id: "common.edit" })}
-      onClick={() => navigate(item?.id)}
+      onClick={() => {
+        if (item?.id != null) {
+          navigate(item.id);
+        }
+      }}
     />,
     <DeleteOutlined
       key="delete"

@@ -30,9 +30,7 @@ export function ReadOnlyPetListScreenLayout() {
         <div style={{ display: recordId ? "none" : "block" }}>
           <ReadOnlyPetList />
         </div>
-        {recordId && (
-          <ReadOnlyPetListDetails refetchQueries={["Get_Pet_List"]} />
-        )}
+        {recordId && <ReadOnlyPetListDetails />}
       </BreadcrumbContext.Provider>
     </>
   );

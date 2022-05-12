@@ -1,4 +1,3 @@
-<% var withItemComponent = locals.itemComponentName != null; -%>
 <% var withDeleteAction = locals.deleteMutationString != null && locals.deleteMutationName != null; -%>
 <% const QUERY_CONST = toFatSnakeCase(queryName); -%>
 <% const MUTATION_CONST = deleteMutationName ? toFatSnakeCase(deleteMutationName) : undefined; -%>
@@ -82,9 +81,6 @@ FormattedMessage,
 useIntl} from "react-intl";
 import {gql} from "@amplicode/gql";
 import {ValueWithLabel} from "<%= relDirShift %>core/crud/ValueWithLabel";
-<% if (withItemComponent) { -%>
-  import {useOpenItemScreen} from "<%= relDirShift %>core/crud/useOpenItemScreen";
-<% } -%>
 <% if (withDeleteAction) { -%>
   import {useDeleteItem} from "<%= relDirShift %>core/crud/useDeleteItem";
   import {GraphQLError} from "graphql/error/GraphQLError";
@@ -262,14 +258,22 @@ function useRowActions(item: ItemType): ReactNode[] {
       <EditOutlined
         key="edit"
         title={intl.formatMessage({ id: "common.edit" })}
-        onClick={() => navigate(item?.id)}
+        onClick={() => {
+          if (item?.id != null) {
+            navigate(item.id);
+          }
+        }}
       />,
     <% } -%>
     <% if (mode === 'view with details') { -%>
       <EnterOutlined
         key="open"
         title={intl.formatMessage({ id: "common.open" })}
-        onClick={() => navigate(item?.id)}
+        onClick={() => {
+          if (item?.id != null) {
+            navigate(item.id);
+          }
+        }}
       />,
     <% } -%>
     <% if (withDeleteAction) { -%>
