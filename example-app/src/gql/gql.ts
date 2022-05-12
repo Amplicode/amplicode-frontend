@@ -13,7 +13,7 @@ const documents = {
     graphql.Delete_OwnerDocument,
   "\n  query Get_Owner($id: ID) {\n    owner(id: $id) {\n      id\n      firstName\n      lastName\n      city\n      address\n      telephone\n      email\n    }\n  }\n":
     graphql.Get_OwnerDocument,
-  "\n  mutation Update_Owner($input: OwnerInputDTOInput) {\n    updateOwner(input: $input) {\n      id\n    }\n  }\n":
+  "\n  mutation Update_Owner($input: OwnerInputDTO) {\n    updateOwner(input: $input) {\n      id\n    }\n  }\n":
     graphql.Update_OwnerDocument,
   "\n  query Get_Owner_List_With_Filter($filter: OwnerFilterInput) {\n    ownerByNamesList(filter: $filter) {\n      id\n      firstName\n      lastName\n      city\n      address\n      telephone\n      email\n    }\n  }\n":
     graphql.Get_Owner_List_With_FilterDocument,
@@ -23,7 +23,7 @@ const documents = {
     graphql.Delete_PetDocument,
   "\n  query Get_Pet($id: ID) {\n    pet(id: $id) {\n      id\n      identificationNumber\n      birthDate\n      type {\n        id\n        name\n      }\n      owner {\n        id\n        firstName\n        lastName\n      }\n    }\n  }\n":
     graphql.Get_PetDocument,
-  "\n  mutation Update_Pet($input: PetInputDTOInput) {\n    updatePet(input: $input) {\n      id\n    }\n  }\n":
+  "\n  mutation Update_Pet($input: PetInputDTO) {\n    updatePet(input: $input) {\n      id\n    }\n  }\n":
     graphql.Update_PetDocument,
   "\n  query Get_Scalars_List {\n    scalarsTestEntityList {\n      id\n      intTest\n      floatTest\n      string\n      bool\n      bigInt\n      longTest\n      bigDecimal\n    }\n  }\n":
     graphql.Get_Scalars_ListDocument,
@@ -51,8 +51,8 @@ export function gql(
   source: "\n  query Get_Owner($id: ID) {\n    owner(id: $id) {\n      id\n      firstName\n      lastName\n      city\n      address\n      telephone\n      email\n    }\n  }\n"
 ): typeof documents["\n  query Get_Owner($id: ID) {\n    owner(id: $id) {\n      id\n      firstName\n      lastName\n      city\n      address\n      telephone\n      email\n    }\n  }\n"];
 export function gql(
-  source: "\n  mutation Update_Owner($input: OwnerInputDTOInput) {\n    updateOwner(input: $input) {\n      id\n    }\n  }\n"
-): typeof documents["\n  mutation Update_Owner($input: OwnerInputDTOInput) {\n    updateOwner(input: $input) {\n      id\n    }\n  }\n"];
+  source: "\n  mutation Update_Owner($input: OwnerInputDTO) {\n    updateOwner(input: $input) {\n      id\n    }\n  }\n"
+): typeof documents["\n  mutation Update_Owner($input: OwnerInputDTO) {\n    updateOwner(input: $input) {\n      id\n    }\n  }\n"];
 export function gql(
   source: "\n  query Get_Owner_List_With_Filter($filter: OwnerFilterInput) {\n    ownerByNamesList(filter: $filter) {\n      id\n      firstName\n      lastName\n      city\n      address\n      telephone\n      email\n    }\n  }\n"
 ): typeof documents["\n  query Get_Owner_List_With_Filter($filter: OwnerFilterInput) {\n    ownerByNamesList(filter: $filter) {\n      id\n      firstName\n      lastName\n      city\n      address\n      telephone\n      email\n    }\n  }\n"];
@@ -66,8 +66,8 @@ export function gql(
   source: "\n  query Get_Pet($id: ID) {\n    pet(id: $id) {\n      id\n      identificationNumber\n      birthDate\n      type {\n        id\n        name\n      }\n      owner {\n        id\n        firstName\n        lastName\n      }\n    }\n  }\n"
 ): typeof documents["\n  query Get_Pet($id: ID) {\n    pet(id: $id) {\n      id\n      identificationNumber\n      birthDate\n      type {\n        id\n        name\n      }\n      owner {\n        id\n        firstName\n        lastName\n      }\n    }\n  }\n"];
 export function gql(
-  source: "\n  mutation Update_Pet($input: PetInputDTOInput) {\n    updatePet(input: $input) {\n      id\n    }\n  }\n"
-): typeof documents["\n  mutation Update_Pet($input: PetInputDTOInput) {\n    updatePet(input: $input) {\n      id\n    }\n  }\n"];
+  source: "\n  mutation Update_Pet($input: PetInputDTO) {\n    updatePet(input: $input) {\n      id\n    }\n  }\n"
+): typeof documents["\n  mutation Update_Pet($input: PetInputDTO) {\n    updatePet(input: $input) {\n      id\n    }\n  }\n"];
 export function gql(
   source: "\n  query Get_Scalars_List {\n    scalarsTestEntityList {\n      id\n      intTest\n      floatTest\n      string\n      bool\n      bigInt\n      longTest\n      bigDecimal\n    }\n  }\n"
 ): typeof documents["\n  query Get_Scalars_List {\n    scalarsTestEntityList {\n      id\n      intTest\n      floatTest\n      string\n      bool\n      bigInt\n      longTest\n      bigDecimal\n    }\n  }\n"];

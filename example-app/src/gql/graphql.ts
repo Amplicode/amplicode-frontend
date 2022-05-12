@@ -95,17 +95,17 @@ export type MutationDeleteVisitArgs = {
 
 /** Mutation root */
 export type MutationUpdateOwnerArgs = {
-  input?: InputMaybe<OwnerInputDtoInput>;
+  input?: InputMaybe<OwnerInputDto>;
 };
 
 /** Mutation root */
 export type MutationUpdatePetArgs = {
-  input?: InputMaybe<PetInputDtoInput>;
+  input?: InputMaybe<PetInputDto>;
 };
 
 /** Mutation root */
 export type MutationUpdatePetTypeArgs = {
-  input?: InputMaybe<PetTypeInputDtoInput>;
+  input?: InputMaybe<PetTypeInputDto>;
 };
 
 /** Mutation root */
@@ -115,12 +115,12 @@ export type MutationUpdateScalarsTestEntityArgs = {
 
 /** Mutation root */
 export type MutationUpdateTagArgs = {
-  input?: InputMaybe<TagInputDtoInput>;
+  input?: InputMaybe<TagInputDto>;
 };
 
 /** Mutation root */
 export type MutationUpdateVisitArgs = {
-  input?: InputMaybe<VisitInputDtoInput>;
+  input?: InputMaybe<VisitInputDto>;
 };
 
 export type OwnerDto = {
@@ -149,7 +149,7 @@ export type OwnerFilterInput = {
   lastName?: InputMaybe<Scalars["String"]>;
 };
 
-export type OwnerInputDtoInput = {
+export type OwnerInputDto = {
   address?: InputMaybe<Scalars["String"]>;
   city?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
@@ -178,7 +178,7 @@ export type PetDtoInput = {
   type?: InputMaybe<PetTypeDtoInput>;
 };
 
-export type PetInputDtoInput = {
+export type PetInputDto = {
   birthDate?: InputMaybe<Scalars["Date"]>;
   id?: InputMaybe<Scalars["ID"]>;
   identificationNumber?: InputMaybe<Scalars["String"]>;
@@ -198,7 +198,7 @@ export type PetTypeDtoInput = {
   name?: InputMaybe<Scalars["String"]>;
 };
 
-export type PetTypeInputDtoInput = {
+export type PetTypeInputDto = {
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
 };
@@ -317,7 +317,7 @@ export type TagDtoInput = {
   name?: InputMaybe<Scalars["String"]>;
 };
 
-export type TagInputDtoInput = {
+export type TagInputDto = {
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
 };
@@ -336,7 +336,7 @@ export type VisitDto = {
   visitStart?: Maybe<Scalars["LocalDateTime"]>;
 };
 
-export type VisitInputDtoInput = {
+export type VisitInputDto = {
   description?: InputMaybe<Scalars["String"]>;
   id?: InputMaybe<Scalars["ID"]>;
   pet?: InputMaybe<PetDtoInput>;
@@ -422,7 +422,7 @@ export type Get_OwnerQuery = {
 };
 
 export type Update_OwnerMutationVariables = Exact<{
-  input?: InputMaybe<OwnerInputDtoInput>;
+  input?: InputMaybe<OwnerInputDto>;
 }>;
 
 export type Update_OwnerMutation = {
@@ -508,7 +508,7 @@ export type Get_PetQuery = {
 };
 
 export type Update_PetMutationVariables = Exact<{
-  input?: InputMaybe<PetInputDtoInput>;
+  input?: InputMaybe<PetInputDto>;
 }>;
 
 export type Update_PetMutation = {
@@ -798,7 +798,7 @@ export const Update_OwnerDocument = {
           },
           type: {
             kind: "NamedType",
-            name: { kind: "Name", value: "OwnerInputDTOInput" },
+            name: { kind: "Name", value: "OwnerInputDTO" },
           },
         },
       ],
@@ -1103,7 +1103,7 @@ export const Update_PetDocument = {
           },
           type: {
             kind: "NamedType",
-            name: { kind: "Name", value: "PetInputDTOInput" },
+            name: { kind: "Name", value: "PetInputDTO" },
           },
         },
       ],
