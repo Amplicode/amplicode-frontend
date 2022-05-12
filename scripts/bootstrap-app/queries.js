@@ -78,7 +78,7 @@ exports.ownerDetailsQuery = `query Get_Owner($id: ID) {
     }
   }`;
 
-exports.ownerUpsertMutation = `mutation Update_Owner($input: OwnerInputDTOInput) {
+exports.ownerUpsertMutation = `mutation Update_Owner($input: OwnerInputDTO) {
     updateOwner(input: $input) {
       id
     }
@@ -141,7 +141,7 @@ exports.petDetailsQuery = `query Get_Pet($id: ID) {
     }
   }`;
 
-exports.petUpsertMutation = `mutation Update_Pet($input: PetInputDTOInput) {
+exports.petUpsertMutation = `mutation Update_Pet($input: PetInputDTO) {
     updatePet(input: $input) {
       id
     }

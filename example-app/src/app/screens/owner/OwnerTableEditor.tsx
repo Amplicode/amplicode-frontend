@@ -36,7 +36,7 @@ const OWNER = gql(`
 `);
 
 const UPDATE_OWNER = gql(`
-  mutation Update_Owner($input: OwnerInputDTOInput) {
+  mutation Update_Owner($input: OwnerInputDTO) {
     updateOwner(input: $input) {
       id
     }
@@ -107,7 +107,7 @@ function EditorForm<TData>({
     UPDATE_OWNER,
     setFormError,
     refetchQueries,
-    "OwnerInputDTOInput",
+    "OwnerInputDTO",
     id
   );
   const handleClientValidationFailed = useClientValidationFailed();

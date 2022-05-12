@@ -45,7 +45,7 @@ const PET = gql(`
 `);
 
 const UPDATE_PET = gql(`
-  mutation Update_Pet($input: PetInputDTOInput) {
+  mutation Update_Pet($input: PetInputDTO) {
     updatePet(input: $input) {
       id
     }
@@ -116,7 +116,7 @@ function EditorForm<TData>({
     UPDATE_PET,
     setFormError,
     refetchQueries,
-    "PetInputDTOInput",
+    "PetInputDTO",
     id
   );
   const handleClientValidationFailed = useClientValidationFailed();
