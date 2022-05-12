@@ -23,7 +23,7 @@
   <% } else if (attr.enumOptions != null) { -%>
     <Select <% if (index === 0) { -%> autoFocus <% } -%> >
       <% attr.enumOptions.forEach(opt => { -%>
-        <Select.Option value="<%= opt.value %>"><%= opt.name %></Select.Option>
+        <Select.Option value="<%= opt.value %>"><%= fatSnakeToNormal(opt.name) %></Select.Option>
       <% }) -%>
     </Select>
   <% } else if (attr.isRelationField) { %>
