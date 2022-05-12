@@ -6,7 +6,9 @@ import {
   ApolloClient,
   ApolloProvider,
   createHttpLink,
-  InMemoryCache
+  InMemoryCache,
+  ApolloLink,
+  from
 } from "@apollo/client";
 import "antd/dist/antd.min.css";
 import axios from "axios";
@@ -22,6 +24,7 @@ import { DevSupport } from "@react-buddy/ide-toolbox";
 import { ComponentPreviews, useInitial } from "./dev";
 import { defaultHotkeyConfigs } from "./core/hotkeys/hotkey-configs";
 import { I18nProvider } from "./core/i18n/providers/I18nProvider";
+import { i18nStore } from './core/i18n/providers/I18nProvider';
 import { ServerErrorInterceptor } from "./core/error/ServerErrorInterceptor";
 import { ServerErrorEvents } from "./core/error/ServerErrorEvents";
 import { SecurityStore } from "./core/security/security";
@@ -46,8 +49,18 @@ const errorLink = onError(errorResponse =>
   serverErrorEmitter.emit("graphQLError", errorResponse)
 );
 
+const localeLink = new ApolloLink((operation, forward) => {
+  operation.setContext(({headers = {} }) => ({
+    headers: {
+      ...headers,
+      'accept-language': i18nStore.currentLocale || null
+    }
+  }));
+  return forward(operation)
+})
+
 const client = new ApolloClient({
-  link: errorLink.concat(httpLink),
+  link: from([localeLink, errorLink, httpLink]),
   cache: new InMemoryCache(),
   defaultOptions: {
     query: {
