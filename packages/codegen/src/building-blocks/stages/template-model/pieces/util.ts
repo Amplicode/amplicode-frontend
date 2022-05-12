@@ -1,6 +1,7 @@
 import {toFatSnakeCase} from "../../../util/to-fat-snake-case";
 import {capitalizeFirst, splitByCapitalLetter, unCapitalizeFirst} from "../../../../common/utils";
 import {dollarsToUnderscores} from "../../../util/dollars-to-underscores";
+import {fatSnakeToNormal} from "../../../util/fat-snake-to-normal";
 
 export type UtilTemplateModel = {
   toFatSnakeCase: (str: string) => string;
@@ -8,6 +9,7 @@ export type UtilTemplateModel = {
   dollarsToUnderscores: (str: string) => string;
   splitByCapitalLetter: (str: string) => string;
   capitalizeFirst: (str: string) => string;
+  fatSnakeToNormal: (str: string) => string;
 };
 
 /**
@@ -20,4 +22,5 @@ export const templateUtilities: UtilTemplateModel = {
   dollarsToUnderscores,
   splitByCapitalLetter,
   capitalizeFirst,
+  fatSnakeToNormal
 };
