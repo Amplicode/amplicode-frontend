@@ -30,9 +30,7 @@ export function ReadOnlyOwnerCardsScreenLayout() {
         <div style={{ display: recordId ? "none" : "block" }}>
           <ReadOnlyOwnerCards />
         </div>
-        {recordId && (
-          <ReadOnlyOwnerCardsDetails refetchQueries={["Get_Owner_List"]} />
-        )}
+        {recordId && <ReadOnlyOwnerCardsDetails />}
       </BreadcrumbContext.Provider>
     </>
   );

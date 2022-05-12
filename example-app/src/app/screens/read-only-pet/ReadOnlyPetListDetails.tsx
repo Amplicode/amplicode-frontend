@@ -1,9 +1,8 @@
-import { useCallback } from "react";
 import { Card, Spin, Empty, Descriptions, Button } from "antd";
 import { gql } from "@amplicode/gql";
 import { useQuery } from "@apollo/client";
 import { FormattedMessage } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";

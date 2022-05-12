@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { gql } from "@amplicode/gql";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
-import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 
@@ -133,7 +132,11 @@ function useRowActions(item: ItemType): ReactNode[] {
     <EnterOutlined
       key="open"
       title={intl.formatMessage({ id: "common.open" })}
-      onClick={() => navigate(item?.id)}
+      onClick={() => {
+        if (item?.id != null) {
+          navigate(item.id);
+        }
+      }}
     />
   ];
 }

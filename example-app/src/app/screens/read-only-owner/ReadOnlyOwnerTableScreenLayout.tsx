@@ -30,9 +30,7 @@ export function ReadOnlyOwnerTableScreenLayout() {
         <div style={{ display: recordId ? "none" : "block" }}>
           <ReadOnlyOwnerTable />
         </div>
-        {recordId && (
-          <ReadOnlyOwnerTableDetails refetchQueries={["Get_Owner_List"]} />
-        )}
+        {recordId && <ReadOnlyOwnerTableDetails />}
       </BreadcrumbContext.Provider>
     </>
   );

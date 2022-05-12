@@ -130,7 +130,11 @@ function useCardActions(item: ItemType): ReactNode[] {
     <EnterOutlined
       key="open"
       title={intl.formatMessage({ id: "common.open" })}
-      onClick={() => navigate(item?.id)}
+      onClick={() => {
+        if (item?.id != null) {
+          navigate(item.id);
+        }
+      }}
     />
   ];
 }

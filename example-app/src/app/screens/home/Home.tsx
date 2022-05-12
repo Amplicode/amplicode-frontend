@@ -1,12 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 import { Result, Spin } from "antd";
-import React from "react";
 import "./Home.css";
-import { Typography } from "antd";
 import { FormattedMessage } from "react-intl";
 import { SmileOutlined } from "@ant-design/icons";
-
-const { Paragraph, Title } = Typography;
 
 const QUERY = gql`
   query {

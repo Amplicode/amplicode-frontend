@@ -1,4 +1,3 @@
-<% var withItemComponent = locals.itemComponentName != null; -%>
 <% var withDeleteAction = locals.deleteMutationString != null && locals.deleteMutationName != null; -%>
 <% const QUERY_CONST = toFatSnakeCase(queryName); -%>
 <% const MUTATION_CONST = deleteMutationName ? toFatSnakeCase(deleteMutationName) : undefined; -%>
@@ -259,14 +258,22 @@ function useCardActions(item: ItemType): ReactNode[] {
       <EditOutlined
         key="edit"
         title={intl.formatMessage({ id: "common.edit" })}
-        onClick={() => navigate(item?.id)}
+        onClick={() => {
+          if (item?.id != null) {
+            navigate(item.id);
+          }
+        }}
       />,
     <% } -%>
     <% if (mode === 'view with details') { -%>
       <EnterOutlined
         key="open"
         title={intl.formatMessage({ id: "common.open" })}
-        onClick={() => navigate(item?.id)}
+        onClick={() => {
+          if (item?.id != null) {
+            navigate(item.id);
+          }
+        }}
       />,
     <% } -%>
     <% if (withDeleteAction) { -%>

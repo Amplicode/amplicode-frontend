@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import { gql } from "@amplicode/gql";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
-import { useOpenItemScreen } from "../../../core/crud/useOpenItemScreen";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { GraphQLError } from "graphql/error/GraphQLError";
 import { FetchResult } from "@apollo/client/link/core";
@@ -171,7 +170,11 @@ function useRowActions(item: ItemType): ReactNode[] {
     <EditOutlined
       key="edit"
       title={intl.formatMessage({ id: "common.edit" })}
-      onClick={() => navigate(item?.id)}
+      onClick={() => {
+        if (item?.id != null) {
+          navigate(item.id);
+        }
+      }}
     />,
     <DeleteOutlined
       key="delete"

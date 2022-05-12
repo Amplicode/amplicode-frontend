@@ -1,7 +1,6 @@
 import { Drawer, Input, notification } from "antd";
 import { CloseCircleOutlined, LinkOutlined } from "@ant-design/icons";
 import React, { useCallback, useState } from "react";
-import { useIntl } from "react-intl";
 import "./EntityLookupField.css";
 
 export interface EntityLookupFieldProps {
@@ -19,8 +18,6 @@ export function EntityLookupField(props: EntityLookupFieldProps) {
   const [lookupComponentVisible, setLookupComponentVisible] = useState<boolean>(
     false
   );
-
-  const intl = useIntl();
 
   const handleClear = useCallback(() => {
     if (onChange != null) {
@@ -44,7 +41,7 @@ export function EntityLookupField(props: EntityLookupFieldProps) {
     }
 
     setLookupComponentVisible(true);
-  }, [setLookupComponentVisible, onChange, lookupComponent, intl, label]);
+  }, [setLookupComponentVisible, lookupComponent, label]);
 
   return (
     <>
