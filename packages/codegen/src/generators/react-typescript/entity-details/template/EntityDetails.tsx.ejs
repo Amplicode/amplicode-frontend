@@ -51,7 +51,11 @@ export function <%= componentName %>() {
             <% if (attr.isRelationField) { -%>
               {get<%= capitalizeFirst(attr.type) %>DisplayName(item.<%= attr.name %> ?? undefined)}
             <% } else if (attr.type === 'Date') { -%>
-              {item.<%= attr.name %>?.format('LL') ?? undefined}
+              {item.<%= attr.name %>?.format("LL") ?? undefined}
+            <% } else if (attr.type === 'LocalDateTime' || attr.type === 'DateTime' || attr.type === 'Timestamp') { -%>
+              {item.<%= attr.name %>?.format("LLL") ?? undefined}
+            <% } else if (attr.type === 'LocalTime' || attr.type === 'Time') { -%>
+              {item.<%= attr.name %>?.format("LTS") ?? undefined}
             <% } else { -%>
               {item.<%= attr.name %> ?? undefined}
             <% } -%>

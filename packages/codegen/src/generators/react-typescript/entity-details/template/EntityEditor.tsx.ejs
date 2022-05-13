@@ -22,8 +22,14 @@ import {
     Select,
   <% } -%>
   <% if (locals.hasCustomScalars) { -%>
-    <% if (attributes.some(attr => attr.type === 'Date')) { -%>
+    <% if (attributes.some(attr => attr.type === 'Date'
+            || attr.type === 'LocalDateTime'
+            || attr.type === 'DateTime'
+            || attr.type === 'Timestamp')) { -%>
       DatePicker,
+    <% } -%>
+    <% if (attributes.some(attr => attr.type === 'LocalTime' || attr.type === 'Time')) { -%>
+      TimePicker,
     <% } -%>
   <% } -%>
   message,

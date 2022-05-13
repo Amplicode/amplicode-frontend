@@ -13,7 +13,7 @@ query Get_Owner($id: BigInteger) {
 `;
 
 export const ownerUpsertMutation = `
-mutation Update_Owner($input: OwnerInputDTOInput) {
+mutation Update_Owner($input: OwnerInputDTO) {
   update_Owner(input: $input) {
     id
   }

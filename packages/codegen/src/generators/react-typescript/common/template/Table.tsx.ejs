@@ -333,7 +333,11 @@ function TableSection({
             <% if (attr.isRelationField) { -%>
               <%= attr.name %>: get<%= capitalizeFirst(attr.type) %>DisplayName(item!.<%= attr.name %> ?? undefined),
             <% } else if (attr.type === 'Date') { -%>
-              <%= attr.name %>: item!.<%= attr.name %>?.format('LL') ?? undefined,
+              <%= attr.name %>: item!.<%= attr.name %>?.format("LL") ?? undefined,
+            <% } else if (attr.type === 'LocalDateTime' || attr.type === 'DateTime' || attr.type === 'Timestamp') { -%>
+              <%= attr.name %>: item!.<%= attr.name %>?.format("LLL") ?? undefined,
+            <% } else if (attr.type === 'LocalTime' || attr.type === 'Time') { -%>
+              <%= attr.name %>: item!.<%= attr.name %>?.format("LTS") ?? undefined,
             <% } -%>
           <% }) -%>
         }

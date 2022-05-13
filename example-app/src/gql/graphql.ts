@@ -42,10 +42,6 @@ export type Scalars = {
   Void: any;
 };
 
-export type DateInput = {
-  fastTime: Scalars["Long"];
-};
-
 /** Mutation root */
 export type Mutation = {
   __typename?: "Mutation";
@@ -274,7 +270,9 @@ export type ScalarsTestEntity = {
   bigDecimal?: Maybe<Scalars["BigDecimal"]>;
   bigInt?: Maybe<Scalars["BigInteger"]>;
   bool?: Maybe<Scalars["Boolean"]>;
-  date?: Maybe<Scalars["Date"]>;
+  byteTest?: Maybe<Scalars["Int"]>;
+  dateTest?: Maybe<Scalars["Timestamp"]>;
+  doubleTest?: Maybe<Scalars["Float"]>;
   floatTest?: Maybe<Scalars["Float"]>;
   id?: Maybe<Scalars["ID"]>;
   intTest?: Maybe<Scalars["Int"]>;
@@ -284,6 +282,7 @@ export type ScalarsTestEntity = {
   longTest?: Maybe<Scalars["Long"]>;
   offsetDateTime?: Maybe<Scalars["DateTime"]>;
   offsetTime?: Maybe<Scalars["Time"]>;
+  shortTest?: Maybe<Scalars["Int"]>;
   string?: Maybe<Scalars["String"]>;
   url?: Maybe<Scalars["Url"]>;
 };
@@ -292,7 +291,9 @@ export type ScalarsTestEntityInput = {
   bigDecimal?: InputMaybe<Scalars["BigDecimal"]>;
   bigInt?: InputMaybe<Scalars["BigInteger"]>;
   bool?: InputMaybe<Scalars["Boolean"]>;
-  date?: InputMaybe<DateInput>;
+  byteTest?: InputMaybe<Scalars["Int"]>;
+  dateTest?: InputMaybe<Scalars["Timestamp"]>;
+  doubleTest?: InputMaybe<Scalars["Float"]>;
   floatTest?: InputMaybe<Scalars["Float"]>;
   id?: InputMaybe<Scalars["ID"]>;
   intTest?: InputMaybe<Scalars["Int"]>;
@@ -302,6 +303,7 @@ export type ScalarsTestEntityInput = {
   longTest?: InputMaybe<Scalars["Long"]>;
   offsetDateTime?: InputMaybe<Scalars["DateTime"]>;
   offsetTime?: InputMaybe<Scalars["Time"]>;
+  shortTest?: InputMaybe<Scalars["Int"]>;
   string?: InputMaybe<Scalars["String"]>;
   url?: InputMaybe<Scalars["Url"]>;
 };
@@ -530,6 +532,12 @@ export type Get_Scalars_ListQuery = {
     bigInt?: any | null;
     longTest?: any | null;
     bigDecimal?: any | null;
+    localDate?: any | null;
+    localDateTime?: any | null;
+    localTime?: any | null;
+    offsetDateTime?: any | null;
+    offsetTime?: any | null;
+    dateTest?: any | null;
   } | null> | null;
 };
 
@@ -558,6 +566,12 @@ export type Get_ScalarsQuery = {
     bigInt?: any | null;
     longTest?: any | null;
     bigDecimal?: any | null;
+    localDate?: any | null;
+    localDateTime?: any | null;
+    localTime?: any | null;
+    offsetDateTime?: any | null;
+    offsetTime?: any | null;
+    dateTest?: any | null;
   } | null;
 };
 
@@ -1159,6 +1173,18 @@ export const Get_Scalars_ListDocument = {
                 { kind: "Field", name: { kind: "Name", value: "bigInt" } },
                 { kind: "Field", name: { kind: "Name", value: "longTest" } },
                 { kind: "Field", name: { kind: "Name", value: "bigDecimal" } },
+                { kind: "Field", name: { kind: "Name", value: "localDate" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "localDateTime" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "localTime" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "offsetDateTime" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "offsetTime" } },
+                { kind: "Field", name: { kind: "Name", value: "dateTest" } },
               ],
             },
           },
@@ -1253,6 +1279,18 @@ export const Get_ScalarsDocument = {
                 { kind: "Field", name: { kind: "Name", value: "bigInt" } },
                 { kind: "Field", name: { kind: "Name", value: "longTest" } },
                 { kind: "Field", name: { kind: "Name", value: "bigDecimal" } },
+                { kind: "Field", name: { kind: "Name", value: "localDate" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "localDateTime" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "localTime" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "offsetDateTime" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "offsetTime" } },
+                { kind: "Field", name: { kind: "Name", value: "dateTest" } },
               ],
             },
           },

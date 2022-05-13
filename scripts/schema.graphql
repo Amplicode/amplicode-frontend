@@ -69,7 +69,9 @@ type ScalarsTestEntity {
   bigDecimal: BigDecimal
   bigInt: BigInteger
   bool: Boolean
-  date: Date
+  byteTest: Int
+  dateTest: Timestamp
+  doubleTest: Float
   floatTest: Float
   id: ID
   intTest: Int
@@ -79,6 +81,7 @@ type ScalarsTestEntity {
   longTest: Long
   offsetDateTime: DateTime
   offsetTime: Time
+  shortTest: Int
   string: String
   url: Url
 }
@@ -132,10 +135,6 @@ scalar Url
 
 "Java Type: Void"
 scalar Void
-
-input DateInput {
-  fastTime: Long!
-}
 
 input OwnerDTOInput {
   address: String
@@ -194,7 +193,9 @@ input ScalarsTestEntityInput {
   bigDecimal: BigDecimal
   bigInt: BigInteger
   bool: Boolean
-  date: DateInput
+  byteTest: Int
+  dateTest: Timestamp
+  doubleTest: Float
   floatTest: Float
   id: ID
   intTest: Int
@@ -204,6 +205,7 @@ input ScalarsTestEntityInput {
   longTest: Long
   offsetDateTime: DateTime
   offsetTime: Time
+  shortTest: Int
   string: String
   url: Url
 }

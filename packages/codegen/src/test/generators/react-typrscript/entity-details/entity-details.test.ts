@@ -48,7 +48,7 @@ describe('codegen entity-details test', () => {
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function OwnerEditor');
     expect(componentFile).to.contain('query Get_Owner($id: BigInteger) {');
-    expect(componentFile).to.contain('mutation Update_Owner($input: OwnerInputDTOInput) {');
+    expect(componentFile).to.contain('mutation Update_Owner($input: OwnerInputDTO) {');
   });
 
 
@@ -56,7 +56,7 @@ describe('codegen entity-details test', () => {
   xit('should generate entity editor screen - TestDTO ', async () => {
 
     const updateMutation = `
-      mutation Update_TestDto($input: TestInputDTOInput) {
+      mutation Update_TestDto($input: TestInputDTO) {
         update_Test(input: $input) {
           id
         }
