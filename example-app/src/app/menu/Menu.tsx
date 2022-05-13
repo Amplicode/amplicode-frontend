@@ -22,7 +22,7 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({ id: "screen.OwnerCardsScreenLayout" })}
+        title={intl.formatMessage({ id: "screen.OwnerCards" })}
         key={"/owner-cards"}
       >
         <Link to={"/owner-cards"}>
@@ -30,7 +30,7 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({ id: "screen.OwnerListScreenLayout" })}
+        title={intl.formatMessage({ id: "screen.OwnerList" })}
         key={"/owner-list"}
       >
         <Link to={"/owner-list"}>
@@ -38,7 +38,7 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({ id: "screen.OwnerTableScreenLayout" })}
+        title={intl.formatMessage({ id: "screen.OwnerTable" })}
         key={"/owner-table"}
       >
         <Link to={"/owner-table"}>
@@ -46,9 +46,7 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({
-          id: "screen.OwnerCardsWithFilterScreenLayout"
-        })}
+        title={intl.formatMessage({ id: "screen.OwnerCardsWithFilter" })}
         key={"/owner-cards-with-filter"}
       >
         <Link to={"/owner-cards-with-filter"}>
@@ -56,7 +54,7 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({ id: "screen.PetCardsScreenLayout" })}
+        title={intl.formatMessage({ id: "screen.PetCards" })}
         key={"/pet-cards"}
       >
         <Link to={"/pet-cards"}>
@@ -64,7 +62,7 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({ id: "screen.PetListScreenLayout" })}
+        title={intl.formatMessage({ id: "screen.PetList" })}
         key={"/pet-list"}
       >
         <Link to={"/pet-list"}>
@@ -72,7 +70,7 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({ id: "screen.PetTableScreenLayout" })}
+        title={intl.formatMessage({ id: "screen.PetTable" })}
         key={"/pet-table"}
       >
         <Link to={"/pet-table"}>
@@ -80,9 +78,7 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({
-          id: "screen.TestScalarsCardsScreenLayout"
-        })}
+        title={intl.formatMessage({ id: "screen.TestScalarsCards" })}
         key={"/scalars-cards"}
       >
         <Link to={"/scalars-cards"}>
@@ -90,9 +86,7 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({
-          id: "screen.ReadOnlyOwnerCardsScreenLayout"
-        })}
+        title={intl.formatMessage({ id: "screen.ReadOnlyOwnerCards" })}
         key={"/read-only-owner-cards"}
       >
         <Link to={"/read-only-owner-cards"}>
@@ -100,9 +94,7 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({
-          id: "screen.ReadOnlyOwnerTableScreenLayout"
-        })}
+        title={intl.formatMessage({ id: "screen.ReadOnlyOwnerTable" })}
         key={"/read-only-owner-table"}
       >
         <Link to={"/read-only-owner-table"}>
@@ -110,9 +102,7 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({
-          id: "screen.ReadOnlyOwnerListScreenLayout"
-        })}
+        title={intl.formatMessage({ id: "screen.ReadOnlyOwnerList" })}
         key={"/read-only-owner-list"}
       >
         <Link to={"/read-only-owner-list"}>
@@ -120,9 +110,7 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({
-          id: "screen.ReadOnlyPetCardsScreenLayout"
-        })}
+        title={intl.formatMessage({ id: "screen.ReadOnlyPetCards" })}
         key={"/read-only-pet-cards"}
       >
         <Link to={"/read-only-pet-cards"}>
@@ -130,9 +118,7 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({
-          id: "screen.ReadOnlyPetTableScreenLayout"
-        })}
+        title={intl.formatMessage({ id: "screen.ReadOnlyPetTable" })}
         key={"/read-only-pet-table"}
       >
         <Link to={"/read-only-pet-table"}>
@@ -140,7 +126,7 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({ id: "screen.ReadOnlyPetListScreenLayout" })}
+        title={intl.formatMessage({ id: "screen.ReadOnlyPetList" })}
         key={"/read-only-pet-list"}
       >
         <Link to={"/read-only-pet-list"}>

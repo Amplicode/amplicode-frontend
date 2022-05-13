@@ -114,7 +114,7 @@ export function transformAddRouteItem(
 
 function createMenuItemJSX(route: string, componentName: string, menuItemName?: string) {
   return `
-    <Menu.Item title={intl.formatMessage({id: 'screen.${componentName}'})}
+    <Menu.Item title={intl.formatMessage({id: 'screen.${menuItemName ?? componentName}'})}
                key={'/${route}'}
     >
       <Link to={'/${route}'}>
