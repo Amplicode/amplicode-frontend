@@ -13,12 +13,12 @@ type Mutation {
   deleteScalarsTestEntity(id: ID): Void
   deleteTag(id: ID): Void
   deleteVisit(id: ID): Void
-  updateOwner(input: OwnerInputDTOInput): OwnerDTO
-  updatePet(input: PetInputDTOInput): PetDTO
-  updatePetType(input: PetTypeInputDTOInput): PetTypeDTO
+  updateOwner(input: OwnerInputDTO): OwnerDTO
+  updatePet(input: PetInputDTO): PetDTO
+  updatePetType(input: PetTypeInputDTO): PetTypeDTO
   updateScalarsTestEntity(input: ScalarsTestEntityInput): ScalarsTestEntity
-  updateTag(input: TagInputDTOInput): TagDTO
-  updateVisit(input: VisitInputDTOInput): VisitDTO
+  updateTag(input: TagInputDTO): TagDTO
+  updateVisit(input: VisitInputDTO): VisitDTO
 }
 
 type OwnerDTO {
@@ -69,7 +69,9 @@ type ScalarsTestEntity {
   bigDecimal: BigDecimal
   bigInt: BigInteger
   bool: Boolean
-  date: Date
+  byteTest: Int
+  dateTest: Timestamp
+  doubleTest: Float
   floatTest: Float
   id: ID
   intTest: Int
@@ -79,6 +81,7 @@ type ScalarsTestEntity {
   longTest: Long
   offsetDateTime: DateTime
   offsetTime: Time
+  shortTest: Int
   string: String
   url: Url
 }
@@ -133,10 +136,6 @@ scalar Url
 "Java Type: Void"
 scalar Void
 
-input DateInput {
-  fastTime: Long!
-}
-
 input OwnerDTOInput {
   address: String
   city: String
@@ -152,7 +151,7 @@ input OwnerFilterInput {
   lastName: String
 }
 
-input OwnerInputDTOInput {
+input OwnerInputDTO {
   address: String
   city: String
   email: String
@@ -171,7 +170,7 @@ input PetDTOInput {
   type: PetTypeDTOInput
 }
 
-input PetInputDTOInput {
+input PetInputDTO {
   birthDate: Date
   id: ID
   identificationNumber: String
@@ -185,7 +184,7 @@ input PetTypeDTOInput {
   name: String
 }
 
-input PetTypeInputDTOInput {
+input PetTypeInputDTO {
   id: ID
   name: String
 }
@@ -194,7 +193,9 @@ input ScalarsTestEntityInput {
   bigDecimal: BigDecimal
   bigInt: BigInteger
   bool: Boolean
-  date: DateInput
+  byteTest: Int
+  dateTest: Timestamp
+  doubleTest: Float
   floatTest: Float
   id: ID
   intTest: Int
@@ -204,6 +205,7 @@ input ScalarsTestEntityInput {
   longTest: Long
   offsetDateTime: DateTime
   offsetTime: Time
+  shortTest: Int
   string: String
   url: Url
 }
@@ -213,12 +215,12 @@ input TagDTOInput {
   name: String
 }
 
-input TagInputDTOInput {
+input TagInputDTO {
   id: ID
   name: String
 }
 
-input VisitInputDTOInput {
+input VisitInputDTO {
   description: String
   id: ID
   pet: PetDTOInput

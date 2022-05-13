@@ -5,20 +5,23 @@ import { useEffect } from "react";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
+import CustomParseFormat from "dayjs/plugin/customParseFormat";
 
 dayjs.extend(weekday);
 dayjs.extend(localeData);
-dayjs.extend(LocalizedFormat)
+dayjs.extend(LocalizedFormat);
+dayjs.extend(CustomParseFormat);
 
 export interface DayjsProviderProps {
   children: React.ReactNode;
 }
-export const DayjsProvider = observer(({children}: DayjsProviderProps) => {
-  const {currentLocale} = useI18nStore();
+export const DayjsProvider = observer(({ children }: DayjsProviderProps) => {
+  const { currentLocale } = useI18nStore();
 
   useEffect(() => {
-    import(`../../../../node_modules/dayjs/esm/locale/${currentLocale}.js`)
-      .then(({default: locale}) => dayjs.locale(locale));
+    import(
+      `../../../../node_modules/dayjs/esm/locale/${currentLocale}.js`
+    ).then(({ default: locale }) => dayjs.locale(locale));
   }, [currentLocale]);
 
   return <>{children}</>;

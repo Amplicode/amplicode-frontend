@@ -28,6 +28,12 @@ const SCALARS_TEST_ENTITY_LIST = gql(`
       bigInt
       longTest
       bigDecimal
+      localDate
+      localDateTime
+      localTime
+      offsetDateTime
+      offsetTime
+      dateTest
     }
   }
 `);
@@ -155,6 +161,36 @@ function ItemCard({ item }: { item: ItemType }) {
         key="bigDecimal"
         label="Big Decimal"
         value={item.bigDecimal ?? undefined}
+      />
+      <ValueWithLabel
+        key="localDate"
+        label="Local Date"
+        value={item.localDate?.format("LL") ?? undefined}
+      />
+      <ValueWithLabel
+        key="localDateTime"
+        label="Local Date Time"
+        value={item.localDateTime?.format("LLL") ?? undefined}
+      />
+      <ValueWithLabel
+        key="localTime"
+        label="Local Time"
+        value={item.localTime?.format("LTS") ?? undefined}
+      />
+      <ValueWithLabel
+        key="offsetDateTime"
+        label="Offset Date Time"
+        value={item.offsetDateTime?.format("LLL") ?? undefined}
+      />
+      <ValueWithLabel
+        key="offsetTime"
+        label="Offset Time"
+        value={item.offsetTime?.format("LTS") ?? undefined}
+      />
+      <ValueWithLabel
+        key="dateTest"
+        label="Date Test"
+        value={item.dateTest?.format("LLL") ?? undefined}
       />
     </Card>
   );

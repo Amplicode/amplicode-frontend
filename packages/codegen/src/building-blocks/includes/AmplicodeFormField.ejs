@@ -37,13 +37,17 @@
     />
   <% } else if (attr.type === 'Date') { %>
     <DatePicker <% if (index === 0) { -%> autoFocus <% } -%> />
+  <% } else if (attr.type === 'LocalDateTime' || attr.type === 'DateTime' || attr.type === 'Timestamp') { %>
+    <DatePicker  showTime={{ format: "HH:mm:ss" }} <% if (index === 0) { -%> autoFocus <% } -%> />
+  <% } else if (attr.type === 'LocalTime' || attr.type === 'Time') { %>
+    <TimePicker <% if (index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.type === 'BigInteger') { %>
-    <InputNumber type={"number"} precision={0} stringMode={true} <% if (index === 0) { -%> autoFocus <% } -%>/>
+    <InputNumber type={"number"} precision={0} stringMode={true} <% if (index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.type === 'Long') { %>
-    <InputNumber type={"number"} precision={0} stringMode={true} <% if (index === 0) { -%> autoFocus <% } -%>/>
+    <InputNumber type={"number"} precision={0} stringMode={true} <% if (index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.type === 'BigDecimal') { %>
-    <InputNumber type={"number"} stringMode={true} <% if (index === 0) { -%> autoFocus <% } -%>/>
+    <InputNumber type={"number"} stringMode={true} <% if (index === 0) { -%> autoFocus <% } -%> />
   <% } else { -%>
-    <Input  <% if (index === 0) { -%> autoFocus <% } -%>/>
+    <Input  <% if (index === 0) { -%> autoFocus <% } -%> />
   <% } -%>
 </Form.Item>

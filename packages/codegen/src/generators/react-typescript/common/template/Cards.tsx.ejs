@@ -230,7 +230,11 @@ function ItemCard({item}: {item: ItemType}) {
                         <% if (attr.isRelationField) { -%>
                           value={get<%= capitalizeFirst(attr.type) %>DisplayName(item.<%= attr.name %> ?? undefined)}
                         <% } else if (attr.type === 'Date') { -%>
-                          value={item.<%= attr.name %>?.format('LL') ?? undefined}
+                          value={item.<%= attr.name %>?.format("LL") ?? undefined}
+                        <% } else if (attr.type === 'LocalDateTime' || attr.type === 'DateTime' || attr.type === 'Timestamp') { -%>
+                          value={item.<%= attr.name %>?.format("LLL") ?? undefined}
+                        <% } else if (attr.type === 'LocalTime' || attr.type === 'Time') { -%>
+                          value={item.<%= attr.name %>?.format("LTS") ?? undefined}
                         <% } else { -%>
                           value={item.<%= attr.name %> ?? undefined}
                         <% } -%>

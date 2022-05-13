@@ -9,6 +9,8 @@ import {
   Input,
   InputNumber,
   Checkbox,
+  DatePicker,
+  TimePicker,
   message,
   Space,
   Spin
@@ -34,6 +36,12 @@ const SCALARS_TEST_ENTITY = gql(`
       bigInt
       longTest
       bigDecimal
+      localDate
+      localDateTime
+      localTime
+      offsetDateTime
+      offsetTime
+      dateTest
     }
   }
 `);
@@ -173,6 +181,30 @@ function FormFields() {
 
       <Form.Item name="bigDecimal" label="Big Decimal">
         <InputNumber type={"number"} stringMode={true} />
+      </Form.Item>
+
+      <Form.Item name="localDate" label="Local Date">
+        <DatePicker />
+      </Form.Item>
+
+      <Form.Item name="localDateTime" label="Local Date Time">
+        <DatePicker showTime={{ format: "HH:mm:ss" }} />
+      </Form.Item>
+
+      <Form.Item name="localTime" label="Local Time">
+        <TimePicker />
+      </Form.Item>
+
+      <Form.Item name="offsetDateTime" label="Offset Date Time">
+        <DatePicker showTime={{ format: "HH:mm:ss" }} />
+      </Form.Item>
+
+      <Form.Item name="offsetTime" label="Offset Time">
+        <TimePicker />
+      </Form.Item>
+
+      <Form.Item name="dateTest" label="Date Test">
+        <DatePicker showTime={{ format: "HH:mm:ss" }} />
       </Form.Item>
     </>
   );
