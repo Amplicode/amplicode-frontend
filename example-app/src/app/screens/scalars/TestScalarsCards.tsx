@@ -44,6 +44,7 @@ const SCALARS_TEST_ENTITY_LIST = gql(`
       offsetDateTime
       offsetTime
       dateTest
+      url
     }
   }
 `);
@@ -251,6 +252,12 @@ function ItemCard({ item }: { item: ItemType }) {
         key="dateTest"
         label="Date Test"
         value={item.dateTest?.format("LLL") ?? undefined}
+      />
+      <ValueWithLabel
+        key="url"
+        label="Url"
+        value={item.url ?? undefined}
+        isUrl={true}
       />
     </Card>
   );

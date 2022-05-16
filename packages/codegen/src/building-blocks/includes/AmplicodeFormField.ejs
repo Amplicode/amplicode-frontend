@@ -17,6 +17,8 @@
     <InputNumber type={"number"} <% if (index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.type === 'String') { -%>
     <Input <% if (index === 0) { -%> autoFocus <% } -%> />
+  <% } else if (attr.type === 'Url') { -%>
+    <Input type={"url"} <% if (index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.type === 'Boolean') { -%>
     <Checkbox <% if (index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.type === 'ID') { -%>

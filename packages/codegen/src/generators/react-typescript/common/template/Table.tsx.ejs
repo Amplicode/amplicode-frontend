@@ -115,6 +115,13 @@ const columns = [
   {
     title: '<%= attr.displayName %>',
     dataIndex: '<%= attr.name %>',
+    <% if (attr.type === 'Url' ){ -%>
+      render: (url: string) => (
+        <a target="_blank" rel="noreferrer" href={url}>
+          {url}
+        </a>
+      ),
+    <% } -%>
     key: '<%= attr.name %>'
   },
 <% }) -%>

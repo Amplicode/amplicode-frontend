@@ -741,16 +741,8 @@ export type Get_Scalars_ListQuery = {
     offsetDateTime?: any | null;
     offsetTime?: any | null;
     dateTest?: any | null;
+    url?: any | null;
   } | null> | null;
-};
-
-export type Delete_ScalarsMutationVariables = Exact<{
-  id: Scalars["ID"];
-}>;
-
-export type Delete_ScalarsMutation = {
-  __typename?: "Mutation";
-  deleteScalarsTestEntity?: any | null;
 };
 
 export type Get_ScalarsQueryVariables = Exact<{
@@ -785,7 +777,17 @@ export type Get_ScalarsQuery = {
     offsetDateTime?: any | null;
     offsetTime?: any | null;
     dateTest?: any | null;
+    url?: any | null;
   } | null;
+};
+
+export type Delete_ScalarsMutationVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type Delete_ScalarsMutation = {
+  __typename?: "Mutation";
+  deleteScalarsTestEntity?: any | null;
 };
 
 export type Update_ScalarsMutationVariables = Exact<{
@@ -1666,6 +1668,7 @@ export const Get_Scalars_ListDocument = {
                 },
                 { kind: "Field", name: { kind: "Name", value: "offsetTime" } },
                 { kind: "Field", name: { kind: "Name", value: "dateTest" } },
+                { kind: "Field", name: { kind: "Name", value: "url" } },
               ],
             },
           },
@@ -1676,48 +1679,6 @@ export const Get_Scalars_ListDocument = {
 } as unknown as DocumentNode<
   Get_Scalars_ListQuery,
   Get_Scalars_ListQueryVariables
->;
-export const Delete_ScalarsDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "mutation",
-      name: { kind: "Name", value: "Delete_Scalars" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "deleteScalarsTestEntity" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "id" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "id" },
-                },
-              },
-            ],
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Delete_ScalarsMutation,
-  Delete_ScalarsMutationVariables
 >;
 export const Get_ScalarsDocument = {
   kind: "Document",
@@ -1803,6 +1764,7 @@ export const Get_ScalarsDocument = {
                 },
                 { kind: "Field", name: { kind: "Name", value: "offsetTime" } },
                 { kind: "Field", name: { kind: "Name", value: "dateTest" } },
+                { kind: "Field", name: { kind: "Name", value: "url" } },
               ],
             },
           },
@@ -1811,6 +1773,48 @@ export const Get_ScalarsDocument = {
     },
   ],
 } as unknown as DocumentNode<Get_ScalarsQuery, Get_ScalarsQueryVariables>;
+export const Delete_ScalarsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Delete_Scalars" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "deleteScalarsTestEntity" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Delete_ScalarsMutation,
+  Delete_ScalarsMutationVariables
+>;
 export const Update_ScalarsDocument = {
   kind: "Document",
   definitions: [

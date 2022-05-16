@@ -5,6 +5,7 @@ import { StandaloneOwnerEditor } from "../screens/owner/StandaloneOwnerEditor";
 import { StandaloneOwnerList } from "../screens/standalone-list/StandaloneOwnerList";
 import { StandaloneOwnerTable } from "../screens/standalone-list/StandaloneOwnerTable";
 import { StandaloneOwnerCards } from "../screens/standalone-list/StandaloneOwnerCards";
+import { ReadOnlyScalarsListScreenLayout } from "../screens/read-only-scalars/ReadOnlyScalarsListScreenLayout";
 import { ReadOnlyPetListScreenLayout } from "../screens/read-only-pet/ReadOnlyPetListScreenLayout";
 import { ReadOnlyPetTableScreenLayout } from "../screens/read-only-pet/ReadOnlyPetTableScreenLayout";
 import { ReadOnlyPetCardsScreenLayout } from "../screens/read-only-pet/ReadOnlyPetCardsScreenLayout";
@@ -12,6 +13,7 @@ import { ReadOnlyOwnerListScreenLayout } from "../screens/read-only-owner/ReadOn
 import { ReadOnlyOwnerTableScreenLayout } from "../screens/read-only-owner/ReadOnlyOwnerTableScreenLayout";
 import { ReadOnlyOwnerCardsScreenLayout } from "../screens/read-only-owner/ReadOnlyOwnerCardsScreenLayout";
 import { TestNotNullScalarsCardsScreenLayout } from "../screens/notnull-scalars/TestNotNullScalarsCardsScreenLayout";
+import { TestScalarsTableScreenLayout } from "../screens/scalars/TestScalarsTableScreenLayout";
 import { TestScalarsCardsScreenLayout } from "../screens/scalars/TestScalarsCardsScreenLayout";
 import { PetTableScreenLayout } from "../screens/pet/PetTableScreenLayout";
 import { PetListScreenLayout } from "../screens/pet/PetListScreenLayout";
@@ -65,6 +67,10 @@ export function AppRoutes() {
         <Route index element={<TestScalarsCardsScreenLayout />} />
         <Route path=":recordId" element={<TestScalarsCardsScreenLayout />} />
       </Route>
+      <Route path="scalars-table">
+        <Route index element={<TestScalarsTableScreenLayout />} />
+        <Route path=":recordId" element={<TestScalarsTableScreenLayout />} />
+      </Route>
       <Route path="notnull-scalars-cards">
         <Route index element={<TestNotNullScalarsCardsScreenLayout />} />
         <Route
@@ -95,6 +101,10 @@ export function AppRoutes() {
       <Route path="read-only-pet-list">
         <Route index element={<ReadOnlyPetListScreenLayout />} />
         <Route path=":recordId" element={<ReadOnlyPetListScreenLayout />} />
+      </Route>
+      <Route path="read-only-scalars-list">
+        <Route index element={<ReadOnlyScalarsListScreenLayout />} />
+        <Route path=":recordId" element={<ReadOnlyScalarsListScreenLayout />} />
       </Route>
       <Route path="standalone-owner-cards">
         <Route index element={<StandaloneOwnerCards />} />

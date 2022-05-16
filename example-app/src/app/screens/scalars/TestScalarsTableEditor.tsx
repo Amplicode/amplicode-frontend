@@ -64,7 +64,7 @@ const UPDATE_SCALARS_TEST_ENTITY = gql(`
   }
 `);
 
-export interface TestScalarsCardsEditorProps<TData = any> {
+export interface TestScalarsTableEditorProps<TData = any> {
   /**
    * A list of queries that needs to be refetched once the editor has been submitted.
    * For example, you might need to refresh entity list after editing an entity instance.
@@ -75,9 +75,9 @@ export interface TestScalarsCardsEditorProps<TData = any> {
   refetchQueries?: RefetchQueries<TData>;
 }
 
-export function TestScalarsCardsEditor({
+export function TestScalarsTableEditor({
   refetchQueries
-}: TestScalarsCardsEditorProps<QueryResultType>) {
+}: TestScalarsTableEditorProps<QueryResultType>) {
   const { recordId } = useParams();
 
   // Load the item if `id` is provided

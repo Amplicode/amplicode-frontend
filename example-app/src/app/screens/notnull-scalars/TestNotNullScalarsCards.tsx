@@ -177,6 +177,7 @@ function ItemCard({ item }: { item: ItemType }) {
         key="urlNotNull"
         label="Url Not Null"
         value={item.urlNotNull ?? undefined}
+        isUrl={true}
       />
     </Card>
   );
