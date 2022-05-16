@@ -1,11 +1,11 @@
 import { Typography } from "antd";
-
 const { Paragraph, Text } = Typography;
 
 export interface ValueWithLabelProps {
   key?: string;
   label: string;
   value?: string | number | boolean;
+  isUrl?: boolean;
   renderIfEmptyValue?: boolean;
 }
 
@@ -15,6 +15,7 @@ export interface ValueWithLabelProps {
 export function ValueWithLabel({
   label,
   value,
+  isUrl,
   renderIfEmptyValue = false
 }: ValueWithLabelProps) {
   if (value == null && !renderIfEmptyValue) {
@@ -27,6 +28,17 @@ export function ValueWithLabel({
   }
   if (value === false) {
     formattedValue = "✕";
+  }
+
+  if (isUrl === true) {
+    return (
+      <Paragraph>
+        <Text strong>{label}: </Text>
+        <a target="_blank" rel="noreferrer" href={value as string}>
+          {value}
+        </a>
+      </Paragraph>
+    );
   }
 
   return (

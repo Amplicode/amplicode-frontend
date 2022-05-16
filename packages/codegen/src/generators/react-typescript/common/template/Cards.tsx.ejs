@@ -235,6 +235,8 @@ function ItemCard({item}: {item: ItemType}) {
                           value={item.<%= attr.name %>?.format("LLL") ?? undefined}
                         <% } else if (attr.type === 'LocalTime' || attr.type === 'Time') { -%>
                           value={item.<%= attr.name %>?.format("LTS") ?? undefined}
+                        <% } else if (attr.type === 'Url') { -%>
+                          value={item.<%= attr.name %> ?? undefined} isUrl={true}
                         <% } else { -%>
                           value={item.<%= attr.name %> ?? undefined}
                         <% } -%>

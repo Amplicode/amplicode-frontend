@@ -6,6 +6,8 @@ import { StandaloneOwnerEditor } from "../app/screens/owner/StandaloneOwnerEdito
 import { StandaloneOwnerList } from "../app/screens/standalone-list/StandaloneOwnerList";
 import { StandaloneOwnerTable } from "../app/screens/standalone-list/StandaloneOwnerTable";
 import { StandaloneOwnerCards } from "../app/screens/standalone-list/StandaloneOwnerCards";
+import { ReadOnlyScalarsList } from "../app/screens/read-only-scalars/ReadOnlyScalarsList";
+import { ReadOnlyScalarsListDetails } from "../app/screens/read-only-scalars/ReadOnlyScalarsListDetails";
 import { ReadOnlyPetList } from "../app/screens/read-only-pet/ReadOnlyPetList";
 import { ReadOnlyPetListDetails } from "../app/screens/read-only-pet/ReadOnlyPetListDetails";
 import { ReadOnlyPetTable } from "../app/screens/read-only-pet/ReadOnlyPetTable";
@@ -20,6 +22,8 @@ import { ReadOnlyOwnerCards } from "../app/screens/read-only-owner/ReadOnlyOwner
 import { ReadOnlyOwnerCardsDetails } from "../app/screens/read-only-owner/ReadOnlyOwnerCardsDetails";
 import { TestNotNullScalarsCards } from "../app/screens/notnull-scalars/TestNotNullScalarsCards";
 import { TestNotNullScalarsCardsEditor } from "../app/screens/notnull-scalars/TestNotNullScalarsCardsEditor";
+import { TestScalarsTable } from "../app/screens/scalars/TestScalarsTable";
+import { TestScalarsTableEditor } from "../app/screens/scalars/TestScalarsTableEditor";
 import { TestScalarsCards } from "../app/screens/scalars/TestScalarsCards";
 import { TestScalarsCardsEditor } from "../app/screens/scalars/TestScalarsCardsEditor";
 import { PetTable } from "../app/screens/pet/PetTable";
@@ -90,6 +94,12 @@ const ComponentPreviews = () => {
       <ComponentPreview path="/TestScalarsCards">
         <TestScalarsCards />
       </ComponentPreview>
+      <ComponentPreview path="/TestScalarsTableEditor">
+        <TestScalarsTableEditor />
+      </ComponentPreview>
+      <ComponentPreview path="/TestScalarsTable">
+        <TestScalarsTable />
+      </ComponentPreview>
       <ComponentPreview path="/TestNotNullScalarsCardsEditor">
         <TestNotNullScalarsCardsEditor />
       </ComponentPreview>
@@ -131,6 +141,12 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/ReadOnlyPetList">
         <ReadOnlyPetList />
+      </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyScalarsListDetails">
+        <ReadOnlyScalarsListDetails />
+      </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyScalarsList">
+        <ReadOnlyScalarsList />
       </ComponentPreview>
       <ComponentPreview path="/StandaloneOwnerCards">
         <StandaloneOwnerCards />

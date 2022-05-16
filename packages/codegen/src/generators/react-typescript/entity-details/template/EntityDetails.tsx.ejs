@@ -56,6 +56,12 @@ export function <%= componentName %>() {
               {item.<%= attr.name %>?.format("LLL") ?? undefined}
             <% } else if (attr.type === 'LocalTime' || attr.type === 'Time') { -%>
               {item.<%= attr.name %>?.format("LTS") ?? undefined}
+            <% } else if (attr.type === 'Url') { -%>
+              {item.<%= attr.name %> && (
+                <a target="_blank" rel="noreferrer" href={item.<%= attr.name %>}>
+                  {item.<%= attr.name %>}
+                </a>
+              )}
             <% } else { -%>
               {item.<%= attr.name %> ?? undefined}
             <% } -%>

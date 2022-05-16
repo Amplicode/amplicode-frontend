@@ -176,7 +176,7 @@ function FormFields() {
       </Form.Item>
 
       <Form.Item name="urlNotNull" label="Url Not Null">
-        <Input />
+        <Input type={"url"} />
       </Form.Item>
     </>
   );

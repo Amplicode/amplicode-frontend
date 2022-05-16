@@ -26,6 +26,7 @@ exports.scalarsListQuery = `query Get_Scalars_List {
       offsetDateTime
       offsetTime
       dateTest
+      url
     }
   }`;
 
@@ -59,6 +60,7 @@ exports.scalarsDetailsQuery = `query Get_Scalars($id: ID) {
       offsetDateTime
       offsetTime
       dateTest
+      url
     }
   }`;
 

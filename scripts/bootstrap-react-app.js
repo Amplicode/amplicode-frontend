@@ -14,6 +14,7 @@ runCmdSync('node generate-management/pet-management-cards.js', './scripts');
 runCmdSync('node generate-management/pet-management-list.js', './scripts');
 runCmdSync('node generate-management/pet-management-table.js', './scripts');
 runCmdSync('node generate-management/test-scalars-management-cards.js', './scripts');
+runCmdSync('node generate-management/test-scalars-management-table.js', './scripts');
 runCmdSync('node generate-management/test-notnull-scalars-management-cards.js', './scripts');
 
 runCmdSync('node generate-readonly/owner-cards-readonly.js', './scripts');
@@ -22,6 +23,7 @@ runCmdSync('node generate-readonly/owner-list-readonly.js', './scripts');
 runCmdSync('node generate-readonly/pet-cards-readonly.js', './scripts');
 runCmdSync('node generate-readonly/pet-table-readonly.js', './scripts');
 runCmdSync('node generate-readonly/pet-list-readonly.js', './scripts');
+runCmdSync('node generate-readonly/test-scalars-list-readonly.js', './scripts');
 
 runCmdSync('node generate-standalone-collection/owner-cards-standalone.js', './scripts');
 runCmdSync('node generate-standalone-collection/owner-table-standalone.js', './scripts');

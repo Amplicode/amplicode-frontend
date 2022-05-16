@@ -86,6 +86,14 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
+        title={intl.formatMessage({ id: "screen.TestScalarsTable" })}
+        key={"/scalars-table"}
+      >
+        <Link to={"/scalars-table"}>
+          <FormattedMessage id={"screen.TestScalarsTable"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
         title={intl.formatMessage({ id: "screen.TestNotNullScalarsCards" })}
         key={"/notnull-scalars-cards"}
       >
@@ -139,6 +147,14 @@ export const AppMenu = () => {
       >
         <Link to={"/read-only-pet-list"}>
           <FormattedMessage id={"screen.ReadOnlyPetList"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
+        title={intl.formatMessage({ id: "screen.ReadOnlyScalarsList" })}
+        key={"/read-only-scalars-list"}
+      >
+        <Link to={"/read-only-scalars-list"}>
+          <FormattedMessage id={"screen.ReadOnlyScalarsList"} />
         </Link>
       </Menu.Item>
       <Menu.Item
