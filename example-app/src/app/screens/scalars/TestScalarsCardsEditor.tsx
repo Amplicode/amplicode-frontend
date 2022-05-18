@@ -29,11 +29,21 @@ const SCALARS_TEST_ENTITY = gql(`
     scalarsTestEntity(id: $id) {
       id
       intTest
+      intPrimitive
+      byteTest
+      bytePrimitive
+      shortTest
+      shortPrimitive
+      doubleTest
+      doublePrimitive
       floatTest
+      floatPrimitive
       string
       bool
+      boolPrimitive
       bigInt
       longTest
+      longPrimitive
       bigDecimal
       localDate
       localDateTime
@@ -153,7 +163,64 @@ function FormFields() {
         />
       </Form.Item>
 
+      <Form.Item name="intPrimitive" label="Int Primitive">
+        <InputNumber
+          type={"number"}
+          precision={0}
+          max={2147483647}
+          min={-2147483648}
+        />
+      </Form.Item>
+
+      <Form.Item name="byteTest" label="Byte Test">
+        <InputNumber
+          type={"number"}
+          precision={0}
+          max={2147483647}
+          min={-2147483648}
+        />
+      </Form.Item>
+
+      <Form.Item name="bytePrimitive" label="Byte Primitive">
+        <InputNumber
+          type={"number"}
+          precision={0}
+          max={2147483647}
+          min={-2147483648}
+        />
+      </Form.Item>
+
+      <Form.Item name="shortTest" label="Short Test">
+        <InputNumber
+          type={"number"}
+          precision={0}
+          max={2147483647}
+          min={-2147483648}
+        />
+      </Form.Item>
+
+      <Form.Item name="shortPrimitive" label="Short Primitive">
+        <InputNumber
+          type={"number"}
+          precision={0}
+          max={2147483647}
+          min={-2147483648}
+        />
+      </Form.Item>
+
+      <Form.Item name="doubleTest" label="Double Test">
+        <InputNumber type={"number"} />
+      </Form.Item>
+
+      <Form.Item name="doublePrimitive" label="Double Primitive">
+        <InputNumber type={"number"} />
+      </Form.Item>
+
       <Form.Item name="floatTest" label="Float Test">
+        <InputNumber type={"number"} />
+      </Form.Item>
+
+      <Form.Item name="floatPrimitive" label="Float Primitive">
         <InputNumber type={"number"} />
       </Form.Item>
 
@@ -170,11 +237,24 @@ function FormFields() {
         <Checkbox />
       </Form.Item>
 
+      <Form.Item
+        name="boolPrimitive"
+        label="Bool Primitive"
+        valuePropName="checked"
+        initialValue={false}
+      >
+        <Checkbox />
+      </Form.Item>
+
       <Form.Item name="bigInt" label="Big Int">
         <InputNumber type={"number"} precision={0} stringMode={true} />
       </Form.Item>
 
       <Form.Item name="longTest" label="Long Test">
+        <InputNumber type={"number"} precision={0} stringMode={true} />
+      </Form.Item>
+
+      <Form.Item name="longPrimitive" label="Long Primitive">
         <InputNumber type={"number"} precision={0} stringMode={true} />
       </Form.Item>
 

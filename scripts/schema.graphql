@@ -9,12 +9,16 @@ schema {
 type Mutation {
   deleteOwner(id: ID!): Void
   deletePet(id: ID!): Void
+  deletePetDescription(id: ID!): Void
+  deletePetDisease(id: ID!): Void
   deletePetType(id: ID!): Void
   deleteScalarsTestEntity(id: ID): Void
   deleteTag(id: ID): Void
   deleteVisit(id: ID): Void
   updateOwner(input: OwnerInputDTO): OwnerDTO
   updatePet(input: PetInputDTO): PetDTO
+  updatePetDescription(input: PetDescriptionInput): PetDescription
+  updatePetDisease(input: PetDiseaseInput): PetDisease
   updatePetType(input: PetTypeInputDTO): PetTypeDTO
   updateScalarsTestEntity(input: ScalarsTestEntityInput): ScalarsTestEntity
   updateTag(input: TagInputDTO): TagDTO
@@ -40,6 +44,17 @@ type PetDTO {
   type: PetTypeDTO
 }
 
+type PetDescription {
+  description: String
+  identifier: ID
+}
+
+type PetDisease {
+  description: String
+  name: String
+  petDiseaseIdentifier: ID
+}
+
 type PetTypeDTO {
   id: ID
   name: String
@@ -53,7 +68,12 @@ type Query {
   ownerList: [OwnerDTO]
   pet(id: ID): PetDTO
   petByIdentificationNumberList(identificationNumber: String): [PetDTO]
+  petDescription(id: ID): PetDescription
+  petDescriptionList: [PetDescription]
+  petDisease(id: ID): PetDisease
+  petDiseaseList: [PetDisease]
   petList: [PetDTO]
+  petListByTypeId(typeId: ID!): [PetDTO]
   petType(id: ID): PetTypeDTO
   petTypeList: [PetTypeDTO]
   scalarsTestEntity(id: ID): ScalarsTestEntity
@@ -69,18 +89,25 @@ type ScalarsTestEntity {
   bigDecimal: BigDecimal
   bigInt: BigInteger
   bool: Boolean
+  boolPrimitive: Boolean!
+  bytePrimitive: Int!
   byteTest: Int
   dateTest: Timestamp
+  doublePrimitive: Float!
   doubleTest: Float
+  floatPrimitive: Float!
   floatTest: Float
   id: ID
+  intPrimitive: Int!
   intTest: Int
   localDate: Date
   localDateTime: LocalDateTime
   localTime: LocalTime
+  longPrimitive: Long!
   longTest: Long
   offsetDateTime: DateTime
   offsetTime: Time
+  shortPrimitive: Int!
   shortTest: Int
   string: String
   url: Url
@@ -170,6 +197,17 @@ input PetDTOInput {
   type: PetTypeDTOInput
 }
 
+input PetDescriptionInput {
+  description: String
+  identifier: ID
+}
+
+input PetDiseaseInput {
+  description: String
+  name: String
+  petDiseaseIdentifier: ID
+}
+
 input PetInputDTO {
   birthDate: Date
   id: ID
@@ -193,18 +231,25 @@ input ScalarsTestEntityInput {
   bigDecimal: BigDecimal
   bigInt: BigInteger
   bool: Boolean
+  boolPrimitive: Boolean!
+  bytePrimitive: Int!
   byteTest: Int
   dateTest: Timestamp
+  doublePrimitive: Float!
   doubleTest: Float
+  floatPrimitive: Float!
   floatTest: Float
   id: ID
+  intPrimitive: Int!
   intTest: Int
   localDate: Date
   localDateTime: LocalDateTime
   localTime: LocalTime
+  longPrimitive: Long!
   longTest: Long
   offsetDateTime: DateTime
   offsetTime: Time
+  shortPrimitive: Int!
   shortTest: Int
   string: String
   url: Url
