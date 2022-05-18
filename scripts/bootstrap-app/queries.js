@@ -4,11 +4,21 @@ exports.scalarsListQuery = `query Get_Scalars_List {
     scalarsTestEntityList {
       id
       intTest
+      intPrimitive
+      byteTest
+      bytePrimitive
+      shortTest
+      shortPrimitive
+      doubleTest
+      doublePrimitive
       floatTest
+      floatPrimitive
       string
       bool
+      boolPrimitive
       bigInt
       longTest
+      longPrimitive
       bigDecimal
       localDate
       localDateTime
@@ -27,11 +37,21 @@ exports.scalarsDetailsQuery = `query Get_Scalars($id: ID) {
     scalarsTestEntity(id: $id) {
       id
       intTest
+      intPrimitive
+      byteTest
+      bytePrimitive
+      shortTest
+      shortPrimitive
+      doubleTest
+      doublePrimitive
       floatTest
+      floatPrimitive
       string
       bool
+      boolPrimitive
       bigInt
       longTest
+      longPrimitive
       bigDecimal
       localDate
       localDateTime

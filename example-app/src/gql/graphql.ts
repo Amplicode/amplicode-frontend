@@ -47,12 +47,16 @@ export type Mutation = {
   __typename?: "Mutation";
   deleteOwner?: Maybe<Scalars["Void"]>;
   deletePet?: Maybe<Scalars["Void"]>;
+  deletePetDescription?: Maybe<Scalars["Void"]>;
+  deletePetDisease?: Maybe<Scalars["Void"]>;
   deletePetType?: Maybe<Scalars["Void"]>;
   deleteScalarsTestEntity?: Maybe<Scalars["Void"]>;
   deleteTag?: Maybe<Scalars["Void"]>;
   deleteVisit?: Maybe<Scalars["Void"]>;
   updateOwner?: Maybe<OwnerDto>;
   updatePet?: Maybe<PetDto>;
+  updatePetDescription?: Maybe<PetDescription>;
+  updatePetDisease?: Maybe<PetDisease>;
   updatePetType?: Maybe<PetTypeDto>;
   updateScalarsTestEntity?: Maybe<ScalarsTestEntity>;
   updateTag?: Maybe<TagDto>;
@@ -66,6 +70,16 @@ export type MutationDeleteOwnerArgs = {
 
 /** Mutation root */
 export type MutationDeletePetArgs = {
+  id: Scalars["ID"];
+};
+
+/** Mutation root */
+export type MutationDeletePetDescriptionArgs = {
+  id: Scalars["ID"];
+};
+
+/** Mutation root */
+export type MutationDeletePetDiseaseArgs = {
   id: Scalars["ID"];
 };
 
@@ -97,6 +111,16 @@ export type MutationUpdateOwnerArgs = {
 /** Mutation root */
 export type MutationUpdatePetArgs = {
   input?: InputMaybe<PetInputDto>;
+};
+
+/** Mutation root */
+export type MutationUpdatePetDescriptionArgs = {
+  input?: InputMaybe<PetDescriptionInput>;
+};
+
+/** Mutation root */
+export type MutationUpdatePetDiseaseArgs = {
+  input?: InputMaybe<PetDiseaseInput>;
 };
 
 /** Mutation root */
@@ -174,6 +198,30 @@ export type PetDtoInput = {
   type?: InputMaybe<PetTypeDtoInput>;
 };
 
+export type PetDescription = {
+  __typename?: "PetDescription";
+  description?: Maybe<Scalars["String"]>;
+  identifier?: Maybe<Scalars["ID"]>;
+};
+
+export type PetDescriptionInput = {
+  description?: InputMaybe<Scalars["String"]>;
+  identifier?: InputMaybe<Scalars["ID"]>;
+};
+
+export type PetDisease = {
+  __typename?: "PetDisease";
+  description?: Maybe<Scalars["String"]>;
+  name?: Maybe<Scalars["String"]>;
+  petDiseaseIdentifier?: Maybe<Scalars["ID"]>;
+};
+
+export type PetDiseaseInput = {
+  description?: InputMaybe<Scalars["String"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  petDiseaseIdentifier?: InputMaybe<Scalars["ID"]>;
+};
+
 export type PetInputDto = {
   birthDate?: InputMaybe<Scalars["Date"]>;
   id?: InputMaybe<Scalars["ID"]>;
@@ -208,7 +256,12 @@ export type Query = {
   ownerList?: Maybe<Array<Maybe<OwnerDto>>>;
   pet?: Maybe<PetDto>;
   petByIdentificationNumberList?: Maybe<Array<Maybe<PetDto>>>;
+  petDescription?: Maybe<PetDescription>;
+  petDescriptionList?: Maybe<Array<Maybe<PetDescription>>>;
+  petDisease?: Maybe<PetDisease>;
+  petDiseaseList?: Maybe<Array<Maybe<PetDisease>>>;
   petList?: Maybe<Array<Maybe<PetDto>>>;
+  petListByTypeId?: Maybe<Array<Maybe<PetDto>>>;
   petType?: Maybe<PetTypeDto>;
   petTypeList?: Maybe<Array<Maybe<PetTypeDto>>>;
   scalarsTestEntity?: Maybe<ScalarsTestEntity>;
@@ -246,6 +299,21 @@ export type QueryPetByIdentificationNumberListArgs = {
 };
 
 /** Query root */
+export type QueryPetDescriptionArgs = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+/** Query root */
+export type QueryPetDiseaseArgs = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+/** Query root */
+export type QueryPetListByTypeIdArgs = {
+  typeId: Scalars["ID"];
+};
+
+/** Query root */
 export type QueryPetTypeArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
@@ -270,18 +338,25 @@ export type ScalarsTestEntity = {
   bigDecimal?: Maybe<Scalars["BigDecimal"]>;
   bigInt?: Maybe<Scalars["BigInteger"]>;
   bool?: Maybe<Scalars["Boolean"]>;
+  boolPrimitive: Scalars["Boolean"];
+  bytePrimitive: Scalars["Int"];
   byteTest?: Maybe<Scalars["Int"]>;
   dateTest?: Maybe<Scalars["Timestamp"]>;
+  doublePrimitive: Scalars["Float"];
   doubleTest?: Maybe<Scalars["Float"]>;
+  floatPrimitive: Scalars["Float"];
   floatTest?: Maybe<Scalars["Float"]>;
   id?: Maybe<Scalars["ID"]>;
+  intPrimitive: Scalars["Int"];
   intTest?: Maybe<Scalars["Int"]>;
   localDate?: Maybe<Scalars["Date"]>;
   localDateTime?: Maybe<Scalars["LocalDateTime"]>;
   localTime?: Maybe<Scalars["LocalTime"]>;
+  longPrimitive: Scalars["Long"];
   longTest?: Maybe<Scalars["Long"]>;
   offsetDateTime?: Maybe<Scalars["DateTime"]>;
   offsetTime?: Maybe<Scalars["Time"]>;
+  shortPrimitive: Scalars["Int"];
   shortTest?: Maybe<Scalars["Int"]>;
   string?: Maybe<Scalars["String"]>;
   url?: Maybe<Scalars["Url"]>;
@@ -291,18 +366,25 @@ export type ScalarsTestEntityInput = {
   bigDecimal?: InputMaybe<Scalars["BigDecimal"]>;
   bigInt?: InputMaybe<Scalars["BigInteger"]>;
   bool?: InputMaybe<Scalars["Boolean"]>;
+  boolPrimitive: Scalars["Boolean"];
+  bytePrimitive: Scalars["Int"];
   byteTest?: InputMaybe<Scalars["Int"]>;
   dateTest?: InputMaybe<Scalars["Timestamp"]>;
+  doublePrimitive: Scalars["Float"];
   doubleTest?: InputMaybe<Scalars["Float"]>;
+  floatPrimitive: Scalars["Float"];
   floatTest?: InputMaybe<Scalars["Float"]>;
   id?: InputMaybe<Scalars["ID"]>;
+  intPrimitive: Scalars["Int"];
   intTest?: InputMaybe<Scalars["Int"]>;
   localDate?: InputMaybe<Scalars["Date"]>;
   localDateTime?: InputMaybe<Scalars["LocalDateTime"]>;
   localTime?: InputMaybe<Scalars["LocalTime"]>;
+  longPrimitive: Scalars["Long"];
   longTest?: InputMaybe<Scalars["Long"]>;
   offsetDateTime?: InputMaybe<Scalars["DateTime"]>;
   offsetTime?: InputMaybe<Scalars["Time"]>;
+  shortPrimitive: Scalars["Int"];
   shortTest?: InputMaybe<Scalars["Int"]>;
   string?: InputMaybe<Scalars["String"]>;
   url?: InputMaybe<Scalars["Url"]>;
@@ -526,11 +608,21 @@ export type Get_Scalars_ListQuery = {
     __typename?: "ScalarsTestEntity";
     id?: string | null;
     intTest?: number | null;
+    intPrimitive: number;
+    byteTest?: number | null;
+    bytePrimitive: number;
+    shortTest?: number | null;
+    shortPrimitive: number;
+    doubleTest?: number | null;
+    doublePrimitive: number;
     floatTest?: number | null;
+    floatPrimitive: number;
     string?: string | null;
     bool?: boolean | null;
+    boolPrimitive: boolean;
     bigInt?: any | null;
     longTest?: any | null;
+    longPrimitive: any;
     bigDecimal?: any | null;
     localDate?: any | null;
     localDateTime?: any | null;
@@ -560,11 +652,21 @@ export type Get_ScalarsQuery = {
     __typename?: "ScalarsTestEntity";
     id?: string | null;
     intTest?: number | null;
+    intPrimitive: number;
+    byteTest?: number | null;
+    bytePrimitive: number;
+    shortTest?: number | null;
+    shortPrimitive: number;
+    doubleTest?: number | null;
+    doublePrimitive: number;
     floatTest?: number | null;
+    floatPrimitive: number;
     string?: string | null;
     bool?: boolean | null;
+    boolPrimitive: boolean;
     bigInt?: any | null;
     longTest?: any | null;
+    longPrimitive: any;
     bigDecimal?: any | null;
     localDate?: any | null;
     localDateTime?: any | null;
@@ -1167,11 +1269,42 @@ export const Get_Scalars_ListDocument = {
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 { kind: "Field", name: { kind: "Name", value: "intTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "intPrimitive" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "byteTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "bytePrimitive" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "shortTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "shortPrimitive" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "doubleTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "doublePrimitive" },
+                },
                 { kind: "Field", name: { kind: "Name", value: "floatTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "floatPrimitive" },
+                },
                 { kind: "Field", name: { kind: "Name", value: "string" } },
                 { kind: "Field", name: { kind: "Name", value: "bool" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "boolPrimitive" },
+                },
                 { kind: "Field", name: { kind: "Name", value: "bigInt" } },
                 { kind: "Field", name: { kind: "Name", value: "longTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "longPrimitive" },
+                },
                 { kind: "Field", name: { kind: "Name", value: "bigDecimal" } },
                 { kind: "Field", name: { kind: "Name", value: "localDate" } },
                 {
@@ -1273,11 +1406,42 @@ export const Get_ScalarsDocument = {
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 { kind: "Field", name: { kind: "Name", value: "intTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "intPrimitive" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "byteTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "bytePrimitive" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "shortTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "shortPrimitive" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "doubleTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "doublePrimitive" },
+                },
                 { kind: "Field", name: { kind: "Name", value: "floatTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "floatPrimitive" },
+                },
                 { kind: "Field", name: { kind: "Name", value: "string" } },
                 { kind: "Field", name: { kind: "Name", value: "bool" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "boolPrimitive" },
+                },
                 { kind: "Field", name: { kind: "Name", value: "bigInt" } },
                 { kind: "Field", name: { kind: "Name", value: "longTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "longPrimitive" },
+                },
                 { kind: "Field", name: { kind: "Name", value: "bigDecimal" } },
                 { kind: "Field", name: { kind: "Name", value: "localDate" } },
                 {

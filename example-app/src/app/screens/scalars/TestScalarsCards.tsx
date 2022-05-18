@@ -22,11 +22,21 @@ const SCALARS_TEST_ENTITY_LIST = gql(`
     scalarsTestEntityList {
       id
       intTest
+      intPrimitive
+      byteTest
+      bytePrimitive
+      shortTest
+      shortPrimitive
+      doubleTest
+      doublePrimitive
       floatTest
+      floatPrimitive
       string
       bool
+      boolPrimitive
       bigInt
       longTest
+      longPrimitive
       bigDecimal
       localDate
       localDateTime
@@ -137,9 +147,49 @@ function ItemCard({ item }: { item: ItemType }) {
         value={item.intTest ?? undefined}
       />
       <ValueWithLabel
+        key="intPrimitive"
+        label="Int Primitive"
+        value={item.intPrimitive ?? undefined}
+      />
+      <ValueWithLabel
+        key="byteTest"
+        label="Byte Test"
+        value={item.byteTest ?? undefined}
+      />
+      <ValueWithLabel
+        key="bytePrimitive"
+        label="Byte Primitive"
+        value={item.bytePrimitive ?? undefined}
+      />
+      <ValueWithLabel
+        key="shortTest"
+        label="Short Test"
+        value={item.shortTest ?? undefined}
+      />
+      <ValueWithLabel
+        key="shortPrimitive"
+        label="Short Primitive"
+        value={item.shortPrimitive ?? undefined}
+      />
+      <ValueWithLabel
+        key="doubleTest"
+        label="Double Test"
+        value={item.doubleTest ?? undefined}
+      />
+      <ValueWithLabel
+        key="doublePrimitive"
+        label="Double Primitive"
+        value={item.doublePrimitive ?? undefined}
+      />
+      <ValueWithLabel
         key="floatTest"
         label="Float Test"
         value={item.floatTest ?? undefined}
+      />
+      <ValueWithLabel
+        key="floatPrimitive"
+        label="Float Primitive"
+        value={item.floatPrimitive ?? undefined}
       />
       <ValueWithLabel
         key="string"
@@ -147,6 +197,11 @@ function ItemCard({ item }: { item: ItemType }) {
         value={item.string ?? undefined}
       />
       <ValueWithLabel key="bool" label="Bool" value={item.bool ?? undefined} />
+      <ValueWithLabel
+        key="boolPrimitive"
+        label="Bool Primitive"
+        value={item.boolPrimitive ?? undefined}
+      />
       <ValueWithLabel
         key="bigInt"
         label="Big Int"
@@ -156,6 +211,11 @@ function ItemCard({ item }: { item: ItemType }) {
         key="longTest"
         label="Long Test"
         value={item.longTest ?? undefined}
+      />
+      <ValueWithLabel
+        key="longPrimitive"
+        label="Long Primitive"
+        value={item.longPrimitive ?? undefined}
       />
       <ValueWithLabel
         key="bigDecimal"
