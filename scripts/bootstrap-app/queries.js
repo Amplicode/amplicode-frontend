@@ -68,6 +68,48 @@ exports.scalarsUpsertMutation = `mutation Update_Scalars($input: ScalarsTestEnti
     }
   }`;
 
+exports.notNullScalarsListQuery = `query Get_NN_Scalars_List {
+    notNullScalarsTestEntityList {
+      id
+      bigDecimalNotNull
+      bigIntNotNull
+      dateTestNotNull
+      localDateNotNull
+      localDateTimeNotNull
+      localTimeNotNull
+      offsetDateTimeNotNull
+      offsetTimeNotNull
+      stringNotNull
+      urlNotNull
+    }
+  }`;
+
+exports.notNullScalarsDeleteMutation = `mutation Delete_NN_Scalars($id: ID!) {
+    deleteNotNullScalarsTestEntity(id: $id)
+  }`;
+
+exports.notNullScalarsDetailsQuery = `query Get_NN_Scalars($id: ID) {
+    notNullScalarsTestEntity(id: $id) {
+      id
+      bigDecimalNotNull
+      bigIntNotNull
+      dateTestNotNull
+      localDateNotNull
+      localDateTimeNotNull
+      localTimeNotNull
+      offsetDateTimeNotNull
+      offsetTimeNotNull
+      stringNotNull
+      urlNotNull
+    }
+  }`;
+
+exports.notNullScalarsUpsertMutation = `mutation Update_NN_Scalars($input: NotNullScalarsTestEntityInput) {
+    updateNotNullScalarsTestEntity(input: $input) {
+      id
+    }
+  }`;
+
 /* Owner */
 
 exports.ownerListQuery = `query Get_Owner_List {

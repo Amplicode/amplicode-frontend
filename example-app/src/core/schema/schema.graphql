@@ -1,5 +1,6 @@
 # Mutation root
 type Mutation {
+  deleteNotNullScalarsTestEntity(id: ID): Void
   deleteOwner(id: ID!): Void
   deletePet(id: ID!): Void
   deletePetDescription(id: ID!): Void
@@ -8,6 +9,7 @@ type Mutation {
   deleteScalarsTestEntity(id: ID): Void
   deleteTag(id: ID): Void
   deleteVisit(id: ID): Void
+  updateNotNullScalarsTestEntity(input: NotNullScalarsTestEntityInput): NotNullScalarsTestEntity
   updateOwner(input: OwnerInputDTO): OwnerDTO
   updatePet(input: PetInputDTO): PetDTO
   updatePetDescription(input: PetDescriptionInput): PetDescription
@@ -16,6 +18,20 @@ type Mutation {
   updateScalarsTestEntity(input: ScalarsTestEntityInput): ScalarsTestEntity
   updateTag(input: TagInputDTO): TagDTO
   updateVisit(input: VisitInputDTO): VisitDTO
+}
+
+type NotNullScalarsTestEntity {
+  bigDecimalNotNull: BigDecimal!
+  bigIntNotNull: BigInteger!
+  dateTestNotNull: Timestamp!
+  id: ID
+  localDateNotNull: Date!
+  localDateTimeNotNull: LocalDateTime!
+  localTimeNotNull: LocalTime!
+  offsetDateTimeNotNull: DateTime!
+  offsetTimeNotNull: Time!
+  stringNotNull: String!
+  urlNotNull: Url!
 }
 
 type OwnerDTO {
@@ -55,6 +71,8 @@ type PetTypeDTO {
 
 # Query root
 type Query {
+  notNullScalarsTestEntity(id: ID): NotNullScalarsTestEntity
+  notNullScalarsTestEntityList: [NotNullScalarsTestEntity]
   owner(id: ID): OwnerDTO
   ownerByNamesList(filter: OwnerFilterInput): [OwnerDTO]
   ownerByNamesSeparateMethodsList(filter: OwnerFilterInput): [OwnerDTO]
@@ -155,6 +173,20 @@ scalar Url
 
 # Java Type: Void
 scalar Void
+
+input NotNullScalarsTestEntityInput {
+  bigDecimalNotNull: BigDecimal!
+  bigIntNotNull: BigInteger!
+  dateTestNotNull: Timestamp!
+  id: ID
+  localDateNotNull: Date!
+  localDateTimeNotNull: LocalDateTime!
+  localTimeNotNull: LocalTime!
+  offsetDateTimeNotNull: DateTime!
+  offsetTimeNotNull: Time!
+  stringNotNull: String!
+  urlNotNull: Url!
+}
 
 input OwnerDTOInput {
   address: String

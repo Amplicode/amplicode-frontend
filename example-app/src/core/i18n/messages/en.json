@@ -55,6 +55,8 @@
   "screen.PetTable": "Pet Table",
   "screen.TestScalarsCardsEditor": "Test Scalars Cards Editor",
   "screen.TestScalarsCards": "Test Scalars Cards",
+  "screen.TestNotNullScalarsCardsEditor": "Test Not Null Scalars Cards Editor",
+  "screen.TestNotNullScalarsCards": "Test Not Null Scalars Cards",
   "screen.ReadOnlyOwnerCardsDetails": "Read Only Owner Cards Details",
   "screen.ReadOnlyOwnerCards": "Read Only Owner Cards",
   "screen.ReadOnlyOwnerTableDetails": "Read Only Owner Table Details",

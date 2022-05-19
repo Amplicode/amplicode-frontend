@@ -1,3 +1,50 @@
+export const notNullScalarsListQuery = `
+query Get_NN_Scalars_List {
+    notNullScalarsTestEntityList {
+      id
+      bigDecimalNotNull
+      bigIntNotNull
+      dateTestNotNull
+      localDateNotNull
+      localDateTimeNotNull
+      localTimeNotNull
+      offsetDateTimeNotNull
+      offsetTimeNotNull
+      stringNotNull
+      urlNotNull
+    }
+  }`;
+
+export const notNullScalarsDeleteMutation = `
+mutation Delete_NN_Scalars($id: ID!) {
+    deleteNotNullScalarsTestEntity(id: $id)
+  }`;
+
+export const notNullScalarsDetailsQuery = `
+query Get_NN_Scalars($id: ID) {
+    notNullScalarsTestEntity(id: $id) {
+      id
+      bigDecimalNotNull
+      bigIntNotNull
+      dateTestNotNull
+      localDateNotNull
+      localDateTimeNotNull
+      localTimeNotNull
+      offsetDateTimeNotNull
+      offsetTimeNotNull
+      stringNotNull
+      urlNotNull
+    }
+  }`;
+
+export const notNullScalarsUpsertMutation = `
+mutation Update_NN_Scalars($input: NotNullScalarsTestEntityInput) {
+    updateNotNullScalarsTestEntity(input: $input) {
+      id
+    }
+  }`;
+
+
 export const getOwnerQuery = `
 query Get_Owner($id: BigInteger) {
   owner(id: $id) {
