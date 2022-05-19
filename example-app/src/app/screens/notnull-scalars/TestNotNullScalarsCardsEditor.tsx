@@ -1,6 +1,3 @@
-<% const QUERY_CONST = toFatSnakeCase(queryName); -%>
-<% const MUTATION_CONST = toFatSnakeCase(mutationName); -%>
-<%# ------- TEMPLATE STARTS HERE ------- -%>
 import React, { useCallback, useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { ResultOf } from "@graphql-typed-document-node/core";
@@ -9,57 +6,50 @@ import {
   Card,
   Form,
   FormInstance,
-  <% if (locals.hasStringScalars || locals.hasUnknownCustomScalars) { -%>
-    Input,
-  <% } -%>
-  <% if (locals.hasIntScalars || locals.hasFloatScalars) { -%>
-    InputNumber,
-  <% } -%>
-  <% if (locals.hasBooleanScalars) { -%>
-    Checkbox,
-  <% } -%>
-  <% if (locals.hasEnumScalars) { -%>
-    Select,
-  <% } -%>
+  Input,
+  InputNumber,
   message,
   Space,
-  Spin,
+  Spin
 } from "antd";
 import { useForm } from "antd/es/form/Form";
-<% if (locals.hasRelationFields) { -%>
-  import {EntityLookupField} from '<%= relDirShift %>core/crud/entity-lookup-field/EntityLookupField';
-<% } -%>
-<% if (locals.hasDateScalars || locals.hasTimeScalars) { -%>
-  import {
-    <% if (locals.hasDateScalars) { -%>
-      DatePicker,
-    <% } -%>
-    <% if (locals.hasTimeScalars) { -%>
-      TimePicker,
-    <% } -%>
-  } from '@amplicode/react-antd';
-<% } -%>
-<% attributes.filter(a => a.isRelationField).forEach(attribute => { -%>
-  import { get<%= capitalizeFirst(attribute.type) %>DisplayName } from '<%= relDirShift %>core/display-name/get<%= capitalizeFirst(attribute.type) %>DisplayName';
-<% }) -%>
+import { DatePicker, TimePicker } from "@amplicode/react-antd";
 import { gql } from "@amplicode/gql";
 import { useNavigate, useParams } from "react-router-dom";
-import { RequestFailedError } from "<%= relDirShift %>core/crud/RequestFailedError";
-import { useSubmitEditor } from "<%= relDirShift %>core/crud/useSubmitEditor";
-import { ErrorMessage } from "<%= relDirShift %>core/crud/ErrorMessage";
+import { RequestFailedError } from "../../../core/crud/RequestFailedError";
+import { useSubmitEditor } from "../../../core/crud/useSubmitEditor";
+import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 import { FormattedMessage, useIntl } from "react-intl";
-import { RefetchQueries } from "<%= relDirShift %>core/type-aliases/RefetchQueries";
-import { deserialize } from "<%= relDirShift %>core/transform/model/deserialize";
+import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
+import { deserialize } from "../../../core/transform/model/deserialize";
 
-const <%= QUERY_CONST %> = gql(`
-  <%= queryString %>
+const NOT_NULL_SCALARS_TEST_ENTITY = gql(`
+  query Get_NN_Scalars($id: ID) {
+    notNullScalarsTestEntity(id: $id) {
+      id
+      bigDecimalNotNull
+      bigIntNotNull
+      dateTestNotNull
+      localDateNotNull
+      localDateTimeNotNull
+      localTimeNotNull
+      offsetDateTimeNotNull
+      offsetTimeNotNull
+      stringNotNull
+      urlNotNull
+    }
+  }
 `);
 
-const <%= MUTATION_CONST %> = gql(`
-  <%= mutationString %>
+const UPDATE_NOT_NULL_SCALARS_TEST_ENTITY = gql(`
+  mutation Update_NN_Scalars($input: NotNullScalarsTestEntityInput) {
+    updateNotNullScalarsTestEntity(input: $input) {
+      id
+    }
+  }
 `);
 
-export interface <%= componentName %>Props<TData = any> {
+export interface TestNotNullScalarsCardsEditorProps<TData = any> {
   /**
    * A list of queries that needs to be refetched once the editor has been submitted.
    * For example, you might need to refresh entity list after editing an entity instance.
@@ -70,11 +60,13 @@ export interface <%= componentName %>Props<TData = any> {
   refetchQueries?: RefetchQueries<TData>;
 }
 
-export function <%= componentName %>({ refetchQueries }: <%= componentName %>Props<QueryResultType>) {
-  const {recordId} = useParams();
+export function TestNotNullScalarsCardsEditor({
+  refetchQueries
+}: TestNotNullScalarsCardsEditorProps<QueryResultType>) {
+  const { recordId } = useParams();
 
   // Load the item if `id` is provided
-  const {item, itemLoading, itemError} = useLoadItem(recordId);
+  const { item, itemLoading, itemError } = useLoadItem(recordId);
 
   if (itemLoading) {
     return <Spin />;
@@ -85,10 +77,7 @@ export function <%= componentName %>({ refetchQueries }: <%= componentName %>Pro
   }
 
   return (
-    <EditorForm item={item}
-                id={recordId}
-                refetchQueries={refetchQueries}
-    />
+    <EditorForm item={item} id={recordId} refetchQueries={refetchQueries} />
   );
 }
 
@@ -119,10 +108,10 @@ function EditorForm<TData>({
   const [formError, setFormError] = useState<string | undefined>();
 
   const { handleSubmit, submitting } = useSubmitEditor(
-    <%= MUTATION_CONST %>,
+    UPDATE_NOT_NULL_SCALARS_TEST_ENTITY,
     setFormError,
     refetchQueries,
-    '<%= inputTypeName %>',
+    "NotNullScalarsTestEntityInput",
     id
   );
   const handleClientValidationFailed = useClientValidationFailed();
@@ -150,11 +139,45 @@ function EditorForm<TData>({
 function FormFields() {
   return (
     <>
-      <% attributes.forEach((attr, index) => { %>
-        <% if (attr.name !== idField) { %>
-          <%- include(includesPath('AmplicodeFormField'), {attr: attr, index: index}) %>
-        <% } %>
-      <% }) %>
+      <Form.Item name="bigDecimalNotNull" label="Big Decimal Not Null">
+        <InputNumber type={"number"} stringMode={true} autoFocus />
+      </Form.Item>
+
+      <Form.Item name="bigIntNotNull" label="Big Int Not Null">
+        <InputNumber type={"number"} precision={0} stringMode={true} />
+      </Form.Item>
+
+      <Form.Item name="dateTestNotNull" label="Date Test Not Null">
+        <DatePicker showTime={{ format: "HH:mm:ss" }} />
+      </Form.Item>
+
+      <Form.Item name="localDateNotNull" label="Local Date Not Null">
+        <DatePicker />
+      </Form.Item>
+
+      <Form.Item name="localDateTimeNotNull" label="Local Date Time Not Null">
+        <DatePicker showTime={{ format: "HH:mm:ss" }} />
+      </Form.Item>
+
+      <Form.Item name="localTimeNotNull" label="Local Time Not Null">
+        <TimePicker />
+      </Form.Item>
+
+      <Form.Item name="offsetDateTimeNotNull" label="Offset Date Time Not Null">
+        <DatePicker showTime={{ format: "HH:mm:ss" }} />
+      </Form.Item>
+
+      <Form.Item name="offsetTimeNotNull" label="Offset Time Not Null">
+        <TimePicker />
+      </Form.Item>
+
+      <Form.Item name="stringNotNull" label="String Not Null">
+        <Input />
+      </Form.Item>
+
+      <Form.Item name="urlNotNull" label="Url Not Null">
+        <Input />
+      </Form.Item>
     </>
   );
 }
@@ -164,7 +187,7 @@ function FormFields() {
  *
  * @param submitting flag indicating whether submit is in progress
  */
-function FormButtons({submitting}: {submitting?: boolean}) {
+function FormButtons({ submitting }: { submitting?: boolean }) {
   const navigate = useNavigate();
 
   return (
@@ -192,23 +215,26 @@ function useLoadItem(id?: string) {
   // Get the function that will load item from server,
   // also get variables that will contain loading/error state and response data
   // once the response is received
-  const [loadItem, { loading, error, data }] = useLazyQuery(<%= QUERY_CONST %>, {
-    variables: {
-      id
+  const [loadItem, { loading, error, data }] = useLazyQuery(
+    NOT_NULL_SCALARS_TEST_ENTITY,
+    {
+      variables: {
+        id
+      }
     }
-  });
+  );
 
   // Load item if `id` has been provided in props
   useEffect(() => {
-    if (id != null && id !== 'new') {
+    if (id != null && id !== "new") {
       loadItem();
     }
   }, [loadItem, id]);
 
   // Get the received item, if any
   useEffect(() => {
-    if (data?.<%= queryName %> != null) {
-      setItem(deserialize(data?.<%= queryName %>));
+    if (data?.notNullScalarsTestEntity != null) {
+      setItem(deserialize(data?.notNullScalarsTestEntity));
     }
   }, [data, setItem]);
 
@@ -249,8 +275,8 @@ function useClientValidationFailed() {
 /**
  * Type of data object received when executing the query
  */
-type QueryResultType = ResultOf<typeof <%= QUERY_CONST %>>;
+type QueryResultType = ResultOf<typeof NOT_NULL_SCALARS_TEST_ENTITY>;
 /**
  * Type of the item loaded by executing the query
  */
-type ItemType = QueryResultType['<%= queryName %>'];
+type ItemType = QueryResultType["notNullScalarsTestEntity"];

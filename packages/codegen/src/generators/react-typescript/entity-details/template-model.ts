@@ -50,8 +50,8 @@ type GraphQLEditorModel = {
   hasUnknownCustomScalars?: boolean;
   hasRelationFields?: boolean;
 
-  withDatePicker?: boolean;
-  withTimePicker?: boolean;
+  hasDateScalars?: boolean;
+  hasTimeScalars?: boolean;
 };
 
 export const deriveEntityDetailsTemplateModel: AmplicodeTemplateModelStage<
@@ -109,7 +109,7 @@ export function deriveGraphQLEditorModel(
     }
   }
 
-  const operationDefinition =  mutationNode.definitions[0];
+  const operationDefinition = mutationNode.definitions[0];
   if (!('variableDefinitions' in operationDefinition) || operationDefinition.variableDefinitions == null) {
     throw new Error('Variable definitions not found in mutation');
   }
@@ -148,8 +148,8 @@ export function deriveGraphQLEditorModel(
 
   const namedType = typeMap[inputTypeName];
   if (namedType instanceof GraphQLScalarType
-      || namedType instanceof GraphQLUnionType
-      || namedType instanceof GraphQLEnumType
+    || namedType instanceof GraphQLUnionType
+    || namedType instanceof GraphQLEnumType
   ) {
     throw new Error('Unexpected type');
   }
@@ -162,9 +162,9 @@ export function deriveGraphQLEditorModel(
   let hasEnumScalars: boolean = false;
   let hasUnknownCustomScalars: boolean = false;
   let hasRelationFields: boolean = false;
-  
-  let withDatePicker: boolean = false;
-  let withTimePicker: boolean = false;
+
+  let hasDateScalars: boolean = false;
+  let hasTimeScalars: boolean = false;
 
   // We take attributes from query, otherwise it won't be possible to pair the entity type from editor with entity type from list
   const attributes = getEntityAttributes(queryNode, schema);
@@ -177,8 +177,12 @@ export function deriveGraphQLEditorModel(
       return;
     }
 
-    switch(attr.type) {
+    switch (attr.type) {
       case 'Int':
+      case 'ID':
+      case 'BigInteger':
+      case 'BigDecimal':
+      case 'Long':
         hasIntScalars = true;
         break;
       case 'Float':
@@ -187,34 +191,33 @@ export function deriveGraphQLEditorModel(
       case 'String':
         hasStringScalars = true;
         break;
-      case 'ID':
-        hasIntScalars = true;
-        break;
       case 'Boolean':
         hasBooleanScalars = true;
         break;
+      case 'Date':
+      case 'DateTime':
+      case 'LocalDateTime':
+      case 'Timestamp':
+        hasDateScalars = true;
+        break;
+      case 'Time':
+      case 'LocalTime':
+        hasTimeScalars = true;
+        break;
+
       default:
         if (field.type instanceof GraphQLEnumType) {
           attr.enumOptions = field.type.getValues();
           hasEnumScalars = true;
-        } else if (field.type instanceof GraphQLInputObjectType) {
+          break;
+        }
+        if (field.type instanceof GraphQLInputObjectType) {
           attr.isRelationField = true;
           hasRelationFields = true;
-        } else if (field.type instanceof GraphQLScalarType) {
-          switch(field.type.name) {
-            case 'Date':
-            case 'DateTime':
-            case 'LocalDateTime':
-            case 'Timestamp':
-              withDatePicker = true;
-              break;
-            case 'Time':
-            case 'LocalTime':
-              withTimePicker = true;
-              break;
-            default:
-              hasUnknownCustomScalars = true;
-          }
+          break;
+        }
+        if (field.type instanceof GraphQLScalarType) {
+          hasUnknownCustomScalars = true;
         }
     }
   });
@@ -232,8 +235,8 @@ export function deriveGraphQLEditorModel(
     hasEnumScalars,
     hasUnknownCustomScalars,
     hasRelationFields,
-    withDatePicker,
-    withTimePicker,
+    hasDateScalars,
+    hasTimeScalars,
     inputVariableName,
     inputTypeName
   };

@@ -18,6 +18,8 @@ import { ReadOnlyOwnerTable } from "../app/screens/read-only-owner/ReadOnlyOwner
 import { ReadOnlyOwnerTableDetails } from "../app/screens/read-only-owner/ReadOnlyOwnerTableDetails";
 import { ReadOnlyOwnerCards } from "../app/screens/read-only-owner/ReadOnlyOwnerCards";
 import { ReadOnlyOwnerCardsDetails } from "../app/screens/read-only-owner/ReadOnlyOwnerCardsDetails";
+import { TestNotNullScalarsCards } from "../app/screens/notnull-scalars/TestNotNullScalarsCards";
+import { TestNotNullScalarsCardsEditor } from "../app/screens/notnull-scalars/TestNotNullScalarsCardsEditor";
 import { TestScalarsCards } from "../app/screens/scalars/TestScalarsCards";
 import { TestScalarsCardsEditor } from "../app/screens/scalars/TestScalarsCardsEditor";
 import { PetTable } from "../app/screens/pet/PetTable";
@@ -87,6 +89,12 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/TestScalarsCards">
         <TestScalarsCards />
+      </ComponentPreview>
+      <ComponentPreview path="/TestNotNullScalarsCardsEditor">
+        <TestNotNullScalarsCardsEditor />
+      </ComponentPreview>
+      <ComponentPreview path="/TestNotNullScalarsCards">
+        <TestNotNullScalarsCards />
       </ComponentPreview>
       <ComponentPreview path="/ReadOnlyOwnerCardsDetails">
         <ReadOnlyOwnerCardsDetails />

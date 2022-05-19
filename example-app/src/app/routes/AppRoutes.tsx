@@ -11,6 +11,7 @@ import { ReadOnlyPetCardsScreenLayout } from "../screens/read-only-pet/ReadOnlyP
 import { ReadOnlyOwnerListScreenLayout } from "../screens/read-only-owner/ReadOnlyOwnerListScreenLayout";
 import { ReadOnlyOwnerTableScreenLayout } from "../screens/read-only-owner/ReadOnlyOwnerTableScreenLayout";
 import { ReadOnlyOwnerCardsScreenLayout } from "../screens/read-only-owner/ReadOnlyOwnerCardsScreenLayout";
+import { TestNotNullScalarsCardsScreenLayout } from "../screens/notnull-scalars/TestNotNullScalarsCardsScreenLayout";
 import { TestScalarsCardsScreenLayout } from "../screens/scalars/TestScalarsCardsScreenLayout";
 import { PetTableScreenLayout } from "../screens/pet/PetTableScreenLayout";
 import { PetListScreenLayout } from "../screens/pet/PetListScreenLayout";
@@ -63,6 +64,13 @@ export function AppRoutes() {
       <Route path="scalars-cards">
         <Route index element={<TestScalarsCardsScreenLayout />} />
         <Route path=":recordId" element={<TestScalarsCardsScreenLayout />} />
+      </Route>
+      <Route path="notnull-scalars-cards">
+        <Route index element={<TestNotNullScalarsCardsScreenLayout />} />
+        <Route
+          path=":recordId"
+          element={<TestNotNullScalarsCardsScreenLayout />}
+        />
       </Route>
       <Route path="read-only-owner-cards">
         <Route index element={<ReadOnlyOwnerCardsScreenLayout />} />

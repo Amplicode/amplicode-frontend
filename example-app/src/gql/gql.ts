@@ -9,6 +9,14 @@ const documents = {
     graphql.Get_Pet_ListDocument,
   "\n  query Get_Pet_Type_List {\n    petTypeList {\n      id, \n      name\n    }\n  }\n":
     graphql.Get_Pet_Type_ListDocument,
+  "\n  query Get_NN_Scalars_List {\n    notNullScalarsTestEntityList {\n      id\n      bigDecimalNotNull\n      bigIntNotNull\n      dateTestNotNull\n      localDateNotNull\n      localDateTimeNotNull\n      localTimeNotNull\n      offsetDateTimeNotNull\n      offsetTimeNotNull\n      stringNotNull\n      urlNotNull\n    }\n  }\n":
+    graphql.Get_Nn_Scalars_ListDocument,
+  "\n  mutation Delete_NN_Scalars($id: ID!) {\n    deleteNotNullScalarsTestEntity(id: $id)\n  }\n":
+    graphql.Delete_Nn_ScalarsDocument,
+  "\n  query Get_NN_Scalars($id: ID) {\n    notNullScalarsTestEntity(id: $id) {\n      id\n      bigDecimalNotNull\n      bigIntNotNull\n      dateTestNotNull\n      localDateNotNull\n      localDateTimeNotNull\n      localTimeNotNull\n      offsetDateTimeNotNull\n      offsetTimeNotNull\n      stringNotNull\n      urlNotNull\n    }\n  }\n":
+    graphql.Get_Nn_ScalarsDocument,
+  "\n  mutation Update_NN_Scalars($input: NotNullScalarsTestEntityInput) {\n    updateNotNullScalarsTestEntity(input: $input) {\n      id\n    }\n  }\n":
+    graphql.Update_Nn_ScalarsDocument,
   "\n  mutation Delete_Owner($id: ID!) {\n    deleteOwner(id: $id)\n  }\n":
     graphql.Delete_OwnerDocument,
   "\n  query Get_Owner($id: ID) {\n    owner(id: $id) {\n      id\n      firstName\n      lastName\n      city\n      address\n      telephone\n      email\n    }\n  }\n":
@@ -44,6 +52,18 @@ export function gql(
 export function gql(
   source: "\n  query Get_Pet_Type_List {\n    petTypeList {\n      id, \n      name\n    }\n  }\n"
 ): typeof documents["\n  query Get_Pet_Type_List {\n    petTypeList {\n      id, \n      name\n    }\n  }\n"];
+export function gql(
+  source: "\n  query Get_NN_Scalars_List {\n    notNullScalarsTestEntityList {\n      id\n      bigDecimalNotNull\n      bigIntNotNull\n      dateTestNotNull\n      localDateNotNull\n      localDateTimeNotNull\n      localTimeNotNull\n      offsetDateTimeNotNull\n      offsetTimeNotNull\n      stringNotNull\n      urlNotNull\n    }\n  }\n"
+): typeof documents["\n  query Get_NN_Scalars_List {\n    notNullScalarsTestEntityList {\n      id\n      bigDecimalNotNull\n      bigIntNotNull\n      dateTestNotNull\n      localDateNotNull\n      localDateTimeNotNull\n      localTimeNotNull\n      offsetDateTimeNotNull\n      offsetTimeNotNull\n      stringNotNull\n      urlNotNull\n    }\n  }\n"];
+export function gql(
+  source: "\n  mutation Delete_NN_Scalars($id: ID!) {\n    deleteNotNullScalarsTestEntity(id: $id)\n  }\n"
+): typeof documents["\n  mutation Delete_NN_Scalars($id: ID!) {\n    deleteNotNullScalarsTestEntity(id: $id)\n  }\n"];
+export function gql(
+  source: "\n  query Get_NN_Scalars($id: ID) {\n    notNullScalarsTestEntity(id: $id) {\n      id\n      bigDecimalNotNull\n      bigIntNotNull\n      dateTestNotNull\n      localDateNotNull\n      localDateTimeNotNull\n      localTimeNotNull\n      offsetDateTimeNotNull\n      offsetTimeNotNull\n      stringNotNull\n      urlNotNull\n    }\n  }\n"
+): typeof documents["\n  query Get_NN_Scalars($id: ID) {\n    notNullScalarsTestEntity(id: $id) {\n      id\n      bigDecimalNotNull\n      bigIntNotNull\n      dateTestNotNull\n      localDateNotNull\n      localDateTimeNotNull\n      localTimeNotNull\n      offsetDateTimeNotNull\n      offsetTimeNotNull\n      stringNotNull\n      urlNotNull\n    }\n  }\n"];
+export function gql(
+  source: "\n  mutation Update_NN_Scalars($input: NotNullScalarsTestEntityInput) {\n    updateNotNullScalarsTestEntity(input: $input) {\n      id\n    }\n  }\n"
+): typeof documents["\n  mutation Update_NN_Scalars($input: NotNullScalarsTestEntityInput) {\n    updateNotNullScalarsTestEntity(input: $input) {\n      id\n    }\n  }\n"];
 export function gql(
   source: "\n  mutation Delete_Owner($id: ID!) {\n    deleteOwner(id: $id)\n  }\n"
 ): typeof documents["\n  mutation Delete_Owner($id: ID!) {\n    deleteOwner(id: $id)\n  }\n"];
