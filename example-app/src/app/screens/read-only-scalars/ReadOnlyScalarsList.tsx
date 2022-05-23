@@ -10,6 +10,7 @@ import { gql } from "@amplicode/gql";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const SCALARS_TEST_ENTITY_LIST = gql(`
   query Get_Scalars_List {
@@ -44,6 +45,9 @@ const SCALARS_TEST_ENTITY_LIST = gql(`
 `);
 
 export function ReadOnlyScalarsList() {
+  const intl = useIntl();
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.ReadOnlyScalarsList" }));
+
   // Load the items from server
   const { loading, error, data } = useQuery(SCALARS_TEST_ENTITY_LIST);
   const items = deserialize(data?.scalarsTestEntityList);

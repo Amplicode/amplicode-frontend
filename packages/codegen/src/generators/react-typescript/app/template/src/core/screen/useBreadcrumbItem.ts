@@ -1,17 +1,14 @@
-import {useContext, useEffect} from "react";
-import {BreadcrumbContext} from "./BreadcrumbContext";
+import { useContext, useEffect } from "react";
+import { BreadcrumbContext } from "./BreadcrumbContext";
 
 export function useBreadcrumbItem(newItem: string) {
-   const {breadcrumbItems, setBreadcrumbItems} = useContext(BreadcrumbContext);
+  const setBreadcrumbItems = useContext(BreadcrumbContext);
 
-   useEffect(() => {
-     breadcrumbItems.push(newItem);
-     setBreadcrumbItems([...breadcrumbItems]);
+  useEffect(() => {
+    setBreadcrumbItems(breadcrumbItems => [...breadcrumbItems, newItem]);
 
-     return () => {
-       breadcrumbItems.pop();
-       setBreadcrumbItems([...breadcrumbItems]);
-     };
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []);
+    return () => {
+      setBreadcrumbItems(breadcrumbItems => breadcrumbItems.slice(0, -1));
+    };
+  }, [newItem, setBreadcrumbItems]);
 }

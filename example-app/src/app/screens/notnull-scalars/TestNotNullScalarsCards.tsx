@@ -14,6 +14,7 @@ import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { getNotNullScalarsTestEntityDisplayName } from "../../../core/display-name/getNotNullScalarsTestEntityDisplayName";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const REFETCH_QUERIES = ["Get_NN_Scalars_List"];
 
@@ -42,6 +43,11 @@ const DELETE_NOT_NULL_SCALARS_TEST_ENTITY = gql(`
 `);
 
 export function TestNotNullScalarsCards() {
+  const intl = useIntl();
+  useBreadcrumbItem(
+    intl.formatMessage({ id: "screen.TestNotNullScalarsCards" })
+  );
+
   // Load the items from server
   const { loading, error, data } = useQuery(NOT_NULL_SCALARS_TEST_ENTITY_LIST);
   const items = deserialize(data?.notNullScalarsTestEntityList);

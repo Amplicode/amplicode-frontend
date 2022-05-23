@@ -24,6 +24,7 @@ import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 import { FormattedMessage, useIntl } from "react-intl";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 import { deserialize } from "../../../core/transform/model/deserialize";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const PET = gql(`
   query Get_Pet($id: ID) {
@@ -66,6 +67,9 @@ export interface PetListEditorProps<TData = any> {
 export function PetListEditor({
   refetchQueries
 }: PetListEditorProps<QueryResultType>) {
+  const intl = useIntl();
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.PetListEditor" }));
+
   const { recordId } = useParams();
 
   // Load the item if `id` is provided

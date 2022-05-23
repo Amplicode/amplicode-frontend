@@ -1,7 +1,7 @@
 import {Card, Spin, Empty, Descriptions, Button} from 'antd';
 import {gql} from '@amplicode/gql';
 import {useQuery} from '@apollo/client';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 import {useNavigate, useParams} from "react-router-dom";
 import { get<%= capitalizeFirst(entityName) %>DisplayName } from '<%= relDirShift %>core/display-name/get<%= capitalizeFirst(entityName) %>DisplayName';
 <% attributes.filter(a => a.isRelationField).forEach(attribute => { -%>
@@ -9,12 +9,16 @@ import { get<%= capitalizeFirst(entityName) %>DisplayName } from '<%= relDirShif
 <% }) -%>
 import {RequestFailedError} from "../../../core/crud/RequestFailedError";
 import {deserialize} from "<%= relDirShift %>core/transform/model/deserialize";
+import {useBreadcrumbItem} from "<%= relDirShift %>core/screen/useBreadcrumbItem";
 
 const <%= toFatSnakeCase(queryName) %> = gql(`
   <%= queryString %>
 `);
 
 export function <%= componentName %>() {
+  const intl = useIntl();
+  useBreadcrumbItem(intl.formatMessage({id: 'screen.<%= componentName %>'}));
+
   const {recordId} = useParams();
   const navigate = useNavigate();
 

@@ -34,6 +34,7 @@ import { deserialize } from "../../../core/transform/model/deserialize";
 import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const REFETCH_QUERIES = ["Get_Pet_List_With_Filter"];
 
@@ -65,6 +66,9 @@ const DELETE_PET = gql(`
 const initialFilterVars: QueryVariablesType = {};
 
 export function PetCards() {
+  const intl = useIntl();
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.PetCards" }));
+
   const [filterVars, setFilterVars] = useState<QueryVariablesType>(
     initialFilterVars
   );

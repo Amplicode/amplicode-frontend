@@ -1,13 +1,14 @@
 import { Card, Spin, Empty, Descriptions, Button } from "antd";
 import { gql } from "@amplicode/gql";
 import { useQuery } from "@apollo/client";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const PET = gql(`
   query Get_Pet($id: ID) {
@@ -29,6 +30,11 @@ const PET = gql(`
 `);
 
 export function ReadOnlyPetCardsDetails() {
+  const intl = useIntl();
+  useBreadcrumbItem(
+    intl.formatMessage({ id: "screen.ReadOnlyPetCardsDetails" })
+  );
+
   const { recordId } = useParams();
   const navigate = useNavigate();
 

@@ -10,6 +10,7 @@ import { gql } from "@amplicode/gql";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const OWNER_LIST = gql(`
   query Get_Owner_List {
@@ -26,6 +27,9 @@ const OWNER_LIST = gql(`
 `);
 
 export function ReadOnlyOwnerList() {
+  const intl = useIntl();
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.ReadOnlyOwnerList" }));
+
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
   const items = deserialize(data?.ownerList);

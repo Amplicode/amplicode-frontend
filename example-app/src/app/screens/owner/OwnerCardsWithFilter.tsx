@@ -32,6 +32,7 @@ import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const REFETCH_QUERIES = ["Get_Owner_List_With_Filter"];
 
@@ -58,6 +59,9 @@ const DELETE_OWNER = gql(`
 const initialFilterVars: QueryVariablesType = {};
 
 export function OwnerCardsWithFilter() {
+  const intl = useIntl();
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.OwnerCardsWithFilter" }));
+
   const [filterVars, setFilterVars] = useState<QueryVariablesType>(
     initialFilterVars
   );
