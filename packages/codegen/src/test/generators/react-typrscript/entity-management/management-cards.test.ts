@@ -38,7 +38,11 @@ describe('codegen cards management', () => {
     const editorComponentFile = fs.readFileSync(editorComponentPath, 'utf-8');
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
 
-    [ 'Big Decimal Not Null', 'Big Int Not Null', 'String Not Null', 'Url Not Null'].forEach(label => {
+    [
+      'Big Decimal Not Null',
+      'Big Int Not Null',
+      'String Not Null',
+    ].forEach(label => {
       const field = unCapitalizeFirst(label.replace(" ", ""));
       const valueWithLabel = `
       <ValueWithLabel
@@ -49,6 +53,15 @@ describe('codegen cards management', () => {
 
       expectFileContainsIgnoreSpace(componentFile, valueWithLabel);
     });
+
+    const urlValueWithLabel = `
+      <ValueWithLabel
+        key="urlNotNull"
+        label="Url Not Null"
+        value={item.urlNotNull ?? undefined}
+        isUrl={true}
+      />`;
+    expectFileContainsIgnoreSpace(componentFile, urlValueWithLabel);
 
     const bigDecimalFormItem = `
       <Form.Item name="bigDecimalNotNull" label="Big Decimal Not Null">
@@ -64,7 +77,7 @@ describe('codegen cards management', () => {
 
     const urlFormItem = `
       <Form.Item name="urlNotNull" label="Url Not Null">
-        <Input />
+        <Input type={"url"} />
       </Form.Item>`;
     expectFileContainsIgnoreSpace(editorComponentFile, urlFormItem);
 
