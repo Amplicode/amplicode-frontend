@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.10.1...@amplicode/react-core@0.11.0) (2022-05-23)
+
+
+### Bug Fixes
+
+* components using dayjs are not updated when changing locale [#322](https://github.com/Amplicode/amplicode-frontend/issues/322) ([fa9d5e3](https://github.com/Amplicode/amplicode-frontend/commit/fa9d5e3ad52cb047b09133325d96fa1acffd82a0))
+
+
+### Features
+
+* add example of addon 2.0. ([f27e1b1](https://github.com/Amplicode/amplicode-frontend/commit/f27e1b142e5edfa2600854f74b71d6102072b3ce))
+* remove multi-tabs and simplify routing [#151](https://github.com/Amplicode/amplicode-frontend/issues/151) ([e80bb54](https://github.com/Amplicode/amplicode-frontend/commit/e80bb5412ca20bfba260d4cbd8d89a64d590e5e0))
+
+
+### BREAKING CHANGES
+
+* Remove generators addon and remove-addon, remove AddonMenu api
+
+
+
+
+
 ## [0.10.1](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.10.0...@amplicode/react-core@0.10.1) (2022-04-18)
 
 

@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.17.1...@amplicode/codegen@0.18.0) (2022-05-23)
+
+
+### Bug Fixes
+
+* components using dayjs are not updated when changing locale [#322](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/322) ([fa9d5e3](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/fa9d5e3ad52cb047b09133325d96fa1acffd82a0))
+* exception generating Entity Details screen for graphql methods with not-null parameters [#167](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/167) ([b298879](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/b298879c85ec46d90fe5e8111e0f5fc83da0be81))
+* form validation message doesn't have a bottom margin [#348](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/348) ([2c8f32e](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/2c8f32e0be652d75ffd2c1c600d30c3a513dd2f0))
+* generate nice looking captions for enum constants [#358](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/358) ([7532491](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/7532491f1840dc3c9fc1131e689feed689f2818b))
+* incorrect caption on read-only details screen [#314](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/314) ([92a2a98](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/92a2a98731751660af0004e82f34a5b35a53984e))
+* login screen doesn't react well on "login failed" login result [#113](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/113) ([c958f0d](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/c958f0d9b2998ac8e12f5bed208f29b9c7ccefe2))
+* missing i18n messages ([d5126f1](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/d5126f11016b7717416ec68533f8202122e8656e))
+
+
+### Features
+
+* add example of addon 2.0. ([f27e1b1](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/f27e1b142e5edfa2600854f74b71d6102072b3ce))
+* add means for Studio to detect Amplicode project and addons [#158](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/158) ([befcee1](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/befcee13616b18519776ef98614e766695cd9b18))
+* add React Buddy's antd and react-intl palettes as dependencies [#331](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/331) ([e79949a](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/e79949a4dc9253e4d06371b1a5dba168b3efd617))
+* autofocus first field in the editor form [#269](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/269) ([f7ffbd4](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/f7ffbd4ae455e457831298f6c989c8f04c70eab3))
+* custom scalars - BigInteger, Long, BigDecimal [#230](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/230) ([6352e86](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/6352e86f5d2c16c12fa3f2e5d52e2628cfc0f880))
+* remove multi-tabs and simplify routing [#151](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/151) ([e80bb54](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/e80bb5412ca20bfba260d4cbd8d89a64d590e5e0))
+* support built-in scalars in CRUD screen templates [#230](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/230) ([c0807f5](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/c0807f5c4d991d1c721fd4e3953e91fe32acacf7))
+* support custom date scalars [#374](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/374) ([98156ef](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/98156efe02ecbf1bc5049c0c04da45cc16e210c2))
+* support graphQL query for templates with filters [#139](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/139) ([6c961ec](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/6c961ec438df4d21ee5c3ea7edf44e4063e2b042))
+* support nullable\notnull scalar versions [#378](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/378) ([13a8dd8](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/13a8dd8a3271253e1de70820e0700e76d408d4cb))
+* support number scalars which are generated from java primitive types [#377](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/377) ([51b4485](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/51b4485d0d57bd4458bb847555c68565599c5ceb))
+* support url scalars [#375](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/375) ([56aa929](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/56aa929b6d213987b1c163830ab4c2fc1157769a))
+* track 'loading' and 'error' statuses of mutations [#128](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/128) ([9594692](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/9594692149cb58265975ba6120994bc5a8cac666))
+* track 'loading' and 'error' statuses of mutations [#128](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/128) ([51ee3c1](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/51ee3c1a7d5813add9ffd5083bb09c08b927673c))
+
+
+### BREAKING CHANGES
+
+* Remove generators addon and remove-addon, remove AddonMenu api
+
+
+
+
+
 ## [0.17.1](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.17.0...@amplicode/codegen@0.17.1) (2022-04-18)
 
 
