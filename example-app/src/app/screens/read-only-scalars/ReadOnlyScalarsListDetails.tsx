@@ -1,11 +1,12 @@
 import { Card, Spin, Empty, Descriptions, Button } from "antd";
 import { gql } from "@amplicode/gql";
 import { useQuery } from "@apollo/client";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useNavigate, useParams } from "react-router-dom";
 import { getScalarsTestEntityDisplayName } from "../../../core/display-name/getScalarsTestEntityDisplayName";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const SCALARS_TEST_ENTITY = gql(`
   query Get_Scalars($id: ID) {
@@ -40,6 +41,11 @@ const SCALARS_TEST_ENTITY = gql(`
 `);
 
 export function ReadOnlyScalarsListDetails() {
+  const intl = useIntl();
+  useBreadcrumbItem(
+    intl.formatMessage({ id: "screen.ReadOnlyScalarsListDetails" })
+  );
+
   const { recordId } = useParams();
   const navigate = useNavigate();
 

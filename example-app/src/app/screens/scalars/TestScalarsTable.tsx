@@ -12,6 +12,7 @@ import { GraphQLError } from "graphql/error/GraphQLError";
 import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const REFETCH_QUERIES = ["Get_Scalars_List"];
 
@@ -182,6 +183,9 @@ const columns = [
 ];
 
 export function TestScalarsTable() {
+  const intl = useIntl();
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.TestScalarsTable" }));
+
   // Load the items from server
   const { loading, error, data } = useQuery(SCALARS_TEST_ENTITY_LIST);
   const items = deserialize(data?.scalarsTestEntityList);

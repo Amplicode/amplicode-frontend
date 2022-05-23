@@ -28,6 +28,7 @@ import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const REFETCH_QUERIES = ["Get_Pet_List_With_Filter"];
 
@@ -82,6 +83,9 @@ const columns = [
 const initialFilterVars: QueryVariablesType = {};
 
 export function PetTable() {
+  const intl = useIntl();
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.PetTable" }));
+
   const [filterVars, setFilterVars] = useState<QueryVariablesType>(
     initialFilterVars
   );

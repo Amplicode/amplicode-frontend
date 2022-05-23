@@ -50,6 +50,7 @@ import { ErrorMessage } from "<%= relDirShift %>core/crud/ErrorMessage";
 import { FormattedMessage, useIntl } from "react-intl";
 import { RefetchQueries } from "<%= relDirShift %>core/type-aliases/RefetchQueries";
 import { deserialize } from "<%= relDirShift %>core/transform/model/deserialize";
+import {useBreadcrumbItem} from "<%= relDirShift %>core/screen/useBreadcrumbItem";
 
 const <%= QUERY_CONST %> = gql(`
   <%= queryString %>
@@ -71,6 +72,9 @@ export interface <%= componentName %>Props<TData = any> {
 }
 
 export function <%= componentName %>({ refetchQueries }: <%= componentName %>Props<QueryResultType>) {
+  const intl = useIntl();
+  useBreadcrumbItem(intl.formatMessage({id: 'screen.<%= componentName %>'}));
+
   const {recordId} = useParams();
 
   // Load the item if `id` is provided

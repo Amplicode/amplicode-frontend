@@ -4,11 +4,13 @@ import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import { Empty, Space, Spin, Table } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useIntl } from "react-intl";
 import { gql } from "@amplicode/gql";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const PET_LIST = gql(`
   query Get_Pet_List {
@@ -53,6 +55,9 @@ const columns = [
 ];
 
 export function ReadOnlyPetTable() {
+  const intl = useIntl();
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.ReadOnlyPetTable" }));
+
   // Load the items from server
   const { loading, error, data } = useQuery(PET_LIST);
   const items = deserialize(data?.petList);

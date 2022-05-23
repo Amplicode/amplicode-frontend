@@ -14,6 +14,7 @@ import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { getScalarsTestEntityDisplayName } from "../../../core/display-name/getScalarsTestEntityDisplayName";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const REFETCH_QUERIES = ["Get_Scalars_List"];
 
@@ -56,6 +57,9 @@ const DELETE_SCALARS_TEST_ENTITY = gql(`
 `);
 
 export function TestScalarsCards() {
+  const intl = useIntl();
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.TestScalarsCards" }));
+
   // Load the items from server
   const { loading, error, data } = useQuery(SCALARS_TEST_ENTITY_LIST);
   const items = deserialize(data?.scalarsTestEntityList);

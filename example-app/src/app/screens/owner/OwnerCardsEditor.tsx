@@ -20,6 +20,7 @@ import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 import { FormattedMessage, useIntl } from "react-intl";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 import { deserialize } from "../../../core/transform/model/deserialize";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const OWNER = gql(`
   query Get_Owner($id: ID) {
@@ -57,6 +58,9 @@ export interface OwnerCardsEditorProps<TData = any> {
 export function OwnerCardsEditor({
   refetchQueries
 }: OwnerCardsEditorProps<QueryResultType>) {
+  const intl = useIntl();
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.OwnerCardsEditor" }));
+
   const { recordId } = useParams();
 
   // Load the item if `id` is provided

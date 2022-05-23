@@ -69,3 +69,7 @@ form.ant-form .ant-input-number {
     width: 100%;
     max-width: 200px;
 }
+
+.ant-breadcrumb.crud-screen-breadcrumb {
+    margin-bottom: 12px;
+}

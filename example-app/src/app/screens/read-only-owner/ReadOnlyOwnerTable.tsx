@@ -4,9 +4,11 @@ import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import { Empty, Space, Spin, Table } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useIntl } from "react-intl";
 import { gql } from "@amplicode/gql";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const OWNER_LIST = gql(`
   query Get_Owner_List {
@@ -56,6 +58,9 @@ const columns = [
 ];
 
 export function ReadOnlyOwnerTable() {
+  const intl = useIntl();
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.ReadOnlyOwnerTable" }));
+
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
   const items = deserialize(data?.ownerList);

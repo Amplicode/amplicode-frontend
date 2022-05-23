@@ -1,11 +1,5 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
-export interface BreadcrumbContextType {
-  breadcrumbItems: string[];
-  setBreadcrumbItems: (screenNames: this["breadcrumbItems"]) => void;
-}
-
-export const BreadcrumbContext = React.createContext<BreadcrumbContextType>({
-  breadcrumbItems: [],
-  setBreadcrumbItems: () => {}
-});
+export const BreadcrumbContext = React.createContext<
+  Dispatch<SetStateAction<string[]>>
+>(() => {});

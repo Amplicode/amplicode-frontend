@@ -17,16 +17,14 @@ export function PetListScreenLayout() {
   return (
     <>
       {recordId && (
-        <Breadcrumb>
+        <Breadcrumb className="crud-screen-breadcrumb">
           {breadcrumbItems.map(item => (
             <Breadcrumb.Item>{item}</Breadcrumb.Item>
           ))}
         </Breadcrumb>
       )}
 
-      <BreadcrumbContext.Provider
-        value={{ breadcrumbItems, setBreadcrumbItems }}
-      >
+      <BreadcrumbContext.Provider value={setBreadcrumbItems}>
         <div style={{ display: recordId ? "none" : "block" }}>
           <PetList />
         </div>

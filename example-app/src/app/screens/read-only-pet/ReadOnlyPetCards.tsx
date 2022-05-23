@@ -13,6 +13,7 @@ import { deserialize } from "../../../core/transform/model/deserialize";
 import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const PET_LIST = gql(`
   query Get_Pet_List {
@@ -34,6 +35,9 @@ const PET_LIST = gql(`
 `);
 
 export function ReadOnlyPetCards() {
+  const intl = useIntl();
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.ReadOnlyPetCards" }));
+
   // Load the items from server
   const { loading, error, data } = useQuery(PET_LIST);
   const items = deserialize(data?.petList);
