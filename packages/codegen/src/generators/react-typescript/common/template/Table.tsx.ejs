@@ -360,12 +360,12 @@ function TableSection({
         dataSource={dataSource as object[]}
         columns={columns}
         rowClassName={record =>
-          (record as ItemType)?.id === selectedRowId ? "table-row-selected" : ""
+          (record as ItemType)?.<%= idField %> === selectedRowId ? "table-row-selected" : ""
         }
         onRow={data => {
           return {
             onClick: () => {
-              const id = (data as ItemType)?.id;
+              const id = (data as ItemType)?.<%= idField %>;
               setSelectedRowId(id === selectedRowId ? null : id);
             }
           };

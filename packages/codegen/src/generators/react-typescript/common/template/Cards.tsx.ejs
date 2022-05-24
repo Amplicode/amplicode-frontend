@@ -204,7 +204,7 @@ function Cards({items, loading, error}: ItemCardsListProps) {
   return (
     <Space direction="vertical" className="card-space">
       {items.map(item => (
-        <ItemCard item={item} key={item?.id} />
+        <ItemCard item={item} key={item?.<%= idField %>} />
       ))}
     </Space>
   );
@@ -219,7 +219,7 @@ function ItemCard({item}: {item: ItemType}) {
   }
 
   return (
-    <Card key={item.id}
+    <Card key={item.<%= idField %>}
           title={get<%= capitalizeFirst(entityName) %>DisplayName(item)}
           actions={cardActions}
           className="narrow-layout"
@@ -252,7 +252,7 @@ function ItemCard({item}: {item: ItemType}) {
 function useCardActions(item: ItemType): ReactNode[] {
   const intl = useIntl();
   <% if (withDeleteAction) { -%>
-    const showDeleteConfirm = useDeleteConfirm(item?.id);
+    const showDeleteConfirm = useDeleteConfirm(item?.<%= idField %>);
   <% } -%>
 
   <% if (mode === 'edit' || mode === 'view with details') { -%>
@@ -265,8 +265,8 @@ function useCardActions(item: ItemType): ReactNode[] {
         key="edit"
         title={intl.formatMessage({ id: "common.edit" })}
         onClick={() => {
-          if (item?.id != null) {
-            navigate(item.id);
+          if (item?.<%= idField %> != null) {
+            navigate(item.<%= idField %>);
           }
         }}
       />,
@@ -276,8 +276,8 @@ function useCardActions(item: ItemType): ReactNode[] {
         key="open"
         title={intl.formatMessage({ id: "common.open" })}
         onClick={() => {
-          if (item?.id != null) {
-            navigate(item.id);
+          if (item?.<%= idField %> != null) {
+            navigate(item.<%= idField %>);
           }
         }}
       />,

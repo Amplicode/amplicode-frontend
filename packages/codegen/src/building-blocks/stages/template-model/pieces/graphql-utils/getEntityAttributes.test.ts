@@ -12,18 +12,18 @@ describe('entity list template model stage', async () => {
   });
 
   it('derives a list of entity attributes', () => {
-    const attributes = getEntityAttributes(QUERY_NODE, schema);
+    const attributes = getEntityAttributes(QUERY_NODE, schema, 'id');
     expect(attributes.sort()).to.deep.equal(RESULT.sort());
   });
 
   it('relation field is marked as such', () => {
-    const attributes = getEntityAttributes(QUERY_NODE, schema);
+    const attributes = getEntityAttributes(QUERY_NODE, schema, 'id');
     const ownerAttr = attributes.find(attr => attr.name === 'owner');
     expect(ownerAttr?.isRelationField).to.eq(true);
   });
 
   it('relation field has entity name', () => {
-    const attributes = getEntityAttributes(QUERY_NODE, schema);
+    const attributes = getEntityAttributes(QUERY_NODE, schema, 'id');
     const ownerAttr = attributes.find(attr => attr.name === 'owner');
     expect(ownerAttr?.type).to.eq('OwnerDTO');
   });

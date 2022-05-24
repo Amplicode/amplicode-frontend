@@ -1,6 +1,3 @@
-<% const QUERY_CONST = toFatSnakeCase(queryName); -%>
-<% const MUTATION_CONST = toFatSnakeCase(mutationName); -%>
-<%# ------- TEMPLATE STARTS HERE ------- -%>
 import React, { useCallback, useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { ResultOf } from "@graphql-typed-document-node/core";
@@ -9,57 +6,40 @@ import {
   Card,
   Form,
   FormInstance,
-  <% if (locals.hasStringScalars || locals.hasUnknownCustomScalars) { -%>
-    Input,
-  <% } -%>
-  <% if (locals.hasIntScalars || locals.hasFloatScalars) { -%>
-    InputNumber,
-  <% } -%>
-  <% if (locals.hasBooleanScalars) { -%>
-    Checkbox,
-  <% } -%>
-  <% if (locals.hasEnumScalars) { -%>
-    Select,
-  <% } -%>
+  Input,
   message,
   Space,
-  Spin,
+  Spin
 } from "antd";
 import { useForm } from "antd/es/form/Form";
-<% if (locals.hasRelationFields) { -%>
-  import {EntityLookupField} from '<%= relDirShift %>core/crud/entity-lookup-field/EntityLookupField';
-<% } -%>
-<% if (locals.hasDateScalars || locals.hasTimeScalars) { -%>
-  import {
-    <% if (locals.hasDateScalars) { -%>
-      DatePicker,
-    <% } -%>
-    <% if (locals.hasTimeScalars) { -%>
-      TimePicker,
-    <% } -%>
-  } from '@amplicode/react-antd';
-<% } -%>
-<% attributes.filter(a => a.isRelationField).forEach(attribute => { -%>
-  import { get<%= capitalizeFirst(attribute.type) %>DisplayName } from '<%= relDirShift %>core/display-name/get<%= capitalizeFirst(attribute.type) %>DisplayName';
-<% }) -%>
 import { gql } from "@amplicode/gql";
 import { useNavigate, useParams } from "react-router-dom";
-import { RequestFailedError } from "<%= relDirShift %>core/crud/RequestFailedError";
-import { useSubmitEditor } from "<%= relDirShift %>core/crud/useSubmitEditor";
-import { ErrorMessage } from "<%= relDirShift %>core/crud/ErrorMessage";
+import { RequestFailedError } from "../../../core/crud/RequestFailedError";
+import { useSubmitEditor } from "../../../core/crud/useSubmitEditor";
+import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 import { FormattedMessage, useIntl } from "react-intl";
-import { RefetchQueries } from "<%= relDirShift %>core/type-aliases/RefetchQueries";
-import { deserialize } from "<%= relDirShift %>core/transform/model/deserialize";
+import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
+import { deserialize } from "../../../core/transform/model/deserialize";
 
-const <%= QUERY_CONST %> = gql(`
-  <%= queryString %>
+const PET_DISEASE = gql(`
+  query Get_Pet_Disease($id: ID) {
+    petDisease(id: $id) {
+      description
+      name
+      petDiseaseIdentifier
+    }
+  }
 `);
 
-const <%= MUTATION_CONST %> = gql(`
-  <%= mutationString %>
+const UPDATE_PET_DISEASE = gql(`
+  mutation Update_Pet_Disease($input: PetDiseaseInput) {
+    updatePetDisease(input: $input) {
+      petDiseaseIdentifier
+    }
+  }
 `);
 
-export interface <%= componentName %>Props<TData = any> {
+export interface PetDiseaseListEditorProps<TData = any> {
   /**
    * A list of queries that needs to be refetched once the editor has been submitted.
    * For example, you might need to refresh entity list after editing an entity instance.
@@ -70,11 +50,13 @@ export interface <%= componentName %>Props<TData = any> {
   refetchQueries?: RefetchQueries<TData>;
 }
 
-export function <%= componentName %>({ refetchQueries }: <%= componentName %>Props<QueryResultType>) {
-  const {recordId} = useParams();
+export function PetDiseaseListEditor({
+  refetchQueries
+}: PetDiseaseListEditorProps<QueryResultType>) {
+  const { recordId } = useParams();
 
   // Load the item if `id` is provided
-  const {item, itemLoading, itemError} = useLoadItem(recordId);
+  const { item, itemLoading, itemError } = useLoadItem(recordId);
 
   if (itemLoading) {
     return <Spin />;
@@ -85,10 +67,7 @@ export function <%= componentName %>({ refetchQueries }: <%= componentName %>Pro
   }
 
   return (
-    <EditorForm item={item}
-                id={recordId}
-                refetchQueries={refetchQueries}
-    />
+    <EditorForm item={item} id={recordId} refetchQueries={refetchQueries} />
   );
 }
 
@@ -119,14 +98,12 @@ function EditorForm<TData>({
   const [formError, setFormError] = useState<string | undefined>();
 
   const { handleSubmit, submitting } = useSubmitEditor(
-    <%= MUTATION_CONST %>,
+    UPDATE_PET_DISEASE,
     setFormError,
     refetchQueries,
-    "<%= inputTypeName %>",
+    "PetDiseaseInput",
     id,
-    <% if (idField !== 'id') { -%>
-    "<%= idField %>"
-    <% } %>
+    "petDiseaseIdentifier"
   );
   const handleClientValidationFailed = useClientValidationFailed();
 
@@ -153,9 +130,13 @@ function EditorForm<TData>({
 function FormFields() {
   return (
     <>
-      <% attributes.forEach((attr, index) => { %>
-        <%- include(includesPath('AmplicodeFormField'), {attr: attr, index: index}) %>
-      <% }) %>
+      <Form.Item name="description" label="Description">
+        <Input autoFocus />
+      </Form.Item>
+
+      <Form.Item name="name" label="Name">
+        <Input />
+      </Form.Item>
     </>
   );
 }
@@ -165,7 +146,7 @@ function FormFields() {
  *
  * @param submitting flag indicating whether submit is in progress
  */
-function FormButtons({submitting}: {submitting?: boolean}) {
+function FormButtons({ submitting }: { submitting?: boolean }) {
   const navigate = useNavigate();
 
   return (
@@ -193,7 +174,7 @@ function useLoadItem(id?: string) {
   // Get the function that will load item from server,
   // also get variables that will contain loading/error state and response data
   // once the response is received
-  const [loadItem, { loading, error, data }] = useLazyQuery(<%= QUERY_CONST %>, {
+  const [loadItem, { loading, error, data }] = useLazyQuery(PET_DISEASE, {
     variables: {
       id
     }
@@ -201,15 +182,15 @@ function useLoadItem(id?: string) {
 
   // Load item if `id` has been provided in props
   useEffect(() => {
-    if (id != null && id !== 'new') {
+    if (id != null && id !== "new") {
       loadItem();
     }
   }, [loadItem, id]);
 
   // Get the received item, if any
   useEffect(() => {
-    if (data?.<%= queryName %> != null) {
-      setItem(deserialize(data?.<%= queryName %>));
+    if (data?.petDisease != null) {
+      setItem(deserialize(data?.petDisease));
     }
   }, [data, setItem]);
 
@@ -250,8 +231,8 @@ function useClientValidationFailed() {
 /**
  * Type of data object received when executing the query
  */
-type QueryResultType = ResultOf<typeof <%= QUERY_CONST %>>;
+type QueryResultType = ResultOf<typeof PET_DISEASE>;
 /**
  * Type of the item loaded by executing the query
  */
-type ItemType = QueryResultType['<%= queryName %>'];
+type ItemType = QueryResultType["petDisease"];

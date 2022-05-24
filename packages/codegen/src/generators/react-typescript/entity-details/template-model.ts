@@ -100,7 +100,7 @@ export function deriveGraphQLEditorModel(
   const entityName = getEntityName(queryName, schema);
 
   if (mutationNode == null) {
-    const readOnlyAttributes = getEntityAttributes(queryNode, schema);
+    const readOnlyAttributes = getEntityAttributes(queryNode, schema, idField);
 
     return {
       queryName,
@@ -147,11 +147,13 @@ export function deriveGraphQLEditorModel(
   }
 
   const namedType = typeMap[inputTypeName];
-  if (namedType instanceof GraphQLScalarType
+
+  if (namedType == null
+    || namedType instanceof GraphQLScalarType
     || namedType instanceof GraphQLUnionType
     || namedType instanceof GraphQLEnumType
   ) {
-    throw new Error('Unexpected type');
+    throw new Error(`Unexpected type ${namedType}`);
   }
 
   let hasStringScalars: boolean = false;
@@ -167,7 +169,7 @@ export function deriveGraphQLEditorModel(
   let hasTimeScalars: boolean = false;
 
   // We take attributes from query, otherwise it won't be possible to pair the entity type from editor with entity type from list
-  const attributes = getEntityAttributes(queryNode, schema);
+  const attributes = getEntityAttributes(queryNode, schema, idField);
 
   // We need to take some info from mutation input and add it to `attributes`
   Object.values(namedType.getFields()).map((field: GraphQLField<any, any>) => {

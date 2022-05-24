@@ -20,6 +20,7 @@ import {useNavigate} from "react-router-dom";
  * @param setFormError
  * @param refetchQueries
  * @param typename GraphQL input type name
+ * @param idFieldName name of id field
  * @param id entity instance id (when editing an entity, otherwise undefined)
  */
 export function useSubmitEditor<TData>(
@@ -30,7 +31,8 @@ export function useSubmitEditor<TData>(
     | InternalRefetchQueriesInclude
     | undefined,
   typename: string,
-  id?: string
+  id?: string,
+  idFieldName: string = "id",
 ) {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ export function useSubmitEditor<TData>(
    * Function that is executed when mutation is successful
    */
   const handleSuccess = useCallback(() => {
-    navigate('..');
+    navigate("..");
     return message.success(
       intl.formatMessage({
         id: "EntityDetailsScreen.savedSuccessfully"
@@ -95,10 +97,8 @@ export function useSubmitEditor<TData>(
        * Presence of `id` property indicates editing an existing entity instance.
        * Otherwise a new instance will be created.
        */
-      const input = {
-        ...serialize(formFieldValues, typename),
-        id: id !== "new" ? id : undefined
-      };
+      let input = serialize(formFieldValues, typename);
+      input[idFieldName] = id !== "new" ? id : undefined;
 
       // Execute mutation and handle the result
       runMutation({
@@ -120,7 +120,8 @@ export function useSubmitEditor<TData>(
       handleNetworkError,
       handleGraphQLError,
       handleSuccess,
-      typename
+      typename,
+      idFieldName
     ]
   );
 

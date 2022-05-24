@@ -69,7 +69,7 @@ function Cards({ items, loading, error, onSelect }: ItemCardsProps) {
   return (
     <Space direction="vertical" className="lookup-cards card-space">
       {items.map(item => (
-        <ItemCard item={item} key={item?.id} onSelect={onSelect} />
+        <ItemCard item={item} key={item?.<%= idField %>} onSelect={onSelect} />
       ))}
     </Space>
   );
@@ -86,7 +86,7 @@ function ItemCard({ item, onSelect }: ItemCardProps) {
   }
 
   return (
-    <Card key={item.id}
+    <Card key={item.<%= idField %>}
           title={get<%= capitalizeFirst(entityName) %>DisplayName(item)}
           className="narrow-layout"
           onClick={() => onSelect(item)}

@@ -102,6 +102,30 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
+        title={intl.formatMessage({ id: "screen.PetDiseaseList" })}
+        key={"/pet-disease-list"}
+      >
+        <Link to={"/pet-disease-list"}>
+          <FormattedMessage id={"screen.PetDiseaseList"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
+        title={intl.formatMessage({ id: "screen.PetDiseaseCards" })}
+        key={"/pet-disease-cards"}
+      >
+        <Link to={"/pet-disease-cards"}>
+          <FormattedMessage id={"screen.PetDiseaseCards"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
+        title={intl.formatMessage({ id: "screen.PetDiseaseTable" })}
+        key={"/pet-disease-table"}
+      >
+        <Link to={"/pet-disease-table"}>
+          <FormattedMessage id={"screen.PetDiseaseTable"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
         title={intl.formatMessage({ id: "screen.ReadOnlyOwnerCards" })}
         key={"/read-only-owner-cards"}
       >
@@ -158,6 +182,14 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
+        title={intl.formatMessage({ id: "screen.ReadOnlyPetDiseaseList" })}
+        key={"/read-only-pet-disease-list"}
+      >
+        <Link to={"/read-only-pet-disease-list"}>
+          <FormattedMessage id={"screen.ReadOnlyPetDiseaseList"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
         title={intl.formatMessage({ id: "screen.StandaloneOwnerCards" })}
         key={"/standalone-owner-cards"}
       >
@@ -182,11 +214,27 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
+        title={intl.formatMessage({ id: "screen.StandalonePetDiseaseList" })}
+        key={"/standalone-pet-disease-list"}
+      >
+        <Link to={"/standalone-pet-disease-list"}>
+          <FormattedMessage id={"screen.StandalonePetDiseaseList"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
         title={intl.formatMessage({ id: "screen.StandaloneOwnerEditor" })}
         key={"/standalone-owner-editor"}
       >
         <Link to={"/standalone-owner-editor"}>
           <FormattedMessage id={"screen.StandaloneOwnerEditor"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
+        title={intl.formatMessage({ id: "screen.StandalonePetDiseaseEditor" })}
+        key={"/standalone-pet-disease-editor"}
+      >
+        <Link to={"/standalone-pet-disease-editor"}>
+          <FormattedMessage id={"screen.StandalonePetDiseaseEditor"} />
         </Link>
       </Menu.Item>
       <Menu.Item
@@ -211,6 +259,14 @@ export const AppMenu = () => {
       >
         <Link to={"/pet-type-lookup-cards"}>
           <FormattedMessage id={"screen.PetTypeLookup"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
+        title={intl.formatMessage({ id: "screen.PetDiseaseLookup" })}
+        key={"/pet-disease-lookup-cards"}
+      >
+        <Link to={"/pet-disease-lookup-cards"}>
+          <FormattedMessage id={"screen.PetDiseaseLookup"} />
         </Link>
       </Menu.Item>
     </Menu>

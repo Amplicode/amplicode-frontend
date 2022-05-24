@@ -1,10 +1,14 @@
+import { PetDiseaseLookup } from "../screens/lookup/PetDiseaseLookup";
 import { PetTypeLookup } from "../screens/lookup/PetTypeLookup";
 import { PetLookup } from "../screens/lookup/PetLookup";
 import { OwnerLookup } from "../screens/lookup/OwnerLookup";
+import { StandalonePetDiseaseEditor } from "../screens/standalone-pet-disease-editor/StandalonePetDiseaseEditor";
 import { StandaloneOwnerEditor } from "../screens/owner/StandaloneOwnerEditor";
+import { StandalonePetDiseaseList } from "../screens/standalone-pet-disease-list/StandalonePetDiseaseList";
 import { StandaloneOwnerList } from "../screens/standalone-list/StandaloneOwnerList";
 import { StandaloneOwnerTable } from "../screens/standalone-list/StandaloneOwnerTable";
 import { StandaloneOwnerCards } from "../screens/standalone-list/StandaloneOwnerCards";
+import { ReadOnlyPetDiseaseListScreenLayout } from "../screens/read-only-pet-disease/ReadOnlyPetDiseaseListScreenLayout";
 import { ReadOnlyScalarsListScreenLayout } from "../screens/read-only-scalars/ReadOnlyScalarsListScreenLayout";
 import { ReadOnlyPetListScreenLayout } from "../screens/read-only-pet/ReadOnlyPetListScreenLayout";
 import { ReadOnlyPetTableScreenLayout } from "../screens/read-only-pet/ReadOnlyPetTableScreenLayout";
@@ -12,6 +16,9 @@ import { ReadOnlyPetCardsScreenLayout } from "../screens/read-only-pet/ReadOnlyP
 import { ReadOnlyOwnerListScreenLayout } from "../screens/read-only-owner/ReadOnlyOwnerListScreenLayout";
 import { ReadOnlyOwnerTableScreenLayout } from "../screens/read-only-owner/ReadOnlyOwnerTableScreenLayout";
 import { ReadOnlyOwnerCardsScreenLayout } from "../screens/read-only-owner/ReadOnlyOwnerCardsScreenLayout";
+import { PetDiseaseTableScreenLayout } from "../screens/pet-disease-management/PetDiseaseTableScreenLayout";
+import { PetDiseaseCardsScreenLayout } from "../screens/pet-disease-management/PetDiseaseCardsScreenLayout";
+import { PetDiseaseListScreenLayout } from "../screens/pet-disease-management/PetDiseaseListScreenLayout";
 import { TestNotNullScalarsCardsScreenLayout } from "../screens/notnull-scalars/TestNotNullScalarsCardsScreenLayout";
 import { TestScalarsTableScreenLayout } from "../screens/scalars/TestScalarsTableScreenLayout";
 import { TestScalarsCardsScreenLayout } from "../screens/scalars/TestScalarsCardsScreenLayout";
@@ -78,6 +85,18 @@ export function AppRoutes() {
           element={<TestNotNullScalarsCardsScreenLayout />}
         />
       </Route>
+      <Route path="pet-disease-list">
+        <Route index element={<PetDiseaseListScreenLayout />} />
+        <Route path=":recordId" element={<PetDiseaseListScreenLayout />} />
+      </Route>
+      <Route path="pet-disease-cards">
+        <Route index element={<PetDiseaseCardsScreenLayout />} />
+        <Route path=":recordId" element={<PetDiseaseCardsScreenLayout />} />
+      </Route>
+      <Route path="pet-disease-table">
+        <Route index element={<PetDiseaseTableScreenLayout />} />
+        <Route path=":recordId" element={<PetDiseaseTableScreenLayout />} />
+      </Route>
       <Route path="read-only-owner-cards">
         <Route index element={<ReadOnlyOwnerCardsScreenLayout />} />
         <Route path=":recordId" element={<ReadOnlyOwnerCardsScreenLayout />} />
@@ -106,6 +125,13 @@ export function AppRoutes() {
         <Route index element={<ReadOnlyScalarsListScreenLayout />} />
         <Route path=":recordId" element={<ReadOnlyScalarsListScreenLayout />} />
       </Route>
+      <Route path="read-only-pet-disease-list">
+        <Route index element={<ReadOnlyPetDiseaseListScreenLayout />} />
+        <Route
+          path=":recordId"
+          element={<ReadOnlyPetDiseaseListScreenLayout />}
+        />
+      </Route>
       <Route path="standalone-owner-cards">
         <Route index element={<StandaloneOwnerCards />} />
         <Route path=":recordId" element={<StandaloneOwnerCards />} />
@@ -118,9 +144,17 @@ export function AppRoutes() {
         <Route index element={<StandaloneOwnerList />} />
         <Route path=":recordId" element={<StandaloneOwnerList />} />
       </Route>
+      <Route path="standalone-pet-disease-list">
+        <Route index element={<StandalonePetDiseaseList />} />
+        <Route path=":recordId" element={<StandalonePetDiseaseList />} />
+      </Route>
       <Route path="standalone-owner-editor">
         <Route index element={<StandaloneOwnerEditor />} />
         <Route path=":recordId" element={<StandaloneOwnerEditor />} />
+      </Route>
+      <Route path="standalone-pet-disease-editor">
+        <Route index element={<StandalonePetDiseaseEditor />} />
+        <Route path=":recordId" element={<StandalonePetDiseaseEditor />} />
       </Route>
       <Route path="owner-lookup-cards">
         <Route index element={<OwnerLookup />} />
@@ -133,6 +167,10 @@ export function AppRoutes() {
       <Route path="pet-type-lookup-cards">
         <Route index element={<PetTypeLookup />} />
         <Route path=":recordId" element={<PetTypeLookup />} />
+      </Route>
+      <Route path="pet-disease-lookup-cards">
+        <Route index element={<PetDiseaseLookup />} />
+        <Route path=":recordId" element={<PetDiseaseLookup />} />
       </Route>
     </Routes>
   );
