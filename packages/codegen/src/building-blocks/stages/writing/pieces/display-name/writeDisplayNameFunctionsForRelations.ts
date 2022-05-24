@@ -21,7 +21,6 @@ export async function writeDisplayNameFunctionsForRelations(
       entityName: relation.type,
       attributes: relation.nestedAttributes,
       dirShift: relDirShift,
-      idAttrName: relation.idField
     });
   }
 }

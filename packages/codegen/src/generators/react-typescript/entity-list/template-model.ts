@@ -62,7 +62,7 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
   const queryName = getTopFieldName(queryNode);
   const refetchQuery = getOperationDefinitionName(queryNode);
   const deleteMutationName = mutationNode != null ? getTopFieldName(mutationNode) : undefined;
-  const attributes = getEntityAttributes(queryNode, schema);
+  const attributes = getEntityAttributes(queryNode, schema, idField);
   const entityName = getEntityName(queryName, schema);
   const allAttributes = getAttributeNames(entityName, schema);
 

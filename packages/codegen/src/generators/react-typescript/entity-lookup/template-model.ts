@@ -45,7 +45,7 @@ export const deriveEntityLookupTemplateModel: AmplicodeTemplateModelStage<Amplic
 
   const queryNode = gql(queryString);
   const queryName = getTopFieldName(queryNode);
-  const attributes = getEntityAttributes(queryNode, schema);
+  const attributes = getEntityAttributes(queryNode, schema, idField);
   const entityName = getEntityName(queryName, schema);
   const allAttributes = getAttributeNames(entityName, schema);
 

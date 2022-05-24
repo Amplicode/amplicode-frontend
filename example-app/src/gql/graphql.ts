@@ -492,6 +492,20 @@ export type Get_Owner_ListQuery = {
   } | null> | null;
 };
 
+export type Get_Pet_Disease_ListQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type Get_Pet_Disease_ListQuery = {
+  __typename?: "Query";
+  petDiseaseList?: Array<{
+    __typename?: "PetDisease";
+    description?: string | null;
+    name?: string | null;
+    petDiseaseIdentifier?: string | null;
+  } | null> | null;
+};
+
 export type Get_Pet_ListQueryVariables = Exact<{ [key: string]: never }>;
 
 export type Get_Pet_ListQuery = {
@@ -641,6 +655,41 @@ export type Get_Owner_List_With_FilterQuery = {
     telephone?: string | null;
     email?: string | null;
   } | null> | null;
+};
+
+export type Delete_Pet_DiseaseMutationVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type Delete_Pet_DiseaseMutation = {
+  __typename?: "Mutation";
+  deletePetDisease?: any | null;
+};
+
+export type Get_Pet_DiseaseQueryVariables = Exact<{
+  id?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type Get_Pet_DiseaseQuery = {
+  __typename?: "Query";
+  petDisease?: {
+    __typename?: "PetDisease";
+    description?: string | null;
+    name?: string | null;
+    petDiseaseIdentifier?: string | null;
+  } | null;
+};
+
+export type Update_Pet_DiseaseMutationVariables = Exact<{
+  input?: InputMaybe<PetDiseaseInput>;
+}>;
+
+export type Update_Pet_DiseaseMutation = {
+  __typename?: "Mutation";
+  updatePetDisease?: {
+    __typename?: "PetDisease";
+    petDiseaseIdentifier?: string | null;
+  } | null;
 };
 
 export type Get_Pet_List_With_FilterQueryVariables = Exact<{
@@ -833,6 +882,39 @@ export const Get_Owner_ListDocument = {
     },
   ],
 } as unknown as DocumentNode<Get_Owner_ListQuery, Get_Owner_ListQueryVariables>;
+export const Get_Pet_Disease_ListDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Get_Pet_Disease_List" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "petDiseaseList" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "petDiseaseIdentifier" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Get_Pet_Disease_ListQuery,
+  Get_Pet_Disease_ListQueryVariables
+>;
 export const Get_Pet_ListDocument = {
   kind: "Document",
   definitions: [
@@ -1355,6 +1437,152 @@ export const Get_Owner_List_With_FilterDocument = {
 } as unknown as DocumentNode<
   Get_Owner_List_With_FilterQuery,
   Get_Owner_List_With_FilterQueryVariables
+>;
+export const Delete_Pet_DiseaseDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Delete_Pet_Disease" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "deletePetDisease" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Delete_Pet_DiseaseMutation,
+  Delete_Pet_DiseaseMutationVariables
+>;
+export const Get_Pet_DiseaseDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Get_Pet_Disease" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "petDisease" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "petDiseaseIdentifier" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Get_Pet_DiseaseQuery,
+  Get_Pet_DiseaseQueryVariables
+>;
+export const Update_Pet_DiseaseDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Update_Pet_Disease" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "input" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "PetDiseaseInput" },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "updatePetDisease" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "input" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "input" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "petDiseaseIdentifier" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Update_Pet_DiseaseMutation,
+  Update_Pet_DiseaseMutationVariables
 >;
 export const Get_Pet_List_With_FilterDocument = {
   kind: "Document",

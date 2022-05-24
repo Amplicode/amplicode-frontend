@@ -1,11 +1,16 @@
 import React from "react";
+import { PetDiseaseLookup } from "../app/screens/lookup/PetDiseaseLookup";
 import { PetTypeLookup } from "../app/screens/lookup/PetTypeLookup";
 import { PetLookup } from "../app/screens/lookup/PetLookup";
 import { OwnerLookup } from "../app/screens/lookup/OwnerLookup";
+import { StandalonePetDiseaseEditor } from "../app/screens/standalone-pet-disease-editor/StandalonePetDiseaseEditor";
 import { StandaloneOwnerEditor } from "../app/screens/owner/StandaloneOwnerEditor";
+import { StandalonePetDiseaseList } from "../app/screens/standalone-pet-disease-list/StandalonePetDiseaseList";
 import { StandaloneOwnerList } from "../app/screens/standalone-list/StandaloneOwnerList";
 import { StandaloneOwnerTable } from "../app/screens/standalone-list/StandaloneOwnerTable";
 import { StandaloneOwnerCards } from "../app/screens/standalone-list/StandaloneOwnerCards";
+import { ReadOnlyPetDiseaseList } from "../app/screens/read-only-pet-disease/ReadOnlyPetDiseaseList";
+import { ReadOnlyPetDiseaseListDetails } from "../app/screens/read-only-pet-disease/ReadOnlyPetDiseaseListDetails";
 import { ReadOnlyScalarsList } from "../app/screens/read-only-scalars/ReadOnlyScalarsList";
 import { ReadOnlyScalarsListDetails } from "../app/screens/read-only-scalars/ReadOnlyScalarsListDetails";
 import { ReadOnlyPetList } from "../app/screens/read-only-pet/ReadOnlyPetList";
@@ -20,6 +25,12 @@ import { ReadOnlyOwnerTable } from "../app/screens/read-only-owner/ReadOnlyOwner
 import { ReadOnlyOwnerTableDetails } from "../app/screens/read-only-owner/ReadOnlyOwnerTableDetails";
 import { ReadOnlyOwnerCards } from "../app/screens/read-only-owner/ReadOnlyOwnerCards";
 import { ReadOnlyOwnerCardsDetails } from "../app/screens/read-only-owner/ReadOnlyOwnerCardsDetails";
+import { PetDiseaseTable } from "../app/screens/pet-disease-management/PetDiseaseTable";
+import { PetDiseaseTableEditor } from "../app/screens/pet-disease-management/PetDiseaseTableEditor";
+import { PetDiseaseCards } from "../app/screens/pet-disease-management/PetDiseaseCards";
+import { PetDiseaseCardsEditor } from "../app/screens/pet-disease-management/PetDiseaseCardsEditor";
+import { PetDiseaseList } from "../app/screens/pet-disease-management/PetDiseaseList";
+import { PetDiseaseListEditor } from "../app/screens/pet-disease-management/PetDiseaseListEditor";
 import { TestNotNullScalarsCards } from "../app/screens/notnull-scalars/TestNotNullScalarsCards";
 import { TestNotNullScalarsCardsEditor } from "../app/screens/notnull-scalars/TestNotNullScalarsCardsEditor";
 import { TestScalarsTable } from "../app/screens/scalars/TestScalarsTable";
@@ -106,6 +117,24 @@ const ComponentPreviews = () => {
       <ComponentPreview path="/TestNotNullScalarsCards">
         <TestNotNullScalarsCards />
       </ComponentPreview>
+      <ComponentPreview path="/PetDiseaseListEditor">
+        <PetDiseaseListEditor />
+      </ComponentPreview>
+      <ComponentPreview path="/PetDiseaseList">
+        <PetDiseaseList />
+      </ComponentPreview>
+      <ComponentPreview path="/PetDiseaseCardsEditor">
+        <PetDiseaseCardsEditor />
+      </ComponentPreview>
+      <ComponentPreview path="/PetDiseaseCards">
+        <PetDiseaseCards />
+      </ComponentPreview>
+      <ComponentPreview path="/PetDiseaseTableEditor">
+        <PetDiseaseTableEditor />
+      </ComponentPreview>
+      <ComponentPreview path="/PetDiseaseTable">
+        <PetDiseaseTable />
+      </ComponentPreview>
       <ComponentPreview path="/ReadOnlyOwnerCardsDetails">
         <ReadOnlyOwnerCardsDetails />
       </ComponentPreview>
@@ -148,6 +177,12 @@ const ComponentPreviews = () => {
       <ComponentPreview path="/ReadOnlyScalarsList">
         <ReadOnlyScalarsList />
       </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyPetDiseaseListDetails">
+        <ReadOnlyPetDiseaseListDetails />
+      </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyPetDiseaseList">
+        <ReadOnlyPetDiseaseList />
+      </ComponentPreview>
       <ComponentPreview path="/StandaloneOwnerCards">
         <StandaloneOwnerCards />
       </ComponentPreview>
@@ -157,8 +192,14 @@ const ComponentPreviews = () => {
       <ComponentPreview path="/StandaloneOwnerList">
         <StandaloneOwnerList />
       </ComponentPreview>
+      <ComponentPreview path="/StandalonePetDiseaseList">
+        <StandalonePetDiseaseList />
+      </ComponentPreview>
       <ComponentPreview path="/StandaloneOwnerEditor">
         <StandaloneOwnerEditor />
+      </ComponentPreview>
+      <ComponentPreview path="/StandalonePetDiseaseEditor">
+        <StandalonePetDiseaseEditor />
       </ComponentPreview>
       <ComponentPreview path="/OwnerLookup">
         <OwnerLookup />
@@ -168,6 +209,9 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/PetTypeLookup">
         <PetTypeLookup />
+      </ComponentPreview>
+      <ComponentPreview path="/PetDiseaseLookup">
+        <PetDiseaseLookup />
       </ComponentPreview>
     </Previews>
   );

@@ -8,7 +8,7 @@ import {getTypeFields} from "./getTypeFields";
 import {isAnyLeafType} from "./isAnyLeafType";
 import { getSelectedFieldNamesFromTopField } from "./getSelectedFieldNamesFromTopField";
 
-export function getEntityAttributes(documentNode: DocumentNode, schema: GraphQLSchema): AttributeModel[] {
+export function getEntityAttributes(documentNode: DocumentNode, schema: GraphQLSchema, idField: string): AttributeModel[] {
   // e.g. "petList"
   const queryFieldName: string = getTopFieldName(documentNode);
   // e.g. "PetDTO"
@@ -21,7 +21,7 @@ export function getEntityAttributes(documentNode: DocumentNode, schema: GraphQLS
   return selectedFieldNames
     .filter(fieldKey => {
       // Do not include id attribute
-      return typeFields[fieldKey].name !== 'id' // TODO determine id field from schema
+      return typeFields[fieldKey].name !== idField
     })
     .map(fieldKey => {
       const field = typeFields[fieldKey];
@@ -38,7 +38,6 @@ export function getEntityAttributes(documentNode: DocumentNode, schema: GraphQLS
         nestedAttributes: isAnyLeafType(field.type)
           ? undefined
           : getAttributeNames(fieldType, schema),
-        idField: 'id' // TODO Get id field name from schema
       };
     });
 }

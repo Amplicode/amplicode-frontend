@@ -12,7 +12,8 @@ export interface EntityManagementAnswers extends ScreenAnswers {
   detailsQuery: string,
   upsertMutation?: string,
   deleteMutation?: string,
-  idField?: string,
+  listIdField?: string,
+  detailsIdField?: string,
   filterByArguments: Array<string[]>;
 }
 

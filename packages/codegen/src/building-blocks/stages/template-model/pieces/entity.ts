@@ -9,7 +9,6 @@ export interface AttributeModel {
   enumOptions?: Array<GraphQLEnumValue>;
   isRelationField: boolean;
   nestedAttributes?: string[];
-  idField?: string;
 }
 
 export interface EntityWithPath extends Entity {
@@ -29,12 +28,10 @@ export function deriveEntity(
 ): EntityTemplateModel {
   const entity = answers.entity;
 
-  const entityWithPath = {
+  return {
     entity: {
       ...entity,
       path: getEntityPath(entity, projectModel)
     }
   };
-
-  return entityWithPath;
 }
