@@ -70,7 +70,11 @@ function Cards({ items, loading, error, onSelect }: ItemCardsProps) {
   return (
     <Space direction="vertical" className="lookup-cards card-space">
       {items.map(item => (
-        <ItemCard item={item} key={item?.id} onSelect={onSelect} />
+        <ItemCard
+          item={item}
+          key={item?.petDiseaseIdentifier}
+          onSelect={onSelect}
+        />
       ))}
     </Space>
   );
@@ -88,7 +92,7 @@ function ItemCard({ item, onSelect }: ItemCardProps) {
 
   return (
     <Card
-      key={item.id}
+      key={item.petDiseaseIdentifier}
       title={getPetDiseaseDisplayName(item)}
       className="narrow-layout"
       onClick={() => onSelect(item)}
@@ -99,11 +103,6 @@ function ItemCard({ item, onSelect }: ItemCardProps) {
         value={item.description ?? undefined}
       />
       <ValueWithLabel key="name" label="Name" value={item.name ?? undefined} />
-      <ValueWithLabel
-        key="petDiseaseIdentifier"
-        label="Pet Disease Identifier"
-        value={item.petDiseaseIdentifier ?? undefined}
-      />
     </Card>
   );
 }

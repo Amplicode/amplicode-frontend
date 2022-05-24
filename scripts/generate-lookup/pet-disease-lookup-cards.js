@@ -6,6 +6,7 @@ const answers = btoa(JSON.stringify({
   route: 'pet-disease-lookup-cards',
   shouldAddToMenu: true,
   query: esc(petDiseaseListQuery),
+  idField: 'petDiseaseIdentifier'
 }));
 
 const command = `node ${amplicodegen} react-typescript:entity-lookup`

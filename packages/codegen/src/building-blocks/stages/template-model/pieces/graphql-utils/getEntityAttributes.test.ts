@@ -4,7 +4,7 @@ import {getEntityAttributes} from "./getEntityAttributes";
 import {getMockSchema} from "../../../../../test/test-commons";
 import {GraphQLSchema} from "graphql";
 
-describe('entity list template model stage', async () => {
+describe('getEntityAttributes', async () => {
   let schema: GraphQLSchema;
 
   before(async () => {
@@ -27,7 +27,29 @@ describe('entity list template model stage', async () => {
     const ownerAttr = attributes.find(attr => attr.name === 'owner');
     expect(ownerAttr?.type).to.eq('OwnerDTO');
   });
+
+  it('query contains id attribute with custom name', () => {
+    const attributes = getEntityAttributes(QUERY_WITHOUT_ID, schema, 'identificationNumber');
+    const dateAttr = attributes.find(attr => attr.name === 'birthDate');
+    expect(dateAttr?.type).to.eq('Date');
+  });
+
+  it('fails if there is no "id" attribute in query', () => {
+    expect(() => getEntityAttributes(QUERY_WITHOUT_ID, schema, 'id'))
+      .to.throw("pet query attributes did not contain id attribute with name 'id', " +
+      "which required for screen generation");
+  });
+
 });
+
+const QUERY_WITHOUT_ID = gql(`
+  query Get_Pet($id: BigInteger) {
+    pet(id: $id) {
+      identificationNumber
+      birthDate
+    }
+  }
+`);
 
 const QUERY_NODE = gql(`
     query Get_Pet_List {

@@ -18,11 +18,14 @@ export function getEntityAttributes(documentNode: DocumentNode, schema: GraphQLS
 
   const selectedFieldNames = getSelectedFieldNamesFromTopField(documentNode);
 
+  if (!selectedFieldNames.find(fieldKey => typeFields[fieldKey].name === idField)) {
+    throw new Error(`${queryFieldName} query attributes did not contain id attribute with name '${idField}', ` +
+      `which required for screen generation`);
+  }
+
   return selectedFieldNames
-    .filter(fieldKey => {
-      // Do not include id attribute
-      return typeFields[fieldKey].name !== idField
-    })
+    // Do not include id attribute
+    .filter(fieldKey => typeFields[fieldKey].name !== idField)
     .map(fieldKey => {
       const field = typeFields[fieldKey];
 
