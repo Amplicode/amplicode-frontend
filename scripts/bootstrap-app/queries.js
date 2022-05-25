@@ -251,6 +251,14 @@ exports.petDiseaseUpsertMutation = `mutation Update_Pet_Disease($input: PetDisea
     }
   }`;
 
+/* Pet Type */
+
+exports.petTypeListQuery = `query Get_Pet_Type_List {
+    petTypeList {
+      id, 
+      name
+    }
+  }`;
 
 
 
