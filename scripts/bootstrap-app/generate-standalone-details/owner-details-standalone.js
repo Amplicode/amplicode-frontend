@@ -7,7 +7,6 @@ const answers = btoa(JSON.stringify({
   route: 'standalone-owner-details',
   shouldAddToMenu: true,
   query: esc(ownerDetailsQuery),
-  addToMenu: true,
 }));
 
 runCmdSync(`node ${amplicodegen} react-typescript:entity-details`
