@@ -8,8 +8,8 @@ export interface EntityListAnswers extends ScreenAnswers {
   type?: EntityListType;
   mode?: EntityListMode;
   route: string;
-  query: string;
-  mutation?: string;
+  query: string; // TODO may be rename with 'listQuery'
+  mutation?: string; // TODO may be rename with 'deleteMutation'
   idField?: string;
   filterByArguments: Array<string[]>;
 }

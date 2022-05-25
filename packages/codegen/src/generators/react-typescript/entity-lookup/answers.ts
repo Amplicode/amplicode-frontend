@@ -3,7 +3,7 @@ import {ScreenAnswers} from "../../../building-blocks/stages/answers/amplicode/S
 
 export type EntityLookupAnswers =
   ScreenAnswers & {
-  query: string;
+  query: string; // TODO maybe rename with listQuery
   idField?: string;
 };
 

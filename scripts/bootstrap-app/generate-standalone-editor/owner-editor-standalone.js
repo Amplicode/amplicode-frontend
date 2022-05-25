@@ -9,7 +9,6 @@ const answers = btoa(JSON.stringify({
   shouldAddToMenu: true,
   query: esc(ownerDetailsQuery),
   mutation: esc(ownerUpsertMutation),
-  addToMenu: true,
 }));
 
 runCmdSync(`node ${amplicodegen} react-typescript:entity-details`

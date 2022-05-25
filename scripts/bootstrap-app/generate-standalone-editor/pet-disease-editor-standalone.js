@@ -9,7 +9,6 @@ const answers = btoa(JSON.stringify({
   shouldAddToMenu: true,
   query: esc(petDiseaseDetailsQuery),
   mutation: esc(petDiseaseUpsertMutation),
-  addToMenu: true,
   idField: 'petDiseaseIdentifier'
 }));
 

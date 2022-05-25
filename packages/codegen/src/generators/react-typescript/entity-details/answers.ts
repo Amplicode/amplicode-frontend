@@ -3,8 +3,8 @@ import {ScreenAnswers} from "../../../building-blocks/stages/answers/amplicode/S
 
 export type MvpEntityEditorAnswers =
   ScreenAnswers & {
-    query: string;
-    mutation?: string;
+    query: string; // TODO may be rename with 'detailsQuery'
+    mutation?: string; // TODO may be rename with 'upsertMutation'
     refetchQueryName: string;
     idField?: string;
   };

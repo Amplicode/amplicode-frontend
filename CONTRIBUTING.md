@@ -706,6 +706,145 @@ Beside mode, there are additional options for template config:
   `deleteMutationString` provided
 * `withItemComponent` - defines if item component defined and passed in `itemComponentName`
 
+### Variants of Generated Screens
+
+Codegen provides several variants of crud screens generation, which are used in Amplicode Studio. 
+Examples of CLI commands for each variant could be found at [scripts/bootstrap-app](scripts/bootstrap-app) folder.
+
+#### Entity Management
+Consist of `collection screen` with actions (edit, delete) and `editor screen`. 
+
+Generator: `react-typescript:entity-management`
+
+Expected answers:
+- `listComponentName`name of collection component
+- `itemComponentName` name of editor component
+- `route`component route (i.e. component will be available at localhost:3000/**pet-list**, if `route` is set to `pet-list`)
+- `type` type fo generated collection component, could be `list`, `cards` or `table`; this answer is optional,
+  by default will be generated `cards` type of collection
+- `shouldAddToMenu` defines do we need to add or not screens to menu
+- `mode` an optional answer, defines which type of editor should be used,
+  available options `edit`, `view`, `view with details`; default value, and this value should be used for management 
+  generation is `mode: 'edit'` 
+- `listQuery` GraphQL query to load list of entities
+- `detailsQuery` GraphQL query to load entity by id
+- `deleteMutation` GraphQL query to delete entity
+- `upsertMutation` GraphQL query to create or update entity
+- `filterByArguments` an optional parameter that includes filter component in collection screens, 
+filtering will be available by arguments listed in answers
+  
+Command example: [pet-management-list.js](scripts/bootstrap-app/generate-management/pet-management-list.js)
+
+Generated screens: [PetList.tsx](example-app/src/app/screens/management/PetList.tsx), 
+[PetListEditor.tsx](example-app/src/app/screens/management/PetListEditor.tsx)  
+
+#### Read Only Collection
+Consist of `collection component` without actions and `entity details` component. <br>
+This variant is similar with [management](#entity-management) described above, 
+but instead of `entity editor` is used `entity details` component (defined by answer `mode: 'view with details'`).
+
+Generator: `react-typescript:entity-management`
+
+Expected answers (description could be seen above, in [Management](#entity-management) section):
+- `listComponentName`
+- `itemComponentName`
+- `route`
+- `type`
+- `shouldAddToMenu`
+- `listQuery`
+- `detailsQuery`
+- `mode` should be `view with details` for readonly collection variant
+
+Command example: [pet-list-readonly.js](scripts/bootstrap-app/generate-readonly-collection/pet-list-readonly.js)
+
+Generated screens: [ReadOnlyPetList.tsx](example-app/src/app/screens/readonly-collection/ReadOnlyPetList.tsx),
+[ReadOnlyPetListDetails.tsx](example-app/src/app/screens/readonly-collection/ReadOnlyPetListDetails.tsx)
+
+#### Standalone Collection
+Consist of `collection component` with actions.
+
+Generator: `react-typescript:entity-list`
+
+Expected answers (description could be seen above, in [Management](#entity-management) section):
+- `componentName`
+- `route`
+- `type`
+- `shouldAddToMenu`
+- `query` GraphQL query to load list of entities
+- `mutation` GraphQL query to delete entity
+- `mode` should be `edit` for standalone collection variant
+
+Command example: [owner-list-standalone.js](scripts/bootstrap-app/generate-standalone-collection/owner-list-standalone.js)
+
+Generated screen: [StandaloneOwnerList.tsx](example-app/src/app/screens/standalone-collection/StandaloneOwnerList.tsx)
+
+#### Standalone Editor
+Consist of `editor component`. <br>
+Standalone editor and standalone details variants are created using the same generator (`entity-details`). 
+If `mutation` answer passed to generator, then `editor` screen will be generated, in other case will be created `details`.
+
+By clicking on a menu, standalone editor is opened in 'entity creation' mode. 'Update' mode doesn't available from a menu,
+but could be available via direct link. For example, for standalone owner editor, which available from menu by route 
+[http://localhost:3000/standalone-owner-editor](http://localhost:3000/standalone-owner-editor), 
+'update' mode could be available by adding owner `id` (here id is equal to `1`) at the end of the 
+url [http://localhost:3000/standalone-owner-editor/1](http://localhost:3000/standalone-owner-editor/1)
+
+Generator: `react-typescript:entity-details`
+
+Expected answers (description could be seen above, in [Management](#entity-management) section):
+
+Command example: [owner-editor-standalone.js](scripts/bootstrap-app/generate-standalone-editor/owner-editor-standalone.js)
+- `componentName`
+- `refetchQueryName` GraphQL query that should be refetched after item will be created or modified
+- `route`
+- `shouldAddToMenu`
+- `query` GraphQL query to load entity
+- `mutation` GraphQL query to create or update entity
+
+Generated screen: [StandaloneOwnerEditor.tsx](example-app/src/app/screens/standalone-editor/StandaloneOwnerEditor.tsx)
+
+#### Standalone Entity Details
+Consist of `entity details component`. <br>
+Variant is similar with `standalone editor`. More details about difference in [Standalone Editor](#standalone-editor) section.
+
+Standalone entity details screen could be added to menu, but page will show 'Request failed' message on open. This is because 
+`entity details` always required entity `id` for proper work, but it is not possible to add it on a menu url due generation.
+So we need to add entity `id` (here id is equal to `1`) in url manually. For example for 
+[http://localhost:3000/standalone-pet-details](http://localhost:3000/standalone-pet-details) valid url will be
+[http://localhost:3000/standalone-pet-details/1](http://localhost:3000/standalone-pet-details/1).
+
+
+Generator: `react-typescript:entity-details`
+
+Command example: [owner-editor-standalone.js](scripts/bootstrap-app/generate-standalone-editor/owner-editor-standalone.js)
+- `componentName`
+- `route`
+- `shouldAddToMenu`
+- `query` GraphQL query to load entity
+
+Command example: [pet-details-standalone.js](scripts/bootstrap-app/generate-standalone-details/pet-details-standalone.js)
+
+Generated screen: [StandalonePetDetails.tsx](example-app/src/app/screens/standalone-details/StandalonePetDetails.tsx)
+
+#### Lookup
+Consist of a bit modified `collection component`. <br> 
+At this moment only `cards` type of collection is supported in lookup screen.
+
+Lookup screen usually is used as part of editor component
+[for one-to-many relation field selection](#link-Lookup-Screen-with-One-To-Many-Form-Field). 
+By default `shouldAddToMenu = 'false'`, but could be set to `true` for testing and sampling purposes.
+
+Generator: `react-typescript:entity-lookup`
+
+Expected answers (description could be seen above, in [Management](#entity-management) section):
+- `componentName`
+- `route`
+- `query` GraphQL query to load list of entities
+
+Command example: [pet-lookup-cards.js](scripts/bootstrap-app/generate-lookup/pet-lookup-cards.js)
+
+Generated screen: [PetLookupCards.tsx](example-app/src/app/screens/lookup/PetLookupCards.tsx)
+
 ### Localization
 Based on `react-intl` library.
 
