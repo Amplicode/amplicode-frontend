@@ -2,6 +2,8 @@ import { PetDiseaseLookupCards } from "../screens/lookup/PetDiseaseLookupCards";
 import { PetTypeLookupCards } from "../screens/lookup/PetTypeLookupCards";
 import { PetLookupCards } from "../screens/lookup/PetLookupCards";
 import { OwnerLookupCards } from "../screens/lookup/OwnerLookupCards";
+import { StandalonePetDetails } from "../screens/standalone-details/StandalonePetDetails";
+import { StandaloneOwnerDetails } from "../screens/standalone-details/StandaloneOwnerDetails";
 import { StandalonePetDiseaseEditor } from "../screens/standalone-editor/StandalonePetDiseaseEditor";
 import { StandaloneOwnerEditor } from "../screens/standalone-editor/StandaloneOwnerEditor";
 import { StandalonePetDiseaseList } from "../screens/standalone-collection/StandalonePetDiseaseList";
@@ -155,6 +157,14 @@ export function AppRoutes() {
       <Route path="standalone-pet-disease-editor">
         <Route index element={<StandalonePetDiseaseEditor />} />
         <Route path=":recordId" element={<StandalonePetDiseaseEditor />} />
+      </Route>
+      <Route path="standalone-owner-details">
+        <Route index element={<StandaloneOwnerDetails />} />
+        <Route path=":recordId" element={<StandaloneOwnerDetails />} />
+      </Route>
+      <Route path="standalone-pet-details">
+        <Route index element={<StandalonePetDetails />} />
+        <Route path=":recordId" element={<StandalonePetDetails />} />
       </Route>
       <Route path="owner-lookup-cards">
         <Route index element={<OwnerLookupCards />} />
