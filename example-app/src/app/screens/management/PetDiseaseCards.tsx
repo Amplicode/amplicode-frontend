@@ -14,6 +14,7 @@ import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { getPetDiseaseDisplayName } from "../../../core/display-name/getPetDiseaseDisplayName";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const REFETCH_QUERIES = ["Get_Pet_Disease_List"];
 
@@ -34,6 +35,9 @@ const DELETE_PET_DISEASE = gql(`
 `);
 
 export function PetDiseaseCards() {
+  const intl = useIntl();
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.PetDiseaseCards" }));
+
   // Load the items from server
   const { loading, error, data } = useQuery(PET_DISEASE_LIST);
   const items = deserialize(data?.petDiseaseList);

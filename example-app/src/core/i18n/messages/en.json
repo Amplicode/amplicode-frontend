@@ -87,8 +87,8 @@
   "screen.StandalonePetDiseaseList": "Standalone Pet Disease List",
   "screen.StandaloneOwnerEditor": "Standalone Owner Editor",
   "screen.StandalonePetDiseaseEditor": "Standalone Pet Disease Editor",
-  "screen.OwnerLookup": "Owner Lookup",
-  "screen.PetLookup": "Pet Lookup",
-  "screen.PetTypeLookup": "Pet Type Lookup",
-  "screen.PetDiseaseLookup": "Pet Disease Lookup"
+  "screen.OwnerLookupCards": "Owner Lookup Cards",
+  "screen.PetLookupCards": "Pet Lookup Cards",
+  "screen.PetTypeLookupCards": "Pet Type Lookup Cards",
+  "screen.PetDiseaseLookupCards": "Pet Disease Lookup Cards"
 }

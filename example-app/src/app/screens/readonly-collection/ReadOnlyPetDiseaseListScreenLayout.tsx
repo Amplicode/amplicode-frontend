@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Breadcrumb } from "antd";
-import { PetDiseaseList } from "./PetDiseaseList";
-import { PetDiseaseListEditor } from "./PetDiseaseListEditor";
+import { ReadOnlyPetDiseaseList } from "./ReadOnlyPetDiseaseList";
+import { ReadOnlyPetDiseaseListDetails } from "./ReadOnlyPetDiseaseListDetails";
 import { BreadcrumbContext } from "../../../core/screen/BreadcrumbContext";
 import { usePageTitle } from "../../../core/screen/usePageTitle";
 import { useIntl } from "react-intl";
 
-export function PetDiseaseListScreenLayout() {
+export function ReadOnlyPetDiseaseListScreenLayout() {
   const intl = useIntl();
-  usePageTitle(intl.formatMessage({ id: "screen.PetDiseaseList" }));
+  usePageTitle(intl.formatMessage({ id: "screen.ReadOnlyPetDiseaseList" }));
 
   const { recordId } = useParams();
   const [breadcrumbItems, setBreadcrumbItems] = useState<string[]>([]);
@@ -17,22 +17,18 @@ export function PetDiseaseListScreenLayout() {
   return (
     <>
       {recordId && (
-        <Breadcrumb>
+        <Breadcrumb className="crud-screen-breadcrumb">
           {breadcrumbItems.map(item => (
             <Breadcrumb.Item>{item}</Breadcrumb.Item>
           ))}
         </Breadcrumb>
       )}
 
-      <BreadcrumbContext.Provider
-        value={{ breadcrumbItems, setBreadcrumbItems }}
-      >
+      <BreadcrumbContext.Provider value={setBreadcrumbItems}>
         <div style={{ display: recordId ? "none" : "block" }}>
-          <PetDiseaseList />
+          <ReadOnlyPetDiseaseList />
         </div>
-        {recordId && (
-          <PetDiseaseListEditor refetchQueries={["Get_Pet_Disease_List"]} />
-        )}
+        {recordId && <ReadOnlyPetDiseaseListDetails />}
       </BreadcrumbContext.Provider>
     </>
   );

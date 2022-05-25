@@ -18,11 +18,11 @@ const PET_DISEASE_LIST = gql(`
   }
 `);
 
-interface PetDiseaseLookupProps {
+interface PetDiseaseLookupCardsProps {
   onSelect?: (entityInstance: Record<string, unknown>) => {};
 }
 
-export function PetDiseaseLookup(props: PetDiseaseLookupProps) {
+export function PetDiseaseLookupCards(props: PetDiseaseLookupCardsProps) {
   // Load the items from server
   const { loading, error, data } = useQuery(PET_DISEASE_LIST);
   const items = data?.petDiseaseList;

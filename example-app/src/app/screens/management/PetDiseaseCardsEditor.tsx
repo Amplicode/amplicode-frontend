@@ -20,6 +20,7 @@ import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 import { FormattedMessage, useIntl } from "react-intl";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 import { deserialize } from "../../../core/transform/model/deserialize";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const PET_DISEASE = gql(`
   query Get_Pet_Disease($id: ID) {
@@ -39,7 +40,7 @@ const UPDATE_PET_DISEASE = gql(`
   }
 `);
 
-export interface PetDiseaseTableEditorProps<TData = any> {
+export interface PetDiseaseCardsEditorProps<TData = any> {
   /**
    * A list of queries that needs to be refetched once the editor has been submitted.
    * For example, you might need to refresh entity list after editing an entity instance.
@@ -50,9 +51,12 @@ export interface PetDiseaseTableEditorProps<TData = any> {
   refetchQueries?: RefetchQueries<TData>;
 }
 
-export function PetDiseaseTableEditor({
+export function PetDiseaseCardsEditor({
   refetchQueries
-}: PetDiseaseTableEditorProps<QueryResultType>) {
+}: PetDiseaseCardsEditorProps<QueryResultType>) {
+  const intl = useIntl();
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.PetDiseaseCardsEditor" }));
+
   const { recordId } = useParams();
 
   // Load the item if `id` is provided

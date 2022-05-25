@@ -1,7 +1,8 @@
+const {MANAGEMENT_DIR} = require("../config");
 const { runCmdSync, esc, btoa, amplicodegen } = require("../../common");
 const {scalarsListQuery, scalarsDetailsQuery, scalarsDeleteMutation, scalarsUpsertMutation} = require("../queries");
 
-const scalarsManagementAnswers = btoa(JSON.stringify({
+const answers = btoa(JSON.stringify({
   listComponentName: 'TestScalarsCards',
   itemComponentName: 'TestScalarsCardsEditor',
   route: 'scalars-cards',
@@ -12,10 +13,8 @@ const scalarsManagementAnswers = btoa(JSON.stringify({
   upsertMutation: esc(scalarsUpsertMutation),
 }));
 
-const scalarsManagementCommand = `node ${amplicodegen} react-typescript:entity-management`
-+ ` --answers ${scalarsManagementAnswers}`
-+ ` --schema ./schema.graphql`
-+ ` --dest ../example-app/src/app/screens/scalars`
-+ ` --dirShift ../../../`;
-
-runCmdSync(scalarsManagementCommand);
+runCmdSync(`node ${amplicodegen} react-typescript:entity-management`
+  + ` --answers ${answers}`
+  + ` --schema ./schema.graphql`
+  + ` --dest ../example-app/src/app/screens/${MANAGEMENT_DIR}`
+  + ` --dirShift ../../../`);

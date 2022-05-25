@@ -1,3 +1,4 @@
+const {MANAGEMENT_DIR} = require("../config");
 const { runCmdSync, esc, btoa, amplicodegen } = require("../../common");
 const {petDiseaseListQuery, petDiseaseDetailsQuery, petDiseaseDeleteMutation, petDiseaseUpsertMutation} = require("../queries");
 
@@ -15,10 +16,8 @@ const answers = btoa(JSON.stringify({
   detailsIdField: "petDiseaseIdentifier"
 }));
 
-const command = `node ${amplicodegen} react-typescript:entity-management`
-    + ` --answers ${answers}`
-    + ` --schema ./schema.graphql`
-    + ` --dest ../example-app/src/app/screens/pet-disease-management`
-    + ` --dirShift ../../../`;
-
-runCmdSync(command);
+runCmdSync(`node ${amplicodegen} react-typescript:entity-management`
+  + ` --answers ${answers}`
+  + ` --schema ./schema.graphql`
+  + ` --dest ../example-app/src/app/screens/${MANAGEMENT_DIR}`
+  + ` --dirShift ../../../`);

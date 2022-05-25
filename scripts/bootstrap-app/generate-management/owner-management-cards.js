@@ -1,7 +1,8 @@
+const {MANAGEMENT_DIR} = require("../config");
 const { runCmdSync, esc, btoa, amplicodegen } = require("../../common");
 const {ownerListQuery, ownerDetailsQuery, ownerDeleteMutation, ownerUpsertMutation} = require("../queries");
 
-const ownerManagementAnswers = btoa(JSON.stringify({
+const answers = btoa(JSON.stringify({
   listComponentName: 'OwnerCards',
   itemComponentName: 'OwnerCardsEditor',
   route: 'owner-cards',
@@ -12,10 +13,8 @@ const ownerManagementAnswers = btoa(JSON.stringify({
   upsertMutation: esc(ownerUpsertMutation),
 }));
 
-const ownerManagementCommand = `node ${amplicodegen} react-typescript:entity-management`
-+ ` --answers ${ownerManagementAnswers}`
-+ ` --schema ./schema.graphql`
-+ ` --dest ../example-app/src/app/screens/owner`
-+ ` --dirShift ../../../`;
-
-runCmdSync(ownerManagementCommand);
+runCmdSync(`node ${amplicodegen} react-typescript:entity-management`
+  + ` --answers ${answers}`
+  + ` --schema ./schema.graphql`
+  + ` --dest ../example-app/src/app/screens/${MANAGEMENT_DIR}`
+  + ` --dirShift ../../../`);

@@ -1,3 +1,4 @@
+const {READONLY_COLLECTION_DIR} = require("../config");
 const {scalarsListQuery, scalarsDetailsQuery} = require("../queries");
 const { runCmdSync, esc, btoa, amplicodegen } = require("../../common");
 
@@ -12,10 +13,8 @@ const answers = btoa(JSON.stringify({
   mode: 'view with details',
 }));
 
-const readOnlyManagementCommand = `node ${amplicodegen} react-typescript:entity-management`
-+ ` --answers ${answers}`
-+ ` --schema ./schema.graphql`
-+ ` --dest ../example-app/src/app/screens/read-only-scalars`
-+ ` --dirShift ../../../`;
-
-runCmdSync(readOnlyManagementCommand);
+runCmdSync(`node ${amplicodegen} react-typescript:entity-management`
+  + ` --answers ${answers}`
+  + ` --schema ./schema.graphql`
+  + ` --dest ../example-app/src/app/screens/${READONLY_COLLECTION_DIR}`
+  + ` --dirShift ../../../`);

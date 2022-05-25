@@ -10,6 +10,7 @@ import { gql } from "@amplicode/gql";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
+import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const PET_DISEASE_LIST = gql(`
   query Get_Pet_Disease_List {
@@ -22,6 +23,11 @@ const PET_DISEASE_LIST = gql(`
 `);
 
 export function ReadOnlyPetDiseaseList() {
+  const intl = useIntl();
+  useBreadcrumbItem(
+    intl.formatMessage({ id: "screen.ReadOnlyPetDiseaseList" })
+  );
+
   // Load the items from server
   const { loading, error, data } = useQuery(PET_DISEASE_LIST);
   const items = deserialize(data?.petDiseaseList);

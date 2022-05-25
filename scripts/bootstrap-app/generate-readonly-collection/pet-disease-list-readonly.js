@@ -1,3 +1,4 @@
+const {READONLY_COLLECTION_DIR} = require("../config");
 const {petDiseaseListQuery, petDiseaseDetailsQuery} = require("../queries");
 const { runCmdSync, esc, btoa, amplicodegen } = require("../../common");
 
@@ -14,10 +15,8 @@ const answers = btoa(JSON.stringify({
   detailsIdField: 'petDiseaseIdentifier'
 }));
 
-const command = `node ${amplicodegen} react-typescript:entity-management`
-+ ` --answers ${answers}`
-+ ` --schema ./schema.graphql`
-+ ` --dest ../example-app/src/app/screens/read-only-pet-disease`
-+ ` --dirShift ../../../`;
-
-runCmdSync(command);
+runCmdSync(`node ${amplicodegen} react-typescript:entity-management`
+  + ` --answers ${answers}`
+  + ` --schema ./schema.graphql`
+  + ` --dest ../example-app/src/app/screens/${READONLY_COLLECTION_DIR}`
+  + ` --dirShift ../../../`);

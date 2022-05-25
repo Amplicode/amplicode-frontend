@@ -1,56 +1,56 @@
 import React from "react";
-import { PetDiseaseLookup } from "../app/screens/lookup/PetDiseaseLookup";
-import { PetTypeLookup } from "../app/screens/lookup/PetTypeLookup";
-import { PetLookup } from "../app/screens/lookup/PetLookup";
-import { OwnerLookup } from "../app/screens/lookup/OwnerLookup";
-import { StandalonePetDiseaseEditor } from "../app/screens/standalone-pet-disease-editor/StandalonePetDiseaseEditor";
-import { StandaloneOwnerEditor } from "../app/screens/owner/StandaloneOwnerEditor";
-import { StandalonePetDiseaseList } from "../app/screens/standalone-pet-disease-list/StandalonePetDiseaseList";
-import { StandaloneOwnerList } from "../app/screens/standalone-list/StandaloneOwnerList";
-import { StandaloneOwnerTable } from "../app/screens/standalone-list/StandaloneOwnerTable";
-import { StandaloneOwnerCards } from "../app/screens/standalone-list/StandaloneOwnerCards";
-import { ReadOnlyPetDiseaseList } from "../app/screens/read-only-pet-disease/ReadOnlyPetDiseaseList";
-import { ReadOnlyPetDiseaseListDetails } from "../app/screens/read-only-pet-disease/ReadOnlyPetDiseaseListDetails";
-import { ReadOnlyScalarsList } from "../app/screens/read-only-scalars/ReadOnlyScalarsList";
-import { ReadOnlyScalarsListDetails } from "../app/screens/read-only-scalars/ReadOnlyScalarsListDetails";
-import { ReadOnlyPetList } from "../app/screens/read-only-pet/ReadOnlyPetList";
-import { ReadOnlyPetListDetails } from "../app/screens/read-only-pet/ReadOnlyPetListDetails";
-import { ReadOnlyPetTable } from "../app/screens/read-only-pet/ReadOnlyPetTable";
-import { ReadOnlyPetTableDetails } from "../app/screens/read-only-pet/ReadOnlyPetTableDetails";
-import { ReadOnlyPetCards } from "../app/screens/read-only-pet/ReadOnlyPetCards";
-import { ReadOnlyPetCardsDetails } from "../app/screens/read-only-pet/ReadOnlyPetCardsDetails";
-import { ReadOnlyOwnerList } from "../app/screens/read-only-owner/ReadOnlyOwnerList";
-import { ReadOnlyOwnerListDetails } from "../app/screens/read-only-owner/ReadOnlyOwnerListDetails";
-import { ReadOnlyOwnerTable } from "../app/screens/read-only-owner/ReadOnlyOwnerTable";
-import { ReadOnlyOwnerTableDetails } from "../app/screens/read-only-owner/ReadOnlyOwnerTableDetails";
-import { ReadOnlyOwnerCards } from "../app/screens/read-only-owner/ReadOnlyOwnerCards";
-import { ReadOnlyOwnerCardsDetails } from "../app/screens/read-only-owner/ReadOnlyOwnerCardsDetails";
-import { PetDiseaseTable } from "../app/screens/pet-disease-management/PetDiseaseTable";
-import { PetDiseaseTableEditor } from "../app/screens/pet-disease-management/PetDiseaseTableEditor";
-import { PetDiseaseCards } from "../app/screens/pet-disease-management/PetDiseaseCards";
-import { PetDiseaseCardsEditor } from "../app/screens/pet-disease-management/PetDiseaseCardsEditor";
-import { PetDiseaseList } from "../app/screens/pet-disease-management/PetDiseaseList";
-import { PetDiseaseListEditor } from "../app/screens/pet-disease-management/PetDiseaseListEditor";
-import { TestNotNullScalarsCards } from "../app/screens/notnull-scalars/TestNotNullScalarsCards";
-import { TestNotNullScalarsCardsEditor } from "../app/screens/notnull-scalars/TestNotNullScalarsCardsEditor";
-import { TestScalarsTable } from "../app/screens/scalars/TestScalarsTable";
-import { TestScalarsTableEditor } from "../app/screens/scalars/TestScalarsTableEditor";
-import { TestScalarsCards } from "../app/screens/scalars/TestScalarsCards";
-import { TestScalarsCardsEditor } from "../app/screens/scalars/TestScalarsCardsEditor";
-import { PetTable } from "../app/screens/pet/PetTable";
-import { PetTableEditor } from "../app/screens/pet/PetTableEditor";
-import { PetList } from "../app/screens/pet/PetList";
-import { PetListEditor } from "../app/screens/pet/PetListEditor";
-import { PetCards } from "../app/screens/pet/PetCards";
-import { PetCardsEditor } from "../app/screens/pet/PetCardsEditor";
-import { OwnerCardsWithFilter } from "../app/screens/owner/OwnerCardsWithFilter";
-import { OwnerCardsWithFilterEditor } from "../app/screens/owner/OwnerCardsWithFilterEditor";
-import { OwnerTable } from "../app/screens/owner/OwnerTable";
-import { OwnerTableEditor } from "../app/screens/owner/OwnerTableEditor";
-import { OwnerList } from "../app/screens/owner/OwnerList";
-import { OwnerListEditor } from "../app/screens/owner/OwnerListEditor";
-import { OwnerCards } from "../app/screens/owner/OwnerCards";
-import { OwnerCardsEditor } from "../app/screens/owner/OwnerCardsEditor";
+import { PetDiseaseLookupCards } from "../app/screens/lookup/PetDiseaseLookupCards";
+import { PetTypeLookupCards } from "../app/screens/lookup/PetTypeLookupCards";
+import { PetLookupCards } from "../app/screens/lookup/PetLookupCards";
+import { OwnerLookupCards } from "../app/screens/lookup/OwnerLookupCards";
+import { StandalonePetDiseaseEditor } from "../app/screens/standalone-editor/StandalonePetDiseaseEditor";
+import { StandaloneOwnerEditor } from "../app/screens/standalone-editor/StandaloneOwnerEditor";
+import { StandalonePetDiseaseList } from "../app/screens/standalone-collection/StandalonePetDiseaseList";
+import { StandaloneOwnerList } from "../app/screens/standalone-collection/StandaloneOwnerList";
+import { StandaloneOwnerTable } from "../app/screens/standalone-collection/StandaloneOwnerTable";
+import { StandaloneOwnerCards } from "../app/screens/standalone-collection/StandaloneOwnerCards";
+import { ReadOnlyPetDiseaseList } from "../app/screens/readonly-collection/ReadOnlyPetDiseaseList";
+import { ReadOnlyPetDiseaseListDetails } from "../app/screens/readonly-collection/ReadOnlyPetDiseaseListDetails";
+import { ReadOnlyScalarsList } from "../app/screens/readonly-collection/ReadOnlyScalarsList";
+import { ReadOnlyScalarsListDetails } from "../app/screens/readonly-collection/ReadOnlyScalarsListDetails";
+import { ReadOnlyPetList } from "../app/screens/readonly-collection/ReadOnlyPetList";
+import { ReadOnlyPetListDetails } from "../app/screens/readonly-collection/ReadOnlyPetListDetails";
+import { ReadOnlyPetTable } from "../app/screens/readonly-collection/ReadOnlyPetTable";
+import { ReadOnlyPetTableDetails } from "../app/screens/readonly-collection/ReadOnlyPetTableDetails";
+import { ReadOnlyPetCards } from "../app/screens/readonly-collection/ReadOnlyPetCards";
+import { ReadOnlyPetCardsDetails } from "../app/screens/readonly-collection/ReadOnlyPetCardsDetails";
+import { ReadOnlyOwnerList } from "../app/screens/readonly-collection/ReadOnlyOwnerList";
+import { ReadOnlyOwnerListDetails } from "../app/screens/readonly-collection/ReadOnlyOwnerListDetails";
+import { ReadOnlyOwnerTable } from "../app/screens/readonly-collection/ReadOnlyOwnerTable";
+import { ReadOnlyOwnerTableDetails } from "../app/screens/readonly-collection/ReadOnlyOwnerTableDetails";
+import { ReadOnlyOwnerCards } from "../app/screens/readonly-collection/ReadOnlyOwnerCards";
+import { ReadOnlyOwnerCardsDetails } from "../app/screens/readonly-collection/ReadOnlyOwnerCardsDetails";
+import { PetDiseaseTable } from "../app/screens/management/PetDiseaseTable";
+import { PetDiseaseTableEditor } from "../app/screens/management/PetDiseaseTableEditor";
+import { PetDiseaseCards } from "../app/screens/management/PetDiseaseCards";
+import { PetDiseaseCardsEditor } from "../app/screens/management/PetDiseaseCardsEditor";
+import { PetDiseaseList } from "../app/screens/management/PetDiseaseList";
+import { PetDiseaseListEditor } from "../app/screens/management/PetDiseaseListEditor";
+import { TestNotNullScalarsCards } from "../app/screens/management/TestNotNullScalarsCards";
+import { TestNotNullScalarsCardsEditor } from "../app/screens/management/TestNotNullScalarsCardsEditor";
+import { TestScalarsTable } from "../app/screens/management/TestScalarsTable";
+import { TestScalarsTableEditor } from "../app/screens/management/TestScalarsTableEditor";
+import { TestScalarsCards } from "../app/screens/management/TestScalarsCards";
+import { TestScalarsCardsEditor } from "../app/screens/management/TestScalarsCardsEditor";
+import { PetTable } from "../app/screens/management/PetTable";
+import { PetTableEditor } from "../app/screens/management/PetTableEditor";
+import { PetList } from "../app/screens/management/PetList";
+import { PetListEditor } from "../app/screens/management/PetListEditor";
+import { PetCards } from "../app/screens/management/PetCards";
+import { PetCardsEditor } from "../app/screens/management/PetCardsEditor";
+import { OwnerCardsWithFilter } from "../app/screens/management/OwnerCardsWithFilter";
+import { OwnerCardsWithFilterEditor } from "../app/screens/management/OwnerCardsWithFilterEditor";
+import { OwnerTable } from "../app/screens/management/OwnerTable";
+import { OwnerTableEditor } from "../app/screens/management/OwnerTableEditor";
+import { OwnerList } from "../app/screens/management/OwnerList";
+import { OwnerListEditor } from "../app/screens/management/OwnerListEditor";
+import { OwnerCards } from "../app/screens/management/OwnerCards";
+import { OwnerCardsEditor } from "../app/screens/management/OwnerCardsEditor";
 import { ComponentPreview, Previews } from "@react-buddy/ide-toolbox";
 import { PaletteTree } from "./palette";
 
@@ -201,17 +201,17 @@ const ComponentPreviews = () => {
       <ComponentPreview path="/StandalonePetDiseaseEditor">
         <StandalonePetDiseaseEditor />
       </ComponentPreview>
-      <ComponentPreview path="/OwnerLookup">
-        <OwnerLookup />
+      <ComponentPreview path="/OwnerLookupCards">
+        <OwnerLookupCards />
       </ComponentPreview>
-      <ComponentPreview path="/PetLookup">
-        <PetLookup />
+      <ComponentPreview path="/PetLookupCards">
+        <PetLookupCards />
       </ComponentPreview>
-      <ComponentPreview path="/PetTypeLookup">
-        <PetTypeLookup />
+      <ComponentPreview path="/PetTypeLookupCards">
+        <PetTypeLookupCards />
       </ComponentPreview>
-      <ComponentPreview path="/PetDiseaseLookup">
-        <PetDiseaseLookup />
+      <ComponentPreview path="/PetDiseaseLookupCards">
+        <PetDiseaseLookupCards />
       </ComponentPreview>
     </Previews>
   );

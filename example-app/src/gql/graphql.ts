@@ -540,69 +540,6 @@ export type Get_Pet_Type_ListQuery = {
   } | null> | null;
 };
 
-export type Get_Nn_Scalars_ListQueryVariables = Exact<{ [key: string]: never }>;
-
-export type Get_Nn_Scalars_ListQuery = {
-  __typename?: "Query";
-  notNullScalarsTestEntityList?: Array<{
-    __typename?: "NotNullScalarsTestEntity";
-    id?: string | null;
-    bigDecimalNotNull: any;
-    bigIntNotNull: any;
-    dateTestNotNull: any;
-    localDateNotNull: any;
-    localDateTimeNotNull: any;
-    localTimeNotNull: any;
-    offsetDateTimeNotNull: any;
-    offsetTimeNotNull: any;
-    stringNotNull: string;
-    urlNotNull: any;
-  } | null> | null;
-};
-
-export type Delete_Nn_ScalarsMutationVariables = Exact<{
-  id: Scalars["ID"];
-}>;
-
-export type Delete_Nn_ScalarsMutation = {
-  __typename?: "Mutation";
-  deleteNotNullScalarsTestEntity?: any | null;
-};
-
-export type Get_Nn_ScalarsQueryVariables = Exact<{
-  id?: InputMaybe<Scalars["ID"]>;
-}>;
-
-export type Get_Nn_ScalarsQuery = {
-  __typename?: "Query";
-  notNullScalarsTestEntity?: {
-    __typename?: "NotNullScalarsTestEntity";
-    id?: string | null;
-    bigDecimalNotNull: any;
-    bigIntNotNull: any;
-    dateTestNotNull: any;
-    localDateNotNull: any;
-    localDateTimeNotNull: any;
-    localTimeNotNull: any;
-    offsetDateTimeNotNull: any;
-    offsetTimeNotNull: any;
-    stringNotNull: string;
-    urlNotNull: any;
-  } | null;
-};
-
-export type Update_Nn_ScalarsMutationVariables = Exact<{
-  input?: InputMaybe<NotNullScalarsTestEntityInput>;
-}>;
-
-export type Update_Nn_ScalarsMutation = {
-  __typename?: "Mutation";
-  updateNotNullScalarsTestEntity?: {
-    __typename?: "NotNullScalarsTestEntity";
-    id?: string | null;
-  } | null;
-};
-
 export type Delete_OwnerMutationVariables = Exact<{
   id: Scalars["ID"];
 }>;
@@ -655,41 +592,6 @@ export type Get_Owner_List_With_FilterQuery = {
     telephone?: string | null;
     email?: string | null;
   } | null> | null;
-};
-
-export type Delete_Pet_DiseaseMutationVariables = Exact<{
-  id: Scalars["ID"];
-}>;
-
-export type Delete_Pet_DiseaseMutation = {
-  __typename?: "Mutation";
-  deletePetDisease?: any | null;
-};
-
-export type Get_Pet_DiseaseQueryVariables = Exact<{
-  id?: InputMaybe<Scalars["ID"]>;
-}>;
-
-export type Get_Pet_DiseaseQuery = {
-  __typename?: "Query";
-  petDisease?: {
-    __typename?: "PetDisease";
-    description?: string | null;
-    name?: string | null;
-    petDiseaseIdentifier?: string | null;
-  } | null;
-};
-
-export type Update_Pet_DiseaseMutationVariables = Exact<{
-  input?: InputMaybe<PetDiseaseInput>;
-}>;
-
-export type Update_Pet_DiseaseMutation = {
-  __typename?: "Mutation";
-  updatePetDisease?: {
-    __typename?: "PetDisease";
-    petDiseaseIdentifier?: string | null;
-  } | null;
 };
 
 export type Get_Pet_List_With_FilterQueryVariables = Exact<{
@@ -760,6 +662,104 @@ export type Update_PetMutation = {
   updatePet?: { __typename?: "PetDTO"; id?: string | null } | null;
 };
 
+export type Delete_Pet_DiseaseMutationVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type Delete_Pet_DiseaseMutation = {
+  __typename?: "Mutation";
+  deletePetDisease?: any | null;
+};
+
+export type Get_Pet_DiseaseQueryVariables = Exact<{
+  id?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type Get_Pet_DiseaseQuery = {
+  __typename?: "Query";
+  petDisease?: {
+    __typename?: "PetDisease";
+    description?: string | null;
+    name?: string | null;
+    petDiseaseIdentifier?: string | null;
+  } | null;
+};
+
+export type Update_Pet_DiseaseMutationVariables = Exact<{
+  input?: InputMaybe<PetDiseaseInput>;
+}>;
+
+export type Update_Pet_DiseaseMutation = {
+  __typename?: "Mutation";
+  updatePetDisease?: {
+    __typename?: "PetDisease";
+    petDiseaseIdentifier?: string | null;
+  } | null;
+};
+
+export type Get_Nn_Scalars_ListQueryVariables = Exact<{ [key: string]: never }>;
+
+export type Get_Nn_Scalars_ListQuery = {
+  __typename?: "Query";
+  notNullScalarsTestEntityList?: Array<{
+    __typename?: "NotNullScalarsTestEntity";
+    id?: string | null;
+    bigDecimalNotNull: any;
+    bigIntNotNull: any;
+    dateTestNotNull: any;
+    localDateNotNull: any;
+    localDateTimeNotNull: any;
+    localTimeNotNull: any;
+    offsetDateTimeNotNull: any;
+    offsetTimeNotNull: any;
+    stringNotNull: string;
+    urlNotNull: any;
+  } | null> | null;
+};
+
+export type Delete_Nn_ScalarsMutationVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type Delete_Nn_ScalarsMutation = {
+  __typename?: "Mutation";
+  deleteNotNullScalarsTestEntity?: any | null;
+};
+
+export type Get_Nn_ScalarsQueryVariables = Exact<{
+  id?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type Get_Nn_ScalarsQuery = {
+  __typename?: "Query";
+  notNullScalarsTestEntity?: {
+    __typename?: "NotNullScalarsTestEntity";
+    id?: string | null;
+    bigDecimalNotNull: any;
+    bigIntNotNull: any;
+    dateTestNotNull: any;
+    localDateNotNull: any;
+    localDateTimeNotNull: any;
+    localTimeNotNull: any;
+    offsetDateTimeNotNull: any;
+    offsetTimeNotNull: any;
+    stringNotNull: string;
+    urlNotNull: any;
+  } | null;
+};
+
+export type Update_Nn_ScalarsMutationVariables = Exact<{
+  input?: InputMaybe<NotNullScalarsTestEntityInput>;
+}>;
+
+export type Update_Nn_ScalarsMutation = {
+  __typename?: "Mutation";
+  updateNotNullScalarsTestEntity?: {
+    __typename?: "NotNullScalarsTestEntity";
+    id?: string | null;
+  } | null;
+};
+
 export type Get_Scalars_ListQueryVariables = Exact<{ [key: string]: never }>;
 
 export type Get_Scalars_ListQuery = {
@@ -792,6 +792,15 @@ export type Get_Scalars_ListQuery = {
     dateTest?: any | null;
     url?: any | null;
   } | null> | null;
+};
+
+export type Delete_ScalarsMutationVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type Delete_ScalarsMutation = {
+  __typename?: "Mutation";
+  deleteScalarsTestEntity?: any | null;
 };
 
 export type Get_ScalarsQueryVariables = Exact<{
@@ -828,15 +837,6 @@ export type Get_ScalarsQuery = {
     dateTest?: any | null;
     url?: any | null;
   } | null;
-};
-
-export type Delete_ScalarsMutationVariables = Exact<{
-  id: Scalars["ID"];
-}>;
-
-export type Delete_ScalarsMutation = {
-  __typename?: "Mutation";
-  deleteScalarsTestEntity?: any | null;
 };
 
 export type Update_ScalarsMutationVariables = Exact<{
@@ -1002,243 +1002,6 @@ export const Get_Pet_Type_ListDocument = {
 } as unknown as DocumentNode<
   Get_Pet_Type_ListQuery,
   Get_Pet_Type_ListQueryVariables
->;
-export const Get_Nn_Scalars_ListDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "Get_NN_Scalars_List" },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "notNullScalarsTestEntityList" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "bigDecimalNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "bigIntNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "dateTestNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "localDateNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "localDateTimeNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "localTimeNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "offsetDateTimeNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "offsetTimeNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "stringNotNull" },
-                },
-                { kind: "Field", name: { kind: "Name", value: "urlNotNull" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Get_Nn_Scalars_ListQuery,
-  Get_Nn_Scalars_ListQueryVariables
->;
-export const Delete_Nn_ScalarsDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "mutation",
-      name: { kind: "Name", value: "Delete_NN_Scalars" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "deleteNotNullScalarsTestEntity" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "id" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "id" },
-                },
-              },
-            ],
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Delete_Nn_ScalarsMutation,
-  Delete_Nn_ScalarsMutationVariables
->;
-export const Get_Nn_ScalarsDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "Get_NN_Scalars" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "notNullScalarsTestEntity" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "id" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "id" },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "bigDecimalNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "bigIntNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "dateTestNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "localDateNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "localDateTimeNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "localTimeNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "offsetDateTimeNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "offsetTimeNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "stringNotNull" },
-                },
-                { kind: "Field", name: { kind: "Name", value: "urlNotNull" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<Get_Nn_ScalarsQuery, Get_Nn_ScalarsQueryVariables>;
-export const Update_Nn_ScalarsDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "mutation",
-      name: { kind: "Name", value: "Update_NN_Scalars" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "input" },
-          },
-          type: {
-            kind: "NamedType",
-            name: { kind: "Name", value: "NotNullScalarsTestEntityInput" },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "updateNotNullScalarsTestEntity" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "input" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "input" },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Update_Nn_ScalarsMutation,
-  Update_Nn_ScalarsMutationVariables
 >;
 export const Delete_OwnerDocument = {
   kind: "Document",
@@ -1437,152 +1200,6 @@ export const Get_Owner_List_With_FilterDocument = {
 } as unknown as DocumentNode<
   Get_Owner_List_With_FilterQuery,
   Get_Owner_List_With_FilterQueryVariables
->;
-export const Delete_Pet_DiseaseDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "mutation",
-      name: { kind: "Name", value: "Delete_Pet_Disease" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "deletePetDisease" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "id" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "id" },
-                },
-              },
-            ],
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Delete_Pet_DiseaseMutation,
-  Delete_Pet_DiseaseMutationVariables
->;
-export const Get_Pet_DiseaseDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "Get_Pet_Disease" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "petDisease" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "id" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "id" },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "description" } },
-                { kind: "Field", name: { kind: "Name", value: "name" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "petDiseaseIdentifier" },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Get_Pet_DiseaseQuery,
-  Get_Pet_DiseaseQueryVariables
->;
-export const Update_Pet_DiseaseDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "mutation",
-      name: { kind: "Name", value: "Update_Pet_Disease" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "input" },
-          },
-          type: {
-            kind: "NamedType",
-            name: { kind: "Name", value: "PetDiseaseInput" },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "updatePetDisease" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "input" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "input" },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "petDiseaseIdentifier" },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Update_Pet_DiseaseMutation,
-  Update_Pet_DiseaseMutationVariables
 >;
 export const Get_Pet_List_With_FilterDocument = {
   kind: "Document",
@@ -1829,6 +1446,389 @@ export const Update_PetDocument = {
     },
   ],
 } as unknown as DocumentNode<Update_PetMutation, Update_PetMutationVariables>;
+export const Delete_Pet_DiseaseDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Delete_Pet_Disease" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "deletePetDisease" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Delete_Pet_DiseaseMutation,
+  Delete_Pet_DiseaseMutationVariables
+>;
+export const Get_Pet_DiseaseDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Get_Pet_Disease" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "petDisease" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "petDiseaseIdentifier" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Get_Pet_DiseaseQuery,
+  Get_Pet_DiseaseQueryVariables
+>;
+export const Update_Pet_DiseaseDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Update_Pet_Disease" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "input" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "PetDiseaseInput" },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "updatePetDisease" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "input" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "input" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "petDiseaseIdentifier" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Update_Pet_DiseaseMutation,
+  Update_Pet_DiseaseMutationVariables
+>;
+export const Get_Nn_Scalars_ListDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Get_NN_Scalars_List" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "notNullScalarsTestEntityList" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "bigDecimalNotNull" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "bigIntNotNull" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "dateTestNotNull" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "localDateNotNull" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "localDateTimeNotNull" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "localTimeNotNull" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "offsetDateTimeNotNull" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "offsetTimeNotNull" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "stringNotNull" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "urlNotNull" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Get_Nn_Scalars_ListQuery,
+  Get_Nn_Scalars_ListQueryVariables
+>;
+export const Delete_Nn_ScalarsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Delete_NN_Scalars" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "deleteNotNullScalarsTestEntity" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Delete_Nn_ScalarsMutation,
+  Delete_Nn_ScalarsMutationVariables
+>;
+export const Get_Nn_ScalarsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Get_NN_Scalars" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "notNullScalarsTestEntity" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "bigDecimalNotNull" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "bigIntNotNull" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "dateTestNotNull" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "localDateNotNull" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "localDateTimeNotNull" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "localTimeNotNull" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "offsetDateTimeNotNull" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "offsetTimeNotNull" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "stringNotNull" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "urlNotNull" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<Get_Nn_ScalarsQuery, Get_Nn_ScalarsQueryVariables>;
+export const Update_Nn_ScalarsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Update_NN_Scalars" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "input" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "NotNullScalarsTestEntityInput" },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "updateNotNullScalarsTestEntity" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "input" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "input" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Update_Nn_ScalarsMutation,
+  Update_Nn_ScalarsMutationVariables
+>;
 export const Get_Scalars_ListDocument = {
   kind: "Document",
   definitions: [
@@ -1907,6 +1907,48 @@ export const Get_Scalars_ListDocument = {
 } as unknown as DocumentNode<
   Get_Scalars_ListQuery,
   Get_Scalars_ListQueryVariables
+>;
+export const Delete_ScalarsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Delete_Scalars" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "deleteScalarsTestEntity" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Delete_ScalarsMutation,
+  Delete_ScalarsMutationVariables
 >;
 export const Get_ScalarsDocument = {
   kind: "Document",
@@ -2001,48 +2043,6 @@ export const Get_ScalarsDocument = {
     },
   ],
 } as unknown as DocumentNode<Get_ScalarsQuery, Get_ScalarsQueryVariables>;
-export const Delete_ScalarsDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "mutation",
-      name: { kind: "Name", value: "Delete_Scalars" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "deleteScalarsTestEntity" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "id" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "id" },
-                },
-              },
-            ],
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Delete_ScalarsMutation,
-  Delete_ScalarsMutationVariables
->;
 export const Update_ScalarsDocument = {
   kind: "Document",
   definitions: [

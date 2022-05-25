@@ -238,35 +238,35 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({ id: "screen.OwnerLookup" })}
+        title={intl.formatMessage({ id: "screen.OwnerLookupCards" })}
         key={"/owner-lookup-cards"}
       >
         <Link to={"/owner-lookup-cards"}>
-          <FormattedMessage id={"screen.OwnerLookup"} />
+          <FormattedMessage id={"screen.OwnerLookupCards"} />
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({ id: "screen.PetLookup" })}
+        title={intl.formatMessage({ id: "screen.PetLookupCards" })}
         key={"/pet-lookup-cards"}
       >
         <Link to={"/pet-lookup-cards"}>
-          <FormattedMessage id={"screen.PetLookup"} />
+          <FormattedMessage id={"screen.PetLookupCards"} />
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({ id: "screen.PetTypeLookup" })}
+        title={intl.formatMessage({ id: "screen.PetTypeLookupCards" })}
         key={"/pet-type-lookup-cards"}
       >
         <Link to={"/pet-type-lookup-cards"}>
-          <FormattedMessage id={"screen.PetTypeLookup"} />
+          <FormattedMessage id={"screen.PetTypeLookupCards"} />
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({ id: "screen.PetDiseaseLookup" })}
+        title={intl.formatMessage({ id: "screen.PetDiseaseLookupCards" })}
         key={"/pet-disease-lookup-cards"}
       >
         <Link to={"/pet-disease-lookup-cards"}>
-          <FormattedMessage id={"screen.PetDiseaseLookup"} />
+          <FormattedMessage id={"screen.PetDiseaseLookupCards"} />
         </Link>
       </Menu.Item>
     </Menu>
