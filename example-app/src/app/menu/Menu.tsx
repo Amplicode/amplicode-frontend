@@ -238,6 +238,22 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
+        title={intl.formatMessage({ id: "screen.StandaloneOwnerDetails" })}
+        key={"/standalone-owner-details"}
+      >
+        <Link to={"/standalone-owner-details"}>
+          <FormattedMessage id={"screen.StandaloneOwnerDetails"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
+        title={intl.formatMessage({ id: "screen.StandalonePetDetails" })}
+        key={"/standalone-pet-details"}
+      >
+        <Link to={"/standalone-pet-details"}>
+          <FormattedMessage id={"screen.StandalonePetDetails"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
         title={intl.formatMessage({ id: "screen.OwnerLookupCards" })}
         key={"/owner-lookup-cards"}
       >

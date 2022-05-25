@@ -3,6 +3,8 @@ import { PetDiseaseLookupCards } from "../app/screens/lookup/PetDiseaseLookupCar
 import { PetTypeLookupCards } from "../app/screens/lookup/PetTypeLookupCards";
 import { PetLookupCards } from "../app/screens/lookup/PetLookupCards";
 import { OwnerLookupCards } from "../app/screens/lookup/OwnerLookupCards";
+import { StandalonePetDetails } from "../app/screens/standalone-details/StandalonePetDetails";
+import { StandaloneOwnerDetails } from "../app/screens/standalone-details/StandaloneOwnerDetails";
 import { StandalonePetDiseaseEditor } from "../app/screens/standalone-editor/StandalonePetDiseaseEditor";
 import { StandaloneOwnerEditor } from "../app/screens/standalone-editor/StandaloneOwnerEditor";
 import { StandalonePetDiseaseList } from "../app/screens/standalone-collection/StandalonePetDiseaseList";
@@ -200,6 +202,12 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/StandalonePetDiseaseEditor">
         <StandalonePetDiseaseEditor />
+      </ComponentPreview>
+      <ComponentPreview path="/StandaloneOwnerDetails">
+        <StandaloneOwnerDetails />
+      </ComponentPreview>
+      <ComponentPreview path="/StandalonePetDetails">
+        <StandalonePetDetails />
       </ComponentPreview>
       <ComponentPreview path="/OwnerLookupCards">
         <OwnerLookupCards />

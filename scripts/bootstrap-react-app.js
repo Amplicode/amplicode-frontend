@@ -37,6 +37,9 @@ runCmdSync('node  bootstrap-app/generate-standalone-collection/pet-disease-list-
 runCmdSync('node bootstrap-app/generate-standalone-editor/owner-editor-standalone.js', './scripts');
 runCmdSync('node bootstrap-app/generate-standalone-editor/pet-disease-editor-standalone.js', './scripts');
 
+runCmdSync('node bootstrap-app/generate-standalone-details/owner-details-standalone.js', './scripts');
+runCmdSync('node bootstrap-app/generate-standalone-details/pet-details-standalone.js', './scripts');
+
 runCmdSync('node bootstrap-app/generate-lookup/owner-lookup-cards.js', './scripts');
 runCmdSync('node bootstrap-app/generate-lookup/pet-lookup-cards.js', './scripts');
 runCmdSync('node bootstrap-app/generate-lookup/pet-type-lookup-cards.js', './scripts');
