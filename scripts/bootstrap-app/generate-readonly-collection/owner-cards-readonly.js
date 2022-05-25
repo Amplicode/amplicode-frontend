@@ -1,7 +1,8 @@
+const {READONLY_COLLECTION_DIR} = require("../config");
 const { runCmdSync, esc, btoa, amplicodegen } = require("../../common");
 const {ownerListQuery, ownerDetailsQuery} = require("../queries");
 
-const readOnlyManagementAnswers = btoa(JSON.stringify({
+const answers = btoa(JSON.stringify({
   listComponentName: 'ReadOnlyOwnerCards',
   itemComponentName: 'ReadOnlyOwnerCardsDetails',
   route: 'read-only-owner-cards',
@@ -11,10 +12,8 @@ const readOnlyManagementAnswers = btoa(JSON.stringify({
   mode: 'view with details'
 }));
 
-const readOnlyManagementCommand = `node ${amplicodegen} react-typescript:entity-management`
-+ ` --answers ${readOnlyManagementAnswers}`
-+ ` --schema ./schema.graphql`
-+ ` --dest ../example-app/src/app/screens/read-only-owner`
-+ ` --dirShift ../../../`;
-
-runCmdSync(readOnlyManagementCommand);
+runCmdSync(`node ${amplicodegen} react-typescript:entity-management`
+  + ` --answers ${answers}`
+  + ` --schema ./schema.graphql`
+  + ` --dest ../example-app/src/app/screens/${READONLY_COLLECTION_DIR}`
+  + ` --dirShift ../../../`);

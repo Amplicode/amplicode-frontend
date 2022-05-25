@@ -6,37 +6,30 @@ import { Card, Empty, Space, Spin } from "antd";
 import { gql } from "@amplicode/gql";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
-import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
-import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 
-const PET_LIST = gql(`
-  query Get_Pet_List {
-    petList {
+const OWNER_LIST = gql(`
+  query Get_Owner_List {
+    ownerList {
       id
-      identificationNumber
-      birthDate
-      type {
-        id
-        name
-      }
-      owner {
-        id
-        firstName
-        lastName
-      }
+      firstName
+      lastName
+      city
+      address
+      telephone
+      email
     }
   }
 `);
 
-interface PetLookupProps {
+interface OwnerLookupCardsProps {
   onSelect?: (entityInstance: Record<string, unknown>) => {};
 }
 
-export function PetLookup(props: PetLookupProps) {
+export function OwnerLookupCards(props: OwnerLookupCardsProps) {
   // Load the items from server
-  const { loading, error, data } = useQuery(PET_LIST);
-  const items = data?.petList;
+  const { loading, error, data } = useQuery(OWNER_LIST);
+  const items = data?.ownerList;
 
   return (
     <div className="narrow-layout">
@@ -100,29 +93,35 @@ function ItemCard({ item, onSelect }: ItemCardProps) {
   return (
     <Card
       key={item.id}
-      title={getPetDTODisplayName(item)}
+      title={getOwnerDTODisplayName(item)}
       className="narrow-layout"
       onClick={() => onSelect(item)}
     >
       <ValueWithLabel
-        key="identificationNumber"
-        label="Identification Number"
-        value={item.identificationNumber ?? undefined}
+        key="firstName"
+        label="First Name"
+        value={item.firstName ?? undefined}
       />
       <ValueWithLabel
-        key="birthDate"
-        label="Birth Date"
-        value={item.birthDate ?? undefined}
+        key="lastName"
+        label="Last Name"
+        value={item.lastName ?? undefined}
+      />
+      <ValueWithLabel key="city" label="City" value={item.city ?? undefined} />
+      <ValueWithLabel
+        key="address"
+        label="Address"
+        value={item.address ?? undefined}
       />
       <ValueWithLabel
-        key="type"
-        label="Type"
-        value={getPetTypeDTODisplayName(item.type ?? undefined)}
+        key="telephone"
+        label="Telephone"
+        value={item.telephone ?? undefined}
       />
       <ValueWithLabel
-        key="owner"
-        label="Owner"
-        value={getOwnerDTODisplayName(item.owner ?? undefined)}
+        key="email"
+        label="Email"
+        value={item.email ?? undefined}
       />
     </Card>
   );
@@ -131,11 +130,11 @@ function ItemCard({ item, onSelect }: ItemCardProps) {
 /**
  * Type of data object received when executing the query
  */
-type QueryResultType = ResultOf<typeof PET_LIST>;
+type QueryResultType = ResultOf<typeof OWNER_LIST>;
 /**
  * Type of the items list
  */
-type ItemListType = QueryResultType["petList"];
+type ItemListType = QueryResultType["ownerList"];
 /**
  * Type of a single item
  */

@@ -1,7 +1,8 @@
+const {MANAGEMENT_DIR} = require("../config");
 const {petListQueryWithFilter, petDetailsQuery, petDeleteMutation, petUpsertMutation} = require("../queries");
 const { runCmdSync, esc, btoa, amplicodegen } = require("../../common");
 
-const petManagementAnswers = btoa(JSON.stringify({
+const answers = btoa(JSON.stringify({
   listComponentName: 'PetCards',
   itemComponentName: 'PetCardsEditor',
   route: 'pet-cards',
@@ -13,10 +14,8 @@ const petManagementAnswers = btoa(JSON.stringify({
   filterByArguments: [['identificationNumber']],
 }));
 
-const petManagementCommand = `node ${amplicodegen} react-typescript:entity-management`
-    + ` --answers ${petManagementAnswers}`
-    + ` --schema ./schema.graphql`
-    + ` --dest ../example-app/src/app/screens/pet`
-    + ` --dirShift ../../../`;
-
-runCmdSync(petManagementCommand);
+runCmdSync(`node ${amplicodegen} react-typescript:entity-management`
+  + ` --answers ${answers}`
+  + ` --schema ./schema.graphql`
+  + ` --dest ../example-app/src/app/screens/${MANAGEMENT_DIR}`
+  + ` --dirShift ../../../`);

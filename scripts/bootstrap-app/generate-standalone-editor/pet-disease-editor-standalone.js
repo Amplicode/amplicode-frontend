@@ -1,3 +1,4 @@
+const {STANDALONE_EDITOR_DIR} = require("../config");
 const { runCmdSync, esc, btoa, amplicodegen } = require("../../common");
 const {petDiseaseDetailsQuery, petDiseaseUpsertMutation} = require("../queries");
 
@@ -12,10 +13,8 @@ const answers = btoa(JSON.stringify({
   idField: 'petDiseaseIdentifier'
 }));
 
-const command = `node ${amplicodegen} react-typescript:entity-details`
-+ ` --answers ${answers}`
-+ ` --schema ./schema.graphql`
-+ ` --dest ../example-app/src/app/screens/standalone-pet-disease-editor`
-+ ` --dirShift ../../../`;
-
-runCmdSync(command);
+runCmdSync(`node ${amplicodegen} react-typescript:entity-details`
+  + ` --answers ${answers}`
+  + ` --schema ./schema.graphql`
+  + ` --dest ../example-app/src/app/screens/${STANDALONE_EDITOR_DIR}`
+  + ` --dirShift ../../../`);

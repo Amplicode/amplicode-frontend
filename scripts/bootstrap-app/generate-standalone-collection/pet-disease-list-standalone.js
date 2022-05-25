@@ -1,7 +1,8 @@
+const {STANDALONE_COLLECTION_DIR} = require("../config");
 const { runCmdSync, esc, btoa, amplicodegen } = require("../../common");
 const {petDiseaseListQuery, petDiseaseDeleteMutation} = require("../queries");
 
-const standaloneListAnswers = btoa(JSON.stringify({
+const answers = btoa(JSON.stringify({
   componentName: 'StandalonePetDiseaseList',
   route: 'standalone-pet-disease-list',
   type: 'list',
@@ -12,10 +13,8 @@ const standaloneListAnswers = btoa(JSON.stringify({
   idField: 'petDiseaseIdentifier'
 }));
 
-const standaloneListCommand = `node ${amplicodegen} react-typescript:entity-list`
-+ ` --answers ${standaloneListAnswers}`
-+ ` --schema ./schema.graphql`
-+ ` --dest ../example-app/src/app/screens/standalone-pet-disease-list`
-+ ` --dirShift ../../../`;
-
-runCmdSync(standaloneListCommand);
+runCmdSync(`node ${amplicodegen} react-typescript:entity-list`
+  + ` --answers ${answers}`
+  + ` --schema ./schema.graphql`
+  + ` --dest ../example-app/src/app/screens/${STANDALONE_COLLECTION_DIR}`
+  + ` --dirShift ../../../`);

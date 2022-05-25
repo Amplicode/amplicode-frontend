@@ -1,34 +1,34 @@
-import { PetDiseaseLookup } from "../screens/lookup/PetDiseaseLookup";
-import { PetTypeLookup } from "../screens/lookup/PetTypeLookup";
-import { PetLookup } from "../screens/lookup/PetLookup";
-import { OwnerLookup } from "../screens/lookup/OwnerLookup";
-import { StandalonePetDiseaseEditor } from "../screens/standalone-pet-disease-editor/StandalonePetDiseaseEditor";
-import { StandaloneOwnerEditor } from "../screens/owner/StandaloneOwnerEditor";
-import { StandalonePetDiseaseList } from "../screens/standalone-pet-disease-list/StandalonePetDiseaseList";
-import { StandaloneOwnerList } from "../screens/standalone-list/StandaloneOwnerList";
-import { StandaloneOwnerTable } from "../screens/standalone-list/StandaloneOwnerTable";
-import { StandaloneOwnerCards } from "../screens/standalone-list/StandaloneOwnerCards";
-import { ReadOnlyPetDiseaseListScreenLayout } from "../screens/read-only-pet-disease/ReadOnlyPetDiseaseListScreenLayout";
-import { ReadOnlyScalarsListScreenLayout } from "../screens/read-only-scalars/ReadOnlyScalarsListScreenLayout";
-import { ReadOnlyPetListScreenLayout } from "../screens/read-only-pet/ReadOnlyPetListScreenLayout";
-import { ReadOnlyPetTableScreenLayout } from "../screens/read-only-pet/ReadOnlyPetTableScreenLayout";
-import { ReadOnlyPetCardsScreenLayout } from "../screens/read-only-pet/ReadOnlyPetCardsScreenLayout";
-import { ReadOnlyOwnerListScreenLayout } from "../screens/read-only-owner/ReadOnlyOwnerListScreenLayout";
-import { ReadOnlyOwnerTableScreenLayout } from "../screens/read-only-owner/ReadOnlyOwnerTableScreenLayout";
-import { ReadOnlyOwnerCardsScreenLayout } from "../screens/read-only-owner/ReadOnlyOwnerCardsScreenLayout";
-import { PetDiseaseTableScreenLayout } from "../screens/pet-disease-management/PetDiseaseTableScreenLayout";
-import { PetDiseaseCardsScreenLayout } from "../screens/pet-disease-management/PetDiseaseCardsScreenLayout";
-import { PetDiseaseListScreenLayout } from "../screens/pet-disease-management/PetDiseaseListScreenLayout";
-import { TestNotNullScalarsCardsScreenLayout } from "../screens/notnull-scalars/TestNotNullScalarsCardsScreenLayout";
-import { TestScalarsTableScreenLayout } from "../screens/scalars/TestScalarsTableScreenLayout";
-import { TestScalarsCardsScreenLayout } from "../screens/scalars/TestScalarsCardsScreenLayout";
-import { PetTableScreenLayout } from "../screens/pet/PetTableScreenLayout";
-import { PetListScreenLayout } from "../screens/pet/PetListScreenLayout";
-import { PetCardsScreenLayout } from "../screens/pet/PetCardsScreenLayout";
-import { OwnerCardsWithFilterScreenLayout } from "../screens/owner/OwnerCardsWithFilterScreenLayout";
-import { OwnerTableScreenLayout } from "../screens/owner/OwnerTableScreenLayout";
-import { OwnerListScreenLayout } from "../screens/owner/OwnerListScreenLayout";
-import { OwnerCardsScreenLayout } from "../screens/owner/OwnerCardsScreenLayout";
+import { PetDiseaseLookupCards } from "../screens/lookup/PetDiseaseLookupCards";
+import { PetTypeLookupCards } from "../screens/lookup/PetTypeLookupCards";
+import { PetLookupCards } from "../screens/lookup/PetLookupCards";
+import { OwnerLookupCards } from "../screens/lookup/OwnerLookupCards";
+import { StandalonePetDiseaseEditor } from "../screens/standalone-editor/StandalonePetDiseaseEditor";
+import { StandaloneOwnerEditor } from "../screens/standalone-editor/StandaloneOwnerEditor";
+import { StandalonePetDiseaseList } from "../screens/standalone-collection/StandalonePetDiseaseList";
+import { StandaloneOwnerList } from "../screens/standalone-collection/StandaloneOwnerList";
+import { StandaloneOwnerTable } from "../screens/standalone-collection/StandaloneOwnerTable";
+import { StandaloneOwnerCards } from "../screens/standalone-collection/StandaloneOwnerCards";
+import { ReadOnlyPetDiseaseListScreenLayout } from "../screens/readonly-collection/ReadOnlyPetDiseaseListScreenLayout";
+import { ReadOnlyScalarsListScreenLayout } from "../screens/readonly-collection/ReadOnlyScalarsListScreenLayout";
+import { ReadOnlyPetListScreenLayout } from "../screens/readonly-collection/ReadOnlyPetListScreenLayout";
+import { ReadOnlyPetTableScreenLayout } from "../screens/readonly-collection/ReadOnlyPetTableScreenLayout";
+import { ReadOnlyPetCardsScreenLayout } from "../screens/readonly-collection/ReadOnlyPetCardsScreenLayout";
+import { ReadOnlyOwnerListScreenLayout } from "../screens/readonly-collection/ReadOnlyOwnerListScreenLayout";
+import { ReadOnlyOwnerTableScreenLayout } from "../screens/readonly-collection/ReadOnlyOwnerTableScreenLayout";
+import { ReadOnlyOwnerCardsScreenLayout } from "../screens/readonly-collection/ReadOnlyOwnerCardsScreenLayout";
+import { PetDiseaseTableScreenLayout } from "../screens/management/PetDiseaseTableScreenLayout";
+import { PetDiseaseCardsScreenLayout } from "../screens/management/PetDiseaseCardsScreenLayout";
+import { PetDiseaseListScreenLayout } from "../screens/management/PetDiseaseListScreenLayout";
+import { TestNotNullScalarsCardsScreenLayout } from "../screens/management/TestNotNullScalarsCardsScreenLayout";
+import { TestScalarsTableScreenLayout } from "../screens/management/TestScalarsTableScreenLayout";
+import { TestScalarsCardsScreenLayout } from "../screens/management/TestScalarsCardsScreenLayout";
+import { PetTableScreenLayout } from "../screens/management/PetTableScreenLayout";
+import { PetListScreenLayout } from "../screens/management/PetListScreenLayout";
+import { PetCardsScreenLayout } from "../screens/management/PetCardsScreenLayout";
+import { OwnerCardsWithFilterScreenLayout } from "../screens/management/OwnerCardsWithFilterScreenLayout";
+import { OwnerTableScreenLayout } from "../screens/management/OwnerTableScreenLayout";
+import { OwnerListScreenLayout } from "../screens/management/OwnerListScreenLayout";
+import { OwnerCardsScreenLayout } from "../screens/management/OwnerCardsScreenLayout";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "../screens/home/Home";
 import React from "react";
@@ -157,20 +157,20 @@ export function AppRoutes() {
         <Route path=":recordId" element={<StandalonePetDiseaseEditor />} />
       </Route>
       <Route path="owner-lookup-cards">
-        <Route index element={<OwnerLookup />} />
-        <Route path=":recordId" element={<OwnerLookup />} />
+        <Route index element={<OwnerLookupCards />} />
+        <Route path=":recordId" element={<OwnerLookupCards />} />
       </Route>
       <Route path="pet-lookup-cards">
-        <Route index element={<PetLookup />} />
-        <Route path=":recordId" element={<PetLookup />} />
+        <Route index element={<PetLookupCards />} />
+        <Route path=":recordId" element={<PetLookupCards />} />
       </Route>
       <Route path="pet-type-lookup-cards">
-        <Route index element={<PetTypeLookup />} />
-        <Route path=":recordId" element={<PetTypeLookup />} />
+        <Route index element={<PetTypeLookupCards />} />
+        <Route path=":recordId" element={<PetTypeLookupCards />} />
       </Route>
       <Route path="pet-disease-lookup-cards">
-        <Route index element={<PetDiseaseLookup />} />
-        <Route path=":recordId" element={<PetDiseaseLookup />} />
+        <Route index element={<PetDiseaseLookupCards />} />
+        <Route path=":recordId" element={<PetDiseaseLookupCards />} />
       </Route>
     </Routes>
   );

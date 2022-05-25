@@ -1,7 +1,8 @@
+const {STANDALONE_COLLECTION_DIR} = require("../config");
 const { runCmdSync, esc, btoa, amplicodegen } = require("../../common");
 const {ownerListQuery, ownerDeleteMutation} = require("../queries");
 
-const standaloneListAnswers = btoa(JSON.stringify({
+const answers = btoa(JSON.stringify({
   componentName: 'StandaloneOwnerCards',
   route: 'standalone-owner-cards',
   shouldAddToMenu: true,
@@ -10,10 +11,8 @@ const standaloneListAnswers = btoa(JSON.stringify({
   mode: 'edit'
 }));
 
-const standaloneListCommand = `node ${amplicodegen} react-typescript:entity-list`
-+ ` --answers ${standaloneListAnswers}`
-+ ` --schema ./schema.graphql`
-+ ` --dest ../example-app/src/app/screens/standalone-list`
-+ ` --dirShift ../../../`;
-
-runCmdSync(standaloneListCommand);
+runCmdSync(`node ${amplicodegen} react-typescript:entity-list`
+  + ` --answers ${answers}`
+  + ` --schema ./schema.graphql`
+  + ` --dest ../example-app/src/app/screens/${STANDALONE_COLLECTION_DIR}`
+  + ` --dirShift ../../../`);

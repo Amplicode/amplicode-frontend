@@ -1,3 +1,4 @@
+const {MANAGEMENT_DIR} = require("../config");
 const {notNullScalarsListQuery, notNullScalarsDetailsQuery, notNullScalarsDeleteMutation, notNullScalarsUpsertMutation} = require("../queries");
 const { runCmdSync, esc, btoa, amplicodegen } = require("../../common");
 
@@ -12,10 +13,8 @@ const answers = btoa(JSON.stringify({
   upsertMutation: esc(notNullScalarsUpsertMutation),
 }));
 
-const command = `node ${amplicodegen} react-typescript:entity-management`
-+ ` --answers ${answers}`
-+ ` --schema ./schema.graphql`
-+ ` --dest ../example-app/src/app/screens/notnull-scalars`
-+ ` --dirShift ../../../`;
-
-runCmdSync(command);
+runCmdSync(`node ${amplicodegen} react-typescript:entity-management`
+  + ` --answers ${answers}`
+  + ` --schema ./schema.graphql`
+  + ` --dest ../example-app/src/app/screens/${MANAGEMENT_DIR}`
+  + ` --dirShift ../../../`);
