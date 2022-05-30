@@ -26,6 +26,7 @@ const expectTag = `
             }
           };
         }}
+        scroll={{ x: true }}
       />
     </Space>`;
 
