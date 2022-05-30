@@ -6,6 +6,7 @@ import { Card, Empty, Space, Spin } from "antd";
 import { gql } from "@amplicode/gql";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
+import { useIntl } from "react-intl";
 import { getPetDescriptionDTODisplayName } from "../../../core/display-name/getPetDescriptionDTODisplayName";
 
 const PET_DESCRIPTION_LIST = gql(`
@@ -83,6 +84,8 @@ interface ItemCardProps {
 }
 
 function ItemCard({ item, onSelect }: ItemCardProps) {
+  const intl = useIntl();
+
   if (item == null) {
     return null;
   }
@@ -90,7 +93,10 @@ function ItemCard({ item, onSelect }: ItemCardProps) {
   return (
     <Card
       key={item.identifier}
-      title={getPetDescriptionDTODisplayName(item)}
+      title={intl.formatMessage(
+        { id: "EntityLookupField.selectEntityInstance" },
+        { label: getPetDescriptionDTODisplayName(item) }
+      )}
       className="narrow-layout"
       onClick={() => onSelect(item)}
     >

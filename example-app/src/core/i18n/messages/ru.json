@@ -25,7 +25,7 @@
   "EntityDetailsScreen.savedSuccessfully": "Запись успешно сохранена",
   "EntityDetailsScreen.deletedSuccessfully": "Запись успешно удалена",
   "EntityDetailsScreen.validationError": "Ошибка валидации. Пожалуйста, проверьте данные, которые вы ввели",
-  "EntityLookupField.selectEntityInstance": "Выберете {label}",
+  "EntityLookupField.selectEntityInstance": "Выберите {label}",
   
   "screen.home": "Главная страница",
   "home.welcome": "Добро пожаловать в {appName}!",
