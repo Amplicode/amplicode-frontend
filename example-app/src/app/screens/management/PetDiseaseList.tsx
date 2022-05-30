@@ -3,7 +3,12 @@ import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import { Button, Modal, message, Empty, List, Space, Spin } from "antd";
-import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  LoadingOutlined,
+  EditOutlined,
+  PlusOutlined
+} from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import { gql } from "@amplicode/gql";
@@ -144,7 +149,9 @@ function ListItem({ item }: { item: ItemType }) {
  */
 function useRowActions(item: ItemType): ReactNode[] {
   const intl = useIntl();
-  const showDeleteConfirm = useDeleteConfirm(item?.petDiseaseIdentifier);
+  const { showDeleteConfirm, deleting } = useDeleteConfirm(
+    item?.petDiseaseIdentifier
+  );
 
   const navigate = useNavigate();
 
@@ -158,11 +165,15 @@ function useRowActions(item: ItemType): ReactNode[] {
         }
       }}
     />,
-    <DeleteOutlined
-      key="delete"
-      title={intl.formatMessage({ id: "common.remove" })}
-      onClick={showDeleteConfirm}
-    />
+    deleting ? (
+      <LoadingOutlined />
+    ) : (
+      <DeleteOutlined
+        key="delete"
+        title={intl.formatMessage({ id: "common.remove" })}
+        onClick={showDeleteConfirm}
+      />
+    )
   ];
 }
 
@@ -173,12 +184,12 @@ function useRowActions(item: ItemType): ReactNode[] {
 function useDeleteConfirm(id: string | null | undefined) {
   const intl = useIntl();
 
-  const [runDeleteMutation] = useMutation(DELETE_PET_DISEASE);
+  const [runDeleteMutation, { loading }] = useMutation(DELETE_PET_DISEASE);
   const deleteItem = useDeleteItem(id, runDeleteMutation, REFETCH_QUERIES);
 
   // Callback that deletes the item
   function handleDeleteItem() {
-    return deleteItem()
+    deleteItem()
       .then(({ errors }: FetchResult) => {
         if (errors == null || errors.length === 0) {
           return handleDeleteSuccess();
@@ -209,15 +220,18 @@ function useDeleteConfirm(id: string | null | undefined) {
     return message.error(intl.formatMessage({ id: "common.requestFailed" }));
   }
 
-  return () =>
-    Modal.confirm({
-      content: intl.formatMessage({
-        id: "EntityListScreen.deleteConfirmation"
+  return {
+    showDeleteConfirm: () =>
+      Modal.confirm({
+        content: intl.formatMessage({
+          id: "EntityListScreen.deleteConfirmation"
+        }),
+        okText: intl.formatMessage({ id: "common.ok" }),
+        cancelText: intl.formatMessage({ id: "common.cancel" }),
+        onOk: handleDeleteItem
       }),
-      okText: intl.formatMessage({ id: "common.ok" }),
-      cancelText: intl.formatMessage({ id: "common.cancel" }),
-      onOk: handleDeleteItem
-    });
+    deleting: loading
+  };
 }
 
 /**
