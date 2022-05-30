@@ -1,4 +1,4 @@
-export function getPetDiseaseDisplayName<
+export function getPetDiseaseDTODisplayName<
   TEntity extends Record<string, unknown>
 >(entityInstance?: TEntity): string {
   if (entityInstance == null) {

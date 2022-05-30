@@ -29,7 +29,7 @@ const PET_DISEASE_LIST = gql(`
 
 const DELETE_PET_DISEASE = gql(`
   mutation Delete_Pet_Disease($id: ID!) {
-    deletePetDisease(id: $id)
+    deletePetDisease(petDiseaseIdentifier: $id)
   }
 `);
 

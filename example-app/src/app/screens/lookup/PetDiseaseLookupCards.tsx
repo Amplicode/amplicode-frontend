@@ -6,7 +6,7 @@ import { Card, Empty, Space, Spin } from "antd";
 import { gql } from "@amplicode/gql";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
-import { getPetDiseaseDisplayName } from "../../../core/display-name/getPetDiseaseDisplayName";
+import { getPetDiseaseDTODisplayName } from "../../../core/display-name/getPetDiseaseDTODisplayName";
 
 const PET_DISEASE_LIST = gql(`
   query Get_Pet_Disease_List {
@@ -93,7 +93,7 @@ function ItemCard({ item, onSelect }: ItemCardProps) {
   return (
     <Card
       key={item.petDiseaseIdentifier}
-      title={getPetDiseaseDisplayName(item)}
+      title={getPetDiseaseDTODisplayName(item)}
       className="narrow-layout"
       onClick={() => onSelect(item)}
     >

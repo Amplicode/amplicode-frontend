@@ -234,18 +234,18 @@ exports.petDiseaseListQuery = `query Get_Pet_Disease_List {
   }`;
 
 exports.petDiseaseDeleteMutation = `mutation Delete_Pet_Disease($id: ID!) {
-    deletePetDisease(id: $id)
+    deletePetDisease(petDiseaseIdentifier: $id)
   }`;
 
 exports.petDiseaseDetailsQuery = `query Get_Pet_Disease($id: ID) {
-    petDisease(id: $id) {
+    petDisease(petDiseaseIdentifier: $id) {
       description
       name
       petDiseaseIdentifier
     }
   }`;
 
-exports.petDiseaseUpsertMutation = `mutation Update_Pet_Disease($input: PetDiseaseInput) {
+exports.petDiseaseUpsertMutation = `mutation Update_Pet_Disease($input: PetDiseaseInputDTO) {
     updatePetDisease(input: $input) {
       petDiseaseIdentifier
     }
