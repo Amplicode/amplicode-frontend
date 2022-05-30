@@ -58,6 +58,7 @@ import {
   import {
     <% if (withDeleteAction) { -%>
       DeleteOutlined,
+      LoadingOutlined,
     <% } -%>
     <% if (mode === 'edit') { -%>
       EditOutlined,
@@ -257,7 +258,7 @@ function ListItem({item}: {item: ItemType}) {
 function useRowActions(item: ItemType): ReactNode[] {
   const intl = useIntl();
   <% if (withDeleteAction) { -%>
-    const showDeleteConfirm = useDeleteConfirm(item?.<%= idField %>);
+    const { showDeleteConfirm, deleting } = useDeleteConfirm(item?.<%= idField %>);
   <% } -%>
 
   <% if (mode === 'edit' || mode === 'view with details') { -%>
@@ -288,11 +289,12 @@ function useRowActions(item: ItemType): ReactNode[] {
       />,
     <% } -%>
     <% if (withDeleteAction) { -%>
-      <DeleteOutlined
-        key="delete"
-        title={intl.formatMessage({ id: "common.remove" })}
-        onClick={showDeleteConfirm}
-      />
+      deleting ? <LoadingOutlined /> :
+        <DeleteOutlined
+          key="delete"
+          title={intl.formatMessage({ id: "common.remove" })}
+          onClick={showDeleteConfirm}
+        />
     <% } -%>
   ];
 }
@@ -305,7 +307,7 @@ function useRowActions(item: ItemType): ReactNode[] {
   function useDeleteConfirm(id: string | null | undefined) {
     const intl = useIntl();
 
-    const [runDeleteMutation] = useMutation(<%= MUTATION_CONST %>);
+    const [runDeleteMutation, { loading }] = useMutation(<%= MUTATION_CONST %>);
     const deleteItem = useDeleteItem(
       id,
       runDeleteMutation,
@@ -314,7 +316,7 @@ function useRowActions(item: ItemType): ReactNode[] {
 
     // Callback that deletes the item
     function handleDeleteItem() {
-      return deleteItem()
+      deleteItem()
         .then(({ errors }: FetchResult) => {
           if (errors == null || errors.length === 0) {
             return handleDeleteSuccess();
@@ -341,7 +343,8 @@ function useRowActions(item: ItemType): ReactNode[] {
       return message.error(intl.formatMessage({ id: "common.requestFailed" }));
     }
 
-    return () =>
+    return {
+      showDeleteConfirm: () =>
       Modal.confirm({
         content: intl.formatMessage({
           id: "EntityListScreen.deleteConfirmation"
@@ -349,7 +352,9 @@ function useRowActions(item: ItemType): ReactNode[] {
         okText: intl.formatMessage({ id: "common.ok" }),
         cancelText: intl.formatMessage({ id: "common.cancel" }),
         onOk: handleDeleteItem
-      });
+      }),
+      deleting: loading
+    }
   }
   <% } -%>
 
