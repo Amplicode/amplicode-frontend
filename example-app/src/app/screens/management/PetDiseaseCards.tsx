@@ -13,7 +13,7 @@ import { GraphQLError } from "graphql/error/GraphQLError";
 import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
-import { getPetDiseaseDisplayName } from "../../../core/display-name/getPetDiseaseDisplayName";
+import { getPetDiseaseDTODisplayName } from "../../../core/display-name/getPetDiseaseDTODisplayName";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const REFETCH_QUERIES = ["Get_Pet_Disease_List"];
@@ -30,7 +30,7 @@ const PET_DISEASE_LIST = gql(`
 
 const DELETE_PET_DISEASE = gql(`
   mutation Delete_Pet_Disease($id: ID!) {
-    deletePetDisease(id: $id)
+    deletePetDisease(petDiseaseIdentifier: $id)
   }
 `);
 
@@ -120,7 +120,7 @@ function ItemCard({ item }: { item: ItemType }) {
   return (
     <Card
       key={item.petDiseaseIdentifier}
-      title={getPetDiseaseDisplayName(item)}
+      title={getPetDiseaseDTODisplayName(item)}
       actions={cardActions}
       className="narrow-layout"
     >

@@ -24,7 +24,7 @@ import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const PET_DISEASE = gql(`
   query Get_Pet_Disease($id: ID) {
-    petDisease(id: $id) {
+    petDisease(petDiseaseIdentifier: $id) {
       description
       name
       petDiseaseIdentifier
@@ -33,7 +33,7 @@ const PET_DISEASE = gql(`
 `);
 
 const UPDATE_PET_DISEASE = gql(`
-  mutation Update_Pet_Disease($input: PetDiseaseInput) {
+  mutation Update_Pet_Disease($input: PetDiseaseInputDTO) {
     updatePetDisease(input: $input) {
       petDiseaseIdentifier
     }
@@ -107,7 +107,7 @@ function EditorForm<TData>({
     UPDATE_PET_DISEASE,
     setFormError,
     refetchQueries,
-    "PetDiseaseInput",
+    "PetDiseaseInputDTO",
     id,
     "petDiseaseIdentifier"
   );

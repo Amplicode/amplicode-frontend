@@ -3,14 +3,14 @@ import { gql } from "@amplicode/gql";
 import { useQuery } from "@apollo/client";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useNavigate, useParams } from "react-router-dom";
-import { getPetDiseaseDisplayName } from "../../../core/display-name/getPetDiseaseDisplayName";
+import { getPetDiseaseDTODisplayName } from "../../../core/display-name/getPetDiseaseDTODisplayName";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const PET_DISEASE = gql(`
   query Get_Pet_Disease($id: ID) {
-    petDisease(id: $id) {
+    petDisease(petDiseaseIdentifier: $id) {
       description
       name
       petDiseaseIdentifier
@@ -54,7 +54,7 @@ export function ReadOnlyPetDiseaseListDetails() {
     <Card className="narrow-layout">
       <Descriptions
         layout="horizontal"
-        title={getPetDiseaseDisplayName(item)}
+        title={getPetDiseaseDTODisplayName(item)}
         column={1}
       >
         <Descriptions.Item label={<strong>Description</strong>}>

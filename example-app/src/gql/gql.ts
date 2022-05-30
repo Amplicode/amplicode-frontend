@@ -27,11 +27,11 @@ const documents = {
     graphql.Get_PetDocument,
   "\n  mutation Update_Pet($input: PetInputDTO) {\n    updatePet(input: $input) {\n      id\n    }\n  }\n":
     graphql.Update_PetDocument,
-  "\n  mutation Delete_Pet_Disease($id: ID!) {\n    deletePetDisease(id: $id)\n  }\n":
+  "\n  mutation Delete_Pet_Disease($id: ID!) {\n    deletePetDisease(petDiseaseIdentifier: $id)\n  }\n":
     graphql.Delete_Pet_DiseaseDocument,
-  "\n  query Get_Pet_Disease($id: ID) {\n    petDisease(id: $id) {\n      description\n      name\n      petDiseaseIdentifier\n    }\n  }\n":
+  "\n  query Get_Pet_Disease($id: ID) {\n    petDisease(petDiseaseIdentifier: $id) {\n      description\n      name\n      petDiseaseIdentifier\n    }\n  }\n":
     graphql.Get_Pet_DiseaseDocument,
-  "\n  mutation Update_Pet_Disease($input: PetDiseaseInput) {\n    updatePetDisease(input: $input) {\n      petDiseaseIdentifier\n    }\n  }\n":
+  "\n  mutation Update_Pet_Disease($input: PetDiseaseInputDTO) {\n    updatePetDisease(input: $input) {\n      petDiseaseIdentifier\n    }\n  }\n":
     graphql.Update_Pet_DiseaseDocument,
   "\n  query Get_NN_Scalars_List {\n    notNullScalarsTestEntityList {\n      id\n      bigDecimalNotNull\n      bigIntNotNull\n      dateTestNotNull\n      localDateNotNull\n      localDateTimeNotNull\n      localTimeNotNull\n      offsetDateTimeNotNull\n      offsetTimeNotNull\n      stringNotNull\n      urlNotNull\n    }\n  }\n":
     graphql.Get_Nn_Scalars_ListDocument,
@@ -88,14 +88,14 @@ export function gql(
   source: "\n  mutation Update_Pet($input: PetInputDTO) {\n    updatePet(input: $input) {\n      id\n    }\n  }\n"
 ): typeof documents["\n  mutation Update_Pet($input: PetInputDTO) {\n    updatePet(input: $input) {\n      id\n    }\n  }\n"];
 export function gql(
-  source: "\n  mutation Delete_Pet_Disease($id: ID!) {\n    deletePetDisease(id: $id)\n  }\n"
-): typeof documents["\n  mutation Delete_Pet_Disease($id: ID!) {\n    deletePetDisease(id: $id)\n  }\n"];
+  source: "\n  mutation Delete_Pet_Disease($id: ID!) {\n    deletePetDisease(petDiseaseIdentifier: $id)\n  }\n"
+): typeof documents["\n  mutation Delete_Pet_Disease($id: ID!) {\n    deletePetDisease(petDiseaseIdentifier: $id)\n  }\n"];
 export function gql(
-  source: "\n  query Get_Pet_Disease($id: ID) {\n    petDisease(id: $id) {\n      description\n      name\n      petDiseaseIdentifier\n    }\n  }\n"
-): typeof documents["\n  query Get_Pet_Disease($id: ID) {\n    petDisease(id: $id) {\n      description\n      name\n      petDiseaseIdentifier\n    }\n  }\n"];
+  source: "\n  query Get_Pet_Disease($id: ID) {\n    petDisease(petDiseaseIdentifier: $id) {\n      description\n      name\n      petDiseaseIdentifier\n    }\n  }\n"
+): typeof documents["\n  query Get_Pet_Disease($id: ID) {\n    petDisease(petDiseaseIdentifier: $id) {\n      description\n      name\n      petDiseaseIdentifier\n    }\n  }\n"];
 export function gql(
-  source: "\n  mutation Update_Pet_Disease($input: PetDiseaseInput) {\n    updatePetDisease(input: $input) {\n      petDiseaseIdentifier\n    }\n  }\n"
-): typeof documents["\n  mutation Update_Pet_Disease($input: PetDiseaseInput) {\n    updatePetDisease(input: $input) {\n      petDiseaseIdentifier\n    }\n  }\n"];
+  source: "\n  mutation Update_Pet_Disease($input: PetDiseaseInputDTO) {\n    updatePetDisease(input: $input) {\n      petDiseaseIdentifier\n    }\n  }\n"
+): typeof documents["\n  mutation Update_Pet_Disease($input: PetDiseaseInputDTO) {\n    updatePetDisease(input: $input) {\n      petDiseaseIdentifier\n    }\n  }\n"];
 export function gql(
   source: "\n  query Get_NN_Scalars_List {\n    notNullScalarsTestEntityList {\n      id\n      bigDecimalNotNull\n      bigIntNotNull\n      dateTestNotNull\n      localDateNotNull\n      localDateTimeNotNull\n      localTimeNotNull\n      offsetDateTimeNotNull\n      offsetTimeNotNull\n      stringNotNull\n      urlNotNull\n    }\n  }\n"
 ): typeof documents["\n  query Get_NN_Scalars_List {\n    notNullScalarsTestEntityList {\n      id\n      bigDecimalNotNull\n      bigIntNotNull\n      dateTestNotNull\n      localDateNotNull\n      localDateTimeNotNull\n      localTimeNotNull\n      offsetDateTimeNotNull\n      offsetTimeNotNull\n      stringNotNull\n      urlNotNull\n    }\n  }\n"];

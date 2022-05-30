@@ -42,6 +42,23 @@ export type Scalars = {
   Void: any;
 };
 
+export type ConnectionCursor = {
+  __typename?: "ConnectionCursor";
+  value?: Maybe<Scalars["String"]>;
+};
+
+export type CursorPageInput = {
+  after?: InputMaybe<Scalars["String"]>;
+  before?: InputMaybe<Scalars["String"]>;
+  first: Scalars["Int"];
+  last: Scalars["Int"];
+};
+
+export enum Direction {
+  Asc = "ASC",
+  Desc = "DESC",
+}
+
 /** Mutation root */
 export type Mutation = {
   __typename?: "Mutation";
@@ -57,8 +74,8 @@ export type Mutation = {
   updateNotNullScalarsTestEntity?: Maybe<NotNullScalarsTestEntity>;
   updateOwner?: Maybe<OwnerDto>;
   updatePet?: Maybe<PetDto>;
-  updatePetDescription?: Maybe<PetDescription>;
-  updatePetDisease?: Maybe<PetDisease>;
+  updatePetDescription?: Maybe<PetDescriptionDto>;
+  updatePetDisease?: Maybe<PetDiseaseDto>;
   updatePetType?: Maybe<PetTypeDto>;
   updateScalarsTestEntity?: Maybe<ScalarsTestEntity>;
   updateTag?: Maybe<TagDto>;
@@ -82,12 +99,12 @@ export type MutationDeletePetArgs = {
 
 /** Mutation root */
 export type MutationDeletePetDescriptionArgs = {
-  id: Scalars["ID"];
+  identifier?: InputMaybe<Scalars["ID"]>;
 };
 
 /** Mutation root */
 export type MutationDeletePetDiseaseArgs = {
-  id: Scalars["ID"];
+  petDiseaseIdentifier?: InputMaybe<Scalars["ID"]>;
 };
 
 /** Mutation root */
@@ -127,12 +144,12 @@ export type MutationUpdatePetArgs = {
 
 /** Mutation root */
 export type MutationUpdatePetDescriptionArgs = {
-  input?: InputMaybe<PetDescriptionInput>;
+  input?: InputMaybe<PetDescriptionInputDto>;
 };
 
 /** Mutation root */
 export type MutationUpdatePetDiseaseArgs = {
-  input?: InputMaybe<PetDiseaseInput>;
+  input?: InputMaybe<PetDiseaseInputDto>;
 };
 
 /** Mutation root */
@@ -184,6 +201,17 @@ export type NotNullScalarsTestEntityInput = {
   urlNotNull: Scalars["Url"];
 };
 
+export type OffsetPageInput = {
+  number: Scalars["Int"];
+  size: Scalars["Int"];
+};
+
+export type OwnerConnection = {
+  __typename?: "OwnerConnection";
+  edges?: Maybe<Array<Maybe<OwnerEdge>>>;
+  pageInfo?: Maybe<PageInfo>;
+};
+
 export type OwnerDto = {
   __typename?: "OwnerDTO";
   address?: Maybe<Scalars["String"]>;
@@ -205,6 +233,12 @@ export type OwnerDtoInput = {
   telephone?: InputMaybe<Scalars["String"]>;
 };
 
+export type OwnerEdge = {
+  __typename?: "OwnerEdge";
+  cursor?: Maybe<ConnectionCursor>;
+  node?: Maybe<OwnerDto>;
+};
+
 export type OwnerFilterInput = {
   firstName?: InputMaybe<Scalars["String"]>;
   lastName?: InputMaybe<Scalars["String"]>;
@@ -220,9 +254,36 @@ export type OwnerInputDto = {
   telephone?: InputMaybe<Scalars["String"]>;
 };
 
+export type OwnerOrderByInput = {
+  direction?: InputMaybe<Direction>;
+  property?: InputMaybe<OwnerOrderByProperty>;
+};
+
+export enum OwnerOrderByProperty {
+  City = "CITY",
+  FirstName = "FIRST_NAME",
+  LastName = "LAST_NAME",
+}
+
+export type OwnerPage = {
+  __typename?: "OwnerPage";
+  content?: Maybe<Array<Maybe<OwnerDto>>>;
+  totalElements: Scalars["Long"];
+};
+
+export type PageInfo = {
+  __typename?: "PageInfo";
+  endCursor?: Maybe<ConnectionCursor>;
+  hasNextPage: Scalars["Boolean"];
+  hasPreviousPage: Scalars["Boolean"];
+  startCursor?: Maybe<ConnectionCursor>;
+};
+
 export type PetDto = {
   __typename?: "PetDTO";
   birthDate?: Maybe<Scalars["Date"]>;
+  description?: Maybe<PetDescriptionDto>;
+  diseases?: Maybe<Array<Maybe<PetDiseaseDto>>>;
   id?: Maybe<Scalars["ID"]>;
   identificationNumber?: Maybe<Scalars["String"]>;
   owner?: Maybe<OwnerDto>;
@@ -232,6 +293,8 @@ export type PetDto = {
 
 export type PetDtoInput = {
   birthDate?: InputMaybe<Scalars["Date"]>;
+  description?: InputMaybe<PetDescriptionDtoInput>;
+  diseases?: InputMaybe<Array<InputMaybe<PetDiseaseDtoInput>>>;
   id?: InputMaybe<Scalars["ID"]>;
   identificationNumber?: InputMaybe<Scalars["String"]>;
   owner?: InputMaybe<OwnerDtoInput>;
@@ -239,25 +302,36 @@ export type PetDtoInput = {
   type?: InputMaybe<PetTypeDtoInput>;
 };
 
-export type PetDescription = {
-  __typename?: "PetDescription";
+export type PetDescriptionDto = {
+  __typename?: "PetDescriptionDTO";
   description?: Maybe<Scalars["String"]>;
   identifier?: Maybe<Scalars["ID"]>;
 };
 
-export type PetDescriptionInput = {
+export type PetDescriptionDtoInput = {
   description?: InputMaybe<Scalars["String"]>;
   identifier?: InputMaybe<Scalars["ID"]>;
 };
 
-export type PetDisease = {
-  __typename?: "PetDisease";
+export type PetDescriptionInputDto = {
+  description?: InputMaybe<Scalars["String"]>;
+  identifier?: InputMaybe<Scalars["ID"]>;
+};
+
+export type PetDiseaseDto = {
+  __typename?: "PetDiseaseDTO";
   description?: Maybe<Scalars["String"]>;
   name?: Maybe<Scalars["String"]>;
   petDiseaseIdentifier?: Maybe<Scalars["ID"]>;
 };
 
-export type PetDiseaseInput = {
+export type PetDiseaseDtoInput = {
+  description?: InputMaybe<Scalars["String"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  petDiseaseIdentifier?: InputMaybe<Scalars["ID"]>;
+};
+
+export type PetDiseaseInputDto = {
   description?: InputMaybe<Scalars["String"]>;
   name?: InputMaybe<Scalars["String"]>;
   petDiseaseIdentifier?: InputMaybe<Scalars["ID"]>;
@@ -265,6 +339,8 @@ export type PetDiseaseInput = {
 
 export type PetInputDto = {
   birthDate?: InputMaybe<Scalars["Date"]>;
+  description?: InputMaybe<PetDescriptionDtoInput>;
+  diseases?: InputMaybe<Array<InputMaybe<PetDiseaseDtoInput>>>;
   id?: InputMaybe<Scalars["ID"]>;
   identificationNumber?: InputMaybe<Scalars["String"]>;
   owner?: InputMaybe<OwnerDtoInput>;
@@ -274,19 +350,28 @@ export type PetInputDto = {
 
 export type PetTypeDto = {
   __typename?: "PetTypeDTO";
+  defenseStatus?: Maybe<ProtectionStatus>;
   id?: Maybe<Scalars["ID"]>;
   name?: Maybe<Scalars["String"]>;
 };
 
 export type PetTypeDtoInput = {
+  defenseStatus?: InputMaybe<ProtectionStatus>;
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
 };
 
 export type PetTypeInputDto = {
+  defenseStatus?: InputMaybe<ProtectionStatus>;
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
 };
+
+export enum ProtectionStatus {
+  NeedsProtection = "NEEDS_PROTECTION",
+  NoDanger = "NO_DANGER",
+  RedBook = "RED_BOOK",
+}
 
 /** Query root */
 export type Query = {
@@ -297,12 +382,20 @@ export type Query = {
   ownerByNamesList?: Maybe<Array<Maybe<OwnerDto>>>;
   ownerByNamesSeparateMethodsList?: Maybe<Array<Maybe<OwnerDto>>>;
   ownerList?: Maybe<Array<Maybe<OwnerDto>>>;
+  ownerListByNamesFilter?: Maybe<Array<Maybe<OwnerDto>>>;
+  ownerListByNamesFilterOffsetPage?: Maybe<OwnerPage>;
+  ownerListByNamesFilterOffsetPageSorted?: Maybe<OwnerPage>;
+  ownerListByNamesFilterSorted?: Maybe<Array<Maybe<OwnerDto>>>;
+  ownerListFilterCursorPageSorted?: Maybe<OwnerConnection>;
+  ownerListOffsetPage?: Maybe<OwnerPage>;
+  ownerListOffsetPageSorted?: Maybe<OwnerPage>;
+  ownerListSorted?: Maybe<Array<Maybe<OwnerDto>>>;
   pet?: Maybe<PetDto>;
   petByIdentificationNumberList?: Maybe<Array<Maybe<PetDto>>>;
-  petDescription?: Maybe<PetDescription>;
-  petDescriptionList?: Maybe<Array<Maybe<PetDescription>>>;
-  petDisease?: Maybe<PetDisease>;
-  petDiseaseList?: Maybe<Array<Maybe<PetDisease>>>;
+  petDescription?: Maybe<PetDescriptionDto>;
+  petDescriptionList?: Maybe<Array<Maybe<PetDescriptionDto>>>;
+  petDisease?: Maybe<PetDiseaseDto>;
+  petDiseaseList?: Maybe<Array<Maybe<PetDiseaseDto>>>;
   petList?: Maybe<Array<Maybe<PetDto>>>;
   petListByTypeId?: Maybe<Array<Maybe<PetDto>>>;
   petType?: Maybe<PetTypeDto>;
@@ -313,6 +406,7 @@ export type Query = {
   tagList?: Maybe<Array<Maybe<TagDto>>>;
   userInfo?: Maybe<UserInfo>;
   visit?: Maybe<VisitDto>;
+  visitFilteredList?: Maybe<Array<Maybe<VisitDto>>>;
   visitList?: Maybe<Array<Maybe<VisitDto>>>;
 };
 
@@ -337,6 +431,53 @@ export type QueryOwnerByNamesSeparateMethodsListArgs = {
 };
 
 /** Query root */
+export type QueryOwnerListByNamesFilterArgs = {
+  filter?: InputMaybe<OwnerFilterInput>;
+};
+
+/** Query root */
+export type QueryOwnerListByNamesFilterOffsetPageArgs = {
+  filter?: InputMaybe<OwnerFilterInput>;
+  page?: InputMaybe<OffsetPageInput>;
+};
+
+/** Query root */
+export type QueryOwnerListByNamesFilterOffsetPageSortedArgs = {
+  filter?: InputMaybe<OwnerFilterInput>;
+  page?: InputMaybe<OffsetPageInput>;
+  sort?: InputMaybe<Array<InputMaybe<OwnerOrderByInput>>>;
+};
+
+/** Query root */
+export type QueryOwnerListByNamesFilterSortedArgs = {
+  filter?: InputMaybe<OwnerFilterInput>;
+  sort?: InputMaybe<Array<InputMaybe<OwnerOrderByInput>>>;
+};
+
+/** Query root */
+export type QueryOwnerListFilterCursorPageSortedArgs = {
+  filter?: InputMaybe<OwnerFilterInput>;
+  page?: InputMaybe<CursorPageInput>;
+  sort?: InputMaybe<Array<InputMaybe<OwnerOrderByInput>>>;
+};
+
+/** Query root */
+export type QueryOwnerListOffsetPageArgs = {
+  page?: InputMaybe<OffsetPageInput>;
+};
+
+/** Query root */
+export type QueryOwnerListOffsetPageSortedArgs = {
+  page?: InputMaybe<OffsetPageInput>;
+  sort?: InputMaybe<Array<InputMaybe<OwnerOrderByInput>>>;
+};
+
+/** Query root */
+export type QueryOwnerListSortedArgs = {
+  sort?: InputMaybe<Array<InputMaybe<OwnerOrderByInput>>>;
+};
+
+/** Query root */
 export type QueryPetArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
@@ -348,12 +489,12 @@ export type QueryPetByIdentificationNumberListArgs = {
 
 /** Query root */
 export type QueryPetDescriptionArgs = {
-  id?: InputMaybe<Scalars["ID"]>;
+  identifier?: InputMaybe<Scalars["ID"]>;
 };
 
 /** Query root */
 export type QueryPetDiseaseArgs = {
-  id?: InputMaybe<Scalars["ID"]>;
+  petDiseaseIdentifier?: InputMaybe<Scalars["ID"]>;
 };
 
 /** Query root */
@@ -379,6 +520,11 @@ export type QueryTagArgs = {
 /** Query root */
 export type QueryVisitArgs = {
   id?: InputMaybe<Scalars["ID"]>;
+};
+
+/** Query root */
+export type QueryVisitFilteredListArgs = {
+  filter?: InputMaybe<VisitFilterInput>;
 };
 
 export type ScalarsTestEntity = {
@@ -468,6 +614,14 @@ export type VisitDto = {
   visitStart?: Maybe<Scalars["LocalDateTime"]>;
 };
 
+export type VisitFilterInput = {
+  ownerFirstName?: InputMaybe<Scalars["String"]>;
+  ownerLastName?: InputMaybe<Scalars["String"]>;
+  petIdentificationNumber?: InputMaybe<Scalars["String"]>;
+  visitStartAfter?: InputMaybe<Scalars["LocalDateTime"]>;
+  visitStartBefore?: InputMaybe<Scalars["LocalDateTime"]>;
+};
+
 export type VisitInputDto = {
   description?: InputMaybe<Scalars["String"]>;
   id?: InputMaybe<Scalars["ID"]>;
@@ -499,7 +653,7 @@ export type Get_Pet_Disease_ListQueryVariables = Exact<{
 export type Get_Pet_Disease_ListQuery = {
   __typename?: "Query";
   petDiseaseList?: Array<{
-    __typename?: "PetDisease";
+    __typename?: "PetDiseaseDTO";
     description?: string | null;
     name?: string | null;
     petDiseaseIdentifier?: string | null;
@@ -678,7 +832,7 @@ export type Get_Pet_DiseaseQueryVariables = Exact<{
 export type Get_Pet_DiseaseQuery = {
   __typename?: "Query";
   petDisease?: {
-    __typename?: "PetDisease";
+    __typename?: "PetDiseaseDTO";
     description?: string | null;
     name?: string | null;
     petDiseaseIdentifier?: string | null;
@@ -686,13 +840,13 @@ export type Get_Pet_DiseaseQuery = {
 };
 
 export type Update_Pet_DiseaseMutationVariables = Exact<{
-  input?: InputMaybe<PetDiseaseInput>;
+  input?: InputMaybe<PetDiseaseInputDto>;
 }>;
 
 export type Update_Pet_DiseaseMutation = {
   __typename?: "Mutation";
   updatePetDisease?: {
-    __typename?: "PetDisease";
+    __typename?: "PetDiseaseDTO";
     petDiseaseIdentifier?: string | null;
   } | null;
 };
@@ -1472,7 +1626,7 @@ export const Delete_Pet_DiseaseDocument = {
             arguments: [
               {
                 kind: "Argument",
-                name: { kind: "Name", value: "id" },
+                name: { kind: "Name", value: "petDiseaseIdentifier" },
                 value: {
                   kind: "Variable",
                   name: { kind: "Name", value: "id" },
@@ -1511,7 +1665,7 @@ export const Get_Pet_DiseaseDocument = {
             arguments: [
               {
                 kind: "Argument",
-                name: { kind: "Name", value: "id" },
+                name: { kind: "Name", value: "petDiseaseIdentifier" },
                 value: {
                   kind: "Variable",
                   name: { kind: "Name", value: "id" },
@@ -1554,7 +1708,7 @@ export const Update_Pet_DiseaseDocument = {
           },
           type: {
             kind: "NamedType",
-            name: { kind: "Name", value: "PetDiseaseInput" },
+            name: { kind: "Name", value: "PetDiseaseInputDTO" },
           },
         },
       ],

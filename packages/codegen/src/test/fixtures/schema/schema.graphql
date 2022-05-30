@@ -5,13 +5,17 @@ schema {
   mutation: Mutation
 }
 
+type ConnectionCursor {
+  value: String
+}
+
 "Mutation root"
 type Mutation {
   deleteNotNullScalarsTestEntity(id: ID): Void
   deleteOwner(id: ID!): Void
   deletePet(id: ID!): Void
-  deletePetDescription(id: ID!): Void
-  deletePetDisease(id: ID!): Void
+  deletePetDescription(identifier: ID): Void
+  deletePetDisease(petDiseaseIdentifier: ID): Void
   deletePetType(id: ID!): Void
   deleteScalarsTestEntity(id: ID): Void
   deleteTag(id: ID): Void
@@ -19,8 +23,8 @@ type Mutation {
   updateNotNullScalarsTestEntity(input: NotNullScalarsTestEntityInput): NotNullScalarsTestEntity
   updateOwner(input: OwnerInputDTO): OwnerDTO
   updatePet(input: PetInputDTO): PetDTO
-  updatePetDescription(input: PetDescriptionInput): PetDescription
-  updatePetDisease(input: PetDiseaseInput): PetDisease
+  updatePetDescription(input: PetDescriptionInputDTO): PetDescriptionDTO
+  updatePetDisease(input: PetDiseaseInputDTO): PetDiseaseDTO
   updatePetType(input: PetTypeInputDTO): PetTypeDTO
   updateScalarsTestEntity(input: ScalarsTestEntityInput): ScalarsTestEntity
   updateTag(input: TagInputDTO): TagDTO
@@ -41,6 +45,11 @@ type NotNullScalarsTestEntity {
   urlNotNull: Url!
 }
 
+type OwnerConnection {
+  edges: [OwnerEdge]
+  pageInfo: PageInfo
+}
+
 type OwnerDTO {
   address: String
   city: String
@@ -51,8 +60,27 @@ type OwnerDTO {
   telephone: String
 }
 
+type OwnerEdge {
+  cursor: ConnectionCursor
+  node: OwnerDTO
+}
+
+type OwnerPage {
+  content: [OwnerDTO]
+  totalElements: Long!
+}
+
+type PageInfo {
+  endCursor: ConnectionCursor
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: ConnectionCursor
+}
+
 type PetDTO {
   birthDate: Date
+  description: PetDescriptionDTO
+  diseases: [PetDiseaseDTO]
   id: ID
   identificationNumber: String
   owner: OwnerDTO
@@ -60,18 +88,19 @@ type PetDTO {
   type: PetTypeDTO
 }
 
-type PetDescription {
+type PetDescriptionDTO {
   description: String
   identifier: ID
 }
 
-type PetDisease {
+type PetDiseaseDTO {
   description: String
   name: String
   petDiseaseIdentifier: ID
 }
 
 type PetTypeDTO {
+  defenseStatus: ProtectionStatus
   id: ID
   name: String
 }
@@ -84,12 +113,20 @@ type Query {
   ownerByNamesList(filter: OwnerFilterInput): [OwnerDTO]
   ownerByNamesSeparateMethodsList(filter: OwnerFilterInput): [OwnerDTO]
   ownerList: [OwnerDTO]
+  ownerListByNamesFilter(filter: OwnerFilterInput): [OwnerDTO]
+  ownerListByNamesFilterOffsetPage(filter: OwnerFilterInput, page: OffsetPageInput): OwnerPage
+  ownerListByNamesFilterOffsetPageSorted(filter: OwnerFilterInput, page: OffsetPageInput, sort: [OwnerOrderByInput]): OwnerPage
+  ownerListByNamesFilterSorted(filter: OwnerFilterInput, sort: [OwnerOrderByInput]): [OwnerDTO]
+  ownerListFilterCursorPageSorted(filter: OwnerFilterInput, page: CursorPageInput, sort: [OwnerOrderByInput]): OwnerConnection
+  ownerListOffsetPage(page: OffsetPageInput): OwnerPage
+  ownerListOffsetPageSorted(page: OffsetPageInput, sort: [OwnerOrderByInput]): OwnerPage
+  ownerListSorted(sort: [OwnerOrderByInput]): [OwnerDTO]
   pet(id: ID): PetDTO
   petByIdentificationNumberList(identificationNumber: String): [PetDTO]
-  petDescription(id: ID): PetDescription
-  petDescriptionList: [PetDescription]
-  petDisease(id: ID): PetDisease
-  petDiseaseList: [PetDisease]
+  petDescription(identifier: ID): PetDescriptionDTO
+  petDescriptionList: [PetDescriptionDTO]
+  petDisease(petDiseaseIdentifier: ID): PetDiseaseDTO
+  petDiseaseList: [PetDiseaseDTO]
   petList: [PetDTO]
   petListByTypeId(typeId: ID!): [PetDTO]
   petType(id: ID): PetTypeDTO
@@ -100,6 +137,7 @@ type Query {
   tagList: [TagDTO]
   userInfo: UserInfo
   visit(id: ID): VisitDTO
+  visitFilteredList(filter: VisitFilterInput): [VisitDTO]
   visitList: [VisitDTO]
 }
 
@@ -148,6 +186,23 @@ type VisitDTO {
   visitStart: LocalDateTime
 }
 
+enum Direction {
+  ASC
+  DESC
+}
+
+enum OwnerOrderByProperty {
+  CITY
+  FIRST_NAME
+  LAST_NAME
+}
+
+enum ProtectionStatus {
+  NEEDS_PROTECTION
+  NO_DANGER
+  RED_BOOK
+}
+
 "Java Type: BigDecimal"
 scalar BigDecimal
 
@@ -181,6 +236,13 @@ scalar Url
 "Java Type: Void"
 scalar Void
 
+input CursorPageInput {
+  after: String
+  before: String
+  first: Int!
+  last: Int!
+}
+
 input NotNullScalarsTestEntityInput {
   bigDecimalNotNull: BigDecimal!
   bigIntNotNull: BigInteger!
@@ -193,6 +255,11 @@ input NotNullScalarsTestEntityInput {
   offsetTimeNotNull: Time!
   stringNotNull: String!
   urlNotNull: Url!
+}
+
+input OffsetPageInput {
+  number: Int!
+  size: Int!
 }
 
 input OwnerDTOInput {
@@ -220,8 +287,15 @@ input OwnerInputDTO {
   telephone: String
 }
 
+input OwnerOrderByInput {
+  direction: Direction
+  property: OwnerOrderByProperty
+}
+
 input PetDTOInput {
   birthDate: Date
+  description: PetDescriptionDTOInput
+  diseases: [PetDiseaseDTOInput]
   id: ID
   identificationNumber: String
   owner: OwnerDTOInput
@@ -229,12 +303,23 @@ input PetDTOInput {
   type: PetTypeDTOInput
 }
 
-input PetDescriptionInput {
+input PetDescriptionDTOInput {
   description: String
   identifier: ID
 }
 
-input PetDiseaseInput {
+input PetDescriptionInputDTO {
+  description: String
+  identifier: ID
+}
+
+input PetDiseaseDTOInput {
+  description: String
+  name: String
+  petDiseaseIdentifier: ID
+}
+
+input PetDiseaseInputDTO {
   description: String
   name: String
   petDiseaseIdentifier: ID
@@ -242,6 +327,8 @@ input PetDiseaseInput {
 
 input PetInputDTO {
   birthDate: Date
+  description: PetDescriptionDTOInput
+  diseases: [PetDiseaseDTOInput]
   id: ID
   identificationNumber: String
   owner: OwnerDTOInput
@@ -250,11 +337,13 @@ input PetInputDTO {
 }
 
 input PetTypeDTOInput {
+  defenseStatus: ProtectionStatus
   id: ID
   name: String
 }
 
 input PetTypeInputDTO {
+  defenseStatus: ProtectionStatus
   id: ID
   name: String
 }
@@ -295,6 +384,14 @@ input TagDTOInput {
 input TagInputDTO {
   id: ID
   name: String
+}
+
+input VisitFilterInput {
+  ownerFirstName: String
+  ownerLastName: String
+  petIdentificationNumber: String
+  visitStartAfter: LocalDateTime
+  visitStartBefore: LocalDateTime
 }
 
 input VisitInputDTO {
