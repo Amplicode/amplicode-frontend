@@ -10,10 +10,11 @@ export interface EntityLookupFieldProps {
   getDisplayName: (value: Record<string, unknown>) => string;
   label: string;
   hideClearButton?: boolean;
+  autoFocus?: boolean;
 }
 
 export function EntityLookupField(props: EntityLookupFieldProps) {
-  const {value, onChange, lookupComponent, getDisplayName, label} = props;
+  const {value, onChange, lookupComponent, getDisplayName, label, autoFocus} = props;
 
   const [lookupComponentVisible, setLookupComponentVisible] = useState<boolean>(false);
 
@@ -47,6 +48,7 @@ export function EntityLookupField(props: EntityLookupFieldProps) {
         prefix={<LinkOutlined onClick={handleClick} />}
         suffix={value != null && props.hideClearButton !== true && <CloseCircleOutlined onClick={handleClear} />}
         value={value ? getDisplayName(value) : ''}
+        autoFocus={autoFocus}
       />
       <Drawer visible={lookupComponentVisible}
               title={label}

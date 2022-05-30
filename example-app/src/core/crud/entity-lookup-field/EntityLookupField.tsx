@@ -10,10 +10,18 @@ export interface EntityLookupFieldProps {
   getDisplayName: (value: Record<string, unknown>) => string;
   label: string;
   hideClearButton?: boolean;
+  autoFocus?: boolean;
 }
 
 export function EntityLookupField(props: EntityLookupFieldProps) {
-  const { value, onChange, lookupComponent, getDisplayName, label } = props;
+  const {
+    value,
+    onChange,
+    lookupComponent,
+    getDisplayName,
+    label,
+    autoFocus
+  } = props;
 
   const [lookupComponentVisible, setLookupComponentVisible] = useState<boolean>(
     false
@@ -56,6 +64,7 @@ export function EntityLookupField(props: EntityLookupFieldProps) {
           )
         }
         value={value ? getDisplayName(value) : ""}
+        autoFocus={autoFocus}
       />
       <Drawer
         visible={lookupComponentVisible}
