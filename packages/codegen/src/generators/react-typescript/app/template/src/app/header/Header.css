@@ -1,6 +1,6 @@
 .app-header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     color: #CCCCCC;
 }
@@ -19,6 +19,10 @@
 
 .app-header__user-panel {
     margin-left: 12px;
+}
+
+.app-header__app-logo {
+    line-height: initial;
 }
 
 .app-header__icon-btn.ant-btn-text {

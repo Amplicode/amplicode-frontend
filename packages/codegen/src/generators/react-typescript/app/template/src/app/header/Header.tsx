@@ -11,6 +11,7 @@ import { useSecurityStore } from "../../core/security/security-context";
 import { KeyHandler } from "hotkeys-js";
 import { toggleHotkeyInfoHotkeyConfig } from "../../core/hotkeys/hotkey-info-config";
 import { LocaleSelector } from "../../core/i18n/localeSelector/LocaleSelector";
+import Logo from './amplicode-logo.svg';
 
 export const AppHeader = observer(() => {
   const intl = useIntl();
@@ -50,6 +51,9 @@ export const AppHeader = observer(() => {
 
   return (
     <div className="app-header">
+      <Space className="app-header__app-logo">
+        <img src={Logo} alt="Amplicode" />
+      </Space>
       <Space className="app-header__user-panel">
         <LocaleSelector />
         <HotkeyInfoModalButton
