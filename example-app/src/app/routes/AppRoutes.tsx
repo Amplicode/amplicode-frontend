@@ -25,6 +25,7 @@ import { PetDiseaseListScreenLayout } from "../screens/management/PetDiseaseList
 import { TestNotNullScalarsCardsScreenLayout } from "../screens/management/TestNotNullScalarsCardsScreenLayout";
 import { TestScalarsTableScreenLayout } from "../screens/management/TestScalarsTableScreenLayout";
 import { TestScalarsCardsScreenLayout } from "../screens/management/TestScalarsCardsScreenLayout";
+import { PetTypeCardsScreenLayout } from "../screens/management/PetTypeCardsScreenLayout";
 import { PetTableScreenLayout } from "../screens/management/PetTableScreenLayout";
 import { PetListScreenLayout } from "../screens/management/PetListScreenLayout";
 import { PetCardsScreenLayout } from "../screens/management/PetCardsScreenLayout";
@@ -72,6 +73,10 @@ export function AppRoutes() {
       <Route path="pet-table">
         <Route index element={<PetTableScreenLayout />} />
         <Route path=":recordId" element={<PetTableScreenLayout />} />
+      </Route>
+      <Route path="pet-type-cards">
+        <Route index element={<PetTypeCardsScreenLayout />} />
+        <Route path=":recordId" element={<PetTypeCardsScreenLayout />} />
       </Route>
       <Route path="scalars-cards">
         <Route index element={<TestScalarsCardsScreenLayout />} />

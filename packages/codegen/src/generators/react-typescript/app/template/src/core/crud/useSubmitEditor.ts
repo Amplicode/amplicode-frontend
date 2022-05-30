@@ -6,11 +6,12 @@ import {
   useMutation
 } from "@apollo/client";
 import { useIntl } from "react-intl";
-import { message } from "antd";
+import { message, FormInstance } from "antd";
 import { GraphQLError } from "graphql/error/GraphQLError";
 import { useCallback } from "react";
 import { serialize } from "../transform/model/serialize";
 import {useNavigate} from "react-router-dom";
+import {useValidateForm} from "./useValidateForm";
 
 /**
  * Returns an object containing `handleSubmit` callback that is executed after user clicks `Submit` button on an editor form
@@ -25,17 +26,19 @@ import {useNavigate} from "react-router-dom";
  */
 export function useSubmitEditor<TData>(
   mutation: DocumentNode,
-  setFormError: (message: string) => void,
+  setFormError: (message: string | undefined) => void,
   refetchQueries:
     | ((result: FetchResult<TData>) => InternalRefetchQueriesInclude)
     | InternalRefetchQueriesInclude
     | undefined,
   typename: string,
+  form: FormInstance<any>,
   id?: string,
   idFieldName: string = "id",
 ) {
   const intl = useIntl();
   const navigate = useNavigate();
+  const validateForm = useValidateForm;
 
   // Get the function that will run the mutation
   // and a boolean indicating that submit is in progress
@@ -62,11 +65,16 @@ export function useSubmitEditor<TData>(
    */
   const handleGraphQLError = useCallback(
     (errors: ReadonlyArray<GraphQLError>) => {
-      setFormError(errors.join("\n"));
-      console.error(errors);
-      return message.error(intl.formatMessage({ id: "common.requestFailed" }));
+      const { fieldErrors, globalErrors, setFiledErrors, isBeanValidation } = validateForm(errors, form);
+      setFiledErrors();
+      setFormError(globalErrors.map((error: GraphQLError) => error.message).join("\n"));
+      if (fieldErrors.length > 0 || globalErrors.some((error: GraphQLError) => isBeanValidation(error))) {
+        return message.error(intl.formatMessage({ id: "common.validationError" }));
+      } else if (globalErrors.length > 0 && globalErrors.some((error: GraphQLError) => !isBeanValidation(error))) {
+        return message.error(intl.formatMessage({ id: "common.requestFailed" }));
+      }
     },
-    [intl, setFormError]
+    [intl, setFormError, form, validateForm]
   );
 
   /**
@@ -108,11 +116,17 @@ export function useSubmitEditor<TData>(
       })
         .then(({ errors }: FetchResult) => {
           if (errors == null || errors.length === 0) {
-            return handleSuccess();
-          }
-          return handleGraphQLError(errors);
+            handleSuccess()
+          };
         })
-        .catch(handleNetworkError);
+        .catch(({ graphQLErrors, networkError }) => {
+          if (graphQLErrors) {
+            handleGraphQLError(graphQLErrors)
+          }
+          if (networkError) {
+            handleNetworkError(networkError)
+          };
+        });
     },
     [
       id,

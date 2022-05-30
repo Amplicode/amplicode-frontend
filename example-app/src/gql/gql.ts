@@ -35,6 +35,12 @@ const documents = {
     graphql.Get_Pet_DiseaseDocument,
   "\n  mutation Update_Pet_Disease($input: PetDiseaseInputDTO) {\n    updatePetDisease(input: $input) {\n      petDiseaseIdentifier\n    }\n  }\n":
     graphql.Update_Pet_DiseaseDocument,
+  "\n  mutation Delete_Pet_Type($id: ID!) {\n      deletePetType(id: $id) \n    }\n":
+    graphql.Delete_Pet_TypeDocument,
+  "\n  query Get_Pet_Type($id: ID) {\n      petType(id: $id) {\n        id\n        name\n      }\n    }\n":
+    graphql.Get_Pet_TypeDocument,
+  "\n  mutation Update_Pet_Type($input: PetTypeInputDTO) {\n      updatePetType(input: $input) {\n        id\n        name\n      }\n    }\n":
+    graphql.Update_Pet_TypeDocument,
   "\n  query Get_NN_Scalars_List {\n    notNullScalarsTestEntityList {\n      id\n      bigDecimalNotNull\n      bigIntNotNull\n      dateTestNotNull\n      localDateNotNull\n      localDateTimeNotNull\n      localTimeNotNull\n      offsetDateTimeNotNull\n      offsetTimeNotNull\n      stringNotNull\n      urlNotNull\n    }\n  }\n":
     graphql.Get_Nn_Scalars_ListDocument,
   "\n  mutation Delete_NN_Scalars($id: ID!) {\n    deleteNotNullScalarsTestEntity(id: $id)\n  }\n":
@@ -101,6 +107,15 @@ export function gql(
 export function gql(
   source: "\n  mutation Update_Pet_Disease($input: PetDiseaseInputDTO) {\n    updatePetDisease(input: $input) {\n      petDiseaseIdentifier\n    }\n  }\n"
 ): typeof documents["\n  mutation Update_Pet_Disease($input: PetDiseaseInputDTO) {\n    updatePetDisease(input: $input) {\n      petDiseaseIdentifier\n    }\n  }\n"];
+export function gql(
+  source: "\n  mutation Delete_Pet_Type($id: ID!) {\n      deletePetType(id: $id) \n    }\n"
+): typeof documents["\n  mutation Delete_Pet_Type($id: ID!) {\n      deletePetType(id: $id) \n    }\n"];
+export function gql(
+  source: "\n  query Get_Pet_Type($id: ID) {\n      petType(id: $id) {\n        id\n        name\n      }\n    }\n"
+): typeof documents["\n  query Get_Pet_Type($id: ID) {\n      petType(id: $id) {\n        id\n        name\n      }\n    }\n"];
+export function gql(
+  source: "\n  mutation Update_Pet_Type($input: PetTypeInputDTO) {\n      updatePetType(input: $input) {\n        id\n        name\n      }\n    }\n"
+): typeof documents["\n  mutation Update_Pet_Type($input: PetTypeInputDTO) {\n      updatePetType(input: $input) {\n        id\n        name\n      }\n    }\n"];
 export function gql(
   source: "\n  query Get_NN_Scalars_List {\n    notNullScalarsTestEntityList {\n      id\n      bigDecimalNotNull\n      bigIntNotNull\n      dateTestNotNull\n      localDateNotNull\n      localDateTimeNotNull\n      localTimeNotNull\n      offsetDateTimeNotNull\n      offsetTimeNotNull\n      stringNotNull\n      urlNotNull\n    }\n  }\n"
 ): typeof documents["\n  query Get_NN_Scalars_List {\n    notNullScalarsTestEntityList {\n      id\n      bigDecimalNotNull\n      bigIntNotNull\n      dateTestNotNull\n      localDateNotNull\n      localDateTimeNotNull\n      localTimeNotNull\n      offsetDateTimeNotNull\n      offsetTimeNotNull\n      stringNotNull\n      urlNotNull\n    }\n  }\n"];

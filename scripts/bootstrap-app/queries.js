@@ -272,6 +272,24 @@ exports.petTypeListQuery = `query Get_Pet_Type_List {
     }
   }`;
 
+  exports.petTypeDetailsQuery = `query Get_Pet_Type($id: ID) {
+      petType(id: $id) {
+        id
+        name
+      }
+    }`;
+  
+  exports.petTypeDeleteMutation = `mutation Delete_Pet_Type($id: ID!) {
+      deletePetType(id: $id) 
+    }`;
+  
+  exports.petTypeUpsertMutation = `mutation Update_Pet_Type($input: PetTypeInputDTO) {
+      updatePetType(input: $input) {
+        id
+        name
+      }
+    }`;
+
 /* Pet Description */
 
 exports.petDescriptionListQuery = `query Get_Pet_Description_List {
@@ -280,6 +298,3 @@ exports.petDescriptionListQuery = `query Get_Pet_Description_List {
       description
     }
   }`;
-
-
-

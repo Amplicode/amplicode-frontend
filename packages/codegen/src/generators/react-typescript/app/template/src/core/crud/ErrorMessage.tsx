@@ -1,5 +1,6 @@
 import {Alert} from "antd";
 import React from "react";
+import { useIntl } from "react-intl";
 
 /**
  * Displays `errorMessage` if defined, otherwise does not render.
@@ -7,15 +8,19 @@ import React from "react";
  * @param errorMessage
  */
 export function ErrorMessage({errorMessage}: {errorMessage?: string}) {
-  if (errorMessage == null) {
+  const intl = useIntl();
+
+  if (errorMessage == null || errorMessage.length === 0) {
     return null;
   }
 
   return (
     <Alert
-      message={errorMessage}
+      message={intl.formatMessage({id: "common.error"})}
+      description={errorMessage}
       type="error"
-      className='form-error-message'
+      className='form-error-message' 
+      showIcon
     />
   );
 }

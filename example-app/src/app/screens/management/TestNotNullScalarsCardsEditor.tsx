@@ -118,6 +118,7 @@ function EditorForm<TData>({
     setFormError,
     refetchQueries,
     "NotNullScalarsTestEntityInput",
+    form,
     id
   );
   const handleClientValidationFailed = useClientValidationFailed();

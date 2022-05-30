@@ -78,6 +78,14 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
+        title={intl.formatMessage({ id: "screen.PetTypeCards" })}
+        key={"/pet-type-cards"}
+      >
+        <Link to={"/pet-type-cards"}>
+          <FormattedMessage id={"screen.PetTypeCards"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
         title={intl.formatMessage({ id: "screen.TestScalarsCards" })}
         key={"/scalars-cards"}
       >

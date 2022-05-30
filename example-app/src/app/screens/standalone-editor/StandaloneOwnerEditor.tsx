@@ -110,6 +110,7 @@ function EditorForm<TData>({
     setFormError,
     refetchQueries,
     "OwnerInputDTO",
+    form,
     id
   );
   const handleClientValidationFailed = useClientValidationFailed();

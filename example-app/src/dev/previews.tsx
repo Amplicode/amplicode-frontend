@@ -40,6 +40,8 @@ import { TestScalarsTable } from "../app/screens/management/TestScalarsTable";
 import { TestScalarsTableEditor } from "../app/screens/management/TestScalarsTableEditor";
 import { TestScalarsCards } from "../app/screens/management/TestScalarsCards";
 import { TestScalarsCardsEditor } from "../app/screens/management/TestScalarsCardsEditor";
+import { PetTypeCards } from "../app/screens/management/PetTypeCards";
+import { PetTypeCardsEditor } from "../app/screens/management/PetTypeCardsEditor";
 import { PetTable } from "../app/screens/management/PetTable";
 import { PetTableEditor } from "../app/screens/management/PetTableEditor";
 import { PetList } from "../app/screens/management/PetList";
@@ -101,6 +103,12 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/PetTable">
         <PetTable />
+      </ComponentPreview>
+      <ComponentPreview path="/PetTypeCardsEditor">
+        <PetTypeCardsEditor />
+      </ComponentPreview>
+      <ComponentPreview path="/PetTypeCards">
+        <PetTypeCards />
       </ComponentPreview>
       <ComponentPreview path="/TestScalarsCardsEditor">
         <TestScalarsCardsEditor />

@@ -13,6 +13,7 @@ runCmdSync('node  bootstrap-app/generate-management/owner-management-cards-with-
 runCmdSync('node  bootstrap-app/generate-management/pet-management-cards.js', './scripts');
 runCmdSync('node  bootstrap-app/generate-management/pet-management-list.js', './scripts');
 runCmdSync('node  bootstrap-app/generate-management/pet-management-table.js', './scripts');
+runCmdSync('node  bootstrap-app/generate-management/pet-type-management-cards.js', './scripts');
 runCmdSync('node  bootstrap-app/generate-management/test-scalars-management-cards.js', './scripts');
 runCmdSync('node  bootstrap-app/generate-management/test-scalars-management-table.js', './scripts');
 runCmdSync('node  bootstrap-app/generate-management/test-notnull-scalars-management-cards.js', './scripts');

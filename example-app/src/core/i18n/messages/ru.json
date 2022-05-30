@@ -11,9 +11,11 @@
   "common.back": "Назад",
   "common.previous": "Предыдущий",
   "common.requestFailed": "Не удалось выполнить операцию",
+  "common.validationError": "Ошибка валидации",
   "common.notAllowed": "У вас недостаточно прав для выполнения этой операции",
   "common.viewDetails": "Посмотреть подробности",
   "common.404": "Извините, мы не смогли найти страницу, которую вы искали",
+  "common.error": "Ошибка",
 
   "auth.login.submit": "Войти",
   "auth.login.unauthorized": "Не удалось войти. Пользователь не существует или пароль неверный",

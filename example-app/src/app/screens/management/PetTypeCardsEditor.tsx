@@ -22,25 +22,25 @@ import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
-const PET_DISEASE = gql(`
-  query Get_Pet_Disease($id: ID) {
-    petDisease(petDiseaseIdentifier: $id) {
-      description
-      name
-      petDiseaseIdentifier
+const PET_TYPE = gql(`
+  query Get_Pet_Type($id: ID) {
+      petType(id: $id) {
+        id
+        name
+      }
     }
-  }
 `);
 
-const UPDATE_PET_DISEASE = gql(`
-  mutation Update_Pet_Disease($input: PetDiseaseInputDTO) {
-    updatePetDisease(input: $input) {
-      petDiseaseIdentifier
+const UPDATE_PET_TYPE = gql(`
+  mutation Update_Pet_Type($input: PetTypeInputDTO) {
+      updatePetType(input: $input) {
+        id
+        name
+      }
     }
-  }
 `);
 
-export interface PetDiseaseListEditorProps<TData = any> {
+export interface PetTypeCardsEditorProps<TData = any> {
   /**
    * A list of queries that needs to be refetched once the editor has been submitted.
    * For example, you might need to refresh entity list after editing an entity instance.
@@ -51,11 +51,11 @@ export interface PetDiseaseListEditorProps<TData = any> {
   refetchQueries?: RefetchQueries<TData>;
 }
 
-export function PetDiseaseListEditor({
+export function PetTypeCardsEditor({
   refetchQueries
-}: PetDiseaseListEditorProps<QueryResultType>) {
+}: PetTypeCardsEditorProps<QueryResultType>) {
   const intl = useIntl();
-  useBreadcrumbItem(intl.formatMessage({ id: "screen.PetDiseaseListEditor" }));
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.PetTypeCardsEditor" }));
 
   const { recordId } = useParams();
 
@@ -102,13 +102,12 @@ function EditorForm<TData>({
   const [formError, setFormError] = useState<string | undefined>();
 
   const { handleSubmit, submitting } = useSubmitEditor(
-    UPDATE_PET_DISEASE,
+    UPDATE_PET_TYPE,
     setFormError,
     refetchQueries,
-    "PetDiseaseInputDTO",
+    "PetTypeInputDTO",
     form,
-    id,
-    "petDiseaseIdentifier"
+    id
   );
   const handleClientValidationFailed = useClientValidationFailed();
 
@@ -135,12 +134,8 @@ function EditorForm<TData>({
 function FormFields() {
   return (
     <>
-      <Form.Item name="description" label="Description">
-        <Input autoFocus />
-      </Form.Item>
-
       <Form.Item name="name" label="Name">
-        <Input />
+        <Input autoFocus />
       </Form.Item>
     </>
   );
@@ -179,7 +174,7 @@ function useLoadItem(id?: string) {
   // Get the function that will load item from server,
   // also get variables that will contain loading/error state and response data
   // once the response is received
-  const [loadItem, { loading, error, data }] = useLazyQuery(PET_DISEASE, {
+  const [loadItem, { loading, error, data }] = useLazyQuery(PET_TYPE, {
     variables: {
       id
     }
@@ -194,8 +189,8 @@ function useLoadItem(id?: string) {
 
   // Get the received item, if any
   useEffect(() => {
-    if (data?.petDisease != null) {
-      setItem(deserialize(data?.petDisease));
+    if (data?.petType != null) {
+      setItem(deserialize(data?.petType));
     }
   }, [data, setItem]);
 
@@ -236,8 +231,8 @@ function useClientValidationFailed() {
 /**
  * Type of data object received when executing the query
  */
-type QueryResultType = ResultOf<typeof PET_DISEASE>;
+type QueryResultType = ResultOf<typeof PET_TYPE>;
 /**
  * Type of the item loaded by executing the query
  */
-type ItemType = QueryResultType["petDisease"];
+type ItemType = QueryResultType["petType"];
