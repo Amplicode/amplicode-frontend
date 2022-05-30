@@ -257,6 +257,7 @@ function TableSection({
             }
           };
         }}
+        scroll={{ x: true }}
       />
     </Space>
   );
