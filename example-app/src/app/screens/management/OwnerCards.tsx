@@ -181,11 +181,6 @@ function useCardActions(item: ItemType): ReactNode[] {
 
   const navigate = useNavigate();
 
-  useDefaultBrowserHotkeys({
-    screenId: "screen.OwnerTable",
-    openCreateEditor: () => navigate("new"),
-  });
-
   return [
     <EditOutlined
       key="edit"
