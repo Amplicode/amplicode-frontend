@@ -176,6 +176,10 @@ exports.petListQuery = `query Get_Pet_List {
         firstName
         lastName
       }
+      description {
+        identifier
+        description
+      }
     }
   }`;
 
@@ -192,6 +196,10 @@ exports.petListQueryWithFilter = `query Get_Pet_List_With_Filter($identification
         id
         firstName
         lastName
+      }
+      description {
+        identifier
+        description
       }
     }
   }`;
@@ -213,6 +221,10 @@ exports.petDetailsQuery = `query Get_Pet($id: ID) {
         id
         firstName
         lastName
+      }
+      description {
+        identifier
+        description
       }
     }
   }`;
@@ -257,6 +269,15 @@ exports.petTypeListQuery = `query Get_Pet_Type_List {
     petTypeList {
       id, 
       name
+    }
+  }`;
+
+/* Pet Description */
+
+exports.petDescriptionListQuery = `query Get_Pet_Description_List {
+    petDescriptionList {
+      identifier
+      description
     }
   }`;
 

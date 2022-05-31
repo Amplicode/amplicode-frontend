@@ -285,6 +285,14 @@ export const AppMenu = () => {
           <FormattedMessage id={"screen.PetDiseaseLookupCards"} />
         </Link>
       </Menu.Item>
+      <Menu.Item
+        title={intl.formatMessage({ id: "screen.PetDescriptionLookupCards" })}
+        key={"/pet-description-lookup-cards"}
+      >
+        <Link to={"/pet-description-lookup-cards"}>
+          <FormattedMessage id={"screen.PetDescriptionLookupCards"} />
+        </Link>
+      </Menu.Item>
     </Menu>
   );
 };

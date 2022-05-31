@@ -16,6 +16,7 @@ import { EntityLookupField } from "../../../core/crud/entity-lookup-field/Entity
 import { DatePicker } from "@amplicode/react-antd";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
+import { getPetDescriptionDTODisplayName } from "../../../core/display-name/getPetDescriptionDTODisplayName";
 import { gql } from "@amplicode/gql";
 import { useNavigate, useParams } from "react-router-dom";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
@@ -40,6 +41,10 @@ const PET = gql(`
         id
         firstName
         lastName
+      }
+      description {
+        identifier
+        description
       }
     }
   }
@@ -167,6 +172,15 @@ function FormFields() {
         <EntityLookupField
           getDisplayName={getOwnerDTODisplayName}
           label="Owner"
+          // TODO Uncomment the code and specify the list component
+          // lookupComponent={<YourEntityLookupComponentName/>}
+        />
+      </Form.Item>
+
+      <Form.Item name="description" label="Description">
+        <EntityLookupField
+          getDisplayName={getPetDescriptionDTODisplayName}
+          label="Description"
           // TODO Uncomment the code and specify the list component
           // lookupComponent={<YourEntityLookupComponentName/>}
         />

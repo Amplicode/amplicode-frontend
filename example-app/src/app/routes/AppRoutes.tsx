@@ -1,3 +1,4 @@
+import { PetDescriptionLookupCards } from "../screens/lookup/PetDescriptionLookupCards";
 import { PetDiseaseLookupCards } from "../screens/lookup/PetDiseaseLookupCards";
 import { PetTypeLookupCards } from "../screens/lookup/PetTypeLookupCards";
 import { PetLookupCards } from "../screens/lookup/PetLookupCards";
@@ -181,6 +182,10 @@ export function AppRoutes() {
       <Route path="pet-disease-lookup-cards">
         <Route index element={<PetDiseaseLookupCards />} />
         <Route path=":recordId" element={<PetDiseaseLookupCards />} />
+      </Route>
+      <Route path="pet-description-lookup-cards">
+        <Route index element={<PetDescriptionLookupCards />} />
+        <Route path=":recordId" element={<PetDescriptionLookupCards />} />
       </Route>
     </Routes>
   );

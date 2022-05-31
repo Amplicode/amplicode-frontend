@@ -646,6 +646,19 @@ export type Get_Owner_ListQuery = {
   } | null> | null;
 };
 
+export type Get_Pet_Description_ListQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type Get_Pet_Description_ListQuery = {
+  __typename?: "Query";
+  petDescriptionList?: Array<{
+    __typename?: "PetDescriptionDTO";
+    identifier?: string | null;
+    description?: string | null;
+  } | null> | null;
+};
+
 export type Get_Pet_Disease_ListQueryVariables = Exact<{
   [key: string]: never;
 }>;
@@ -679,6 +692,11 @@ export type Get_Pet_ListQuery = {
       id?: string | null;
       firstName?: string | null;
       lastName?: string | null;
+    } | null;
+    description?: {
+      __typename?: "PetDescriptionDTO";
+      identifier?: string | null;
+      description?: string | null;
     } | null;
   } | null> | null;
 };
@@ -770,6 +788,11 @@ export type Get_Pet_List_With_FilterQuery = {
       firstName?: string | null;
       lastName?: string | null;
     } | null;
+    description?: {
+      __typename?: "PetDescriptionDTO";
+      identifier?: string | null;
+      description?: string | null;
+    } | null;
   } | null> | null;
 };
 
@@ -803,6 +826,11 @@ export type Get_PetQuery = {
       id?: string | null;
       firstName?: string | null;
       lastName?: string | null;
+    } | null;
+    description?: {
+      __typename?: "PetDescriptionDTO";
+      identifier?: string | null;
+      description?: string | null;
     } | null;
   } | null;
 };
@@ -1036,6 +1064,35 @@ export const Get_Owner_ListDocument = {
     },
   ],
 } as unknown as DocumentNode<Get_Owner_ListQuery, Get_Owner_ListQueryVariables>;
+export const Get_Pet_Description_ListDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Get_Pet_Description_List" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "petDescriptionList" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "identifier" } },
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Get_Pet_Description_ListQuery,
+  Get_Pet_Description_ListQueryVariables
+>;
 export const Get_Pet_Disease_ListDocument = {
   kind: "Document",
   definitions: [
@@ -1116,6 +1173,23 @@ export const Get_Pet_ListDocument = {
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "lastName" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "description" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "identifier" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "description" },
                       },
                     ],
                   },
@@ -1426,6 +1500,23 @@ export const Get_Pet_List_With_FilterDocument = {
                     ],
                   },
                 },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "description" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "identifier" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "description" },
+                      },
+                    ],
+                  },
+                },
               ],
             },
           },
@@ -1540,6 +1631,23 @@ export const Get_PetDocument = {
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "lastName" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "description" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "identifier" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "description" },
                       },
                     ],
                   },

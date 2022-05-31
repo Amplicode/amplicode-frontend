@@ -1,4 +1,5 @@
 import React from "react";
+import { PetDescriptionLookupCards } from "../app/screens/lookup/PetDescriptionLookupCards";
 import { PetDiseaseLookupCards } from "../app/screens/lookup/PetDiseaseLookupCards";
 import { PetTypeLookupCards } from "../app/screens/lookup/PetTypeLookupCards";
 import { PetLookupCards } from "../app/screens/lookup/PetLookupCards";
@@ -220,6 +221,9 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/PetDiseaseLookupCards">
         <PetDiseaseLookupCards />
+      </ComponentPreview>
+      <ComponentPreview path="/PetDescriptionLookupCards">
+        <PetDescriptionLookupCards />
       </ComponentPreview>
     </Previews>
   );
