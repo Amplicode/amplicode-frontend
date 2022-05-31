@@ -1,5 +1,5 @@
+import { HotkeyConfig } from "@amplicode/react-core";
 import { useScreenHotkey } from "../useHotkey";
-import { HotkeyConfig } from "../hotkeyConfig";
 
 const EDITOR_HOTKEYS_CATEGORY_NAME = 'hotkeys.category.editor';
 
@@ -14,8 +14,12 @@ export const editorHotkeysConfigs: HotkeyConfig[] = [
 ];
 
 interface EditorHotkeysHook {
+  screenId: string;
   saveEntity: () => void;
 }
-export const useDefaultEditorHotkeys = ({saveEntity}: EditorHotkeysHook) => {
-  useScreenHotkey(saveEntityHotkeysConfig, saveEntity);
+export const useDefaultEditorHotkeys = ({
+  screenId,
+  saveEntity
+}: EditorHotkeysHook) => {
+  useScreenHotkey({screenId, ...saveEntityHotkeysConfig}, saveEntity);
 }

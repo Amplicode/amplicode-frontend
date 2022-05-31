@@ -5,8 +5,9 @@ import {
   editorHotkeysConfigs
 } from "@amplicode/react-core";
 import { hotkeyInfoHotkeyConfigs } from "./hotkey-info-config";
+import { ScreenHotkeyConfig } from "./ScreenHotkeyConfig";
 
-export const defaultHotkeyConfigs: HotkeyConfig[] = [
+export const defaultHotkeyConfigs: (HotkeyConfig | ScreenHotkeyConfig)[] = [
   ...hotkeyInfoHotkeyConfigs,
   // ...screenHotkeysConfigs,
   ...editorHotkeysConfigs,

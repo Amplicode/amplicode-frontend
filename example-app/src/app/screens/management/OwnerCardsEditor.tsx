@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import {
@@ -20,7 +20,8 @@ import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 import { FormattedMessage, useIntl } from "react-intl";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 import { deserialize } from "../../../core/transform/model/deserialize";
-import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
+import { usePushBreadcrumbItem } from "../../../core/screen/usePushBreadcrumbItem";
+import { useDefaultEditorHotkeys } from "../../../core/hotkeys/defaultHotkeys/editor";
 
 const OWNER = gql(`
   query Get_Owner($id: ID) {
@@ -59,7 +60,11 @@ export function OwnerCardsEditor({
   refetchQueries
 }: OwnerCardsEditorProps<QueryResultType>) {
   const intl = useIntl();
-  useBreadcrumbItem(intl.formatMessage({ id: "screen.OwnerCardsEditor" }));
+  const breadcrumb = useMemo(() => ({
+    screenId: "screen.OwnerCardsEditor",
+    caption: intl.formatMessage({ id: "screen.OwnerCardsEditor" })
+  }), [intl]);
+  usePushBreadcrumbItem(breadcrumb);
 
   const { recordId } = useParams();
 
@@ -117,6 +122,11 @@ function EditorForm<TData>({
   // Put the item into the form.
   // Item becomes form field values, which will then be used inside `handleSubmit`.
   useFormData(form, item);
+
+  useDefaultEditorHotkeys({
+    screenId: "screen.OwnerCardsEditor",
+    saveEntity: () => handleSubmit(form.getFieldsValue()),
+  });
 
   return (
     <Card className="narrow-layout">

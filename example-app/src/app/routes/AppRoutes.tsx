@@ -43,15 +43,15 @@ export function AppRoutes() {
         <Route index element={<OwnerCardsScreenLayout />} />
         <Route path=":recordId" element={<OwnerCardsScreenLayout />} />
       </Route>
-      <Route path="owner-list">
+      {/* <Route path="owner-list">
         <Route index element={<OwnerListScreenLayout />} />
         <Route path=":recordId" element={<OwnerListScreenLayout />} />
-      </Route>
+      </Route> */}
       <Route path="owner-table">
         <Route index element={<OwnerTableScreenLayout />} />
         <Route path=":recordId" element={<OwnerTableScreenLayout />} />
       </Route>
-      <Route path="owner-cards-with-filter">
+      {/* <Route path="owner-cards-with-filter">
         <Route index element={<OwnerCardsWithFilterScreenLayout />} />
         <Route
           path=":recordId"
@@ -171,7 +171,7 @@ export function AppRoutes() {
       <Route path="pet-disease-lookup-cards">
         <Route index element={<PetDiseaseLookupCards />} />
         <Route path=":recordId" element={<PetDiseaseLookupCards />} />
-      </Route>
+      </Route> */}
     </Routes>
   );
 }

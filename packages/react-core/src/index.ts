@@ -6,9 +6,6 @@ export * from './util/filterFieldValues';
 
 export * from './types/ReactComponent';
 
-export * from './hotkeys/defaultHotkeys/browser';
-export * from './hotkeys/defaultHotkeys/editor';
-export * from './hotkeys/useHotkey';
 export * from './hotkeys/hotkeyConfig';
 export * from './hotkeys/hotkeyContext';
 export * from './hotkeys/hotkeyStore';

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
@@ -14,7 +14,8 @@ import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
-import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
+import { usePushBreadcrumbItem } from "../../../core/screen/usePushBreadcrumbItem";
+import { useDefaultBrowserHotkeys } from "../../../core/hotkeys/defaultHotkeys/browser";
 
 const REFETCH_QUERIES = ["Get_Owner_List"];
 
@@ -40,7 +41,11 @@ const DELETE_OWNER = gql(`
 
 export function OwnerCards() {
   const intl = useIntl();
-  useBreadcrumbItem(intl.formatMessage({ id: "screen.OwnerCards" }));
+  const breadcrumb = useMemo(() => ({
+    screenId: "screen.OwnerCards",
+    caption: intl.formatMessage({ id: "screen.OwnerCards" })
+  }), [intl])
+  usePushBreadcrumbItem(breadcrumb);
 
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
@@ -166,6 +171,11 @@ function useCardActions(item: ItemType): ReactNode[] {
   const showDeleteConfirm = useDeleteConfirm(item?.id);
 
   const navigate = useNavigate();
+
+  useDefaultBrowserHotkeys({
+    screenId: "screen.OwnerTable",
+    openCreateEditor: () => navigate("new"),
+  });
 
   return [
     <EditOutlined

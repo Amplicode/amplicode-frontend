@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
@@ -12,7 +12,8 @@ import { GraphQLError } from "graphql/error/GraphQLError";
 import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
-import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
+import { useDefaultBrowserHotkeys } from "../../../core/hotkeys/defaultHotkeys/browser";
+import { usePushBreadcrumbItem } from "../../../core/screen/usePushBreadcrumbItem";
 
 const REFETCH_QUERIES = ["Get_Owner_List"];
 
@@ -71,13 +72,23 @@ const columns = [
 
 export function OwnerTable() {
   const intl = useIntl();
-  useBreadcrumbItem(intl.formatMessage({ id: "screen.OwnerTable" }));
+  const breadcrumb = useMemo(() => ({
+    screenId: "screen.OwnerTable",
+    caption: intl.formatMessage({ id: "screen.OwnerTable" })
+  }), [intl])
+  usePushBreadcrumbItem(breadcrumb);
 
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
   const items = deserialize(data?.ownerList);
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
+  const navigate = useNavigate();
+
+  useDefaultBrowserHotkeys({
+    screenId: "screen.OwnerTable",
+    openCreateEditor: () => navigate("new"),
+  });
 
   return (
     <div className="narrow-layout">
