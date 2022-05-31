@@ -43,10 +43,10 @@ export function AppRoutes() {
         <Route index element={<OwnerCardsScreenLayout />} />
         <Route path=":recordId" element={<OwnerCardsScreenLayout />} />
       </Route>
-      {/* <Route path="owner-list">
+      <Route path="owner-list">
         <Route index element={<OwnerListScreenLayout />} />
         <Route path=":recordId" element={<OwnerListScreenLayout />} />
-      </Route> */}
+      </Route>
       <Route path="owner-table">
         <Route index element={<OwnerTableScreenLayout />} />
         <Route path=":recordId" element={<OwnerTableScreenLayout />} />

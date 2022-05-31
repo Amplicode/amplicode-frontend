@@ -26,7 +26,6 @@ export const useHotkey = (
   ]);
 }
 
-
 export const useScreenHotkey = (
   screenHotkeyConfig: ScreenHotkeyConfig,
   memoizedCallback: KeyHandler,

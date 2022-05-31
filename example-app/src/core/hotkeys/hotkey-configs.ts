@@ -1,15 +1,10 @@
-import {
-  HotkeyConfig,
-  // screenHotkeysConfigs,
-  browserHotkeysConfigs,
-  editorHotkeysConfigs
-} from "@amplicode/react-core";
+import { HotkeyConfig } from "@amplicode/react-core";
+import { browserHotkeysConfigs } from "./defaultHotkeys/browser";
+import { editorHotkeysConfigs } from "./defaultHotkeys/editor";
 import { hotkeyInfoHotkeyConfigs } from "./hotkey-info-config";
-import { ScreenHotkeyConfig } from "./ScreenHotkeyConfig";
 
-export const defaultHotkeyConfigs: (HotkeyConfig | ScreenHotkeyConfig)[] = [
+export const defaultHotkeyConfigs: HotkeyConfig[] = [
   ...hotkeyInfoHotkeyConfigs,
-  // ...screenHotkeysConfigs,
   ...editorHotkeysConfigs,
   ...browserHotkeysConfigs
 ];

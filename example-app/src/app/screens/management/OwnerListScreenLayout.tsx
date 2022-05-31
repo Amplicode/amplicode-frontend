@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Breadcrumb } from "antd";
 import { OwnerList } from "./OwnerList";
 import { OwnerListEditor } from "./OwnerListEditor";
-import { BreadcrumbContext } from "../../../core/screen/BreadcrumbContext";
+import { BreadcrumbContext, BreadcrumbItem } from "../../../core/screen/BreadcrumbContext";
 import { usePageTitle } from "../../../core/screen/usePageTitle";
 import { useIntl } from "react-intl";
 
@@ -12,7 +12,7 @@ export function OwnerListScreenLayout() {
   usePageTitle(intl.formatMessage({ id: "screen.OwnerList" }));
 
   const { recordId } = useParams();
-  const [breadcrumbItems, setBreadcrumbItems] = useState<string[]>([]);
+  const [breadcrumbItems, setBreadcrumbItems] = useState<BreadcrumbItem[]>([]);
 
   return (
     <>
@@ -24,7 +24,7 @@ export function OwnerListScreenLayout() {
         </Breadcrumb>
       )}
 
-      <BreadcrumbContext.Provider value={setBreadcrumbItems}>
+      <BreadcrumbContext.Provider value={{breadcrumbItems, setBreadcrumbItems}}>
         <div style={{ display: recordId ? "none" : "block" }}>
           <OwnerList />
         </div>

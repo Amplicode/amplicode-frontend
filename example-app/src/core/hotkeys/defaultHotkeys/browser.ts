@@ -1,7 +1,7 @@
-import { useCallback } from "react";
+import { useMemo } from "react";
 import { useScreenHotkey } from "../useHotkey";
-import { KeyHandler } from "hotkeys-js";
 import { HotkeyConfig } from "@amplicode/react-core";
+import { ScreenHotkeyConfig } from "../ScreenHotkeyConfig";
 
 const BROWSER_HOTKEYS_CATEGORY_NAME = 'hotkeys.category.browser';
 
@@ -22,7 +22,7 @@ export interface BrowserHotkeysHook {
 export const useDefaultBrowserHotkeys = ({
   screenId,
   openCreateEditor
-}: BrowserHotkeysHook) => {
-  const createEntity = useCallback<KeyHandler>(() => openCreateEditor(), [openCreateEditor]);
-  useScreenHotkey({screenId, ...createEntityHotkeyConfig}, createEntity);
+}: BrowserHotkeysHook) => {;
+  const openCreateEditorScreenHotkeyConfig = useMemo<ScreenHotkeyConfig>(() => ({screenId, ...createEntityHotkeyConfig}), [screenId]);
+  useScreenHotkey(openCreateEditorScreenHotkeyConfig, openCreateEditor);
 }

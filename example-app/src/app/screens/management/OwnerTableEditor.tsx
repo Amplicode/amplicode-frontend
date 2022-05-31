@@ -55,14 +55,16 @@ export interface OwnerTableEditorProps<TData = any> {
   refetchQueries?: RefetchQueries<TData>;
 }
 
+const OWNER_TABLE_EDITOR_SCREEN_ID = "screen.OwnerTableEditor";
+
 export function OwnerTableEditor({
   refetchQueries
 }: OwnerTableEditorProps<QueryResultType>) {
   const intl = useIntl();
 
   const breadcrumb = useMemo(() => ({
-    screenId: "screen.OwnerTableEditor",
-    caption: intl.formatMessage({ id: "screen.OwnerTableEditor" })
+    screenId: OWNER_TABLE_EDITOR_SCREEN_ID,
+    caption: intl.formatMessage({ id: OWNER_TABLE_EDITOR_SCREEN_ID })
   }), [intl]);
   usePushBreadcrumbItem(breadcrumb);
 

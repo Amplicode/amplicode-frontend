@@ -1,4 +1,4 @@
-import { ReactNode, useMemo } from "react";
+import { ReactNode, useCallback, useMemo } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
@@ -39,11 +39,13 @@ const DELETE_OWNER = gql(`
   }
 `);
 
+const OWNER_CARDS_SCREEN_ID = "screen.OwnerCards";
+
 export function OwnerCards() {
   const intl = useIntl();
   const breadcrumb = useMemo(() => ({
-    screenId: "screen.OwnerCards",
-    caption: intl.formatMessage({ id: "screen.OwnerCards" })
+    screenId: OWNER_CARDS_SCREEN_ID,
+    caption: intl.formatMessage({ id: OWNER_CARDS_SCREEN_ID })
   }), [intl])
   usePushBreadcrumbItem(breadcrumb);
 
@@ -69,6 +71,13 @@ function ButtonPanel() {
   const intl = useIntl();
   const navigate = useNavigate();
 
+  const openCreateEditor = useCallback(() => navigate("new"), [navigate]);
+
+  useDefaultBrowserHotkeys({
+    screenId: OWNER_CARDS_SCREEN_ID,
+    openCreateEditor,
+  });
+
   return (
     <div>
       <Button
@@ -77,7 +86,7 @@ function ButtonPanel() {
         title={intl.formatMessage({ id: "common.create" })}
         type="primary"
         icon={<PlusOutlined />}
-        onClick={() => navigate("new")}
+        onClick={openCreateEditor}
       >
         <span>
           <FormattedMessage id="common.create" />

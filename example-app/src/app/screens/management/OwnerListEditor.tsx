@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import {
@@ -20,7 +20,7 @@ import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 import { FormattedMessage, useIntl } from "react-intl";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 import { deserialize } from "../../../core/transform/model/deserialize";
-import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
+import { usePushBreadcrumbItem } from "../../../core/screen/usePushBreadcrumbItem";
 
 const OWNER = gql(`
   query Get_Owner($id: ID) {
@@ -55,11 +55,17 @@ export interface OwnerListEditorProps<TData = any> {
   refetchQueries?: RefetchQueries<TData>;
 }
 
+const OWNER_LIST_EDITOR_SCREEN_ID = "screen.OwnerListEditor";
+
 export function OwnerListEditor({
   refetchQueries
 }: OwnerListEditorProps<QueryResultType>) {
   const intl = useIntl();
-  useBreadcrumbItem(intl.formatMessage({ id: "screen.OwnerListEditor" }));
+  const breadcrumb = useMemo(() => ({
+    screenId: OWNER_LIST_EDITOR_SCREEN_ID,
+    caption: intl.formatMessage({ id: OWNER_LIST_EDITOR_SCREEN_ID })
+  }), [intl]);
+  usePushBreadcrumbItem(breadcrumb);
 
   const { recordId } = useParams();
 

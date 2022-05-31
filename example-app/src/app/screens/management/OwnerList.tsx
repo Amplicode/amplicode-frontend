@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useCallback, useMemo } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
@@ -13,7 +13,8 @@ import { GraphQLError } from "graphql/error/GraphQLError";
 import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
-import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
+import { useDefaultBrowserHotkeys } from "../../../core/hotkeys/defaultHotkeys/browser";
+import { usePushBreadcrumbItem } from "../../../core/screen/usePushBreadcrumbItem";
 
 const REFETCH_QUERIES = ["Get_Owner_List"];
 
@@ -37,9 +38,15 @@ const DELETE_OWNER = gql(`
   }
 `);
 
+const OWNER_LIST_SCREEN_ID = "screen.OwnerList"
+
 export function OwnerList() {
   const intl = useIntl();
-  useBreadcrumbItem(intl.formatMessage({ id: "screen.OwnerList" }));
+  const breadcrumb = useMemo(() => ({
+    screenId: OWNER_LIST_SCREEN_ID,
+    caption: intl.formatMessage({ id: OWNER_LIST_SCREEN_ID })
+  }), [intl])
+  usePushBreadcrumbItem(breadcrumb);
 
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
@@ -63,6 +70,13 @@ function ButtonPanel() {
   const intl = useIntl();
   const navigate = useNavigate();
 
+  const openCreateEditor = useCallback(() => navigate("new"), [navigate]);
+
+  useDefaultBrowserHotkeys({
+    screenId: OWNER_LIST_SCREEN_ID,
+    openCreateEditor,
+  });
+
   return (
     <div>
       <Button
@@ -71,7 +85,7 @@ function ButtonPanel() {
         title={intl.formatMessage({ id: "common.create" })}
         type="primary"
         icon={<PlusOutlined />}
-        onClick={() => navigate("new")}
+        onClick={openCreateEditor}
       >
         <span>
           <FormattedMessage id="common.create" />

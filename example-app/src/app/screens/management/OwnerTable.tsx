@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
@@ -70,11 +70,13 @@ const columns = [
   }
 ];
 
+const OWNER_TABLE_SCREEN_ID = "screen.OwnerTable"
+
 export function OwnerTable() {
   const intl = useIntl();
   const breadcrumb = useMemo(() => ({
-    screenId: "screen.OwnerTable",
-    caption: intl.formatMessage({ id: "screen.OwnerTable" })
+    screenId: OWNER_TABLE_SCREEN_ID,
+    caption: intl.formatMessage({ id: OWNER_TABLE_SCREEN_ID })
   }), [intl])
   usePushBreadcrumbItem(breadcrumb);
 
@@ -83,12 +85,6 @@ export function OwnerTable() {
   const items = deserialize(data?.ownerList);
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
-  const navigate = useNavigate();
-
-  useDefaultBrowserHotkeys({
-    screenId: "screen.OwnerTable",
-    openCreateEditor: () => navigate("new"),
-  });
 
   return (
     <div className="narrow-layout">
@@ -116,6 +112,13 @@ function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
 
   const { showDeleteConfirm, deleting } = useDeleteConfirm(selectedRowId!);
 
+  const openCreateEditor = useCallback(() => navigate("new"), [navigate]);
+
+  useDefaultBrowserHotkeys({
+    screenId: OWNER_TABLE_SCREEN_ID,
+    openCreateEditor,
+  });
+
   return (
     <Space direction="horizontal">
       <Button
@@ -124,7 +127,7 @@ function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
         title={intl.formatMessage({ id: "common.create" })}
         type="primary"
         icon={<PlusOutlined />}
-        onClick={() => navigate("new")}
+        onClick={openCreateEditor}
       >
         <span>
           <FormattedMessage id="common.create" />

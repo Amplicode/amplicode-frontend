@@ -45,6 +45,8 @@ const UPDATE_OWNER = gql(`
   }
 `);
 
+const OWNER_CARDS_EDITOR_SCREEN_ID = "screen.OwnerCardsEditor";
+
 export interface OwnerCardsEditorProps<TData = any> {
   /**
    * A list of queries that needs to be refetched once the editor has been submitted.
@@ -61,8 +63,8 @@ export function OwnerCardsEditor({
 }: OwnerCardsEditorProps<QueryResultType>) {
   const intl = useIntl();
   const breadcrumb = useMemo(() => ({
-    screenId: "screen.OwnerCardsEditor",
-    caption: intl.formatMessage({ id: "screen.OwnerCardsEditor" })
+    screenId: OWNER_CARDS_EDITOR_SCREEN_ID,
+    caption: intl.formatMessage({ id: OWNER_CARDS_EDITOR_SCREEN_ID })
   }), [intl]);
   usePushBreadcrumbItem(breadcrumb);
 
@@ -124,8 +126,8 @@ function EditorForm<TData>({
   useFormData(form, item);
 
   useDefaultEditorHotkeys({
-    screenId: "screen.OwnerCardsEditor",
-    saveEntity: () => handleSubmit(form.getFieldsValue()),
+    screenId: OWNER_CARDS_EDITOR_SCREEN_ID,
+    saveEntity: form.submit,
   });
 
   return (
