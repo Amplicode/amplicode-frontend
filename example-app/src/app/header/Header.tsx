@@ -1,28 +1,16 @@
 import { Button, Modal, notification, Space } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
 import axios from "axios";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useIntl } from "react-intl";
 import "./Header.css";
-import { useHotkey } from "@amplicode/react-core";
-import { HotkeyInfoModalButton } from "@amplicode/react-antd";
 import { observer } from "mobx-react";
 import { useSecurityStore } from "../../core/security/security-context";
-import { KeyHandler } from "hotkeys-js";
-import { toggleHotkeyInfoHotkeyConfig } from "../../core/hotkeys/hotkey-info-config";
 import { LocaleSelector } from "../../core/i18n/localeSelector/LocaleSelector";
 
 export const AppHeader = observer(() => {
   const intl = useIntl();
   const securityStore = useSecurityStore();
-
-  const [visibleHotkeyInfo, setVisibleHotkeyInfo] = useState(false);
-
-  const toggleHotkeyInfo = useCallback<KeyHandler>(
-    () => setVisibleHotkeyInfo(!visibleHotkeyInfo),
-    [visibleHotkeyInfo]
-  );
-  useHotkey(toggleHotkeyInfoHotkeyConfig, toggleHotkeyInfo);
 
   const showLogoutConfirm = useCallback(() => {
     Modal.confirm({
@@ -52,10 +40,6 @@ export const AppHeader = observer(() => {
     <div className="app-header">
       <Space className="app-header__user-panel">
         <LocaleSelector />
-        <HotkeyInfoModalButton
-          visible={visibleHotkeyInfo}
-          setVisible={setVisibleHotkeyInfo}
-        />
         <Button
           id="button_logout"
           className="app-header__icon-btn"

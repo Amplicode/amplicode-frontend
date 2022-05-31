@@ -30,17 +30,6 @@
   "screen.home": "Главная страница",
   "home.welcome": "Добро пожаловать в {appName}!",
   "home.loggedInAs": "Вы вошли как {username}",
-  
-  "hotkeys.hotkeyInfo.title": "Горячие клавиши",
-  "hotkeys.hotkeyInfo.toggleHotkeyInfo": "Открыть / закрыть окно горячих клавиш",
-  "hotkeys.category.hotkeyInfo": "Помощь по горячим клавишам",
-  "hotkeys.category.screen": "Работы с экранами",
-  "hotkeys.category.browser": "Экран списка",
-  "hotkeys.category.editor": "Экран редактирования",
-  "hotkeys.browser.createEntity": "Перейти на экран создания сущности",
-  "hotkeys.editor.saveEntity": "Сохранить сущность",
-  "hotkeys.screen.nextTab": "Перейти на следующий вкладку",
-  "hotkeys.screen.previousTab": "Перейти на предыдущий вкладку",
 
   "filters.apply": "Применить",
   "filters.reset": "Сбросить"

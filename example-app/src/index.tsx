@@ -15,14 +15,9 @@ import axios from "axios";
 import { BrowserRouter } from "react-router-dom";
 import { onError } from "@apollo/client/link/error";
 import { GRAPHQL_URI, REQUEST_SAME_ORIGIN } from "./config";
-import {
-  HotkeyContext,
-  HotkeyStore,
-  EventEmitter
-} from "@amplicode/react-core";
+import { EventEmitter } from "@amplicode/react-core";
 import { DevSupport } from "@react-buddy/ide-toolbox";
 import { ComponentPreviews, useInitial } from "./dev";
-import { defaultHotkeyConfigs } from "./core/hotkeys/hotkey-configs";
 import { I18nProvider } from "./core/i18n/providers/I18nProvider";
 import { i18nStore } from "./core/i18n/providers/I18nProvider";
 import { ServerErrorInterceptor } from "./core/error/ServerErrorInterceptor";
@@ -74,24 +69,20 @@ const client = new ApolloClient({
 
 const securityStore = new SecurityStore(client);
 
-const hotkeys = new HotkeyStore(defaultHotkeyConfigs);
-
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <SecurityContext.Provider value={securityStore}>
         <I18nProvider>
           <BrowserRouter>
-            <HotkeyContext.Provider value={hotkeys}>
-              <ServerErrorInterceptor serverErrorEmitter={serverErrorEmitter}>
-                <DevSupport
-                  ComponentPreviews={ComponentPreviews}
-                  useInitialHook={useInitial}
-                >
-                  <App />
-                </DevSupport>
-              </ServerErrorInterceptor>
-            </HotkeyContext.Provider>
+            <ServerErrorInterceptor serverErrorEmitter={serverErrorEmitter}>
+              <DevSupport
+                ComponentPreviews={ComponentPreviews}
+                useInitialHook={useInitial}
+              >
+                <App />
+              </DevSupport>
+            </ServerErrorInterceptor>
           </BrowserRouter>
         </I18nProvider>
       </SecurityContext.Provider>

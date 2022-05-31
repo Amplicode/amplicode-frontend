@@ -11,8 +11,6 @@ import {
   InMemoryCache
 } from "@apollo/client";
 import en from "../core/i18n/messages/en.json";
-import { HotkeyContext, HotkeyStore } from "@amplicode/react-core";
-import { defaultHotkeyConfigs } from "../core/hotkeys/hotkey-configs";
 import { GRAPHQL_URI, REQUEST_SAME_ORIGIN } from "../config";
 import { onError } from "@apollo/client/link/error";
 import { act } from "react-dom/test-utils";
@@ -20,8 +18,6 @@ import { SecurityStore } from "../core/security/security";
 import { SecurityContext } from "../core/security/security-context";
 
 it("renders without crashing", () => {
-  const hotkeys = new HotkeyStore(defaultHotkeyConfigs);
-
   axios.defaults.withCredentials = !REQUEST_SAME_ORIGIN;
 
   const httpLink = createHttpLink({
@@ -62,9 +58,7 @@ it("renders without crashing", () => {
           <SecurityContext.Provider value={securityStore}>
             <IntlProvider locale="en" messages={en}>
               <BrowserRouter>
-                <HotkeyContext.Provider value={hotkeys}>
-                  <App />
-                </HotkeyContext.Provider>
+                <App />
               </BrowserRouter>
             </IntlProvider>
           </SecurityContext.Provider>
