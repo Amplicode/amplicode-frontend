@@ -410,8 +410,6 @@ src/
 ├─ core/
 │  ├─ addons/
 │  │  ├─ addons.ts
-│  ├─ hotkeys
-│  │  ├─ hotkey-configs.ts
 │  ├─ i18n
 │  │  ├─ en.json
 │  │  ├─ i18n-init.ts 
