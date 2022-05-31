@@ -82,5 +82,6 @@
   "screen.OwnerLookupCards": "Owner Lookup Cards",
   "screen.PetLookupCards": "Pet Lookup Cards",
   "screen.PetTypeLookupCards": "Pet Type Lookup Cards",
-  "screen.PetDiseaseLookupCards": "Pet Disease Lookup Cards"
+  "screen.PetDiseaseLookupCards": "Pet Disease Lookup Cards",
+  "screen.PetDescriptionLookupCards": "Pet Description Lookup Cards"
 }

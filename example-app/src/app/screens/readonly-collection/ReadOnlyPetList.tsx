@@ -12,6 +12,7 @@ import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
+import { getPetDescriptionDTODisplayName } from "../../../core/display-name/getPetDescriptionDTODisplayName";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const PET_LIST = gql(`
@@ -28,6 +29,10 @@ const PET_LIST = gql(`
         id
         firstName
         lastName
+      }
+      description {
+        identifier
+        description
       }
     }
   }
@@ -115,6 +120,11 @@ function ListItem({ item }: { item: ItemType }) {
           key="owner"
           label="Owner"
           value={getOwnerDTODisplayName(item.owner ?? undefined)}
+        />
+        <ValueWithLabel
+          key="description"
+          label="Description"
+          value={getPetDescriptionDTODisplayName(item.description ?? undefined)}
         />
       </div>
     </List.Item>

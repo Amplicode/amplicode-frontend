@@ -10,6 +10,7 @@ import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
+import { getPetDescriptionDTODisplayName } from "../../../core/display-name/getPetDescriptionDTODisplayName";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const PET_LIST = gql(`
@@ -26,6 +27,10 @@ const PET_LIST = gql(`
         id
         firstName
         lastName
+      }
+      description {
+        identifier
+        description
       }
     }
   }
@@ -51,6 +56,11 @@ const columns = [
     title: "Owner",
     dataIndex: "owner",
     key: "owner"
+  },
+  {
+    title: "Description",
+    dataIndex: "description",
+    key: "description"
   }
 ];
 
@@ -126,7 +136,10 @@ function TableSection({
       ...{
         birthDate: item!.birthDate?.format("LL") ?? undefined,
         type: getPetTypeDTODisplayName(item!.type ?? undefined),
-        owner: getOwnerDTODisplayName(item!.owner ?? undefined)
+        owner: getOwnerDTODisplayName(item!.owner ?? undefined),
+        description: getPetDescriptionDTODisplayName(
+          item!.description ?? undefined
+        )
       }
     }));
 

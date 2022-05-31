@@ -13,6 +13,7 @@ import { deserialize } from "../../../core/transform/model/deserialize";
 import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
+import { getPetDescriptionDTODisplayName } from "../../../core/display-name/getPetDescriptionDTODisplayName";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const PET_LIST = gql(`
@@ -29,6 +30,10 @@ const PET_LIST = gql(`
         id
         firstName
         lastName
+      }
+      description {
+        identifier
+        description
       }
     }
   }
@@ -117,6 +122,11 @@ function ItemCard({ item }: { item: ItemType }) {
         key="owner"
         label="Owner"
         value={getOwnerDTODisplayName(item.owner ?? undefined)}
+      />
+      <ValueWithLabel
+        key="description"
+        label="Description"
+        value={getPetDescriptionDTODisplayName(item.description ?? undefined)}
       />
     </Card>
   );

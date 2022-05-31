@@ -6,42 +6,27 @@ import { Card, Empty, Space, Spin } from "antd";
 import { gql } from "@amplicode/gql";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
-import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
-import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
-import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetDescriptionDTODisplayName } from "../../../core/display-name/getPetDescriptionDTODisplayName";
 
-const PET_LIST = gql(`
-  query Get_Pet_List {
-    petList {
-      id
-      identificationNumber
-      birthDate
-      type {
-        id
-        name
-      }
-      owner {
-        id
-        firstName
-        lastName
-      }
-      description {
-        identifier
-        description
-      }
+const PET_DESCRIPTION_LIST = gql(`
+  query Get_Pet_Description_List {
+    petDescriptionList {
+      identifier
+      description
     }
   }
 `);
 
-interface PetLookupCardsProps {
+interface PetDescriptionLookupCardsProps {
   onSelect?: (entityInstance: Record<string, unknown>) => {};
 }
 
-export function PetLookupCards(props: PetLookupCardsProps) {
+export function PetDescriptionLookupCards(
+  props: PetDescriptionLookupCardsProps
+) {
   // Load the items from server
-  const { loading, error, data } = useQuery(PET_LIST);
-  const items = data?.petList;
+  const { loading, error, data } = useQuery(PET_DESCRIPTION_LIST);
+  const items = data?.petDescriptionList;
 
   return (
     <div className="narrow-layout">
@@ -86,7 +71,7 @@ function Cards({ items, loading, error, onSelect }: ItemCardsProps) {
   return (
     <Space direction="vertical" className="lookup-cards card-space">
       {items.map(item => (
-        <ItemCard item={item} key={item?.id} onSelect={onSelect} />
+        <ItemCard item={item} key={item?.identifier} onSelect={onSelect} />
       ))}
     </Space>
   );
@@ -104,35 +89,15 @@ function ItemCard({ item, onSelect }: ItemCardProps) {
 
   return (
     <Card
-      key={item.id}
-      title={getPetDTODisplayName(item)}
+      key={item.identifier}
+      title={getPetDescriptionDTODisplayName(item)}
       className="narrow-layout"
       onClick={() => onSelect(item)}
     >
       <ValueWithLabel
-        key="identificationNumber"
-        label="Identification Number"
-        value={item.identificationNumber ?? undefined}
-      />
-      <ValueWithLabel
-        key="birthDate"
-        label="Birth Date"
-        value={item.birthDate ?? undefined}
-      />
-      <ValueWithLabel
-        key="type"
-        label="Type"
-        value={getPetTypeDTODisplayName(item.type ?? undefined)}
-      />
-      <ValueWithLabel
-        key="owner"
-        label="Owner"
-        value={getOwnerDTODisplayName(item.owner ?? undefined)}
-      />
-      <ValueWithLabel
         key="description"
         label="Description"
-        value={getPetDescriptionDTODisplayName(item.description ?? undefined)}
+        value={item.description ?? undefined}
       />
     </Card>
   );
@@ -141,11 +106,11 @@ function ItemCard({ item, onSelect }: ItemCardProps) {
 /**
  * Type of data object received when executing the query
  */
-type QueryResultType = ResultOf<typeof PET_LIST>;
+type QueryResultType = ResultOf<typeof PET_DESCRIPTION_LIST>;
 /**
  * Type of the items list
  */
-type ItemListType = QueryResultType["petList"];
+type ItemListType = QueryResultType["petDescriptionList"];
 /**
  * Type of a single item
  */

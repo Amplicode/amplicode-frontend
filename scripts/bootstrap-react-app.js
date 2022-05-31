@@ -44,6 +44,7 @@ runCmdSync('node bootstrap-app/generate-lookup/owner-lookup-cards.js', './script
 runCmdSync('node bootstrap-app/generate-lookup/pet-lookup-cards.js', './scripts');
 runCmdSync('node bootstrap-app/generate-lookup/pet-type-lookup-cards.js', './scripts');
 runCmdSync('node bootstrap-app/generate-lookup/pet-disease-lookup-cards.js', './scripts');
+runCmdSync('node bootstrap-app/generate-lookup/pet-description-lookup-cards.js', './scripts');
 
 runCmdSync('lerna run prepublishOnly');
 runCmdSync(`lerna exec --scope '{@amplicode/react-core,@amplicode/react-antd}' "npm pack"`);
