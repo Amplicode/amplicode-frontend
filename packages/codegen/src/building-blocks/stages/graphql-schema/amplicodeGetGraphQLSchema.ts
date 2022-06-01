@@ -1,5 +1,5 @@
 import {AmplicodeCommonOptions} from "../options/pieces/amplicode";
-import {buildClientSchema, GraphQLSchema} from "graphql";
+import {GraphQLSchema} from "graphql";
 import * as path from "path";
 import * as fs from "fs";
 import {loadSchema} from "@graphql-tools/load";
