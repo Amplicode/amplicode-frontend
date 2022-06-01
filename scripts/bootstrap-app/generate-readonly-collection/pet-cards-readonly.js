@@ -14,6 +14,6 @@ const answers = btoa(JSON.stringify({
 
 runCmdSync(`node ${amplicodegen} react-typescript:entity-management`
   + ` --answers ${answers}`
-  + ` --schema ./schema.graphql`
+  + ` --schema ./schema.graphql ./defaultaddon.graphqls`
   + ` --dest ../example-app/src/app/screens/${READONLY_COLLECTION_DIR}`
   + ` --dirShift ../../../`);

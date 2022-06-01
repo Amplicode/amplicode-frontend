@@ -5,7 +5,6 @@ export const amplicodeDeriveTemplateModel = async <O extends AmplicodeCommonOpti
   options: O,
   answers: A,
   _schema?: GraphQLSchema,
-  _schemaPath?: string
 ): Promise<T> => {
   return answers as unknown as T;
 }

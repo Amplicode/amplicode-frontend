@@ -33,7 +33,7 @@ describe('codegen cards management', () => {
     const componentPath = path.join(DEST_DIR, 'TestNotNullScalarsCards.tsx');
     const editorComponentPath = path.join(DEST_DIR, 'TestNotNullScalarsCardsEditor.tsx');
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const editorComponentFile = fs.readFileSync(editorComponentPath, 'utf-8');
     const componentFile = fs.readFileSync(componentPath, 'utf-8');

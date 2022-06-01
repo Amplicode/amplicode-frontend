@@ -12,6 +12,6 @@ const answers = btoa(JSON.stringify({
 
 runCmdSync(`node ${amplicodegen} react-typescript:entity-lookup`
   + ` --answers ${answers}`
-  + ` --schema ./schema.graphql`
+  + ` --schema ./schema.graphql ./defaultaddon.graphqls`
   + ` --dest ../example-app/src/app/screens/${LOOKUP_SCREENS_DIR}`
   + ` --dirShift ../../../`);

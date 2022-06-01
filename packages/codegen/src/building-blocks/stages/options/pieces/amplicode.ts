@@ -3,7 +3,7 @@ import {DirShiftOption} from "./dir-shift";
 
 export interface AmplicodeCommonOptions {
   dest?: string;
-  schema?: string;
+  schema?: string[][];
   answers?: string;
   verbose?: boolean;
 }
@@ -17,7 +17,8 @@ export const amplicodeCommonOptionsConfig: OptionsConfig = {
   schema: {
     alias: 's',
     description: 'specify path to GraphQL schema',
-    type: String
+    // @ts-ignore TODO: fix yeoman-generator typing
+    type: Array
   },
   answers: {
     alias: 'a',

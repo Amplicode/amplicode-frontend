@@ -49,7 +49,7 @@ describe('codegen standalone table', () => {
     // check that cleanup is completed, before test start
     expect(fs.existsSync(componentPath)).to.be.false;
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, answers, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function StandaloneOwnerTable() ');
@@ -86,7 +86,7 @@ describe('codegen standalone table', () => {
     // check that cleanup is completed, before test start
     expect(fs.existsSync(componentPath)).to.be.false;
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, answers, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const expectDataSource = `
       const dataSource = items

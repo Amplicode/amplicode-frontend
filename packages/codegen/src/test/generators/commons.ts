@@ -5,6 +5,7 @@ import {promisify} from "util";
 const rimraf = promisify(require('rimraf'));
 
 export const SCHEMA_PATH = path.join(__dirname, '..', 'fixtures', 'schema', 'schema.graphql');
+export const SCHEMA2_PATH = path.join(__dirname, '..', 'fixtures', 'schema', 'defaultaddon.graphqls');
 export const GENERATORS_DIR = path.join(__dirname, '..', '..', 'generators');
 
 export async function cleanup(destDir: string) {
@@ -16,7 +17,7 @@ export async function cleanup(destDir: string) {
   fs.writeFileSync(path.join(destDir, 'core', 'i18n', 'messages', 'en.json'), '{}');
 }
 
-export function opts(dir: string, answers: any, schema: string) {
+export function opts(dir: string, answers: any, schema: string[]) {
   return {
     schema: schema,
     dest: dir,
