@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface MountedComponentMetadata {
   name: React.ReactElement;
   mountingPoint: 'ROOT' | 'I18N';
@@ -5,20 +7,20 @@ export interface MountedComponentMetadata {
   above?: string | string[];
 }
 
-export interface MenuItemMetadata {
+export interface RouteMenuItemMetadata {
   captionKey: string;
   key: string;
-  screenId?: string;
+  path: string;
 }
-
-export interface ScreenItemMetadata {
-  key: string;
+export interface SubMenuMetadata {
   captionKey: string;
-  component: React.ReactElement;
+  key: string;
+  children: MenuItemMetadata[];
 }
+export type MenuItemMetadata = RouteMenuItemMetadata | SubMenuMetadata;
 
 export interface AddonMetadata {
-  mountedComponents: MountedComponentMetadata[];
-  menuItems: MenuItemMetadata[];
-  screenItems: ScreenItemMetadata[];
+  mountedComponents?: MountedComponentMetadata[];
+  menuItems?: MenuItemMetadata[];
+  routes?: React.ReactNode[];
 }

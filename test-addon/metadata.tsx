@@ -3,6 +3,7 @@ import {TestAddonScreen2} from './src/screens/TestAddonScreen2';
 import {TestAddonLogCurrentMessages} from './src/providers/TestAddonLogCurrentMessages';
 import {TestAddonMessagesProvider} from './src/i18n/providers/TestAddonMessagesProvider';
 import {AddonMetadata} from '@amplicode/react-core';
+import {Route} from 'react-router-dom';
 
 export default {
   mountedComponents: [
@@ -19,18 +20,14 @@ export default {
     }
   ],
   menuItems: [
-    { key: 'test-addon-screen-1' }
-  ],
-  screenItems: [
     {
-      key: 'test-addon-screen-1',
+      key: 'test-addon-screen-1-path',
       captionKey: "screen.TestAddonScreen1",
-      component: <TestAddonScreen1 />,
-    },
-    {
-      key: 'test-addon-screen-2',
-      captionKey: "screen.TestAddonScreen2",
-      component: <TestAddonScreen2 />,
-    },
+      path: 'test-addon-screen-1-path',
+    }
+  ],
+  routes: [
+    <Route path='test-addon-screen-1-path' element={<TestAddonScreen1 />} />,
+    <Route path='test-addon-screen-2-path' element={<TestAddonScreen2 />} />,
   ],
 } as AddonMetadata;
