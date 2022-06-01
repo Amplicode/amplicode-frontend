@@ -18,7 +18,8 @@ export function extractAvailableOptions(optionsConfig?: OptionsConfig): Commande
   Object.keys(optionsConfig).forEach(optionFullName => {
     const {type, alias, description} = optionsConfig[optionFullName];
     if (alias) {
-      const pattern = `-${alias}, --${optionFullName}${type === String ? ` [${optionFullName}]` : ''}`;
+      const optionValue = getOptionValue(type, optionFullName);
+      const pattern = `-${alias}, --${optionFullName}${optionValue}`;
       description ? result.push({pattern, description}) : result.push({pattern});
     }
   });
@@ -102,3 +103,16 @@ export const componentOptionsConfig: OptionsConfig = {
     type: String
   }
 };
+
+function getOptionValue(type: OptionConfig['type'], optionFullName: string): string {
+  if (type === String) {
+    return ` [${optionFullName}]`;
+  }
+
+  // @ts-ignore TODO: fix yeoman-generator typing
+  if (type === Array) {
+    return ` [${optionFullName}...]`;
+  }
+
+  return '';
+}

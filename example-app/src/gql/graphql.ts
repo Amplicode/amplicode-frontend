@@ -18,27 +18,16 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** Java Type: BigDecimal */
   BigDecimal: any;
-  /** Java Type: BigInteger */
   BigInteger: any;
-  /** Java Type: LocalDate */
   Date: any;
-  /** Java Type: OffsetDateTime */
   DateTime: any;
-  /** Java Type: LocalDateTime */
   LocalDateTime: any;
-  /** Java Type: LocalTime */
   LocalTime: any;
-  /** Java Type: Long, long */
   Long: any;
-  /** Java Type: OffsetTime */
   Time: any;
-  /** Java Type: Date */
   Timestamp: any;
-  /** Java Type: URL */
   Url: any;
-  /** Java Type: Void */
   Void: any;
 };
 
@@ -59,7 +48,6 @@ export enum Direction {
   Desc = "DESC",
 }
 
-/** Mutation root */
 export type Mutation = {
   __typename?: "Mutation";
   deleteNotNullScalarsTestEntity?: Maybe<Scalars["Void"]>;
@@ -70,6 +58,7 @@ export type Mutation = {
   deletePetType?: Maybe<Scalars["Void"]>;
   deleteScalarsTestEntity?: Maybe<Scalars["Void"]>;
   deleteTag?: Maybe<Scalars["Void"]>;
+  deleteTestEntity: Scalars["Boolean"];
   deleteVisit?: Maybe<Scalars["Void"]>;
   updateNotNullScalarsTestEntity?: Maybe<NotNullScalarsTestEntity>;
   updateOwner?: Maybe<OwnerDto>;
@@ -79,95 +68,86 @@ export type Mutation = {
   updatePetType?: Maybe<PetTypeDto>;
   updateScalarsTestEntity?: Maybe<ScalarsTestEntity>;
   updateTag?: Maybe<TagDto>;
+  updateTestEntity?: Maybe<TestEntity>;
   updateVisit?: Maybe<VisitDto>;
 };
 
-/** Mutation root */
 export type MutationDeleteNotNullScalarsTestEntityArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
 
-/** Mutation root */
 export type MutationDeleteOwnerArgs = {
   id: Scalars["ID"];
 };
 
-/** Mutation root */
 export type MutationDeletePetArgs = {
   id: Scalars["ID"];
 };
 
-/** Mutation root */
 export type MutationDeletePetDescriptionArgs = {
   identifier?: InputMaybe<Scalars["ID"]>;
 };
 
-/** Mutation root */
 export type MutationDeletePetDiseaseArgs = {
   petDiseaseIdentifier?: InputMaybe<Scalars["ID"]>;
 };
 
-/** Mutation root */
 export type MutationDeletePetTypeArgs = {
   id: Scalars["ID"];
 };
 
-/** Mutation root */
 export type MutationDeleteScalarsTestEntityArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
 
-/** Mutation root */
 export type MutationDeleteTagArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
 
-/** Mutation root */
+export type MutationDeleteTestEntityArgs = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
 export type MutationDeleteVisitArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
 
-/** Mutation root */
 export type MutationUpdateNotNullScalarsTestEntityArgs = {
   input?: InputMaybe<NotNullScalarsTestEntityInput>;
 };
 
-/** Mutation root */
 export type MutationUpdateOwnerArgs = {
   input?: InputMaybe<OwnerInputDto>;
 };
 
-/** Mutation root */
 export type MutationUpdatePetArgs = {
   input?: InputMaybe<PetInputDto>;
 };
 
-/** Mutation root */
 export type MutationUpdatePetDescriptionArgs = {
   input?: InputMaybe<PetDescriptionInputDto>;
 };
 
-/** Mutation root */
 export type MutationUpdatePetDiseaseArgs = {
   input?: InputMaybe<PetDiseaseInputDto>;
 };
 
-/** Mutation root */
 export type MutationUpdatePetTypeArgs = {
   input?: InputMaybe<PetTypeInputDto>;
 };
 
-/** Mutation root */
 export type MutationUpdateScalarsTestEntityArgs = {
   input?: InputMaybe<ScalarsTestEntityInput>;
 };
 
-/** Mutation root */
 export type MutationUpdateTagArgs = {
   input?: InputMaybe<TagInputDto>;
 };
 
-/** Mutation root */
+export type MutationUpdateTestEntityArgs = {
+  input?: InputMaybe<TestEntityInput>;
+};
+
 export type MutationUpdateVisitArgs = {
   input?: InputMaybe<VisitInputDto>;
 };
@@ -373,7 +353,6 @@ export enum ProtectionStatus {
   RedBook = "RED_BOOK",
 }
 
-/** Query root */
 export type Query = {
   __typename?: "Query";
   notNullScalarsTestEntity?: Maybe<NotNullScalarsTestEntity>;
@@ -404,125 +383,114 @@ export type Query = {
   scalarsTestEntityList?: Maybe<Array<Maybe<ScalarsTestEntity>>>;
   tag?: Maybe<TagDto>;
   tagList?: Maybe<Array<Maybe<TagDto>>>;
+  testEntity?: Maybe<TestEntity>;
+  testEntityByIdsList?: Maybe<Array<Maybe<TestEntity>>>;
+  testEntityList?: Maybe<Array<Maybe<TestEntity>>>;
   userInfo?: Maybe<UserInfo>;
   visit?: Maybe<VisitDto>;
   visitFilteredList?: Maybe<Array<Maybe<VisitDto>>>;
   visitList?: Maybe<Array<Maybe<VisitDto>>>;
 };
 
-/** Query root */
 export type QueryNotNullScalarsTestEntityArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
 
-/** Query root */
 export type QueryOwnerArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
 
-/** Query root */
 export type QueryOwnerByNamesListArgs = {
   filter?: InputMaybe<OwnerFilterInput>;
 };
 
-/** Query root */
 export type QueryOwnerByNamesSeparateMethodsListArgs = {
   filter?: InputMaybe<OwnerFilterInput>;
 };
 
-/** Query root */
 export type QueryOwnerListByNamesFilterArgs = {
   filter?: InputMaybe<OwnerFilterInput>;
 };
 
-/** Query root */
 export type QueryOwnerListByNamesFilterOffsetPageArgs = {
   filter?: InputMaybe<OwnerFilterInput>;
   page?: InputMaybe<OffsetPageInput>;
 };
 
-/** Query root */
 export type QueryOwnerListByNamesFilterOffsetPageSortedArgs = {
   filter?: InputMaybe<OwnerFilterInput>;
   page?: InputMaybe<OffsetPageInput>;
   sort?: InputMaybe<Array<InputMaybe<OwnerOrderByInput>>>;
 };
 
-/** Query root */
 export type QueryOwnerListByNamesFilterSortedArgs = {
   filter?: InputMaybe<OwnerFilterInput>;
   sort?: InputMaybe<Array<InputMaybe<OwnerOrderByInput>>>;
 };
 
-/** Query root */
 export type QueryOwnerListFilterCursorPageSortedArgs = {
   filter?: InputMaybe<OwnerFilterInput>;
   page?: InputMaybe<CursorPageInput>;
   sort?: InputMaybe<Array<InputMaybe<OwnerOrderByInput>>>;
 };
 
-/** Query root */
 export type QueryOwnerListOffsetPageArgs = {
   page?: InputMaybe<OffsetPageInput>;
 };
 
-/** Query root */
 export type QueryOwnerListOffsetPageSortedArgs = {
   page?: InputMaybe<OffsetPageInput>;
   sort?: InputMaybe<Array<InputMaybe<OwnerOrderByInput>>>;
 };
 
-/** Query root */
 export type QueryOwnerListSortedArgs = {
   sort?: InputMaybe<Array<InputMaybe<OwnerOrderByInput>>>;
 };
 
-/** Query root */
 export type QueryPetArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
 
-/** Query root */
 export type QueryPetByIdentificationNumberListArgs = {
   identificationNumber?: InputMaybe<Scalars["String"]>;
 };
 
-/** Query root */
 export type QueryPetDescriptionArgs = {
   identifier?: InputMaybe<Scalars["ID"]>;
 };
 
-/** Query root */
 export type QueryPetDiseaseArgs = {
   petDiseaseIdentifier?: InputMaybe<Scalars["ID"]>;
 };
 
-/** Query root */
 export type QueryPetListByTypeIdArgs = {
   typeId: Scalars["ID"];
 };
 
-/** Query root */
 export type QueryPetTypeArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
 
-/** Query root */
 export type QueryScalarsTestEntityArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
 
-/** Query root */
 export type QueryTagArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
 
-/** Query root */
+export type QueryTestEntityArgs = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+export type QueryTestEntityByIdsListArgs = {
+  ids?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+};
+
 export type QueryVisitArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
 
-/** Query root */
 export type QueryVisitFilteredListArgs = {
   filter?: InputMaybe<VisitFilterInput>;
 };
@@ -596,6 +564,17 @@ export type TagDtoInput = {
 };
 
 export type TagInputDto = {
+  id?: InputMaybe<Scalars["ID"]>;
+  name?: InputMaybe<Scalars["String"]>;
+};
+
+export type TestEntity = {
+  __typename?: "TestEntity";
+  id?: Maybe<Scalars["ID"]>;
+  name?: Maybe<Scalars["String"]>;
+};
+
+export type TestEntityInput = {
   id?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
 };

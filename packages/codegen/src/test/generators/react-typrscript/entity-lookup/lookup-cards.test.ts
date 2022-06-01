@@ -25,7 +25,7 @@ describe('codegen lookup cards', () => {
     // check that cleanup is completed, before test start
     expect(fs.existsSync(componentPath)).to.be.false;
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR), opts(DEST_DIR, answers, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR), opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function OwnerLookup(props: OwnerLookupProps) {');

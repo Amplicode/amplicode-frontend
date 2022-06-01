@@ -1,9 +1,8 @@
-type ConnectionCursor {
-  value: String
-}
-
+# THIS FILE WAS GENERATED AUTOMATICALLY. DO NOT EDIT.
 # Mutation root
 type Mutation {
+  deleteTestEntity(id: ID): Boolean!
+  updateTestEntity(input: TestEntityInput): TestEntity
   deleteNotNullScalarsTestEntity(id: ID): Void
   deleteOwner(id: ID!): Void
   deletePet(id: ID!): Void
@@ -22,6 +21,59 @@ type Mutation {
   updateScalarsTestEntity(input: ScalarsTestEntityInput): ScalarsTestEntity
   updateTag(input: TagInputDTO): TagDTO
   updateVisit(input: VisitInputDTO): VisitDTO
+}
+
+# Query root
+type Query {
+  testEntity(id: ID): TestEntity
+  testEntityList: [TestEntity]
+  testEntityByIdsList(ids: [ID]): [TestEntity]
+  notNullScalarsTestEntity(id: ID): NotNullScalarsTestEntity
+  notNullScalarsTestEntityList: [NotNullScalarsTestEntity]
+  owner(id: ID): OwnerDTO
+  ownerByNamesList(filter: OwnerFilterInput): [OwnerDTO]
+  ownerByNamesSeparateMethodsList(filter: OwnerFilterInput): [OwnerDTO]
+  ownerList: [OwnerDTO]
+  ownerListByNamesFilter(filter: OwnerFilterInput): [OwnerDTO]
+  ownerListByNamesFilterOffsetPage(filter: OwnerFilterInput, page: OffsetPageInput): OwnerPage
+  ownerListByNamesFilterOffsetPageSorted(filter: OwnerFilterInput, page: OffsetPageInput, sort: [OwnerOrderByInput]): OwnerPage
+  ownerListByNamesFilterSorted(filter: OwnerFilterInput, sort: [OwnerOrderByInput]): [OwnerDTO]
+  ownerListFilterCursorPageSorted(filter: OwnerFilterInput, page: CursorPageInput, sort: [OwnerOrderByInput]): OwnerConnection
+  ownerListOffsetPage(page: OffsetPageInput): OwnerPage
+  ownerListOffsetPageSorted(page: OffsetPageInput, sort: [OwnerOrderByInput]): OwnerPage
+  ownerListSorted(sort: [OwnerOrderByInput]): [OwnerDTO]
+  pet(id: ID): PetDTO
+  petByIdentificationNumberList(identificationNumber: String): [PetDTO]
+  petDescription(identifier: ID): PetDescriptionDTO
+  petDescriptionList: [PetDescriptionDTO]
+  petDisease(petDiseaseIdentifier: ID): PetDiseaseDTO
+  petDiseaseList: [PetDiseaseDTO]
+  petList: [PetDTO]
+  petListByTypeId(typeId: ID!): [PetDTO]
+  petType(id: ID): PetTypeDTO
+  petTypeList: [PetTypeDTO]
+  scalarsTestEntity(id: ID): ScalarsTestEntity
+  scalarsTestEntityList: [ScalarsTestEntity]
+  tag(id: ID): TagDTO
+  tagList: [TagDTO]
+  userInfo: UserInfo
+  visit(id: ID): VisitDTO
+  visitFilteredList(filter: VisitFilterInput): [VisitDTO]
+  visitList: [VisitDTO]
+}
+
+type TestEntity {
+  id: ID
+  name: String
+}
+
+input TestEntityInput {
+  id: ID
+  name: String
+}
+
+type ConnectionCursor {
+  value: String
 }
 
 type NotNullScalarsTestEntity {
@@ -96,42 +148,6 @@ type PetTypeDTO {
   defenseStatus: ProtectionStatus
   id: ID
   name: String
-}
-
-# Query root
-type Query {
-  notNullScalarsTestEntity(id: ID): NotNullScalarsTestEntity
-  notNullScalarsTestEntityList: [NotNullScalarsTestEntity]
-  owner(id: ID): OwnerDTO
-  ownerByNamesList(filter: OwnerFilterInput): [OwnerDTO]
-  ownerByNamesSeparateMethodsList(filter: OwnerFilterInput): [OwnerDTO]
-  ownerList: [OwnerDTO]
-  ownerListByNamesFilter(filter: OwnerFilterInput): [OwnerDTO]
-  ownerListByNamesFilterOffsetPage(filter: OwnerFilterInput, page: OffsetPageInput): OwnerPage
-  ownerListByNamesFilterOffsetPageSorted(filter: OwnerFilterInput, page: OffsetPageInput, sort: [OwnerOrderByInput]): OwnerPage
-  ownerListByNamesFilterSorted(filter: OwnerFilterInput, sort: [OwnerOrderByInput]): [OwnerDTO]
-  ownerListFilterCursorPageSorted(filter: OwnerFilterInput, page: CursorPageInput, sort: [OwnerOrderByInput]): OwnerConnection
-  ownerListOffsetPage(page: OffsetPageInput): OwnerPage
-  ownerListOffsetPageSorted(page: OffsetPageInput, sort: [OwnerOrderByInput]): OwnerPage
-  ownerListSorted(sort: [OwnerOrderByInput]): [OwnerDTO]
-  pet(id: ID): PetDTO
-  petByIdentificationNumberList(identificationNumber: String): [PetDTO]
-  petDescription(identifier: ID): PetDescriptionDTO
-  petDescriptionList: [PetDescriptionDTO]
-  petDisease(petDiseaseIdentifier: ID): PetDiseaseDTO
-  petDiseaseList: [PetDiseaseDTO]
-  petList: [PetDTO]
-  petListByTypeId(typeId: ID!): [PetDTO]
-  petType(id: ID): PetTypeDTO
-  petTypeList: [PetTypeDTO]
-  scalarsTestEntity(id: ID): ScalarsTestEntity
-  scalarsTestEntityList: [ScalarsTestEntity]
-  tag(id: ID): TagDTO
-  tagList: [TagDTO]
-  userInfo: UserInfo
-  visit(id: ID): VisitDTO
-  visitFilteredList(filter: VisitFilterInput): [VisitDTO]
-  visitList: [VisitDTO]
 }
 
 type ScalarsTestEntity {

@@ -23,7 +23,7 @@ describe('codegen list with filter', () => {
     };
     const componentPath = path.join(DEST_DIR, 'CardsWithFilterProperty.tsx');
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('<Filters onApplyFilters={setFilterVars} />');
@@ -40,7 +40,7 @@ describe('codegen list with filter', () => {
       mutation: ownerDeleteMutation,
     };
     const componentWithoutFilterPath = path.join(DEST_DIR, 'CardsWithoutFilterProperty.tsx');
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answersWithoutFilterProperty, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answersWithoutFilterProperty, [SCHEMA_PATH]));
     const componentWithoutFilterFile = fs.readFileSync(componentWithoutFilterPath, 'utf-8');
     expect(componentWithoutFilterFile).to.not.contain('<Filters onApplyFilters={setFilterVars} />');
     expect(componentWithoutFilterFile).to.not.contain('function Filters({ onApplyFilters }: FiltersProps) {');
@@ -54,7 +54,7 @@ describe('codegen list with filter', () => {
       filterByArguments: null
     };
     const componentWithNullFilterPath = path.join(DEST_DIR, 'CardsWithNullFilterProperty.tsx');
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answersWithNullFilterProperty, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answersWithNullFilterProperty, [SCHEMA_PATH]));
     const componentWithNullFilterFile = fs.readFileSync(componentWithNullFilterPath, 'utf-8');
     expect(componentWithNullFilterFile).to.not.contain('<Filters onApplyFilters={setFilterVars} />');
     expect(componentWithNullFilterFile).to.not.contain('function Filters({ onApplyFilters }: FiltersProps) {');
@@ -68,7 +68,7 @@ describe('codegen list with filter', () => {
       filterByArguments: []
     };
     const componentWithEmptyArrayFilterPath = path.join(DEST_DIR, 'CardsWithEmptyArrayFilterProperty.tsx');
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answersWithEmptyArrayFilterProperty, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answersWithEmptyArrayFilterProperty, [SCHEMA_PATH]));
     const componentWithEmptyArrayFilterFile = fs.readFileSync(componentWithEmptyArrayFilterPath, 'utf-8');
     expect(componentWithEmptyArrayFilterFile).to.not.contain('<Filters onApplyFilters={setFilterVars} />');
     expect(componentWithEmptyArrayFilterFile).to.not.contain('function Filters({ onApplyFilters }: FiltersProps) {');

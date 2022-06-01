@@ -22,7 +22,7 @@ describe('codegen entity-details test', () => {
 
     const componentPath = path.join(DEST_DIR, 'OwnerDetails.tsx');
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-details'), opts(DEST_DIR, detailsAnswers, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-details'), opts(DEST_DIR, detailsAnswers, [SCHEMA_PATH]));
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function OwnerDetails');
@@ -43,7 +43,7 @@ describe('codegen entity-details test', () => {
 
     const componentPath = path.join(DEST_DIR, 'OwnerEditor.tsx');
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-details'), opts(DEST_DIR, editorAnswers, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-details'), opts(DEST_DIR, editorAnswers, [SCHEMA_PATH]));
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function OwnerEditor');
@@ -83,7 +83,7 @@ describe('codegen entity-details test', () => {
     const componentPath = path.join(DEST_DIR, 'TestDtoEditor.tsx');
     expect(!fs.existsSync(componentPath));
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-details'), opts(DEST_DIR, answers, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-details'), opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const expectBoolFormItem = `
         <Form.Item

@@ -34,7 +34,7 @@ describe('codegen readonly cards', () => {
     const componentPath = path.join(DEST_DIR, 'ReadOnlyOwnerCards.tsx');
     const detailsComponentPath = path.join(DEST_DIR, 'ReadOnlyOwnerCardsDetails.tsx');
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const expectTag = `
     <Space direction="vertical" className="card-space">
@@ -86,7 +86,7 @@ describe('codegen readonly cards', () => {
     const componentPath = path.join(DEST_DIR, 'ReadOnlyPetCards.tsx');
     const detailsComponentPath = path.join(DEST_DIR, 'ReadOnlyPetCardsDetails.tsx');
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const expectTag = `
     <Space direction="vertical" className="card-space">

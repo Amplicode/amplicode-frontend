@@ -27,7 +27,7 @@ describe('codegen standalone list', () => {
     // check that cleanup is completed, before test start
     expect(fs.existsSync(displayNameFunctionFile)).to.be.false;
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, standaloneListAnswers, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, standaloneListAnswers, [SCHEMA_PATH]));
 
     const expectListTag = `
         <Space direction="vertical" className="list-space">
@@ -64,7 +64,7 @@ describe('codegen standalone list', () => {
     // check that cleanup is completed, before test start
     expect(fs.existsSync(displayNameFunctionFile)).to.be.false;
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, answers, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const expectCardsTag = `
     <Space direction="vertical" className="list-space">

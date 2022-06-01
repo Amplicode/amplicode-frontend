@@ -30,7 +30,7 @@ export interface EntityLookupTemplateModel extends
 }
 
 export const deriveEntityLookupTemplateModel: AmplicodeTemplateModelStage<AmplicodeComponentOptions, EntityLookupAnswers, EntityLookupTemplateModel> = async (
-  options: AmplicodeComponentOptions, answers: EntityLookupAnswers, schema?: GraphQLSchema, _schemaPath?: string
+  options: AmplicodeComponentOptions, answers: EntityLookupAnswers, schema?: GraphQLSchema
 ): Promise<EntityLookupTemplateModel> => {
   if (schema == null) {
     throw new Error('Schema not found');

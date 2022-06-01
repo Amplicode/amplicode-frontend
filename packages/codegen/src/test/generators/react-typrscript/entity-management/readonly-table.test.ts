@@ -50,7 +50,7 @@ describe('codegen readonly table', () => {
     // check that cleanup is completed, before test start
     expect(fs.existsSync(componentPath)).to.be.false;
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function ReadOnlyOwnerTable() ');
@@ -89,7 +89,7 @@ describe('codegen readonly table', () => {
     // check that cleanup is completed, before test start
     expect(fs.existsSync(componentPath)).to.be.false;
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function ReadOnlyPetTable() ');

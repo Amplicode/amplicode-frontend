@@ -3,8 +3,7 @@ import { AmplicodeCommonOptions } from "../../../building-blocks/stages/options/
 import {GraphQLSchema, printSchema} from "graphql";
 
 export interface AppTemplateModel extends AppAnswers {
-  schemaPath?: string
-  schema?: string
+  schema?: string;
   generatorVersion: string;
 }
 
@@ -12,7 +11,6 @@ export const deriveTemplateModel = async (
   options: AmplicodeCommonOptions,
   answers: AppAnswers,
   schema?: GraphQLSchema,
-  schemaPath?: string
 ): Promise<AppTemplateModel> => {
 
   const {portNumber = '8080', ...appAnswers} = answers;
@@ -20,7 +18,6 @@ export const deriveTemplateModel = async (
   return {
     ...appAnswers,
     portNumber,
-    schemaPath: schemaPath?.replace(/\\/g, "/"),
     schema: schema ? printSchema(schema, { commentDescriptions: true }) : undefined,
     generatorVersion: require('../../../../package.json').version,
   };

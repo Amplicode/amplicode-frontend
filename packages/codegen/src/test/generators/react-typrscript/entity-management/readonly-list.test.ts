@@ -44,7 +44,7 @@ describe('codegen readonly list', () => {
     const componentPath = path.join(DEST_DIR, 'ReadOnlyOwnerList.tsx');
     const detailsComponentPath = path.join(DEST_DIR, 'ReadOnlyOwnerListDetails.tsx');
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function ReadOnlyOwnerList() ');
@@ -90,7 +90,7 @@ describe('codegen readonly list', () => {
     const componentPath = path.join(DEST_DIR, 'ReadOnlyPetList.tsx');
     const detailsComponentPath = path.join(DEST_DIR, 'ReadOnlyPetListDetails.tsx');
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, SCHEMA_PATH));
+    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function ReadOnlyPetList() ');
