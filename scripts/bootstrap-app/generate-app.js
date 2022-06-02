@@ -13,5 +13,5 @@ if (!fs.existsSync('../example-app')) {
 }
 runCmdSync(`node ${amplicodegen} react-typescript:app`
   + ` --answers ${appAnswers}`
-  + ` --schema ../scripts/schema.graphql ../scripts/defaultaddon.graphqls`
+  + ` --schema ../scripts/schema/schema.graphql ../scripts/schema/defaultaddon.graphqls`
   + ` --dest ../example-app`);
