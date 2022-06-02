@@ -39,10 +39,10 @@ export const AppHeader = observer(() => {
 
   return (
     <div className="app-header">
-      <Space className="app-header__app-logo">
+      <div className="app-header__app-logo">
         <img src={Logo} alt="Amplicode" />
-      </Space>
-      <Space className="app-header__user-panel">
+      </div>
+      <div className="app-header__user-panel">
         <LocaleSelector />
         <Button
           id="button_logout"
@@ -51,7 +51,7 @@ export const AppHeader = observer(() => {
           icon={<LogoutOutlined />}
           onClick={showLogoutConfirm}
         />
-      </Space>
+      </div>
     </div>
   );
 });

@@ -3,6 +3,7 @@
     justify-content: space-between;
     align-items: center;
     color: #CCCCCC;
+    height: 100%;
 }
 
 .app-header__icon {
@@ -23,6 +24,12 @@
 
 .app-header__app-logo {
     line-height: initial;
+    margin-right: 12px;
+}
+
+.app-header__app-menu {
+    flex: 1 1 0%;
+    min-width: 0;
 }
 
 .app-header__icon-btn.ant-btn-text {

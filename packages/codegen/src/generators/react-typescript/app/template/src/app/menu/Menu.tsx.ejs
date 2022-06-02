@@ -20,7 +20,16 @@ export const AppMenu = () => {
   const { pathname } = useLocation();
   const selectedKey = toSelectedKey(pathname);
 
-  return <Menu selectedKeys={[selectedKey]} items={menuItems} />;
+  return (
+    <Menu
+      selectedKeys={[selectedKey]}
+      items={menuItems} 
+      <% if (menuType === "horizontal") { -%>
+        mode="horizontal"
+        theme="dark"
+      <% } -%>
+    />
+  );
 };
 
 function toSelectedKey(pathname: string) {

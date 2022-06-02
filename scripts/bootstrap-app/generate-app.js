@@ -1,11 +1,16 @@
 const { runCmdSync, btoa, amplicodegen } = require("../common");
 const fs = require('fs');
+const argv = require('minimist')(process.argv.slice(2));
+const menuType = argv.menuType === "horizontal" ? "horizontal": "vertical";
+
+console.log(`generate app with menu type '${menuType}'`);
 
 const appAnswers = btoa(JSON.stringify({
   appTitle: "Jmix2 Petclinic",
   appShortName: "jmix2-petclinic",
   graphqlUri: "/graphql",
-  basePath: "front"
+  basePath: "front",
+  menuType: menuType,
 }));
 
 if (!fs.existsSync('../example-app')) {

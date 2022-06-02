@@ -13,7 +13,8 @@ const answers = {
   appTitle: 'Amplicode Petclinic',
   appShortName: 'ampl-petclinic',
   graphqlUri: '/graphql',
-  basePath: 'front'
+  basePath: 'front',
+  menuType: 'vertical'
 };
 
 describe('codegen app test', () => {

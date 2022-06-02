@@ -959,3 +959,16 @@ import {OwnerLookup} from "../lookup/OwnerLookup";
       </Form.Item>
 
 ```
+
+### Menu Types
+
+Codegen provides two types of main menu, which are used in Amplicode Studio.
+
+- `vertical`
+- `horizontal`
+
+By default `menuType = 'vertical'`
+You can change `menuType` by running `npm` command for generating example-app
+
+Example: `npm run bootstrap-react-app -- --menuType=horizontal`
+
