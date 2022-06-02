@@ -2,8 +2,8 @@ import React from "react";
 import { observer } from "mobx-react";
 import { Layout } from "antd";
 import { AppHeader } from "../header/Header";
-import { AppMenu } from "../menu/Menu";
 import { AppRoutes } from "../routes/AppRoutes";
+import { AppMenu } from "../menu/Menu";
 
 export const AppMain = observer(() => {
   return (
@@ -20,7 +20,6 @@ export const AppMain = observer(() => {
         >
           <AppMenu />
         </Layout.Sider>
-
         <Layout className="layout-content">
           <Layout.Content>
             <AppRoutes />

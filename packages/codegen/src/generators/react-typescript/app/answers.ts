@@ -1,10 +1,12 @@
 import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/studio/studio-model";
 
+export type MenuType = 'vertical' | 'horizontal';
 export interface AppAnswers {
   appTitle: string;
   appShortName: string;
   graphqlUri: string;
   basePath: string;
+  menuType: MenuType;
   portNumber?: string;
 }
 
@@ -37,5 +39,12 @@ export const appQuestions: StudioTemplateProperty[] = [
     propertyType: StudioTemplatePropertyType.STRING,
     defaultValue: '8080',
     required: false
+  },
+  {
+    code: 'menuType',
+    caption: 'Menu type',
+    propertyType: StudioTemplatePropertyType.OPTION,
+    defaultValue: 'vertical',
+    options: ['vertical', 'horizontal'],
   }
 ];

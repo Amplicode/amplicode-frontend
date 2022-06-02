@@ -1,11 +1,12 @@
 const {runCmdSync} = require("./common");
 const rimraf = require('rimraf');
+const argv = require('minimist')(process.argv.slice(2));
 
 runCmdSync('lerna run --scope @amplicode/codegen prepublishOnly')
 
 rimraf.sync('example-app');
 
-runCmdSync('node bootstrap-app/generate-app.js', './scripts');
+runCmdSync(`node bootstrap-app/generate-app.js --menuType=${argv.menuType}`, './scripts');
 runCmdSync('node  bootstrap-app/generate-management/owner-management-cards.js', './scripts');
 runCmdSync('node  bootstrap-app/generate-management/owner-management-list.js', './scripts');
 runCmdSync('node  bootstrap-app/generate-management/owner-management-table.js', './scripts');
