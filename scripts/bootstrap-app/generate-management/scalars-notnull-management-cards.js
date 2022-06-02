@@ -3,9 +3,9 @@ const {notNullScalarsListQuery, notNullScalarsDetailsQuery, notNullScalarsDelete
 const { runCmdSync, esc, btoa, amplicodegen } = require("../../common");
 
 const answers = btoa(JSON.stringify({
-  listComponentName: 'TestNotNullScalarsCards',
-  itemComponentName: 'TestNotNullScalarsCardsEditor',
-  route: 'notnull-scalars-cards',
+  listComponentName: 'ScalarsNotNullCards',
+  itemComponentName: 'ScalarsNotNullCardsEditor',
+  route: 'scalars-notnull-cards',
   shouldAddToMenu: true,
   listQuery: esc(notNullScalarsListQuery),
   detailsQuery: esc(notNullScalarsDetailsQuery),

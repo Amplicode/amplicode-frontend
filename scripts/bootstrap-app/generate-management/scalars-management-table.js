@@ -3,9 +3,10 @@ const { runCmdSync, esc, btoa, amplicodegen } = require("../../common");
 const {scalarsListQuery, scalarsDetailsQuery, scalarsDeleteMutation, scalarsUpsertMutation} = require("../queries");
 
 const answers = btoa(JSON.stringify({
-  listComponentName: 'TestScalarsCards',
-  itemComponentName: 'TestScalarsCardsEditor',
-  route: 'scalars-cards',
+  listComponentName: 'ScalarsTable',
+  itemComponentName: 'ScalarsTableEditor',
+  route: 'scalars-table',
+  type: 'table',
   shouldAddToMenu: true,
   listQuery: esc(scalarsListQuery),
   detailsQuery: esc(scalarsDetailsQuery),

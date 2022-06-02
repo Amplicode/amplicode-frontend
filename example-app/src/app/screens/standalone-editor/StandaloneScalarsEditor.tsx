@@ -8,6 +8,7 @@ import {
   FormInstance,
   Input,
   InputNumber,
+  Checkbox,
   message,
   Space,
   Spin
@@ -24,33 +25,47 @@ import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
-const NOT_NULL_SCALARS_TEST_ENTITY = gql(`
-  query Get_NN_Scalars($id: ID) {
-    notNullScalarsTestEntity(id: $id) {
+const SCALARS_TEST_ENTITY = gql(`
+  query Get_Scalars($id: ID) {
+    scalarsTestEntity(id: $id) {
       id
-      bigDecimalNotNull
-      bigIntNotNull
-      dateTestNotNull
-      localDateNotNull
-      localDateTimeNotNull
-      localTimeNotNull
-      offsetDateTimeNotNull
-      offsetTimeNotNull
-      stringNotNull
-      urlNotNull
+      intTest
+      intPrimitive
+      byteTest
+      bytePrimitive
+      shortTest
+      shortPrimitive
+      doubleTest
+      doublePrimitive
+      floatTest
+      floatPrimitive
+      string
+      bool
+      boolPrimitive
+      bigInt
+      longTest
+      longPrimitive
+      bigDecimal
+      localDate
+      localDateTime
+      localTime
+      offsetDateTime
+      offsetTime
+      dateTest
+      url
     }
   }
 `);
 
-const UPDATE_NOT_NULL_SCALARS_TEST_ENTITY = gql(`
-  mutation Update_NN_Scalars($input: NotNullScalarsTestEntityInput) {
-    updateNotNullScalarsTestEntity(input: $input) {
+const UPDATE_SCALARS_TEST_ENTITY = gql(`
+  mutation Update_Scalars($input: ScalarsTestEntityInput) {
+    updateScalarsTestEntity(input: $input) {
       id
     }
   }
 `);
 
-export interface TestNotNullScalarsCardsEditorProps<TData = any> {
+export interface StandaloneScalarsEditorProps<TData = any> {
   /**
    * A list of queries that needs to be refetched once the editor has been submitted.
    * For example, you might need to refresh entity list after editing an entity instance.
@@ -61,12 +76,12 @@ export interface TestNotNullScalarsCardsEditorProps<TData = any> {
   refetchQueries?: RefetchQueries<TData>;
 }
 
-export function TestNotNullScalarsCardsEditor({
+export function StandaloneScalarsEditor({
   refetchQueries
-}: TestNotNullScalarsCardsEditorProps<QueryResultType>) {
+}: StandaloneScalarsEditorProps<QueryResultType>) {
   const intl = useIntl();
   useBreadcrumbItem(
-    intl.formatMessage({ id: "screen.TestNotNullScalarsCardsEditor" })
+    intl.formatMessage({ id: "screen.StandaloneScalarsEditor" })
   );
 
   const { recordId } = useParams();
@@ -114,10 +129,10 @@ function EditorForm<TData>({
   const [formError, setFormError] = useState<string | undefined>();
 
   const { handleSubmit, submitting } = useSubmitEditor(
-    UPDATE_NOT_NULL_SCALARS_TEST_ENTITY,
+    UPDATE_SCALARS_TEST_ENTITY,
     setFormError,
     refetchQueries,
-    "NotNullScalarsTestEntityInput",
+    "ScalarsTestEntityInput",
     id
   );
   const handleClientValidationFailed = useClientValidationFailed();
@@ -145,43 +160,140 @@ function EditorForm<TData>({
 function FormFields() {
   return (
     <>
-      <Form.Item name="bigDecimalNotNull" label="Big Decimal Not Null">
-        <InputNumber type={"number"} stringMode={true} autoFocus />
+      <Form.Item name="intTest" label="Int Test">
+        <InputNumber
+          type={"number"}
+          precision={0}
+          max={2147483647}
+          min={-2147483648}
+          autoFocus
+        />
       </Form.Item>
 
-      <Form.Item name="bigIntNotNull" label="Big Int Not Null">
-        <InputNumber type={"number"} precision={0} stringMode={true} />
+      <Form.Item name="intPrimitive" label="Int Primitive">
+        <InputNumber
+          type={"number"}
+          precision={0}
+          max={2147483647}
+          min={-2147483648}
+        />
       </Form.Item>
 
-      <Form.Item name="dateTestNotNull" label="Date Test Not Null">
-        <DatePicker showTime={{ format: "HH:mm:ss" }} />
+      <Form.Item name="byteTest" label="Byte Test">
+        <InputNumber
+          type={"number"}
+          precision={0}
+          max={2147483647}
+          min={-2147483648}
+        />
       </Form.Item>
 
-      <Form.Item name="localDateNotNull" label="Local Date Not Null">
-        <DatePicker />
+      <Form.Item name="bytePrimitive" label="Byte Primitive">
+        <InputNumber
+          type={"number"}
+          precision={0}
+          max={2147483647}
+          min={-2147483648}
+        />
       </Form.Item>
 
-      <Form.Item name="localDateTimeNotNull" label="Local Date Time Not Null">
-        <DatePicker showTime={{ format: "HH:mm:ss" }} />
+      <Form.Item name="shortTest" label="Short Test">
+        <InputNumber
+          type={"number"}
+          precision={0}
+          max={2147483647}
+          min={-2147483648}
+        />
       </Form.Item>
 
-      <Form.Item name="localTimeNotNull" label="Local Time Not Null">
-        <TimePicker />
+      <Form.Item name="shortPrimitive" label="Short Primitive">
+        <InputNumber
+          type={"number"}
+          precision={0}
+          max={2147483647}
+          min={-2147483648}
+        />
       </Form.Item>
 
-      <Form.Item name="offsetDateTimeNotNull" label="Offset Date Time Not Null">
-        <DatePicker showTime={{ format: "HH:mm:ss" }} />
+      <Form.Item name="doubleTest" label="Double Test">
+        <InputNumber type={"number"} />
       </Form.Item>
 
-      <Form.Item name="offsetTimeNotNull" label="Offset Time Not Null">
-        <TimePicker />
+      <Form.Item name="doublePrimitive" label="Double Primitive">
+        <InputNumber type={"number"} />
       </Form.Item>
 
-      <Form.Item name="stringNotNull" label="String Not Null">
+      <Form.Item name="floatTest" label="Float Test">
+        <InputNumber type={"number"} />
+      </Form.Item>
+
+      <Form.Item name="floatPrimitive" label="Float Primitive">
+        <InputNumber type={"number"} />
+      </Form.Item>
+
+      <Form.Item name="string" label="String">
         <Input />
       </Form.Item>
 
-      <Form.Item name="urlNotNull" label="Url Not Null">
+      <Form.Item
+        name="bool"
+        label="Bool"
+        valuePropName="checked"
+        initialValue={false}
+      >
+        <Checkbox />
+      </Form.Item>
+
+      <Form.Item
+        name="boolPrimitive"
+        label="Bool Primitive"
+        valuePropName="checked"
+        initialValue={false}
+      >
+        <Checkbox />
+      </Form.Item>
+
+      <Form.Item name="bigInt" label="Big Int">
+        <InputNumber type={"number"} precision={0} stringMode={true} />
+      </Form.Item>
+
+      <Form.Item name="longTest" label="Long Test">
+        <InputNumber type={"number"} precision={0} stringMode={true} />
+      </Form.Item>
+
+      <Form.Item name="longPrimitive" label="Long Primitive">
+        <InputNumber type={"number"} precision={0} stringMode={true} />
+      </Form.Item>
+
+      <Form.Item name="bigDecimal" label="Big Decimal">
+        <InputNumber type={"number"} stringMode={true} />
+      </Form.Item>
+
+      <Form.Item name="localDate" label="Local Date">
+        <DatePicker />
+      </Form.Item>
+
+      <Form.Item name="localDateTime" label="Local Date Time">
+        <DatePicker showTime={{ format: "HH:mm:ss" }} />
+      </Form.Item>
+
+      <Form.Item name="localTime" label="Local Time">
+        <TimePicker />
+      </Form.Item>
+
+      <Form.Item name="offsetDateTime" label="Offset Date Time">
+        <DatePicker showTime={{ format: "HH:mm:ss" }} />
+      </Form.Item>
+
+      <Form.Item name="offsetTime" label="Offset Time">
+        <TimePicker />
+      </Form.Item>
+
+      <Form.Item name="dateTest" label="Date Test">
+        <DatePicker showTime={{ format: "HH:mm:ss" }} />
+      </Form.Item>
+
+      <Form.Item name="url" label="Url">
         <Input type={"url"} />
       </Form.Item>
     </>
@@ -222,7 +334,7 @@ function useLoadItem(id?: string) {
   // also get variables that will contain loading/error state and response data
   // once the response is received
   const [loadItem, { loading, error, data }] = useLazyQuery(
-    NOT_NULL_SCALARS_TEST_ENTITY,
+    SCALARS_TEST_ENTITY,
     {
       variables: {
         id
@@ -239,8 +351,8 @@ function useLoadItem(id?: string) {
 
   // Get the received item, if any
   useEffect(() => {
-    if (data?.notNullScalarsTestEntity != null) {
-      setItem(deserialize(data?.notNullScalarsTestEntity));
+    if (data?.scalarsTestEntity != null) {
+      setItem(deserialize(data?.scalarsTestEntity));
     }
   }, [data, setItem]);
 
@@ -281,8 +393,8 @@ function useClientValidationFailed() {
 /**
  * Type of data object received when executing the query
  */
-type QueryResultType = ResultOf<typeof NOT_NULL_SCALARS_TEST_ENTITY>;
+type QueryResultType = ResultOf<typeof SCALARS_TEST_ENTITY>;
 /**
  * Type of the item loaded by executing the query
  */
-type ItemType = QueryResultType["notNullScalarsTestEntity"];
+type ItemType = QueryResultType["scalarsTestEntity"];

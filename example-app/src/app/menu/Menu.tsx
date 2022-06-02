@@ -78,27 +78,27 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({ id: "screen.TestScalarsCards" })}
-        key={"/scalars-cards"}
+        title={intl.formatMessage({ id: "screen.ScalarsList" })}
+        key={"/scalars-list"}
       >
-        <Link to={"/scalars-cards"}>
-          <FormattedMessage id={"screen.TestScalarsCards"} />
+        <Link to={"/scalars-list"}>
+          <FormattedMessage id={"screen.ScalarsList"} />
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({ id: "screen.TestScalarsTable" })}
+        title={intl.formatMessage({ id: "screen.ScalarsTable" })}
         key={"/scalars-table"}
       >
         <Link to={"/scalars-table"}>
-          <FormattedMessage id={"screen.TestScalarsTable"} />
+          <FormattedMessage id={"screen.ScalarsTable"} />
         </Link>
       </Menu.Item>
       <Menu.Item
-        title={intl.formatMessage({ id: "screen.TestNotNullScalarsCards" })}
-        key={"/notnull-scalars-cards"}
+        title={intl.formatMessage({ id: "screen.ScalarsNotNullCards" })}
+        key={"/scalars-notnull-cards"}
       >
-        <Link to={"/notnull-scalars-cards"}>
-          <FormattedMessage id={"screen.TestNotNullScalarsCards"} />
+        <Link to={"/scalars-notnull-cards"}>
+          <FormattedMessage id={"screen.ScalarsNotNullCards"} />
         </Link>
       </Menu.Item>
       <Menu.Item
@@ -222,6 +222,14 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
+        title={intl.formatMessage({ id: "screen.StandaloneScalarsCards" })}
+        key={"/standalone-scalars-cards"}
+      >
+        <Link to={"/standalone-scalars-cards"}>
+          <FormattedMessage id={"screen.StandaloneScalarsCards"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
         title={intl.formatMessage({ id: "screen.StandaloneOwnerEditor" })}
         key={"/standalone-owner-editor"}
       >
@@ -238,6 +246,14 @@ export const AppMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item
+        title={intl.formatMessage({ id: "screen.StandaloneScalarsEditor" })}
+        key={"/standalone-scalars-editor"}
+      >
+        <Link to={"/standalone-scalars-editor"}>
+          <FormattedMessage id={"screen.StandaloneScalarsEditor"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
         title={intl.formatMessage({ id: "screen.StandaloneOwnerDetails" })}
         key={"/standalone-owner-details"}
       >
@@ -251,6 +267,14 @@ export const AppMenu = () => {
       >
         <Link to={"/standalone-pet-details"}>
           <FormattedMessage id={"screen.StandalonePetDetails"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
+        title={intl.formatMessage({ id: "screen.StandaloneScalarsDetails" })}
+        key={"/standalone-scalars-details"}
+      >
+        <Link to={"/standalone-scalars-details"}>
+          <FormattedMessage id={"screen.StandaloneScalarsDetails"} />
         </Link>
       </Menu.Item>
       <Menu.Item
@@ -283,6 +307,22 @@ export const AppMenu = () => {
       >
         <Link to={"/pet-disease-lookup-cards"}>
           <FormattedMessage id={"screen.PetDiseaseLookupCards"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
+        title={intl.formatMessage({ id: "screen.ScalarsLookupCards" })}
+        key={"/scalars-lookup-cards"}
+      >
+        <Link to={"/scalars-lookup-cards"}>
+          <FormattedMessage id={"screen.ScalarsLookupCards"} />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
+        title={intl.formatMessage({ id: "screen.ScalarsNotNullLookupCards" })}
+        key={"/scalars-notnull-lookup-cards"}
+      >
+        <Link to={"/scalars-notnull-lookup-cards"}>
+          <FormattedMessage id={"screen.ScalarsNotNullLookupCards"} />
         </Link>
       </Menu.Item>
       <Menu.Item

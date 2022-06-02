@@ -8,7 +8,6 @@ import {
   FormInstance,
   Input,
   InputNumber,
-  Checkbox,
   message,
   Space,
   Spin
@@ -25,47 +24,33 @@ import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
-const SCALARS_TEST_ENTITY = gql(`
-  query Get_Scalars($id: ID) {
-    scalarsTestEntity(id: $id) {
+const NOT_NULL_SCALARS_TEST_ENTITY = gql(`
+  query Get_NN_Scalars($id: ID) {
+    notNullScalarsTestEntity(id: $id) {
       id
-      intTest
-      intPrimitive
-      byteTest
-      bytePrimitive
-      shortTest
-      shortPrimitive
-      doubleTest
-      doublePrimitive
-      floatTest
-      floatPrimitive
-      string
-      bool
-      boolPrimitive
-      bigInt
-      longTest
-      longPrimitive
-      bigDecimal
-      localDate
-      localDateTime
-      localTime
-      offsetDateTime
-      offsetTime
-      dateTest
-      url
+      bigDecimalNotNull
+      bigIntNotNull
+      dateTestNotNull
+      localDateNotNull
+      localDateTimeNotNull
+      localTimeNotNull
+      offsetDateTimeNotNull
+      offsetTimeNotNull
+      stringNotNull
+      urlNotNull
     }
   }
 `);
 
-const UPDATE_SCALARS_TEST_ENTITY = gql(`
-  mutation Update_Scalars($input: ScalarsTestEntityInput) {
-    updateScalarsTestEntity(input: $input) {
+const UPDATE_NOT_NULL_SCALARS_TEST_ENTITY = gql(`
+  mutation Update_NN_Scalars($input: NotNullScalarsTestEntityInput) {
+    updateNotNullScalarsTestEntity(input: $input) {
       id
     }
   }
 `);
 
-export interface TestScalarsCardsEditorProps<TData = any> {
+export interface ScalarsNotNullCardsEditorProps<TData = any> {
   /**
    * A list of queries that needs to be refetched once the editor has been submitted.
    * For example, you might need to refresh entity list after editing an entity instance.
@@ -76,12 +61,12 @@ export interface TestScalarsCardsEditorProps<TData = any> {
   refetchQueries?: RefetchQueries<TData>;
 }
 
-export function TestScalarsCardsEditor({
+export function ScalarsNotNullCardsEditor({
   refetchQueries
-}: TestScalarsCardsEditorProps<QueryResultType>) {
+}: ScalarsNotNullCardsEditorProps<QueryResultType>) {
   const intl = useIntl();
   useBreadcrumbItem(
-    intl.formatMessage({ id: "screen.TestScalarsCardsEditor" })
+    intl.formatMessage({ id: "screen.ScalarsNotNullCardsEditor" })
   );
 
   const { recordId } = useParams();
@@ -129,10 +114,10 @@ function EditorForm<TData>({
   const [formError, setFormError] = useState<string | undefined>();
 
   const { handleSubmit, submitting } = useSubmitEditor(
-    UPDATE_SCALARS_TEST_ENTITY,
+    UPDATE_NOT_NULL_SCALARS_TEST_ENTITY,
     setFormError,
     refetchQueries,
-    "ScalarsTestEntityInput",
+    "NotNullScalarsTestEntityInput",
     id
   );
   const handleClientValidationFailed = useClientValidationFailed();
@@ -160,140 +145,43 @@ function EditorForm<TData>({
 function FormFields() {
   return (
     <>
-      <Form.Item name="intTest" label="Int Test">
-        <InputNumber
-          type={"number"}
-          precision={0}
-          max={2147483647}
-          min={-2147483648}
-          autoFocus
-        />
+      <Form.Item name="bigDecimalNotNull" label="Big Decimal Not Null">
+        <InputNumber type={"number"} stringMode={true} autoFocus />
       </Form.Item>
 
-      <Form.Item name="intPrimitive" label="Int Primitive">
-        <InputNumber
-          type={"number"}
-          precision={0}
-          max={2147483647}
-          min={-2147483648}
-        />
-      </Form.Item>
-
-      <Form.Item name="byteTest" label="Byte Test">
-        <InputNumber
-          type={"number"}
-          precision={0}
-          max={2147483647}
-          min={-2147483648}
-        />
-      </Form.Item>
-
-      <Form.Item name="bytePrimitive" label="Byte Primitive">
-        <InputNumber
-          type={"number"}
-          precision={0}
-          max={2147483647}
-          min={-2147483648}
-        />
-      </Form.Item>
-
-      <Form.Item name="shortTest" label="Short Test">
-        <InputNumber
-          type={"number"}
-          precision={0}
-          max={2147483647}
-          min={-2147483648}
-        />
-      </Form.Item>
-
-      <Form.Item name="shortPrimitive" label="Short Primitive">
-        <InputNumber
-          type={"number"}
-          precision={0}
-          max={2147483647}
-          min={-2147483648}
-        />
-      </Form.Item>
-
-      <Form.Item name="doubleTest" label="Double Test">
-        <InputNumber type={"number"} />
-      </Form.Item>
-
-      <Form.Item name="doublePrimitive" label="Double Primitive">
-        <InputNumber type={"number"} />
-      </Form.Item>
-
-      <Form.Item name="floatTest" label="Float Test">
-        <InputNumber type={"number"} />
-      </Form.Item>
-
-      <Form.Item name="floatPrimitive" label="Float Primitive">
-        <InputNumber type={"number"} />
-      </Form.Item>
-
-      <Form.Item name="string" label="String">
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        name="bool"
-        label="Bool"
-        valuePropName="checked"
-        initialValue={false}
-      >
-        <Checkbox />
-      </Form.Item>
-
-      <Form.Item
-        name="boolPrimitive"
-        label="Bool Primitive"
-        valuePropName="checked"
-        initialValue={false}
-      >
-        <Checkbox />
-      </Form.Item>
-
-      <Form.Item name="bigInt" label="Big Int">
+      <Form.Item name="bigIntNotNull" label="Big Int Not Null">
         <InputNumber type={"number"} precision={0} stringMode={true} />
       </Form.Item>
 
-      <Form.Item name="longTest" label="Long Test">
-        <InputNumber type={"number"} precision={0} stringMode={true} />
+      <Form.Item name="dateTestNotNull" label="Date Test Not Null">
+        <DatePicker showTime={{ format: "HH:mm:ss" }} />
       </Form.Item>
 
-      <Form.Item name="longPrimitive" label="Long Primitive">
-        <InputNumber type={"number"} precision={0} stringMode={true} />
-      </Form.Item>
-
-      <Form.Item name="bigDecimal" label="Big Decimal">
-        <InputNumber type={"number"} stringMode={true} />
-      </Form.Item>
-
-      <Form.Item name="localDate" label="Local Date">
+      <Form.Item name="localDateNotNull" label="Local Date Not Null">
         <DatePicker />
       </Form.Item>
 
-      <Form.Item name="localDateTime" label="Local Date Time">
+      <Form.Item name="localDateTimeNotNull" label="Local Date Time Not Null">
         <DatePicker showTime={{ format: "HH:mm:ss" }} />
       </Form.Item>
 
-      <Form.Item name="localTime" label="Local Time">
+      <Form.Item name="localTimeNotNull" label="Local Time Not Null">
         <TimePicker />
       </Form.Item>
 
-      <Form.Item name="offsetDateTime" label="Offset Date Time">
+      <Form.Item name="offsetDateTimeNotNull" label="Offset Date Time Not Null">
         <DatePicker showTime={{ format: "HH:mm:ss" }} />
       </Form.Item>
 
-      <Form.Item name="offsetTime" label="Offset Time">
+      <Form.Item name="offsetTimeNotNull" label="Offset Time Not Null">
         <TimePicker />
       </Form.Item>
 
-      <Form.Item name="dateTest" label="Date Test">
-        <DatePicker showTime={{ format: "HH:mm:ss" }} />
+      <Form.Item name="stringNotNull" label="String Not Null">
+        <Input />
       </Form.Item>
 
-      <Form.Item name="url" label="Url">
+      <Form.Item name="urlNotNull" label="Url Not Null">
         <Input type={"url"} />
       </Form.Item>
     </>
@@ -334,7 +222,7 @@ function useLoadItem(id?: string) {
   // also get variables that will contain loading/error state and response data
   // once the response is received
   const [loadItem, { loading, error, data }] = useLazyQuery(
-    SCALARS_TEST_ENTITY,
+    NOT_NULL_SCALARS_TEST_ENTITY,
     {
       variables: {
         id
@@ -351,8 +239,8 @@ function useLoadItem(id?: string) {
 
   // Get the received item, if any
   useEffect(() => {
-    if (data?.scalarsTestEntity != null) {
-      setItem(deserialize(data?.scalarsTestEntity));
+    if (data?.notNullScalarsTestEntity != null) {
+      setItem(deserialize(data?.notNullScalarsTestEntity));
     }
   }, [data, setItem]);
 
@@ -393,8 +281,8 @@ function useClientValidationFailed() {
 /**
  * Type of data object received when executing the query
  */
-type QueryResultType = ResultOf<typeof SCALARS_TEST_ENTITY>;
+type QueryResultType = ResultOf<typeof NOT_NULL_SCALARS_TEST_ENTITY>;
 /**
  * Type of the item loaded by executing the query
  */
-type ItemType = QueryResultType["scalarsTestEntity"];
+type ItemType = QueryResultType["notNullScalarsTestEntity"];

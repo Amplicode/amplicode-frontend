@@ -1,12 +1,17 @@
 import { PetDescriptionLookupCards } from "../screens/lookup/PetDescriptionLookupCards";
+import { ScalarsNotNullLookupCards } from "../screens/lookup/ScalarsNotNullLookupCards";
+import { ScalarsLookupCards } from "../screens/lookup/ScalarsLookupCards";
 import { PetDiseaseLookupCards } from "../screens/lookup/PetDiseaseLookupCards";
 import { PetTypeLookupCards } from "../screens/lookup/PetTypeLookupCards";
 import { PetLookupCards } from "../screens/lookup/PetLookupCards";
 import { OwnerLookupCards } from "../screens/lookup/OwnerLookupCards";
+import { StandaloneScalarsDetails } from "../screens/standalone-details/StandaloneScalarsDetails";
 import { StandalonePetDetails } from "../screens/standalone-details/StandalonePetDetails";
 import { StandaloneOwnerDetails } from "../screens/standalone-details/StandaloneOwnerDetails";
+import { StandaloneScalarsEditor } from "../screens/standalone-editor/StandaloneScalarsEditor";
 import { StandalonePetDiseaseEditor } from "../screens/standalone-editor/StandalonePetDiseaseEditor";
 import { StandaloneOwnerEditor } from "../screens/standalone-editor/StandaloneOwnerEditor";
+import { StandaloneScalarsCards } from "../screens/standalone-collection/StandaloneScalarsCards";
 import { StandalonePetDiseaseList } from "../screens/standalone-collection/StandalonePetDiseaseList";
 import { StandaloneOwnerList } from "../screens/standalone-collection/StandaloneOwnerList";
 import { StandaloneOwnerTable } from "../screens/standalone-collection/StandaloneOwnerTable";
@@ -22,9 +27,9 @@ import { ReadOnlyOwnerCardsScreenLayout } from "../screens/readonly-collection/R
 import { PetDiseaseTableScreenLayout } from "../screens/management/PetDiseaseTableScreenLayout";
 import { PetDiseaseCardsScreenLayout } from "../screens/management/PetDiseaseCardsScreenLayout";
 import { PetDiseaseListScreenLayout } from "../screens/management/PetDiseaseListScreenLayout";
-import { TestNotNullScalarsCardsScreenLayout } from "../screens/management/TestNotNullScalarsCardsScreenLayout";
-import { TestScalarsTableScreenLayout } from "../screens/management/TestScalarsTableScreenLayout";
-import { TestScalarsCardsScreenLayout } from "../screens/management/TestScalarsCardsScreenLayout";
+import { ScalarsNotNullCardsScreenLayout } from "../screens/management/ScalarsNotNullCardsScreenLayout";
+import { ScalarsTableScreenLayout } from "../screens/management/ScalarsTableScreenLayout";
+import { ScalarsListScreenLayout } from "../screens/management/ScalarsListScreenLayout";
 import { PetTableScreenLayout } from "../screens/management/PetTableScreenLayout";
 import { PetListScreenLayout } from "../screens/management/PetListScreenLayout";
 import { PetCardsScreenLayout } from "../screens/management/PetCardsScreenLayout";
@@ -73,20 +78,17 @@ export function AppRoutes() {
         <Route index element={<PetTableScreenLayout />} />
         <Route path=":recordId" element={<PetTableScreenLayout />} />
       </Route>
-      <Route path="scalars-cards">
-        <Route index element={<TestScalarsCardsScreenLayout />} />
-        <Route path=":recordId" element={<TestScalarsCardsScreenLayout />} />
+      <Route path="scalars-list">
+        <Route index element={<ScalarsListScreenLayout />} />
+        <Route path=":recordId" element={<ScalarsListScreenLayout />} />
       </Route>
       <Route path="scalars-table">
-        <Route index element={<TestScalarsTableScreenLayout />} />
-        <Route path=":recordId" element={<TestScalarsTableScreenLayout />} />
+        <Route index element={<ScalarsTableScreenLayout />} />
+        <Route path=":recordId" element={<ScalarsTableScreenLayout />} />
       </Route>
-      <Route path="notnull-scalars-cards">
-        <Route index element={<TestNotNullScalarsCardsScreenLayout />} />
-        <Route
-          path=":recordId"
-          element={<TestNotNullScalarsCardsScreenLayout />}
-        />
+      <Route path="scalars-notnull-cards">
+        <Route index element={<ScalarsNotNullCardsScreenLayout />} />
+        <Route path=":recordId" element={<ScalarsNotNullCardsScreenLayout />} />
       </Route>
       <Route path="pet-disease-list">
         <Route index element={<PetDiseaseListScreenLayout />} />
@@ -151,6 +153,10 @@ export function AppRoutes() {
         <Route index element={<StandalonePetDiseaseList />} />
         <Route path=":recordId" element={<StandalonePetDiseaseList />} />
       </Route>
+      <Route path="standalone-scalars-cards">
+        <Route index element={<StandaloneScalarsCards />} />
+        <Route path=":recordId" element={<StandaloneScalarsCards />} />
+      </Route>
       <Route path="standalone-owner-editor">
         <Route index element={<StandaloneOwnerEditor />} />
         <Route path=":recordId" element={<StandaloneOwnerEditor />} />
@@ -159,6 +165,10 @@ export function AppRoutes() {
         <Route index element={<StandalonePetDiseaseEditor />} />
         <Route path=":recordId" element={<StandalonePetDiseaseEditor />} />
       </Route>
+      <Route path="standalone-scalars-editor">
+        <Route index element={<StandaloneScalarsEditor />} />
+        <Route path=":recordId" element={<StandaloneScalarsEditor />} />
+      </Route>
       <Route path="standalone-owner-details">
         <Route index element={<StandaloneOwnerDetails />} />
         <Route path=":recordId" element={<StandaloneOwnerDetails />} />
@@ -166,6 +176,10 @@ export function AppRoutes() {
       <Route path="standalone-pet-details">
         <Route index element={<StandalonePetDetails />} />
         <Route path=":recordId" element={<StandalonePetDetails />} />
+      </Route>
+      <Route path="standalone-scalars-details">
+        <Route index element={<StandaloneScalarsDetails />} />
+        <Route path=":recordId" element={<StandaloneScalarsDetails />} />
       </Route>
       <Route path="owner-lookup-cards">
         <Route index element={<OwnerLookupCards />} />
@@ -182,6 +196,14 @@ export function AppRoutes() {
       <Route path="pet-disease-lookup-cards">
         <Route index element={<PetDiseaseLookupCards />} />
         <Route path=":recordId" element={<PetDiseaseLookupCards />} />
+      </Route>
+      <Route path="scalars-lookup-cards">
+        <Route index element={<ScalarsLookupCards />} />
+        <Route path=":recordId" element={<ScalarsLookupCards />} />
+      </Route>
+      <Route path="scalars-notnull-lookup-cards">
+        <Route index element={<ScalarsNotNullLookupCards />} />
+        <Route path=":recordId" element={<ScalarsNotNullLookupCards />} />
       </Route>
       <Route path="pet-description-lookup-cards">
         <Route index element={<PetDescriptionLookupCards />} />
