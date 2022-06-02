@@ -4,8 +4,9 @@ import fs from "fs";
 import {promisify} from "util";
 const rimraf = promisify(require('rimraf'));
 
-export const SCHEMA_PATH = path.join(__dirname, '..', 'fixtures', 'schema', 'schema.graphql');
-export const SCHEMA2_PATH = path.join(__dirname, '..', 'fixtures', 'schema', 'defaultaddon.graphqls');
+const SCHEMA_DIR_PATH = path.join(__dirname, '..', '..', '..', '..', '..', 'scripts', 'schema');
+export const SCHEMA_PATH = path.join(SCHEMA_DIR_PATH, 'schema.graphql');
+export const SCHEMA2_PATH = path.join(SCHEMA_DIR_PATH, 'defaultaddon.graphqls');
 export const GENERATORS_DIR = path.join(__dirname, '..', '..', 'generators');
 
 export async function cleanup(destDir: string) {
