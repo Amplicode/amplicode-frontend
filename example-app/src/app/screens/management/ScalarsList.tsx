@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
-import { Button, Modal, message, Card, Empty, Space, Spin } from "antd";
+import { Button, Modal, message, Empty, List, Space, Spin } from "antd";
 import {
   DeleteOutlined,
   LoadingOutlined,
@@ -18,7 +18,6 @@ import { GraphQLError } from "graphql/error/GraphQLError";
 import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
-import { getScalarsTestEntityDisplayName } from "../../../core/display-name/getScalarsTestEntityDisplayName";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const REFETCH_QUERIES = ["Get_Scalars_List"];
@@ -61,9 +60,9 @@ const DELETE_SCALARS_TEST_ENTITY = gql(`
   }
 `);
 
-export function TestScalarsCards() {
+export function ScalarsList() {
   const intl = useIntl();
-  useBreadcrumbItem(intl.formatMessage({ id: "screen.TestScalarsCards" }));
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.ScalarsList" }));
 
   // Load the items from server
   const { loading, error, data } = useQuery(SCALARS_TEST_ENTITY_LIST);
@@ -71,9 +70,9 @@ export function TestScalarsCards() {
 
   return (
     <div className="narrow-layout">
-      <Space direction="vertical" className="card-space">
+      <Space direction="vertical" className="list-space">
         <ButtonPanel />
-        <Cards items={items} loading={loading} error={error} />
+        <ListItems items={items} loading={loading} error={error} />
         {/* <Pagination /> - in future */}
       </Space>
     </div>
@@ -81,7 +80,7 @@ export function TestScalarsCards() {
 }
 
 /**
- * Button panel above the cards
+ * Button panel above
  */
 function ButtonPanel() {
   const intl = useIntl();
@@ -105,16 +104,16 @@ function ButtonPanel() {
   );
 }
 
-interface ItemCardsListProps {
+interface ListItemsProps {
   items?: ItemListType;
   loading?: boolean;
   error?: ApolloError;
 }
 
 /**
- * Collection of cards, each card representing an item
+ * Collection of items
  */
-function Cards({ items, loading, error }: ItemCardsListProps) {
+function ListItems({ items, loading, error }: ListItemsProps) {
   if (loading) {
     return <Spin />;
   }
@@ -128,154 +127,158 @@ function Cards({ items, loading, error }: ItemCardsListProps) {
   }
 
   return (
-    <Space direction="vertical" className="card-space">
-      {items.map(item => (
-        <ItemCard item={item} key={item?.id} />
-      ))}
+    <Space direction="vertical" className="list-space">
+      <List
+        itemLayout="horizontal"
+        bordered
+        dataSource={items}
+        renderItem={item => <ListItem item={item} key={item?.id} />}
+      />
     </Space>
   );
 }
 
-function ItemCard({ item }: { item: ItemType }) {
-  // Get the action buttons that will be displayed in the card
-  const cardActions: ReactNode[] = useCardActions(item);
+function ListItem({ item }: { item: ItemType }) {
+  // Get the action buttons that will be displayed in the row
+  const rowActions: ReactNode[] = useRowActions(item);
 
   if (item == null) {
     return null;
   }
 
   return (
-    <Card
-      key={item.id}
-      title={getScalarsTestEntityDisplayName(item)}
-      actions={cardActions}
-      className="narrow-layout"
-    >
-      <ValueWithLabel
-        key="intTest"
-        label="Int Test"
-        value={item.intTest ?? undefined}
-      />
-      <ValueWithLabel
-        key="intPrimitive"
-        label="Int Primitive"
-        value={item.intPrimitive ?? undefined}
-      />
-      <ValueWithLabel
-        key="byteTest"
-        label="Byte Test"
-        value={item.byteTest ?? undefined}
-      />
-      <ValueWithLabel
-        key="bytePrimitive"
-        label="Byte Primitive"
-        value={item.bytePrimitive ?? undefined}
-      />
-      <ValueWithLabel
-        key="shortTest"
-        label="Short Test"
-        value={item.shortTest ?? undefined}
-      />
-      <ValueWithLabel
-        key="shortPrimitive"
-        label="Short Primitive"
-        value={item.shortPrimitive ?? undefined}
-      />
-      <ValueWithLabel
-        key="doubleTest"
-        label="Double Test"
-        value={item.doubleTest ?? undefined}
-      />
-      <ValueWithLabel
-        key="doublePrimitive"
-        label="Double Primitive"
-        value={item.doublePrimitive ?? undefined}
-      />
-      <ValueWithLabel
-        key="floatTest"
-        label="Float Test"
-        value={item.floatTest ?? undefined}
-      />
-      <ValueWithLabel
-        key="floatPrimitive"
-        label="Float Primitive"
-        value={item.floatPrimitive ?? undefined}
-      />
-      <ValueWithLabel
-        key="string"
-        label="String"
-        value={item.string ?? undefined}
-      />
-      <ValueWithLabel key="bool" label="Bool" value={item.bool ?? undefined} />
-      <ValueWithLabel
-        key="boolPrimitive"
-        label="Bool Primitive"
-        value={item.boolPrimitive ?? undefined}
-      />
-      <ValueWithLabel
-        key="bigInt"
-        label="Big Int"
-        value={item.bigInt ?? undefined}
-      />
-      <ValueWithLabel
-        key="longTest"
-        label="Long Test"
-        value={item.longTest ?? undefined}
-      />
-      <ValueWithLabel
-        key="longPrimitive"
-        label="Long Primitive"
-        value={item.longPrimitive ?? undefined}
-      />
-      <ValueWithLabel
-        key="bigDecimal"
-        label="Big Decimal"
-        value={item.bigDecimal ?? undefined}
-      />
-      <ValueWithLabel
-        key="localDate"
-        label="Local Date"
-        value={item.localDate?.format("LL") ?? undefined}
-      />
-      <ValueWithLabel
-        key="localDateTime"
-        label="Local Date Time"
-        value={item.localDateTime?.format("LLL") ?? undefined}
-      />
-      <ValueWithLabel
-        key="localTime"
-        label="Local Time"
-        value={item.localTime?.format("LTS") ?? undefined}
-      />
-      <ValueWithLabel
-        key="offsetDateTime"
-        label="Offset Date Time"
-        value={item.offsetDateTime?.format("LLL") ?? undefined}
-      />
-      <ValueWithLabel
-        key="offsetTime"
-        label="Offset Time"
-        value={item.offsetTime?.format("LTS") ?? undefined}
-      />
-      <ValueWithLabel
-        key="dateTest"
-        label="Date Test"
-        value={item.dateTest?.format("LLL") ?? undefined}
-      />
-      <ValueWithLabel
-        key="url"
-        label="Url"
-        value={item.url ?? undefined}
-        isUrl={true}
-      />
-    </Card>
+    <List.Item actions={rowActions}>
+      <div className="list-wrapper">
+        <ValueWithLabel
+          key="intTest"
+          label="Int Test"
+          value={item.intTest ?? undefined}
+        />
+        <ValueWithLabel
+          key="intPrimitive"
+          label="Int Primitive"
+          value={item.intPrimitive ?? undefined}
+        />
+        <ValueWithLabel
+          key="byteTest"
+          label="Byte Test"
+          value={item.byteTest ?? undefined}
+        />
+        <ValueWithLabel
+          key="bytePrimitive"
+          label="Byte Primitive"
+          value={item.bytePrimitive ?? undefined}
+        />
+        <ValueWithLabel
+          key="shortTest"
+          label="Short Test"
+          value={item.shortTest ?? undefined}
+        />
+        <ValueWithLabel
+          key="shortPrimitive"
+          label="Short Primitive"
+          value={item.shortPrimitive ?? undefined}
+        />
+        <ValueWithLabel
+          key="doubleTest"
+          label="Double Test"
+          value={item.doubleTest ?? undefined}
+        />
+        <ValueWithLabel
+          key="doublePrimitive"
+          label="Double Primitive"
+          value={item.doublePrimitive ?? undefined}
+        />
+        <ValueWithLabel
+          key="floatTest"
+          label="Float Test"
+          value={item.floatTest ?? undefined}
+        />
+        <ValueWithLabel
+          key="floatPrimitive"
+          label="Float Primitive"
+          value={item.floatPrimitive ?? undefined}
+        />
+        <ValueWithLabel
+          key="string"
+          label="String"
+          value={item.string ?? undefined}
+        />
+        <ValueWithLabel
+          key="bool"
+          label="Bool"
+          value={item.bool ?? undefined}
+        />
+        <ValueWithLabel
+          key="boolPrimitive"
+          label="Bool Primitive"
+          value={item.boolPrimitive ?? undefined}
+        />
+        <ValueWithLabel
+          key="bigInt"
+          label="Big Int"
+          value={item.bigInt ?? undefined}
+        />
+        <ValueWithLabel
+          key="longTest"
+          label="Long Test"
+          value={item.longTest ?? undefined}
+        />
+        <ValueWithLabel
+          key="longPrimitive"
+          label="Long Primitive"
+          value={item.longPrimitive ?? undefined}
+        />
+        <ValueWithLabel
+          key="bigDecimal"
+          label="Big Decimal"
+          value={item.bigDecimal ?? undefined}
+        />
+        <ValueWithLabel
+          key="localDate"
+          label="Local Date"
+          value={item.localDate?.format("LL") ?? undefined}
+        />
+        <ValueWithLabel
+          key="localDateTime"
+          label="Local Date Time"
+          value={item.localDateTime?.format("LLL") ?? undefined}
+        />
+        <ValueWithLabel
+          key="localTime"
+          label="Local Time"
+          value={item.localTime?.format("LTS") ?? undefined}
+        />
+        <ValueWithLabel
+          key="offsetDateTime"
+          label="Offset Date Time"
+          value={item.offsetDateTime?.format("LLL") ?? undefined}
+        />
+        <ValueWithLabel
+          key="offsetTime"
+          label="Offset Time"
+          value={item.offsetTime?.format("LTS") ?? undefined}
+        />
+        <ValueWithLabel
+          key="dateTest"
+          label="Date Test"
+          value={item.dateTest?.format("LLL") ?? undefined}
+        />
+        <ValueWithLabel
+          key="url"
+          label="Url"
+          value={item.url ?? undefined}
+          isUrl={true}
+        />
+      </div>
+    </List.Item>
   );
 }
 
 /**
- * Returns action buttons that will be displayed inside the card.
+ * Returns action buttons that will be displayed inside the item row.
  */
-function useCardActions(item: ItemType): ReactNode[] {
+function useRowActions(item: ItemType): ReactNode[] {
   const intl = useIntl();
   const { showDeleteConfirm, deleting } = useDeleteConfirm(item?.id);
 

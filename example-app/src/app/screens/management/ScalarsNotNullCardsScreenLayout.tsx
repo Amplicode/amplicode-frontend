@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Breadcrumb } from "antd";
-import { TestScalarsCards } from "./TestScalarsCards";
-import { TestScalarsCardsEditor } from "./TestScalarsCardsEditor";
+import { ScalarsNotNullCards } from "./ScalarsNotNullCards";
+import { ScalarsNotNullCardsEditor } from "./ScalarsNotNullCardsEditor";
 import { BreadcrumbContext } from "../../../core/screen/BreadcrumbContext";
 import { usePageTitle } from "../../../core/screen/usePageTitle";
 import { useIntl } from "react-intl";
 
-export function TestScalarsCardsScreenLayout() {
+export function ScalarsNotNullCardsScreenLayout() {
   const intl = useIntl();
-  usePageTitle(intl.formatMessage({ id: "screen.TestScalarsCards" }));
+  usePageTitle(intl.formatMessage({ id: "screen.ScalarsNotNullCards" }));
 
   const { recordId } = useParams();
   const [breadcrumbItems, setBreadcrumbItems] = useState<string[]>([]);
@@ -26,10 +26,10 @@ export function TestScalarsCardsScreenLayout() {
 
       <BreadcrumbContext.Provider value={setBreadcrumbItems}>
         <div style={{ display: recordId ? "none" : "block" }}>
-          <TestScalarsCards />
+          <ScalarsNotNullCards />
         </div>
         {recordId && (
-          <TestScalarsCardsEditor refetchQueries={["Get_Scalars_List"]} />
+          <ScalarsNotNullCardsEditor refetchQueries={["Get_NN_Scalars_List"]} />
         )}
       </BreadcrumbContext.Provider>
     </>

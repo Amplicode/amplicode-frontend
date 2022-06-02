@@ -182,9 +182,9 @@ const columns = [
   }
 ];
 
-export function TestScalarsTable() {
+export function ScalarsTable() {
   const intl = useIntl();
-  useBreadcrumbItem(intl.formatMessage({ id: "screen.TestScalarsTable" }));
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.ScalarsTable" }));
 
   // Load the items from server
   const { loading, error, data } = useQuery(SCALARS_TEST_ENTITY_LIST);

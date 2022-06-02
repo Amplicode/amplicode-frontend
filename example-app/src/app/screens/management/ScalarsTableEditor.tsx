@@ -65,7 +65,7 @@ const UPDATE_SCALARS_TEST_ENTITY = gql(`
   }
 `);
 
-export interface TestScalarsTableEditorProps<TData = any> {
+export interface ScalarsTableEditorProps<TData = any> {
   /**
    * A list of queries that needs to be refetched once the editor has been submitted.
    * For example, you might need to refresh entity list after editing an entity instance.
@@ -76,13 +76,11 @@ export interface TestScalarsTableEditorProps<TData = any> {
   refetchQueries?: RefetchQueries<TData>;
 }
 
-export function TestScalarsTableEditor({
+export function ScalarsTableEditor({
   refetchQueries
-}: TestScalarsTableEditorProps<QueryResultType>) {
+}: ScalarsTableEditorProps<QueryResultType>) {
   const intl = useIntl();
-  useBreadcrumbItem(
-    intl.formatMessage({ id: "screen.TestScalarsTableEditor" })
-  );
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.ScalarsTableEditor" }));
 
   const { recordId } = useParams();
 

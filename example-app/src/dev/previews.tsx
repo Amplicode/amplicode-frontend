@@ -1,13 +1,18 @@
 import React from "react";
 import { PetDescriptionLookupCards } from "../app/screens/lookup/PetDescriptionLookupCards";
+import { ScalarsNotNullLookupCards } from "../app/screens/lookup/ScalarsNotNullLookupCards";
+import { ScalarsLookupCards } from "../app/screens/lookup/ScalarsLookupCards";
 import { PetDiseaseLookupCards } from "../app/screens/lookup/PetDiseaseLookupCards";
 import { PetTypeLookupCards } from "../app/screens/lookup/PetTypeLookupCards";
 import { PetLookupCards } from "../app/screens/lookup/PetLookupCards";
 import { OwnerLookupCards } from "../app/screens/lookup/OwnerLookupCards";
+import { StandaloneScalarsDetails } from "../app/screens/standalone-details/StandaloneScalarsDetails";
 import { StandalonePetDetails } from "../app/screens/standalone-details/StandalonePetDetails";
 import { StandaloneOwnerDetails } from "../app/screens/standalone-details/StandaloneOwnerDetails";
+import { StandaloneScalarsEditor } from "../app/screens/standalone-editor/StandaloneScalarsEditor";
 import { StandalonePetDiseaseEditor } from "../app/screens/standalone-editor/StandalonePetDiseaseEditor";
 import { StandaloneOwnerEditor } from "../app/screens/standalone-editor/StandaloneOwnerEditor";
+import { StandaloneScalarsCards } from "../app/screens/standalone-collection/StandaloneScalarsCards";
 import { StandalonePetDiseaseList } from "../app/screens/standalone-collection/StandalonePetDiseaseList";
 import { StandaloneOwnerList } from "../app/screens/standalone-collection/StandaloneOwnerList";
 import { StandaloneOwnerTable } from "../app/screens/standalone-collection/StandaloneOwnerTable";
@@ -34,12 +39,12 @@ import { PetDiseaseCards } from "../app/screens/management/PetDiseaseCards";
 import { PetDiseaseCardsEditor } from "../app/screens/management/PetDiseaseCardsEditor";
 import { PetDiseaseList } from "../app/screens/management/PetDiseaseList";
 import { PetDiseaseListEditor } from "../app/screens/management/PetDiseaseListEditor";
-import { TestNotNullScalarsCards } from "../app/screens/management/TestNotNullScalarsCards";
-import { TestNotNullScalarsCardsEditor } from "../app/screens/management/TestNotNullScalarsCardsEditor";
-import { TestScalarsTable } from "../app/screens/management/TestScalarsTable";
-import { TestScalarsTableEditor } from "../app/screens/management/TestScalarsTableEditor";
-import { TestScalarsCards } from "../app/screens/management/TestScalarsCards";
-import { TestScalarsCardsEditor } from "../app/screens/management/TestScalarsCardsEditor";
+import { ScalarsNotNullCards } from "../app/screens/management/ScalarsNotNullCards";
+import { ScalarsNotNullCardsEditor } from "../app/screens/management/ScalarsNotNullCardsEditor";
+import { ScalarsTable } from "../app/screens/management/ScalarsTable";
+import { ScalarsTableEditor } from "../app/screens/management/ScalarsTableEditor";
+import { ScalarsList } from "../app/screens/management/ScalarsList";
+import { ScalarsListEditor } from "../app/screens/management/ScalarsListEditor";
 import { PetTable } from "../app/screens/management/PetTable";
 import { PetTableEditor } from "../app/screens/management/PetTableEditor";
 import { PetList } from "../app/screens/management/PetList";
@@ -102,23 +107,23 @@ const ComponentPreviews = () => {
       <ComponentPreview path="/PetTable">
         <PetTable />
       </ComponentPreview>
-      <ComponentPreview path="/TestScalarsCardsEditor">
-        <TestScalarsCardsEditor />
+      <ComponentPreview path="/ScalarsListEditor">
+        <ScalarsListEditor />
       </ComponentPreview>
-      <ComponentPreview path="/TestScalarsCards">
-        <TestScalarsCards />
+      <ComponentPreview path="/ScalarsList">
+        <ScalarsList />
       </ComponentPreview>
-      <ComponentPreview path="/TestScalarsTableEditor">
-        <TestScalarsTableEditor />
+      <ComponentPreview path="/ScalarsTableEditor">
+        <ScalarsTableEditor />
       </ComponentPreview>
-      <ComponentPreview path="/TestScalarsTable">
-        <TestScalarsTable />
+      <ComponentPreview path="/ScalarsTable">
+        <ScalarsTable />
       </ComponentPreview>
-      <ComponentPreview path="/TestNotNullScalarsCardsEditor">
-        <TestNotNullScalarsCardsEditor />
+      <ComponentPreview path="/ScalarsNotNullCardsEditor">
+        <ScalarsNotNullCardsEditor />
       </ComponentPreview>
-      <ComponentPreview path="/TestNotNullScalarsCards">
-        <TestNotNullScalarsCards />
+      <ComponentPreview path="/ScalarsNotNullCards">
+        <ScalarsNotNullCards />
       </ComponentPreview>
       <ComponentPreview path="/PetDiseaseListEditor">
         <PetDiseaseListEditor />
@@ -198,17 +203,26 @@ const ComponentPreviews = () => {
       <ComponentPreview path="/StandalonePetDiseaseList">
         <StandalonePetDiseaseList />
       </ComponentPreview>
+      <ComponentPreview path="/StandaloneScalarsCards">
+        <StandaloneScalarsCards />
+      </ComponentPreview>
       <ComponentPreview path="/StandaloneOwnerEditor">
         <StandaloneOwnerEditor />
       </ComponentPreview>
       <ComponentPreview path="/StandalonePetDiseaseEditor">
         <StandalonePetDiseaseEditor />
       </ComponentPreview>
+      <ComponentPreview path="/StandaloneScalarsEditor">
+        <StandaloneScalarsEditor />
+      </ComponentPreview>
       <ComponentPreview path="/StandaloneOwnerDetails">
         <StandaloneOwnerDetails />
       </ComponentPreview>
       <ComponentPreview path="/StandalonePetDetails">
         <StandalonePetDetails />
+      </ComponentPreview>
+      <ComponentPreview path="/StandaloneScalarsDetails">
+        <StandaloneScalarsDetails />
       </ComponentPreview>
       <ComponentPreview path="/OwnerLookupCards">
         <OwnerLookupCards />
@@ -221,6 +235,12 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/PetDiseaseLookupCards">
         <PetDiseaseLookupCards />
+      </ComponentPreview>
+      <ComponentPreview path="/ScalarsLookupCards">
+        <ScalarsLookupCards />
+      </ComponentPreview>
+      <ComponentPreview path="/ScalarsNotNullLookupCards">
+        <ScalarsNotNullLookupCards />
       </ComponentPreview>
       <ComponentPreview path="/PetDescriptionLookupCards">
         <PetDescriptionLookupCards />

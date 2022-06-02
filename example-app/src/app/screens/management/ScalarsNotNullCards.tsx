@@ -47,11 +47,9 @@ const DELETE_NOT_NULL_SCALARS_TEST_ENTITY = gql(`
   }
 `);
 
-export function TestNotNullScalarsCards() {
+export function ScalarsNotNullCards() {
   const intl = useIntl();
-  useBreadcrumbItem(
-    intl.formatMessage({ id: "screen.TestNotNullScalarsCards" })
-  );
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.ScalarsNotNullCards" }));
 
   // Load the items from server
   const { loading, error, data } = useQuery(NOT_NULL_SCALARS_TEST_ENTITY_LIST);
