@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import {cleanup, generate, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
+import {cleanup, generate, GENERATORS_DEST_DIR, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
 import {expect} from "chai";
 import {expectFileContainsIgnoreSpace} from "../../../test-commons";
 import {
@@ -11,9 +11,8 @@ import {
 } from "../common/queries";
 import {capitalizeFirst, unCapitalizeFirst} from "../../../../common/utils";
 
-const GENERATOR_DIR = 'entity-management';
-
-const DEST_DIR = path.join(process.cwd(), 'src', 'test', 'generated', 'generators', 'react-typescript', GENERATOR_DIR);
+const GENERATOR_DIR = path.join(GENERATORS_DIR, 'entity-management');
+const DEST_DIR = path.join(GENERATORS_DEST_DIR, 'entity-management');
 
 describe('codegen readonly cards', () => {
 
@@ -34,7 +33,7 @@ describe('codegen readonly cards', () => {
     const componentPath = path.join(DEST_DIR, 'ReadOnlyOwnerCards.tsx');
     const detailsComponentPath = path.join(DEST_DIR, 'ReadOnlyOwnerCardsDetails.tsx');
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, [SCHEMA_PATH]));
+    await generate(GENERATOR_DIR, opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const expectTag = `
     <Space direction="vertical" className="card-space">
@@ -86,7 +85,7 @@ describe('codegen readonly cards', () => {
     const componentPath = path.join(DEST_DIR, 'ReadOnlyPetCards.tsx');
     const detailsComponentPath = path.join(DEST_DIR, 'ReadOnlyPetCardsDetails.tsx');
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, [SCHEMA_PATH]));
+    await generate(GENERATOR_DIR, opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const expectTag = `
     <Space direction="vertical" className="card-space">

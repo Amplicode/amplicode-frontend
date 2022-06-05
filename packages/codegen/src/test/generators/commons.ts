@@ -7,7 +7,8 @@ const rimraf = promisify(require('rimraf'));
 const SCHEMA_DIR_PATH = path.join(__dirname, '..', '..', '..', '..', '..', 'scripts', 'schema');
 export const SCHEMA_PATH = path.join(SCHEMA_DIR_PATH, 'schema.graphql');
 export const SCHEMA2_PATH = path.join(SCHEMA_DIR_PATH, 'defaultaddon.graphqls');
-export const GENERATORS_DIR = path.join(__dirname, '..', '..', 'generators');
+export const GENERATORS_DIR = path.join(process.cwd(), 'src', 'generators', 'react-typescript');
+export const GENERATORS_DEST_DIR = path.join(process.cwd(), 'src', 'test', 'generated', 'generators', 'react-typescript');
 
 export async function cleanup(destDir: string) {
   await rimraf(`${destDir}/{*,.*}`);

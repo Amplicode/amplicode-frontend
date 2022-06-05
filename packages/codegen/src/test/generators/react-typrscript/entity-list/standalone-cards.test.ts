@@ -1,11 +1,12 @@
 import fs from "fs";
 import path from "path";
-import {cleanup, generate, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
+import {cleanup, generate, GENERATORS_DEST_DIR, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
 import {expect} from "chai";
 import {expectFileContainsIgnoreSpace} from "../../../test-commons";
 import {ownerDeleteMutation, ownerListQuery, petDeleteMutation, petListQuery} from "../common/queries";
 
-const DEST_DIR = path.join(process.cwd(), 'src', 'test', 'generated', 'generators', 'react-typescript', 'entity-list');
+const DEST_DIR = path.join(GENERATORS_DEST_DIR, 'entity-list');
+const GENERATOR_DIR = path.join(GENERATORS_DIR, 'entity-list');
 const displayNameFunctionFile = path.join(DEST_DIR, 'core', 'display-name', 'getOwnerDTODisplayName.ts');
 
 describe('codegen standalone cards', () => {
@@ -27,7 +28,7 @@ describe('codegen standalone cards', () => {
     // check that cleanup is completed, before test start
     expect(fs.existsSync(displayNameFunctionFile)).to.be.false;
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, answers, [SCHEMA_PATH]));
+    await generate(GENERATOR_DIR, opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const expectCardsTag = `
         <Space direction="vertical" className="card-space">
@@ -61,7 +62,7 @@ describe('codegen standalone cards', () => {
     // check that cleanup is completed, before test start
     expect(fs.existsSync(displayNameFunctionFile)).to.be.false;
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-list'), opts(DEST_DIR, answers, [SCHEMA_PATH]));
+    await generate(GENERATOR_DIR, opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const expectCardsTag = `
         <Space direction="vertical" className="card-space">

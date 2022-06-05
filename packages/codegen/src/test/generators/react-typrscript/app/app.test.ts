@@ -3,9 +3,11 @@ import yaml from "js-yaml";
 import path from "path";
 import {expect} from "chai";
 import assert from "assert";
-import {cleanup, generate, GENERATORS_DIR, opts, SCHEMA2_PATH, SCHEMA_PATH} from "../../commons";
+import {cleanup, generate, GENERATORS_DEST_DIR, GENERATORS_DIR, opts, SCHEMA2_PATH, SCHEMA_PATH} from "../../commons";
 
-const DEST_DIR = path.join(process.cwd(), 'src', 'test', 'generated', 'generators', 'react-typescript', 'app');
+const DEST_DIR = path.join(GENERATORS_DEST_DIR, 'app');
+const GENERATOR_DIR = path.join(GENERATORS_DIR, 'app');
+
 
 const answers = {
   appTitle: 'Amplicode Petclinic',
@@ -27,7 +29,7 @@ describe('codegen app test', () => {
     assert.ok(!fs.existsSync(codegenConfigPath));
     assert.ok(!fs.existsSync(devEnvPath));
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'app'), opts(DEST_DIR, answers, [SCHEMA_PATH]));
+    await generate(GENERATOR_DIR, opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     assert.ok(fs.existsSync(codegenConfigPath));
     assert.ok(fs.existsSync(devEnvPath));
@@ -46,7 +48,7 @@ describe('codegen app test', () => {
 
   it('should generate app (composite schema)', async () => {
     const schemaPaths = [SCHEMA_PATH, SCHEMA2_PATH];
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'app'), opts(DEST_DIR, answers, schemaPaths));
+    await generate(GENERATOR_DIR, opts(DEST_DIR, answers, schemaPaths));
 
     const appSchemaPath = path.join(DEST_DIR, 'src', 'core', 'schema', 'schema.graphql');
     expect(fs.readFileSync(appSchemaPath, 'utf-8')).to.contain('type PetDTO {');

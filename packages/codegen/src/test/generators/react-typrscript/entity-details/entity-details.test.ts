@@ -1,12 +1,13 @@
 import fs from "fs";
 import path from "path";
-import {cleanup, generate, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
+import {cleanup, generate, GENERATORS_DEST_DIR, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
 import {expect} from "chai";
 import {MvpEntityEditorAnswers} from "../../../../generators/react-typescript/entity-details/answers";
 import {expectFileContainsIgnoreSpace} from "../../../test-commons";
 import {getOwnerQuery, ownerUpsertMutation} from "../common/queries";
 
-const DEST_DIR = path.join(process.cwd(), 'src', 'test', 'generated', 'generators', 'react-typescript', 'entity-details');
+const GENERATOR_DIR = path.join(GENERATORS_DIR, 'entity-details');
+const DEST_DIR = path.join(GENERATORS_DEST_DIR, 'entity-details');
 
 describe('codegen entity-details test', () => {
 
@@ -22,7 +23,7 @@ describe('codegen entity-details test', () => {
 
     const componentPath = path.join(DEST_DIR, 'OwnerDetails.tsx');
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-details'), opts(DEST_DIR, detailsAnswers, [SCHEMA_PATH]));
+    await generate(GENERATOR_DIR, opts(DEST_DIR, detailsAnswers, [SCHEMA_PATH]));
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function OwnerDetails');
@@ -43,7 +44,7 @@ describe('codegen entity-details test', () => {
 
     const componentPath = path.join(DEST_DIR, 'OwnerEditor.tsx');
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', 'entity-details'), opts(DEST_DIR, editorAnswers, [SCHEMA_PATH]));
+    await generate(GENERATOR_DIR, opts(DEST_DIR, editorAnswers, [SCHEMA_PATH]));
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function OwnerEditor');
