@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import {cleanup, generate, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
+import {cleanup, generate, GENERATORS_DEST_DIR, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
 import {expect} from "chai";
 import {expectFileContainsIgnoreSpace} from "../../../test-commons";
 import {
@@ -11,9 +11,8 @@ import {
 } from "../common/queries";
 import {capitalizeFirst, unCapitalizeFirst} from "../../../../common/utils";
 
-const GENERATOR_DIR = 'entity-management';
-
-const DEST_DIR = path.join(process.cwd(), 'src', 'test', 'generated', 'generators', 'react-typescript', GENERATOR_DIR);
+const GENERATOR_DIR = path.join(GENERATORS_DIR, 'entity-management');
+const DEST_DIR = path.join(GENERATORS_DEST_DIR, 'entity-management');
 
 const expectTag = `
       <Space direction="vertical" className="list-space">
@@ -44,7 +43,7 @@ describe('codegen readonly list', () => {
     const componentPath = path.join(DEST_DIR, 'ReadOnlyOwnerList.tsx');
     const detailsComponentPath = path.join(DEST_DIR, 'ReadOnlyOwnerListDetails.tsx');
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, [SCHEMA_PATH]));
+    await generate(GENERATOR_DIR, opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function ReadOnlyOwnerList() ');
@@ -90,7 +89,7 @@ describe('codegen readonly list', () => {
     const componentPath = path.join(DEST_DIR, 'ReadOnlyPetList.tsx');
     const detailsComponentPath = path.join(DEST_DIR, 'ReadOnlyPetListDetails.tsx');
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, [SCHEMA_PATH]));
+    await generate(GENERATOR_DIR, opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function ReadOnlyPetList() ');

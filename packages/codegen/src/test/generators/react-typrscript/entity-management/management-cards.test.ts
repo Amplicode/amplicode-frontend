@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import {cleanup, generate, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
+import {cleanup, generate, GENERATORS_DEST_DIR, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
 import {expectFileContainsIgnoreSpace} from "../../../test-commons";
 import {
   notNullScalarsDeleteMutation,
@@ -10,9 +10,8 @@ import {
 } from "../common/queries";
 import {unCapitalizeFirst} from "../../../../common/utils";
 
-const GENERATOR_DIR = 'entity-management';
-
-const DEST_DIR = path.join(process.cwd(), 'src', 'test', 'generated', 'generators', 'react-typescript', GENERATOR_DIR);
+const GENERATOR_DIR = path.join(GENERATORS_DIR, 'entity-management');
+const DEST_DIR = path.join(GENERATORS_DEST_DIR, 'entity-management');
 
 describe('codegen cards management', () => {
 
@@ -33,7 +32,7 @@ describe('codegen cards management', () => {
     const componentPath = path.join(DEST_DIR, 'TestNotNullScalarsCards.tsx');
     const editorComponentPath = path.join(DEST_DIR, 'TestNotNullScalarsCardsEditor.tsx');
 
-    await generate(path.join(GENERATORS_DIR, 'react-typescript', GENERATOR_DIR), opts(DEST_DIR, answers, [SCHEMA_PATH]));
+    await generate(GENERATOR_DIR, opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const editorComponentFile = fs.readFileSync(editorComponentPath, 'utf-8');
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
