@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import {cleanup, generate, GENERATORS_DEST_DIR, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
 import {expect} from "chai";
-import {ownerListQuery} from "../common/queries";
+import {ownerListQuery, scalarsListQuery} from "../common/queries";
 import {expectFileContainsIgnoreSpace} from "../../../test-commons";
 import {unCapitalizeFirst} from "../../../../common/utils";
 
@@ -63,6 +63,28 @@ describe('codegen lookup cards', () => {
 
     // check that displayName function is written for 'lookup'
     expect(fs.existsSync(displayNameFunctionFile)).to.be.true;
+  });
+
+  it('should generate lookup cards screen - ScalarsTestEntity', async () => {
+
+    const answers = {
+      componentName: 'ScalarsLookupCards',
+      route: 'scalars-lookup-cards',
+      query: scalarsListQuery
+    };
+    const componentPath = path.join(DEST_DIR, 'ScalarsLookupCards.tsx');
+    // check that cleanup is completed, before test start
+    expect(fs.existsSync(componentPath)).to.be.false;
+
+    await generate(GENERATOR_DIR, opts(DEST_DIR, answers, [SCHEMA_PATH]));
+
+    const componentFile = fs.readFileSync(componentPath, 'utf-8');
+    expect(componentFile).to.contain('export function ScalarsLookupCards(props: ScalarsLookupCardsProps) {');
+    expect(componentFile).to.contain('query Get_Scalars_List {');
+    expect((componentFile.match(/<ValueWithLabel/g) || []).length).to.eq(24);
+
+    expectFileContainsIgnoreSpace(componentFile,
+      `<ValueWithLabel key="url" label="Url" value={item.url ?? undefined} />`)
   });
 
 });

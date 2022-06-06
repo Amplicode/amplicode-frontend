@@ -3,7 +3,13 @@ import path from "path";
 import {cleanup, generate, GENERATORS_DEST_DIR, GENERATORS_DIR, opts, SCHEMA_PATH} from "../../commons";
 import {expect} from "chai";
 import {expectFileContainsIgnoreSpace} from "../../../test-commons";
-import {ownerDeleteMutation, ownerListQuery, petDeleteMutation, petListQuery} from "../common/queries";
+import {
+  ownerDeleteMutation,
+  ownerListQuery,
+  petDeleteMutation,
+  petListQuery, scalarsDeleteMutation,
+  scalarsListQuery
+} from "../common/queries";
 
 const DEST_DIR = path.join(GENERATORS_DEST_DIR, 'entity-list');
 const GENERATOR_DIR = path.join(GENERATORS_DIR, 'entity-list');
@@ -79,6 +85,27 @@ describe('codegen standalone cards', () => {
 
     // check that displayName function is written for 'cards'
     expect(fs.existsSync(displayNameFunctionFile)).to.be.true;
+  });
+
+  it('should generate standalone cards screen - ScalarsTestEntity', async () => {
+
+    const answers = {
+      componentName: 'StandaloneScalarsCards',
+      route: 'standalone-scalars-cards',
+      shouldAddToMenu: false,
+      query: scalarsListQuery,
+      mutation: scalarsDeleteMutation,
+      mode: 'edit',
+      type: 'cards'
+    };
+    const componentPath = path.join(DEST_DIR, 'StandaloneScalarsCards.tsx');
+    await generate(GENERATOR_DIR, opts(DEST_DIR, answers, [SCHEMA_PATH]));
+
+    const componentFile = fs.readFileSync(componentPath, 'utf-8');
+    expect(componentFile).to.contain('export function StandaloneScalarsCards() ');
+    expect(componentFile).to.contain('query Get_Scalars_List {');
+    expect(componentFile).to.contain('mutation Delete_Scalars($id: ID!) {');
+    expect((componentFile.match(/<ValueWithLabel/g) || []).length).to.eq(24);
   });
 
 });

@@ -158,4 +158,79 @@ query Get_Pet($id: BigInteger) {
 }
 `;
 
+/* Scalars */
+
+export const scalarsListQuery = `query Get_Scalars_List {
+    scalarsTestEntityList {
+      id
+      intTest
+      intPrimitive
+      byteTest
+      bytePrimitive
+      shortTest
+      shortPrimitive
+      doubleTest
+      doublePrimitive
+      floatTest
+      floatPrimitive
+      string
+      bool
+      boolPrimitive
+      bigInt
+      longTest
+      longPrimitive
+      bigDecimal
+      localDate
+      localDateTime
+      localTime
+      offsetDateTime
+      offsetTime
+      dateTest
+      url
+    }
+  }`;
+
+
+export const scalarsDetailsQuery = `query Get_Scalars($id: ID) {
+    scalarsTestEntity(id: $id) {
+      id
+      intTest
+      intPrimitive
+      byteTest
+      bytePrimitive
+      shortTest
+      shortPrimitive
+      doubleTest
+      doublePrimitive
+      floatTest
+      floatPrimitive
+      string
+      bool
+      boolPrimitive
+      bigInt
+      longTest
+      longPrimitive
+      bigDecimal
+      localDate
+      localDateTime
+      localTime
+      offsetDateTime
+      offsetTime
+      dateTest
+      url
+    }
+  }`;
+
+export const scalarsDeleteMutation = `mutation Delete_Scalars($id: ID!) {
+    deleteScalarsTestEntity(id: $id)
+  }`;
+
+
+export const scalarsUpsertMutation = `mutation Update_Scalars($input: ScalarsTestEntityInput) {
+    updateScalarsTestEntity(input: $input) {
+      id
+    }
+  }`;
+
+
 
