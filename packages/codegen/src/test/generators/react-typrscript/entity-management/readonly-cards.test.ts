@@ -7,7 +7,7 @@ import {
   ownerDetailsQuery,
   ownerListQuery,
   petDetailsQuery,
-  petListQuery
+  petListQuery, scalarsDetailsQuery, scalarsListQuery
 } from "../common/queries";
 import {capitalizeFirst, unCapitalizeFirst} from "../../../../common/utils";
 
@@ -177,6 +177,42 @@ describe('codegen readonly cards', () => {
         </Descriptions.Item>`;
 
     expectFileContainsIgnoreSpace(detailsComponentFile, descriptions);
+  });
+
+  it('should generate readonly cards screen - ScalarsTestEntity', async () => {
+
+    const answers = {
+      listComponentName: 'ReadOnlyScalarsCards',
+      itemComponentName: 'ReadOnlyScalarsCardsDetails',
+      route: 'read-only-scalars-cards',
+      shouldAddToMenu: true,
+      listQuery: scalarsListQuery,
+      detailsQuery: scalarsDetailsQuery,
+      mode: 'view with details',
+      type: 'cards'
+    };
+    const componentPath = path.join(DEST_DIR, 'ReadOnlyScalarsCards.tsx');
+    const detailsComponentPath = path.join(DEST_DIR, 'ReadOnlyScalarsCardsDetails.tsx');
+
+    await generate(GENERATOR_DIR, opts(DEST_DIR, answers, [SCHEMA_PATH]));
+
+    const componentFile = fs.readFileSync(componentPath, 'utf-8');
+    expect(componentFile).to.contain('export function ReadOnlyScalarsCards() ');
+    expect(componentFile).to.contain('query Get_Scalars_List {');
+    expect((componentFile.match(/<ValueWithLabel/g) || []).length).to.eq(24);
+
+    const detailsComponentFile = fs.readFileSync(detailsComponentPath, 'utf-8');
+    expect(detailsComponentFile).to.contain('query Get_Scalars($id: ID) {');
+    expect((detailsComponentFile.match(/<Descriptions.Item/g) || []).length).to.eq(24);
+
+    expectFileContainsIgnoreSpace(detailsComponentFile, `
+    <Descriptions.Item label={<strong>Url</strong>}>
+          {item.url && (
+            <a target="_blank" rel="noreferrer" href={item.url}>
+              {item.url}
+            </a>
+          )}
+        </Descriptions.Item>`)
   });
 
 });
