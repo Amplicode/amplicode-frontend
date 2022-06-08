@@ -61,7 +61,7 @@ export function stripNewLines(str: string): string {
 }
 
 export async function getMockSchema() {
-  const schemaPath = path.join(__dirname, '../../../../scripts/schema.graphql');
+  const schemaPath = path.join(__dirname, '../../../../scripts/schema/schema.graphql');
   const schemaString = fs.readFileSync(schemaPath, 'utf-8');
   return await loadSchema(schemaString, {loaders: []});
 }

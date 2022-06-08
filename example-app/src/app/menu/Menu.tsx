@@ -1,342 +1,340 @@
 import { Menu } from "antd";
+import { ItemType } from "antd/es/menu/hooks/useItems";
 import { HomeOutlined } from "@ant-design/icons";
-import { FormattedMessage, useIntl } from "react-intl";
-import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
+
+const menuItems: ItemType[] = [
+  {
+    label: (
+      <Link to={""}>
+        <FormattedMessage id={"screen.home"} />
+      </Link>
+    ),
+    key: "",
+    icon: <HomeOutlined />
+  },
+  {
+    label: (
+      <Link to="owner-cards">
+        <FormattedMessage id="screen.OwnerCards" />
+      </Link>
+    ),
+    key: "owner-cards"
+  },
+  {
+    label: (
+      <Link to="owner-list">
+        <FormattedMessage id="screen.OwnerList" />
+      </Link>
+    ),
+    key: "owner-list"
+  },
+  {
+    label: (
+      <Link to="owner-table">
+        <FormattedMessage id="screen.OwnerTable" />
+      </Link>
+    ),
+    key: "owner-table"
+  },
+  {
+    label: (
+      <Link to="owner-cards-with-filter">
+        <FormattedMessage id="screen.OwnerCardsWithFilter" />
+      </Link>
+    ),
+    key: "owner-cards-with-filter"
+  },
+  {
+    label: (
+      <Link to="pet-cards">
+        <FormattedMessage id="screen.PetCards" />
+      </Link>
+    ),
+    key: "pet-cards"
+  },
+  {
+    label: (
+      <Link to="pet-list">
+        <FormattedMessage id="screen.PetList" />
+      </Link>
+    ),
+    key: "pet-list"
+  },
+  {
+    label: (
+      <Link to="pet-table">
+        <FormattedMessage id="screen.PetTable" />
+      </Link>
+    ),
+    key: "pet-table"
+  },
+  {
+    label: (
+      <Link to="scalars-list">
+        <FormattedMessage id="screen.ScalarsList" />
+      </Link>
+    ),
+    key: "scalars-list"
+  },
+  {
+    label: (
+      <Link to="scalars-table">
+        <FormattedMessage id="screen.ScalarsTable" />
+      </Link>
+    ),
+    key: "scalars-table"
+  },
+  {
+    label: (
+      <Link to="scalars-notnull-cards">
+        <FormattedMessage id="screen.ScalarsNotNullCards" />
+      </Link>
+    ),
+    key: "scalars-notnull-cards"
+  },
+  {
+    label: (
+      <Link to="pet-disease-list">
+        <FormattedMessage id="screen.PetDiseaseList" />
+      </Link>
+    ),
+    key: "pet-disease-list"
+  },
+  {
+    label: (
+      <Link to="pet-disease-cards">
+        <FormattedMessage id="screen.PetDiseaseCards" />
+      </Link>
+    ),
+    key: "pet-disease-cards"
+  },
+  {
+    label: (
+      <Link to="pet-disease-table">
+        <FormattedMessage id="screen.PetDiseaseTable" />
+      </Link>
+    ),
+    key: "pet-disease-table"
+  },
+  {
+    label: (
+      <Link to="read-only-owner-cards">
+        <FormattedMessage id="screen.ReadOnlyOwnerCards" />
+      </Link>
+    ),
+    key: "read-only-owner-cards"
+  },
+  {
+    label: (
+      <Link to="read-only-owner-table">
+        <FormattedMessage id="screen.ReadOnlyOwnerTable" />
+      </Link>
+    ),
+    key: "read-only-owner-table"
+  },
+  {
+    label: (
+      <Link to="read-only-owner-list">
+        <FormattedMessage id="screen.ReadOnlyOwnerList" />
+      </Link>
+    ),
+    key: "read-only-owner-list"
+  },
+  {
+    label: (
+      <Link to="read-only-pet-cards">
+        <FormattedMessage id="screen.ReadOnlyPetCards" />
+      </Link>
+    ),
+    key: "read-only-pet-cards"
+  },
+  {
+    label: (
+      <Link to="read-only-pet-table">
+        <FormattedMessage id="screen.ReadOnlyPetTable" />
+      </Link>
+    ),
+    key: "read-only-pet-table"
+  },
+  {
+    label: (
+      <Link to="read-only-pet-list">
+        <FormattedMessage id="screen.ReadOnlyPetList" />
+      </Link>
+    ),
+    key: "read-only-pet-list"
+  },
+  {
+    label: (
+      <Link to="read-only-scalars-list">
+        <FormattedMessage id="screen.ReadOnlyScalarsList" />
+      </Link>
+    ),
+    key: "read-only-scalars-list"
+  },
+  {
+    label: (
+      <Link to="read-only-pet-disease-list">
+        <FormattedMessage id="screen.ReadOnlyPetDiseaseList" />
+      </Link>
+    ),
+    key: "read-only-pet-disease-list"
+  },
+  {
+    label: (
+      <Link to="standalone-owner-cards">
+        <FormattedMessage id="screen.StandaloneOwnerCards" />
+      </Link>
+    ),
+    key: "standalone-owner-cards"
+  },
+  {
+    label: (
+      <Link to="standalone-owner-table">
+        <FormattedMessage id="screen.StandaloneOwnerTable" />
+      </Link>
+    ),
+    key: "standalone-owner-table"
+  },
+  {
+    label: (
+      <Link to="standalone-owner-list">
+        <FormattedMessage id="screen.StandaloneOwnerList" />
+      </Link>
+    ),
+    key: "standalone-owner-list"
+  },
+  {
+    label: (
+      <Link to="standalone-pet-disease-list">
+        <FormattedMessage id="screen.StandalonePetDiseaseList" />
+      </Link>
+    ),
+    key: "standalone-pet-disease-list"
+  },
+  {
+    label: (
+      <Link to="standalone-scalars-cards">
+        <FormattedMessage id="screen.StandaloneScalarsCards" />
+      </Link>
+    ),
+    key: "standalone-scalars-cards"
+  },
+  {
+    label: (
+      <Link to="standalone-owner-editor">
+        <FormattedMessage id="screen.StandaloneOwnerEditor" />
+      </Link>
+    ),
+    key: "standalone-owner-editor"
+  },
+  {
+    label: (
+      <Link to="standalone-pet-disease-editor">
+        <FormattedMessage id="screen.StandalonePetDiseaseEditor" />
+      </Link>
+    ),
+    key: "standalone-pet-disease-editor"
+  },
+  {
+    label: (
+      <Link to="standalone-scalars-editor">
+        <FormattedMessage id="screen.StandaloneScalarsEditor" />
+      </Link>
+    ),
+    key: "standalone-scalars-editor"
+  },
+  {
+    label: (
+      <Link to="standalone-owner-details">
+        <FormattedMessage id="screen.StandaloneOwnerDetails" />
+      </Link>
+    ),
+    key: "standalone-owner-details"
+  },
+  {
+    label: (
+      <Link to="standalone-pet-details">
+        <FormattedMessage id="screen.StandalonePetDetails" />
+      </Link>
+    ),
+    key: "standalone-pet-details"
+  },
+  {
+    label: (
+      <Link to="standalone-scalars-details">
+        <FormattedMessage id="screen.StandaloneScalarsDetails" />
+      </Link>
+    ),
+    key: "standalone-scalars-details"
+  },
+  {
+    label: (
+      <Link to="owner-lookup-cards">
+        <FormattedMessage id="screen.OwnerLookupCards" />
+      </Link>
+    ),
+    key: "owner-lookup-cards"
+  },
+  {
+    label: (
+      <Link to="pet-lookup-cards">
+        <FormattedMessage id="screen.PetLookupCards" />
+      </Link>
+    ),
+    key: "pet-lookup-cards"
+  },
+  {
+    label: (
+      <Link to="pet-type-lookup-cards">
+        <FormattedMessage id="screen.PetTypeLookupCards" />
+      </Link>
+    ),
+    key: "pet-type-lookup-cards"
+  },
+  {
+    label: (
+      <Link to="pet-disease-lookup-cards">
+        <FormattedMessage id="screen.PetDiseaseLookupCards" />
+      </Link>
+    ),
+    key: "pet-disease-lookup-cards"
+  },
+  {
+    label: (
+      <Link to="scalars-lookup-cards">
+        <FormattedMessage id="screen.ScalarsLookupCards" />
+      </Link>
+    ),
+    key: "scalars-lookup-cards"
+  },
+  {
+    label: (
+      <Link to="scalars-notnull-lookup-cards">
+        <FormattedMessage id="screen.ScalarsNotNullLookupCards" />
+      </Link>
+    ),
+    key: "scalars-notnull-lookup-cards"
+  },
+  {
+    label: (
+      <Link to="pet-description-lookup-cards">
+        <FormattedMessage id="screen.PetDescriptionLookupCards" />
+      </Link>
+    ),
+    key: "pet-description-lookup-cards"
+  }
+];
 
 export const AppMenu = () => {
-  const intl = useIntl();
-  const location = useLocation();
-  const { pathname } = location;
+  const { pathname } = useLocation();
   const selectedKey = toSelectedKey(pathname);
 
-  return (
-    <Menu selectedKeys={[selectedKey]}>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.home" })}
-        key={"/"}
-        icon={<HomeOutlined />}
-      >
-        <Link to={"/"}>
-          <FormattedMessage id={"screen.home"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.OwnerCards" })}
-        key={"/owner-cards"}
-      >
-        <Link to={"/owner-cards"}>
-          <FormattedMessage id={"screen.OwnerCards"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.OwnerList" })}
-        key={"/owner-list"}
-      >
-        <Link to={"/owner-list"}>
-          <FormattedMessage id={"screen.OwnerList"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.OwnerTable" })}
-        key={"/owner-table"}
-      >
-        <Link to={"/owner-table"}>
-          <FormattedMessage id={"screen.OwnerTable"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.OwnerCardsWithFilter" })}
-        key={"/owner-cards-with-filter"}
-      >
-        <Link to={"/owner-cards-with-filter"}>
-          <FormattedMessage id={"screen.OwnerCardsWithFilter"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.PetCards" })}
-        key={"/pet-cards"}
-      >
-        <Link to={"/pet-cards"}>
-          <FormattedMessage id={"screen.PetCards"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.PetList" })}
-        key={"/pet-list"}
-      >
-        <Link to={"/pet-list"}>
-          <FormattedMessage id={"screen.PetList"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.PetTable" })}
-        key={"/pet-table"}
-      >
-        <Link to={"/pet-table"}>
-          <FormattedMessage id={"screen.PetTable"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.ScalarsList" })}
-        key={"/scalars-list"}
-      >
-        <Link to={"/scalars-list"}>
-          <FormattedMessage id={"screen.ScalarsList"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.ScalarsTable" })}
-        key={"/scalars-table"}
-      >
-        <Link to={"/scalars-table"}>
-          <FormattedMessage id={"screen.ScalarsTable"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.ScalarsNotNullCards" })}
-        key={"/scalars-notnull-cards"}
-      >
-        <Link to={"/scalars-notnull-cards"}>
-          <FormattedMessage id={"screen.ScalarsNotNullCards"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.PetDiseaseList" })}
-        key={"/pet-disease-list"}
-      >
-        <Link to={"/pet-disease-list"}>
-          <FormattedMessage id={"screen.PetDiseaseList"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.PetDiseaseCards" })}
-        key={"/pet-disease-cards"}
-      >
-        <Link to={"/pet-disease-cards"}>
-          <FormattedMessage id={"screen.PetDiseaseCards"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.PetDiseaseTable" })}
-        key={"/pet-disease-table"}
-      >
-        <Link to={"/pet-disease-table"}>
-          <FormattedMessage id={"screen.PetDiseaseTable"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.ReadOnlyOwnerCards" })}
-        key={"/read-only-owner-cards"}
-      >
-        <Link to={"/read-only-owner-cards"}>
-          <FormattedMessage id={"screen.ReadOnlyOwnerCards"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.ReadOnlyOwnerTable" })}
-        key={"/read-only-owner-table"}
-      >
-        <Link to={"/read-only-owner-table"}>
-          <FormattedMessage id={"screen.ReadOnlyOwnerTable"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.ReadOnlyOwnerList" })}
-        key={"/read-only-owner-list"}
-      >
-        <Link to={"/read-only-owner-list"}>
-          <FormattedMessage id={"screen.ReadOnlyOwnerList"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.ReadOnlyPetCards" })}
-        key={"/read-only-pet-cards"}
-      >
-        <Link to={"/read-only-pet-cards"}>
-          <FormattedMessage id={"screen.ReadOnlyPetCards"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.ReadOnlyPetTable" })}
-        key={"/read-only-pet-table"}
-      >
-        <Link to={"/read-only-pet-table"}>
-          <FormattedMessage id={"screen.ReadOnlyPetTable"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.ReadOnlyPetList" })}
-        key={"/read-only-pet-list"}
-      >
-        <Link to={"/read-only-pet-list"}>
-          <FormattedMessage id={"screen.ReadOnlyPetList"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.ReadOnlyScalarsList" })}
-        key={"/read-only-scalars-list"}
-      >
-        <Link to={"/read-only-scalars-list"}>
-          <FormattedMessage id={"screen.ReadOnlyScalarsList"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.ReadOnlyPetDiseaseList" })}
-        key={"/read-only-pet-disease-list"}
-      >
-        <Link to={"/read-only-pet-disease-list"}>
-          <FormattedMessage id={"screen.ReadOnlyPetDiseaseList"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.StandaloneOwnerCards" })}
-        key={"/standalone-owner-cards"}
-      >
-        <Link to={"/standalone-owner-cards"}>
-          <FormattedMessage id={"screen.StandaloneOwnerCards"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.StandaloneOwnerTable" })}
-        key={"/standalone-owner-table"}
-      >
-        <Link to={"/standalone-owner-table"}>
-          <FormattedMessage id={"screen.StandaloneOwnerTable"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.StandaloneOwnerList" })}
-        key={"/standalone-owner-list"}
-      >
-        <Link to={"/standalone-owner-list"}>
-          <FormattedMessage id={"screen.StandaloneOwnerList"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.StandalonePetDiseaseList" })}
-        key={"/standalone-pet-disease-list"}
-      >
-        <Link to={"/standalone-pet-disease-list"}>
-          <FormattedMessage id={"screen.StandalonePetDiseaseList"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.StandaloneScalarsCards" })}
-        key={"/standalone-scalars-cards"}
-      >
-        <Link to={"/standalone-scalars-cards"}>
-          <FormattedMessage id={"screen.StandaloneScalarsCards"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.StandaloneOwnerEditor" })}
-        key={"/standalone-owner-editor"}
-      >
-        <Link to={"/standalone-owner-editor"}>
-          <FormattedMessage id={"screen.StandaloneOwnerEditor"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.StandalonePetDiseaseEditor" })}
-        key={"/standalone-pet-disease-editor"}
-      >
-        <Link to={"/standalone-pet-disease-editor"}>
-          <FormattedMessage id={"screen.StandalonePetDiseaseEditor"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.StandaloneScalarsEditor" })}
-        key={"/standalone-scalars-editor"}
-      >
-        <Link to={"/standalone-scalars-editor"}>
-          <FormattedMessage id={"screen.StandaloneScalarsEditor"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.StandaloneOwnerDetails" })}
-        key={"/standalone-owner-details"}
-      >
-        <Link to={"/standalone-owner-details"}>
-          <FormattedMessage id={"screen.StandaloneOwnerDetails"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.StandalonePetDetails" })}
-        key={"/standalone-pet-details"}
-      >
-        <Link to={"/standalone-pet-details"}>
-          <FormattedMessage id={"screen.StandalonePetDetails"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.StandaloneScalarsDetails" })}
-        key={"/standalone-scalars-details"}
-      >
-        <Link to={"/standalone-scalars-details"}>
-          <FormattedMessage id={"screen.StandaloneScalarsDetails"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.OwnerLookupCards" })}
-        key={"/owner-lookup-cards"}
-      >
-        <Link to={"/owner-lookup-cards"}>
-          <FormattedMessage id={"screen.OwnerLookupCards"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.PetLookupCards" })}
-        key={"/pet-lookup-cards"}
-      >
-        <Link to={"/pet-lookup-cards"}>
-          <FormattedMessage id={"screen.PetLookupCards"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.PetTypeLookupCards" })}
-        key={"/pet-type-lookup-cards"}
-      >
-        <Link to={"/pet-type-lookup-cards"}>
-          <FormattedMessage id={"screen.PetTypeLookupCards"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.PetDiseaseLookupCards" })}
-        key={"/pet-disease-lookup-cards"}
-      >
-        <Link to={"/pet-disease-lookup-cards"}>
-          <FormattedMessage id={"screen.PetDiseaseLookupCards"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.ScalarsLookupCards" })}
-        key={"/scalars-lookup-cards"}
-      >
-        <Link to={"/scalars-lookup-cards"}>
-          <FormattedMessage id={"screen.ScalarsLookupCards"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.ScalarsNotNullLookupCards" })}
-        key={"/scalars-notnull-lookup-cards"}
-      >
-        <Link to={"/scalars-notnull-lookup-cards"}>
-          <FormattedMessage id={"screen.ScalarsNotNullLookupCards"} />
-        </Link>
-      </Menu.Item>
-      <Menu.Item
-        title={intl.formatMessage({ id: "screen.PetDescriptionLookupCards" })}
-        key={"/pet-description-lookup-cards"}
-      >
-        <Link to={"/pet-description-lookup-cards"}>
-          <FormattedMessage id={"screen.PetDescriptionLookupCards"} />
-        </Link>
-      </Menu.Item>
-    </Menu>
-  );
+  return <Menu selectedKeys={[selectedKey]} items={menuItems} />;
 };
 
 function toSelectedKey(pathname: string) {
-  return "/" + pathname.split("/", 2).join("");
+  return pathname.split("/", 2).join("");
 }

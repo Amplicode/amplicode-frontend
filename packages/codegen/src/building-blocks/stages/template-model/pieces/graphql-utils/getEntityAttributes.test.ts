@@ -69,28 +69,14 @@ const QUERY_NODE = gql(`
 
 const RESULT = [
   {
-    allNestedAttributes: undefined,
-    displayName: "Birth Date",
-    isRelationField: false,
-    name: "birthDate",
-    type: "Date",
-  },
-  {
-    allNestedAttributes: undefined,
-    displayName: "Id",
-    isRelationField: false,
-    name: "id",
-    type: "BigInteger",
-  },
-  {
-    allNestedAttributes: undefined,
+    nestedAttributes: undefined,
     displayName: "Identification Number",
     isRelationField: false,
     name: "identificationNumber",
     type: "String",
   },
   {
-    allNestedAttributes: [
+    nestedAttributes: [
       "address",
       "city",
       "email",
@@ -105,7 +91,8 @@ const RESULT = [
     type: "OwnerDTO",
   },
   {
-    "allNestedAttributes": [
+    nestedAttributes: [
+      "defenseStatus",
       "id",
       "name"
     ],

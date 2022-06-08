@@ -13,7 +13,7 @@ describe('getAttributeNames', async () => {
   it('determines all attributes based on schema', () => {
     const attrs = getAttributeNames('PetDTO', schema);
     expect(attrs.sort()).to.deep.equal([
-      'id', 'identificationNumber', 'owner', 'type', 'birthDate'
+      'id', 'identificationNumber', 'owner', 'birthDate', 'description', 'diseases', 'tags', 'type'
     ].sort());
   });
 });

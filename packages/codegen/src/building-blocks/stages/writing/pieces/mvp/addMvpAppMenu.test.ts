@@ -1,51 +1,62 @@
-import {transformAddRouteImport, transformAddRouteItem} from "./addMvpAppMenu";
+import {transformAddRouteImport, transformAddRouteItem, transformAddMenuItem} from "./addMvpAppMenu";
 import {expect} from "chai";
 
-describe('transformAddScreenItem', () => {
-  it('adds a screen item successfully', () => {
-    const result = transformAddRouteItem(INPUT, 'pet-list', 'PetList');
-    expect(result.includes(NEW_KEY_VALUE_PAIR)).to.be.true;
+describe('transformAddRouteItem', () => {
+  it('adds a route item successfully', () => {
+    const result = transformAddRouteItem(ADD_ROUTE_ITEM_INPUT, 'pet-list', 'PetList');
+    expect(result).to.be.eq(ADD_ROUTE_ITEM_EXPECTED);
   });
 });
 
-describe('transformAddScreenImport', () => {
+const ADD_ROUTE_ITEM_INPUT = `
+export function AppRoutes() {
+  return (
+    <Routes>
+    </Routes>
+  );
+}`;
+const ADD_ROUTE_ITEM_EXPECTED = `
+export function AppRoutes() {
+  return (
+    (<Routes>
+      <Route path="pet-list">
+            <Route index element={<PetList/>} />
+            <Route path=":recordId" element={<PetList/>} />
+          </Route></Routes>)
+  );
+}`;
+
+describe('transformAddRouteImport', () => {
   it('adds an import successfully', () => {
-    const result = transformAddRouteImport(INPUT, 'PetList', './pet-list/');
-    expect(result.includes('import { PetList } from "./pet-list/PetList";'))
+    const result = transformAddRouteImport(ADD_ROUTE_IMPORTS_INPUT, 'PetList', './pet-list/PetList');
+    expect(result).to.be.eq(ADD_ROUTE_IMPORTS_EXPECTED);
   });
 });
 
-const INPUT = `
+const ADD_ROUTE_IMPORTS_INPUT = `
 import { Home } from "./home/Home";
-import { ReactComponent } from "../framework/screen-api/ReactComponent";
+import { ReactComponent } from "../framework/screen-api/ReactComponent";`;
+const ADD_ROUTE_IMPORTS_EXPECTED = `
+import { PetList } from "./pet-list/PetList";
+import { Home } from "./home/Home";
+import { ReactComponent } from "../framework/screen-api/ReactComponent";`;
 
-export interface ScreenInfo {
-  /**
-   * i18n key for menu item / tab caption
-   */
-  captionKey: string;
-  /**
-   * Component that will be rendered in a new tab when menu item is clicked
-   */
-  component: ReactComponent;
-  props?: any;
-}
 
-export const screenRegistry: Record<string, ScreenInfo> = {
-  home: {
-    component: Home,
-    captionKey: "screen.home"
-  }
-  // TODO: delete me
-  // 'owner-list': {
-  //   component: OwnerList,
-  //   captionKey: 'screen.OwnerList',
-  // },
-};
+describe('transformAddMenuItem', () => {
+  it('adds a menu item successfully', () => {
+    const result = transformAddMenuItem(ADD_MENU_ITEM_INPUT, "pet-list", 'PetListScreenLayout');
+    expect(result).to.be.eq(ADD_MENU_ITEM_EXPECTED);
+  });
+});
 
-export function getScreenPaths(): string[] {
-  return Object.keys(screenRegistry).map(k => "/" + k);
-}
-`;
-
-const NEW_KEY_VALUE_PAIR = '"pet-list": "{\\n    componentName: PetList,\\n    captionKey: \'Pet List\'    \\n  }"';
+const ADD_MENU_ITEM_INPUT = `
+const menuItems: ItemType[] = [];`;
+const ADD_MENU_ITEM_EXPECTED = `
+const menuItems: ItemType[] = [{
+  label: (
+    <Link to="pet-list">
+      <FormattedMessage id="screen.PetListScreenLayout" />
+    </Link>
+  ),
+  key: "pet-list"
+}];`;
