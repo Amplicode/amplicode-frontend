@@ -1,9 +1,10 @@
 import {YeomanGenerator} from "../../../../YeomanGenerator";
 import path from "path";
-import jscodeshift, {stringLiteral} from "jscodeshift";
+import j from "jscodeshift";
 import {convertToUnixPath} from "../../../../../common/utils";
+import { parseExpression } from "../jsCodeShift/parseExpression";
 
-const j = jscodeshift;
+const tsxParser = j.withParser('tsx');
 
 export interface AddAppMenuInput {
   gen: YeomanGenerator;
@@ -55,15 +56,15 @@ export function addMvpAppMenu({
   gen.log(`✓ Route import for ${componentName}`);
 }
 
-function transformAddMenuItem(source: string, route: string, componentName: string, menuItemName?: string): string {
-  const menuItemJSX = createMenuItemJSX(route, componentName, menuItemName);
-
-  const tsxParser = j.withParser('tsx');
+export function transformAddMenuItem(source: string, route: string, componentName: string, menuItemName?: string): string {
   const appMenuAST = tsxParser(source);
 
-  const menu = appMenuAST.findJSXElements('Menu');
-  const [{value: {children}}] = menu.paths();
-  children?.push(stringLiteral(menuItemJSX));
+  const menu = appMenuAST
+    .findVariableDeclarators('menuItems')
+    .find(j.ArrayExpression);
+  const [{value: {elements}}] = menu.paths();
+  const newMenuItem = generateMenuItemAst(route, componentName, menuItemName);
+  elements.push(newMenuItem);
 
   return appMenuAST.toSource();
 }
@@ -74,7 +75,6 @@ export function transformAddRouteImport(
   componentPath: string, 
   isDefault: boolean = false): string
 {
-  const tsxParser = j.withParser('tsx');
   const ast = tsxParser(source);
 
   const existingSpecifiers = ast.find(j.ImportDeclaration)
@@ -100,28 +100,29 @@ export function transformAddRouteImport(
 export function transformAddRouteItem(
   source: string, route: string, componentName: string
 ): string {
-  const tsxParser = j.withParser('tsx');
   const routeConfigAST = tsxParser(source);
 
   const menu = routeConfigAST.findJSXElements('Routes');
   const [{value: {children}}] = menu.paths();
   const routeItemJSX = createRouteItemJSX(route, componentName);
-  children?.push(stringLiteral(routeItemJSX));
+  children?.push(j.stringLiteral(routeItemJSX));
 
   return routeConfigAST.toSource();
 }
 
-
-function createMenuItemJSX(route: string, componentName: string, menuItemName?: string) {
-  return `
-    <Menu.Item title={intl.formatMessage({id: 'screen.${menuItemName ?? componentName}'})}
-               key={'/${route}'}
-    >
-      <Link to={'/${route}'}>
-        <FormattedMessage id={'screen.${menuItemName ?? componentName}'} />
-      </Link>
-    </Menu.Item>
+function generateMenuItemAst(route: string, componentName: string, menuItemName?: string) {
+  const menuItem = `
+    {
+      label: (
+        <Link to="${route}">
+          <FormattedMessage id="screen.${menuItemName ?? componentName}" />
+        </Link>
+      ),
+      key: "${route}"
+    }
   `;
+
+  return parseExpression(menuItem);
 }
 
 function createRouteItemJSX(route: string, componentName: string) {

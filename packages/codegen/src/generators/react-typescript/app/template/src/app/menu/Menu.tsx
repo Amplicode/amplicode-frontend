@@ -1,29 +1,28 @@
 import { Menu } from "antd";
+import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { HomeOutlined } from "@ant-design/icons";
-import {FormattedMessage, useIntl } from "react-intl";
-import React  from "react";
 import { Link, useLocation } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
+
+const menuItems: ItemType[] = [
+  {
+    label: (
+      <Link to={""}>
+        <FormattedMessage id={"screen.home"} />
+      </Link>
+    ),
+    key: "",
+    icon: <HomeOutlined />,
+  },
+]
 
 export const AppMenu = () => {
-  const intl = useIntl();
-  const location = useLocation();
-  const {pathname} = location;
+  const { pathname } = useLocation();
   const selectedKey = toSelectedKey(pathname);
 
-  return (
-    <Menu selectedKeys={[selectedKey]}>
-      <Menu.Item title={intl.formatMessage({id: 'screen.home'})}
-                 key={'/'}
-                 icon={<HomeOutlined />}
-      >
-        <Link to={'/'}>
-          <FormattedMessage id={'screen.home'} />
-        </Link>
-      </Menu.Item>
-    </Menu>
-  );
+  return <Menu selectedKeys={[selectedKey]} items={menuItems} />;
 };
 
 function toSelectedKey(pathname: string) {
-  return '/' + pathname.split('/', 2).join('');
+  return pathname.split("/", 2).join("");
 }

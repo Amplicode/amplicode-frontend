@@ -1,3 +1,4 @@
 --require ts-node/register
 src/test/**/*.test.ts
+src/building-blocks/**/*.test.ts
 --timeout 0
