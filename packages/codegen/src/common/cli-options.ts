@@ -9,39 +9,6 @@ interface CommanderOptionInfo {
   description?: string;
 }
 
-export function extractAvailableOptions(optionsConfig?: OptionsConfig): CommanderOptionInfo[] {
-  if (!optionsConfig) {
-    return [];
-  }
-
-  const result: CommanderOptionInfo[] = [];
-  Object.keys(optionsConfig).forEach(optionFullName => {
-    const {type, alias, description} = optionsConfig[optionFullName];
-    if (alias) {
-      const optionValue = getOptionValue(type, optionFullName);
-      const pattern = `-${alias}, --${optionFullName}${optionValue}`;
-      description ? result.push({pattern, description}) : result.push({pattern});
-    }
-  });
-  return result;
-}
-
-export function pickOptions(cmd: {[key:string]: any}, availableOptions?: OptionsConfig):{[key:string]: string|boolean} {
-  const passedOptions: { [key: string]: any } = {};
-  if (availableOptions) {
-    Object.keys(availableOptions).forEach(optionFullName => {
-      // eslint-disable-next-line no-prototype-builtins
-      if (cmd.hasOwnProperty(optionFullName)) {
-        passedOptions[optionFullName] = cmd[optionFullName] as string | boolean;
-      }
-    })
-  }
-  return passedOptions;
-}
-
-/**
- * @alpha
- */
 export interface CommonGenerationOptions {
   dest?: string;
   model?: string;
@@ -50,9 +17,6 @@ export interface CommonGenerationOptions {
   templateOverride?: string;
 }
 
-/**
- * @alpha
- */
 export const commonGenerationOptionsConfig: OptionsConfig = {
   dest: {
     alias: 'd',
@@ -71,25 +35,6 @@ export const commonGenerationOptionsConfig: OptionsConfig = {
   }
 };
 
-export interface PolymerElementOptions extends CommonGenerationOptions {
-  dirShift?: string;
-}
-
-export const polymerElementOptionsConfig: OptionsConfig = {
-  ...commonGenerationOptionsConfig,
-  dirShift: {
-    alias: 'f',
-    description: 'directory shift for html imports e.g ../../',
-    type: String
-  },
-  answers: {
-    alias: 'a',
-    description: 'fulfilled params for generator to avoid interactive input in serialized JSON string',
-    type: String
-  }
-};
-
-// Same as polymerElementOptionsConfig but with a neutral name. To be used in non-Polymer generators.
 export const componentOptionsConfig: OptionsConfig = {
   ...commonGenerationOptionsConfig,
   dirShift: {
@@ -103,6 +48,48 @@ export const componentOptionsConfig: OptionsConfig = {
     type: String
   }
 };
+
+/**
+ * Convert 'OptionsConfig' object to array of items that could be used in generator cli api
+ * @param optionsConfig
+ */
+export function extractAvailableOptions(optionsConfig?: OptionsConfig): CommanderOptionInfo[] {
+  if (!optionsConfig) {
+    return [];
+  }
+
+  const result: CommanderOptionInfo[] = [];
+  Object.keys(optionsConfig).forEach(optionFullName => {
+    const {type, alias, description} = optionsConfig[optionFullName];
+    if (alias) {
+      const optionValue = getOptionValue(type, optionFullName);
+      const pattern = `-${alias}, --${optionFullName}${optionValue}`;
+      description ? result.push({pattern, description}) : result.push({pattern});
+    }
+  });
+  return result;
+}
+
+/**
+ * Pick  option as object from command
+ *
+ * @param cmd list of options from cli command
+ * @param availableOptions options config
+ */
+export function pickOptions(cmd: { [key: string]: any }, availableOptions?: OptionsConfig)
+  : { [key: string]: string | boolean | Array<Record<string, unknown>> } {
+
+  const passedOptions: { [key: string]: any } = {};
+  if (availableOptions) {
+    Object.keys(availableOptions).forEach(optionFullName => {
+      // eslint-disable-next-line no-prototype-builtins
+      if (cmd.hasOwnProperty(optionFullName)) {
+        passedOptions[optionFullName] = cmd[optionFullName] as string | boolean;
+      }
+    })
+  }
+  return passedOptions;
+}
 
 function getOptionValue(type: OptionConfig['type'], optionFullName: string): string {
   if (type === String) {

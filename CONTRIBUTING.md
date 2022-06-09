@@ -15,8 +15,8 @@
 
 #### Requirements
 
-- Node.js version 14.18.1 or higher
-- Npm version 7 (Note, that different npm version 6 or 8 may be causing an issue)
+- Node.js version 16.15.0 or higher
+- Npm version 8 (Note, that different npm version may be causing an issue)
 
 #### Project Bootstrap
 
@@ -633,7 +633,7 @@ Generates react-typescript entity-list
 
 Options:
   -d, --dest [dest]          destination directory
-  -s, --schema [schema]      specify path to GraphQL schema
+  -s, --schema [schema...]      specify path (or set of paths) to GraphQL schema
   -a, --answers [answers]    fulfilled params for generator to avoid interactive input in serialized JSON string
   -b, --verbose              log out additional info about generation process
   -f, --dirShift [dirShift]  directory shift for html imports e.g ../../
@@ -684,6 +684,30 @@ Now you can create screens using Studio interface (`Ctrl + Shift + A` -> type "F
 We are using [@graphql-codegen/gql-tag-operations-preset](https://www.graphql-code-generator.com/docs/presets/gql-tag-operations) to generate TypeScript types based on GraphQL operations and schema. Generated types are located in `src/gql` and we install them as a local package in order for them to be available in any place of the application by the same path. Read above link for more details.
 
 **There is a caveat!** Generated TypeScript types are using `@graphql-typed-document-node/core` package. It is a transitive dependency of `@apollo/client`. When using npm 7 it is installed on top level and is therefore usable by `src/gql`. When using npm 8 it is installed in `node_modules` inside `@apollo/client` folder and is therefore inaccessible. As a workaround, we are adding it as a dev dependency to `src/gql`. When updating `@apollo/client` to a version that uses new major version of `@graphql-typed-document-node/core` we should manually update mentioned dev dependency in the template.
+
+### Common Options for `react-typescript` Generators
+* `dest` destination folder for created screens, relative from generated app root
+* `schema` path or set of paths to GraphQL schema files, TS types will be generated based on schema data
+* `answers` alternative to interactive mode, answers could be passed as base64 encoded JSON object
+* `verbose` if set - additional information about generation process will be added in output
+
+### Composite GraphQL Schema in Generated App
+
+`react-typescript` generators could receive a set of GraphQL schema files in `options`.
+
+```
+amplicodegen react-typescript:app \
+ --schema ./schema.graphql ./addon-schema.graphqls
+```
+
+Over generator process this schema files (in example above `./schema.graphql ./addon-schema.graphqls`) 
+will be composed to single schema file and added in generated app to path 
+[/src/core/schema/schema.graphql](example-app//src/core/schema/schema.graphql). 
+
+Schema is added to app, because frontend need information about GraphQL types, queries and mutation in runtime. 
+
+**Note**, that schema file will be rebuilt in each`react-typescript` generator call. 
+So we need always pass actual set of schema files as parameter.
 
 ### Collection EJS Templates (List, Cards, Table)
 

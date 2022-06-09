@@ -1,6 +1,9 @@
 import {extractAvailableOptions, OptionsConfig, pickOptions} from "../../common/cli-options";
 import {expect} from "chai";
 import {OptionConfig} from "yeoman-generator";
+import {
+  amplicodeCommonOptionsConfig
+} from "../../building-blocks/stages/options/pieces/amplicode";
 
 describe('cli options', function () {
   it('should return empty array if no options passed', function () {
@@ -26,6 +29,13 @@ describe('cli options', function () {
     expect(res[0].description).eq('option one');
   });
 
+  it('should extract array option', function () {
+    const availableOptions = extractAvailableOptions(amplicodeCommonOptionsConfig);
+    const schemaOpt = availableOptions.find(item => item.pattern === '-s, --schema [schema...]');
+    expect(schemaOpt).not.undefined;
+    expect(schemaOpt!.description).eq('specify path (or set of paths) to GraphQL schema');
+  });
+
   it('should pick options from cmd', function () {
     const optionConfig: OptionConfig = { alias: 'o1' };
 
@@ -36,4 +46,10 @@ describe('cli options', function () {
     res = pickOptions({option1: 123}, optsConfig);
     expect(res['option1']).eq(123);
   });
+
+  it('should pik array option', function () {
+    const res = pickOptions({schema: ['schema1', 'schema2']}, amplicodeCommonOptionsConfig);
+    expect((res.schema as []).length).eq(2);
+  });
+
 });
