@@ -137,6 +137,15 @@
       "outlineProps": [
         "children"
       ]
+    },
+    "Form.Item": {
+      "importAliases": [
+        "antd"
+      ],
+      "outlineProps": [
+        "label",
+        "name"
+      ]
     }
   }
 }
