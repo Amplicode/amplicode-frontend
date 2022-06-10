@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.11.0...@amplicode/react-core@0.12.0) (2022-06-10)
+
+
+### Features
+
+* [Bean Validation] Send selected locale to backend [#372](https://github.com/Amplicode/amplicode-frontend/issues/372) ([097d60a](https://github.com/Amplicode/amplicode-frontend/commit/097d60af7ae9b692bea8367b5a4be0f1e52ee80d))
+* update addon metadata type for working with react-router [#391](https://github.com/Amplicode/amplicode-frontend/issues/391) ([7e0d6e9](https://github.com/Amplicode/amplicode-frontend/commit/7e0d6e9805fdaac01a163ebd2bafb68478fb3b09))
+
+
+
+
+
 # [0.11.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.10.1...@amplicode/react-core@0.11.0) (2022-05-23)
 
 

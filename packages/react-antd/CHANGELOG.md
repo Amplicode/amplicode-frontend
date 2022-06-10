@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-antd@0.12.0...@amplicode/react-antd@0.13.0) (2022-06-10)
+
+
+### Features
+
+* menu: use code style recommended for antd 4.20+ [#393](https://github.com/Amplicode/amplicode-frontend/issues/393) ([dcfe27d](https://github.com/Amplicode/amplicode-frontend/commit/dcfe27df946892471ec681ab2848ee35fb8d21ea))
+
+
+### BREAKING CHANGES
+
+* Using menuItems as a Menu prop
+
+
+
+
+
 # [0.12.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-antd@0.11.1...@amplicode/react-antd@0.12.0) (2022-05-23)
 
 

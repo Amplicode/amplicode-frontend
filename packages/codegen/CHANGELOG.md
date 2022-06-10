@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.19.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.18.0...@amplicode/codegen@0.19.0) (2022-06-10)
+
+
+### Bug Fixes
+
+* generator creates non-compiling screen with autoFocus for EntityLookupField [#412](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/412) ([30441b5](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/30441b51eb16fb738aa62aba3f6c2a85b523f97f))
+* missing breadcrumbs [#405](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/405) ([32e7f6c](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/32e7f6c6da0c6b5bec83a854c2229267e5246ce4))
+* modal does not close until the deletion is finished [#417](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/417) ([7d26fdb](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/7d26fdb6e77b21abae0aa6c0e47353ebb5dfe9dd))
+* table looks ugly when too many columns [#423](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/423) ([661c61c](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/661c61c4e02061363862d1838f70c876e7ccca1e))
+
+
+### Features
+
+* [Bean Validation] Send selected locale to backend [#372](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/372) ([097d60a](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/097d60af7ae9b692bea8367b5a4be0f1e52ee80d))
+* add Amplicode logo to the header [#409](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/409) ([e2ab64a](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/e2ab64a624d68dac74f64b9af0f6cd449e03ad06))
+* custom scalars - LocalTime should support three types of format [#385](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/385) ([24488ec](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/24488ec8e1a8b441a997a7243567f5458720be1f))
+* menu: use code style recommended for antd 4.20+ [#393](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/393) ([dcfe27d](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/dcfe27df946892471ec681ab2848ee35fb8d21ea))
+* remove hotkeys from app template [#357](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/357) ([db0ab06](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/db0ab06b9b5df348333ac04ee4375a2fe03b7d93))
+* screen generation should fail if there is no ID attribute in query [#242](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/242) ([cfd44b7](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/cfd44b7d3eebbb587671e03cb555a5b458bab25b))
+* support composite GraphQL schema [#308](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/308) ([dec91fa](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/dec91fafae4915ff8d8f80214545964a8d240bd1))
+* support IDs with name other than "id" [#242](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/242) ([6b64353](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/6b64353cd02459bb32dc739867cbbf82e6e6c8f9))
+* update schema generator ([f0cf5d1](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/f0cf5d1e1c8b8c5bbf0c5c2f0cb1e47584ea11db))
+
+
+### BREAKING CHANGES
+
+* Using menuItems as a Menu prop
+
+
+
+
+
 # [0.18.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.17.1...@amplicode/codegen@0.18.0) (2022-05-23)
 
 
