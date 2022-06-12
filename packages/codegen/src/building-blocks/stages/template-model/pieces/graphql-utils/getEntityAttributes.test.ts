@@ -19,7 +19,7 @@ describe('getEntityAttributes', async () => {
   it('relation field is marked as such', () => {
     const attributes = getEntityAttributes(QUERY_NODE, schema, 'id');
     const ownerAttr = attributes.find(attr => attr.name === 'owner');
-    expect(ownerAttr?.isRelationField).to.eq(true);
+    expect(ownerAttr?.isSingleRelationField).to.eq(true);
   });
 
   it('relation field has entity name', () => {
@@ -71,7 +71,8 @@ const RESULT = [
   {
     nestedAttributes: undefined,
     displayName: "Identification Number",
-    isRelationField: false,
+    isSingleRelationField: false,
+    isMultiRelationField: false,
     name: "identificationNumber",
     type: "String",
     enumOptions: undefined
@@ -87,7 +88,8 @@ const RESULT = [
       "telephone",
     ],
     displayName: "Owner",
-    isRelationField: true,
+    isSingleRelationField: true,
+    isMultiRelationField: false,
     name: "owner",
     type: "OwnerDTO",
     enumOptions: undefined
@@ -99,7 +101,8 @@ const RESULT = [
       "name"
     ],
     displayName: "Type",
-    isRelationField: true,
+    isSingleRelationField: true,
+    isMultiRelationField: false,
     name: "type",
     type: "PetTypeDTO",
     enumOptions: undefined

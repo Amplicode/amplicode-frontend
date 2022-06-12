@@ -8,7 +8,8 @@ export interface AttributeModel {
   gqlType: GraphQLType;
   displayName: string;
   enumOptions?: Array<GraphQLEnumValue>;
-  isRelationField: boolean;
+  isSingleRelationField: boolean;
+  isMultiRelationField: boolean;
   nestedAttributes?: string[];
 }
 

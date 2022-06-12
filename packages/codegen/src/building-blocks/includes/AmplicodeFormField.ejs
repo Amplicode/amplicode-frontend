@@ -77,7 +77,7 @@
     <DatePicker  showTime={{ format: "HH:mm:ss" }} <% if (index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.type === 'LocalTime' || attr.type === 'Time') { %>
     <TimePicker <% if (locals.index === 0) { -%> autoFocus <% } -%> />
-  <% } else if (attr.isRelationField) { %>
+  <% } else if (attr.isSingleRelationField) { %>
     <EntityLookupField getDisplayName={get<%= capitalizeFirst(attr.type) %>DisplayName}
                         label="<%= attr.displayName %>"
                         <% if (locals.index === 0) { -%>
