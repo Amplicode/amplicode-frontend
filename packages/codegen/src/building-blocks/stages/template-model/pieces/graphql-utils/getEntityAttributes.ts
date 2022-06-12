@@ -1,4 +1,4 @@
-import {DocumentNode, getNamedType, GraphQLEnumType, GraphQLSchema} from "graphql";
+import {DocumentNode, GraphQLList, GraphQLNonNull, getNamedType, GraphQLEnumType, GraphQLSchema} from "graphql";
 import {AttributeModel} from "../entity";
 import {getTopFieldName} from "./getTopFieldName";
 import {capitalizeFirst, splitByCapitalLetter} from "../../../../../common/utils";
@@ -29,13 +29,17 @@ export function getEntityAttributes(documentNode: DocumentNode, schema: GraphQLS
     .map(fieldKey => {
       const field = typeFields[fieldKey];
 
-      const gqlType = field.type;
+      const gqlType = (field.type instanceof GraphQLList || field.type instanceof GraphQLNonNull)
+        ? field.type.ofType.name
+        : field.type.name;
+
       const type = getNamedType(gqlType).toString();
 
       return {
         name: field.name,
         displayName: capitalizeFirst(splitByCapitalLetter(field.name)),
-        isRelationField: !(isAnyLeafType(gqlType)),
+        isSingleRelationField: !isAnyLeafType(gqlType) && !(gqlType instanceof GraphQLList),
+        isMultiRelationField: !isAnyLeafType(gqlType) && gqlType instanceof GraphQLList,
         type,
         gqlType,
         enumOptions: gqlType instanceof GraphQLEnumType
