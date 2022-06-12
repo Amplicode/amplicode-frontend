@@ -26,11 +26,8 @@ export * from './building-blocks/stages/template-model/pieces/common';
 export * from './building-blocks/stages/template-model/pieces/editor';
 export * from './building-blocks/stages/template-model/pieces/EmptyTemplateModel';
 export * from './building-blocks/stages/template-model/pieces/entity';
-export * from './building-blocks/stages/template-model/pieces/getDisplayedAttributesFromQuery';
-export * from './building-blocks/stages/template-model/pieces/getTopAttributesFromQuery';
 export * from './building-blocks/stages/template-model/pieces/relations';
 export * from './building-blocks/stages/template-model/pieces/util';
-export * from './building-blocks/stages/template-model/pieces/entity-management/string-id';
 
 export * from './building-blocks/stages/writing/defaultWrite';
 export * from './building-blocks/stages/writing/pieces/i18n';
