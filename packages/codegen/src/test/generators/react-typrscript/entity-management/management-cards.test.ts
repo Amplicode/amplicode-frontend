@@ -64,19 +64,19 @@ describe('codegen cards management', () => {
 
     const bigDecimalFormItem = `
       <Form.Item name="bigDecimalNotNull" label="Big Decimal Not Null">
-        <InputNumber type={"number"} stringMode={true} autoFocus />
+        <InputNumber type="number" stringMode autoFocus />
       </Form.Item>`;
     expectFileContainsIgnoreSpace(editorComponentFile, bigDecimalFormItem);
 
     const bigIntFormItem = `
       <Form.Item name="bigIntNotNull" label="Big Int Not Null">
-        <InputNumber type={"number"} precision={0} stringMode={true} />
+        <InputNumber type="number" precision={0} stringMode />
       </Form.Item>`;
     expectFileContainsIgnoreSpace(editorComponentFile, bigIntFormItem);
 
     const urlFormItem = `
       <Form.Item name="urlNotNull" label="Url Not Null">
-        <Input type={"url"} />
+        <Input type="url" />
       </Form.Item>`;
     expectFileContainsIgnoreSpace(editorComponentFile, urlFormItem);
 

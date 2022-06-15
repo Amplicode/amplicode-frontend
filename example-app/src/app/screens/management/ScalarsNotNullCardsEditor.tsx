@@ -146,11 +146,11 @@ function FormFields() {
   return (
     <>
       <Form.Item name="bigDecimalNotNull" label="Big Decimal Not Null">
-        <InputNumber type={"number"} stringMode={true} autoFocus />
+        <InputNumber type="number" stringMode autoFocus />
       </Form.Item>
 
       <Form.Item name="bigIntNotNull" label="Big Int Not Null">
-        <InputNumber type={"number"} precision={0} stringMode={true} />
+        <InputNumber type="number" precision={0} stringMode />
       </Form.Item>
 
       <Form.Item name="dateTestNotNull" label="Date Test Not Null">
@@ -182,7 +182,7 @@ function FormFields() {
       </Form.Item>
 
       <Form.Item name="urlNotNull" label="Url Not Null">
-        <Input type={"url"} />
+        <Input type="url" />
       </Form.Item>
     </>
   );

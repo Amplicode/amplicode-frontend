@@ -162,7 +162,7 @@ function FormFields() {
     <>
       <Form.Item name="intTest" label="Int Test">
         <InputNumber
-          type={"number"}
+          type="number"
           precision={0}
           max={2147483647}
           min={-2147483648}
@@ -172,7 +172,7 @@ function FormFields() {
 
       <Form.Item name="intPrimitive" label="Int Primitive">
         <InputNumber
-          type={"number"}
+          type="number"
           precision={0}
           max={2147483647}
           min={-2147483648}
@@ -181,7 +181,7 @@ function FormFields() {
 
       <Form.Item name="byteTest" label="Byte Test">
         <InputNumber
-          type={"number"}
+          type="number"
           precision={0}
           max={2147483647}
           min={-2147483648}
@@ -190,7 +190,7 @@ function FormFields() {
 
       <Form.Item name="bytePrimitive" label="Byte Primitive">
         <InputNumber
-          type={"number"}
+          type="number"
           precision={0}
           max={2147483647}
           min={-2147483648}
@@ -199,7 +199,7 @@ function FormFields() {
 
       <Form.Item name="shortTest" label="Short Test">
         <InputNumber
-          type={"number"}
+          type="number"
           precision={0}
           max={2147483647}
           min={-2147483648}
@@ -208,7 +208,7 @@ function FormFields() {
 
       <Form.Item name="shortPrimitive" label="Short Primitive">
         <InputNumber
-          type={"number"}
+          type="number"
           precision={0}
           max={2147483647}
           min={-2147483648}
@@ -216,19 +216,19 @@ function FormFields() {
       </Form.Item>
 
       <Form.Item name="doubleTest" label="Double Test">
-        <InputNumber type={"number"} />
+        <InputNumber type="number" />
       </Form.Item>
 
       <Form.Item name="doublePrimitive" label="Double Primitive">
-        <InputNumber type={"number"} />
+        <InputNumber type="number" />
       </Form.Item>
 
       <Form.Item name="floatTest" label="Float Test">
-        <InputNumber type={"number"} />
+        <InputNumber type="number" />
       </Form.Item>
 
       <Form.Item name="floatPrimitive" label="Float Primitive">
-        <InputNumber type={"number"} />
+        <InputNumber type="number" />
       </Form.Item>
 
       <Form.Item name="string" label="String">
@@ -254,19 +254,19 @@ function FormFields() {
       </Form.Item>
 
       <Form.Item name="bigInt" label="Big Int">
-        <InputNumber type={"number"} precision={0} stringMode={true} />
+        <InputNumber type="number" precision={0} stringMode />
       </Form.Item>
 
       <Form.Item name="longTest" label="Long Test">
-        <InputNumber type={"number"} precision={0} stringMode={true} />
+        <InputNumber type="number" precision={0} stringMode />
       </Form.Item>
 
       <Form.Item name="longPrimitive" label="Long Primitive">
-        <InputNumber type={"number"} precision={0} stringMode={true} />
+        <InputNumber type="number" precision={0} stringMode />
       </Form.Item>
 
       <Form.Item name="bigDecimal" label="Big Decimal">
-        <InputNumber type={"number"} stringMode={true} />
+        <InputNumber type="number" stringMode />
       </Form.Item>
 
       <Form.Item name="localDate" label="Local Date">
@@ -294,7 +294,7 @@ function FormFields() {
       </Form.Item>
 
       <Form.Item name="url" label="Url">
-        <Input type={"url"} />
+        <Input type="url" />
       </Form.Item>
     </>
   );

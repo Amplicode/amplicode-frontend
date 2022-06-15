@@ -1,8 +1,27 @@
+<% const hiddenFilterNames = hiddenFilters.map(filter => filter.name); -%>
+<%# ------- TEMPLATE STARTS HERE ------- -%>
+<% if (withHiddenFilters) { -%>
+  const couldBeHiddenFilters: NamePath[] = <%- include(includesPath('RenderValue'), {data: hiddenFilterNames}) %>;
+<% } -%>
+
 interface FiltersProps {
   onApplyFilters: (filters: QueryVariablesType) => void;
 }
 function Filters({onApplyFilters}: FiltersProps) {
   const [form] = useForm();
+
+  <% if (withHiddenFilters) { -%>
+    const [showAll, setShowAll] = useState(false);
+
+    const [countHiddenTouchedFilters, setCountHiddenTouchedFilters] = useState(0);
+    const [countHiddenInvalideFilters, setCountHiddenInvalideFilters] = useState(0);
+  <% } -%>
+
+  const onResetFilters = async () => {
+    await form.resetFields();
+    const values = await form.validateFields();
+    onApplyFilters(values);
+  };
 
   return (
     <Form
@@ -12,30 +31,77 @@ function Filters({onApplyFilters}: FiltersProps) {
       initialValues={initialFilterVars}
     >
       <Form.Item shouldUpdate>
-        {() =>
-          <Row gutter={16}>
-            <% filters.forEach((filter) => { %>
-              <Col span={8}>
-                <%- include('Filter', filter) %>
-              </Col>
-            <% }) %>
-          </Row>
-        }
+        {() => {
+          <% if (withHiddenFilters) { -%>
+            const newCountHiddenTouchedFilters = showAll
+              ? 0
+              : couldBeHiddenFilters
+                .filter((filterName) => form.isFieldTouched(filterName))
+                .length;
+            if (newCountHiddenTouchedFilters !== countHiddenTouchedFilters) {
+              setCountHiddenTouchedFilters(newCountHiddenTouchedFilters);
+            }
+            
+            const newCountHiddenInvalideFilters = showAll
+              ? 0
+              : couldBeHiddenFilters
+                .filter((filterName) => form.getFieldError(filterName).length > 0)
+                .length;
+            if (newCountHiddenInvalideFilters !== countHiddenInvalideFilters) {
+              setCountHiddenInvalideFilters(newCountHiddenInvalideFilters);
+            }
+          <% } -%>
+
+          return (
+            <Row gutter={16}>
+              <% filters.forEach((attr, index) => { %>
+                <Col
+                  span={<%= 24 / maxFiltersInRow %>}
+                  <% if (index >= maxFiltersInRow) { -%>
+                    style={{display: showAll ? 'block' : 'none'}}
+                  <% } -%>
+                >
+                  <%- include(includesPath('AmplicodeFormField'), {attr, withReset: true}) %>
+                </Col>
+              <% }) %>
+            </Row>
+          )
+        }}
       </Form.Item>
+
+      <% if (withHiddenFilters) { -%>
+        <Row justify="space-between">
+          <Col>
+      <% } -%>
 
       <Space>
         <Button type="primary" htmlType="submit">
           <FormattedMessage id="filters.apply" />
         </Button>
-        <Button
-          onClick={() => {
-            form.resetFields();
-            onApplyFilters(form.getFieldsValue());
-          }}
-        >
+        <Button onClick={onResetFilters}>
           <FormattedMessage id="filters.reset" />
         </Button>
       </Space>
+
+      <% if (withHiddenFilters) { -%>
+          </Col>
+
+          <Col>
+            <Button type="link" onClick={() => setShowAll(!showAll)}>
+              <Space>
+                <FormattedMessage id={showAll ? 'filters.collapse' : 'filters.showAll'} />
+                {(countHiddenInvalideFilters > 0) && (
+                  <Badge style={{backgroundColor: '#FF4D4F'}} size="small" count={countHiddenInvalideFilters} />
+                )}
+                {(countHiddenInvalideFilters === 0 && countHiddenTouchedFilters > 0) && (
+                  <Badge style={{backgroundColor: '#1890ff'}} size="small" count={countHiddenTouchedFilters} />
+                )}
+                {showAll ? <UpOutlined /> : <DownOutlined />}
+              </Space>
+            </Button>
+          </Col>
+        </Row>
+      <% } -%>
     </Form>
   )
 }

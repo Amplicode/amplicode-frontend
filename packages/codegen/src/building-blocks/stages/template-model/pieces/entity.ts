@@ -1,10 +1,11 @@
 import {Entity, ProjectModel} from "../../../../common/model/cuba-model";
 import {getEntityPath} from "../../../../generators/react-typescript/common/template-model";
-import {GraphQLEnumValue} from "graphql";
+import {GraphQLEnumValue, GraphQLType} from "graphql";
 
 export interface AttributeModel {
-  name: string;
-  type?: string;
+  name: string | string[];
+  type: string;
+  gqlType: GraphQLType;
   displayName: string;
   enumOptions?: Array<GraphQLEnumValue>;
   isRelationField: boolean;

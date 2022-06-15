@@ -32,5 +32,7 @@
   "home.loggedInAs": "You are logged in as {username}",
 
   "filters.apply": "Apply",
-  "filters.reset": "Reset"
+  "filters.reset": "Reset",
+  "filters.showAll": "Show all",
+  "filters.collapse": "Collapse"
 }

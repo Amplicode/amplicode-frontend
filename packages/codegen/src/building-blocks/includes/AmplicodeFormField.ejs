@@ -1,55 +1,92 @@
-<Form.Item name='<%= attr.name %>'
-           label='<%= attr.displayName %>'
-           <% if (attr?.type === 'Boolean') { -%>
-             valuePropName='checked'
-             initialValue={false}
-        <% } -%>
+<Form.Item
+  name=<%- include(includesPath('RenderReactPropValue'), {data: attr.name}) %>
+  label='<%= attr.displayName %>'
+  <% if (attr?.type === 'Boolean') { -%>
+    valuePropName='checked'
+    initialValue={false}
+  <% } -%>
 >
   <% if (attr.type === 'Int') { -%>
     <InputNumber
-      type={"number"}
+      type="number"
       precision={0}
       max={2147483647}
       min={-2147483648}
-      <% if (index === 0) { -%> autoFocus <% } -%>
+      <% if (locals.index === 0) { -%> autoFocus <% } -%>
     />
   <% } else if (attr.type === 'Float') { -%>
-    <InputNumber type={"number"} <% if (index === 0) { -%> autoFocus <% } -%> />
+    <InputNumber
+      type="number"
+      <% if (locals.index === 0) { -%> autoFocus <% } -%>
+    />
+  <% } else if (attr.type === 'BigInteger') { %>
+    <InputNumber
+      type="number"
+      precision={0}
+      stringMode
+      <% if (locals.index === 0) { -%> autoFocus <% } -%>
+    />
+  <% } else if (attr.type === 'Long') { %>
+    <InputNumber
+      type="number"
+      precision={0}
+      stringMode
+      <% if (locals.index === 0) { -%> autoFocus <% } -%>
+    />
+  <% } else if (attr.type === 'BigDecimal') { %>
+    <InputNumber
+      type="number"
+      stringMode
+      <% if (locals.index === 0) { -%> autoFocus <% } -%>
+    />
   <% } else if (attr.type === 'String') { -%>
-    <Input <% if (index === 0) { -%> autoFocus <% } -%> />
+    <Input
+      <% if (locals.index === 0) { -%> autoFocus <% } -%>
+      <% if (locals.withReset) { -%>
+        suffix={
+          form.isFieldTouched(<%- include(includesPath('RenderValue'), {data: attr.name}) %>)
+            ? <CloseCircleOutlined onClick={() => form.resetFields([<%- include(includesPath('RenderValue'), {data: attr.name}) %>])} />
+            : <span />
+        }
+      <% } -%>
+    />
   <% } else if (attr.type === 'Url') { -%>
-    <Input type={"url"} <% if (index === 0) { -%> autoFocus <% } -%> />
+    <Input
+      type="url"
+      <% if (locals.index === 0) { -%> autoFocus <% } -%>
+      <% if (locals.withReset) { -%>
+        suffix={
+          form.isFieldTouched(<%- include(includesPath('RenderValue'), {data: attr.name}) %>)
+            ? <CloseCircleOutlined onClick={() => form.resetFields([<%- include(includesPath('RenderValue'), {data: attr.name}) %>])} />
+            : <span />
+        }
+      <% } -%>
+    />
   <% } else if (attr.type === 'Boolean') { -%>
-    <Checkbox <% if (index === 0) { -%> autoFocus <% } -%> />
+    <Checkbox <% if (locals.index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.type === 'ID') { -%>
   <% } else if (attr.enumOptions != null) { -%>
-    <Select <% if (index === 0) { -%> autoFocus <% } -%> >
+    <Select <% if (locals.index === 0) { -%> autoFocus <% } -%> >
       <% attr.enumOptions.forEach(opt => { -%>
         <Select.Option value="<%= opt.value %>"><%= fatSnakeToNormal(opt.name) %></Select.Option>
       <% }) -%>
     </Select>
-  <% } else if (attr.isRelationField) { %>
-    <EntityLookupField getDisplayName={get<%= capitalizeFirst(attr.type) %>DisplayName}
-                       label="<%= attr.displayName %>"
-                       <% if (index === 0) { -%>
-                         autoFocus
-                       <% } -%>
-                       // TODO Uncomment the code and specify the list component
-                       // lookupComponent={<YourEntityLookupComponentName/>}
-    />
   <% } else if (attr.type === 'Date') { %>
-    <DatePicker <% if (index === 0) { -%> autoFocus <% } -%> />
+    <DatePicker <% if (locals.index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.type === 'LocalDateTime' || attr.type === 'DateTime' || attr.type === 'Timestamp') { %>
     <DatePicker  showTime={{ format: "HH:mm:ss" }} <% if (index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.type === 'LocalTime' || attr.type === 'Time') { %>
-    <TimePicker <% if (index === 0) { -%> autoFocus <% } -%> />
-  <% } else if (attr.type === 'BigInteger') { %>
-    <InputNumber type={"number"} precision={0} stringMode={true} <% if (index === 0) { -%> autoFocus <% } -%> />
-  <% } else if (attr.type === 'Long') { %>
-    <InputNumber type={"number"} precision={0} stringMode={true} <% if (index === 0) { -%> autoFocus <% } -%> />
-  <% } else if (attr.type === 'BigDecimal') { %>
-    <InputNumber type={"number"} stringMode={true} <% if (index === 0) { -%> autoFocus <% } -%> />
+    <TimePicker <% if (locals.index === 0) { -%> autoFocus <% } -%> />
+  <% } else if (attr.isRelationField) { %>
+    <EntityLookupField getDisplayName={get<%= capitalizeFirst(attr.type) %>DisplayName}
+                        label="<%= attr.displayName %>"
+                        <% if (locals.index === 0) { -%>
+                          autoFocus
+                        <% } -%>
+                        // TODO Uncomment the code and specify the list component
+                        // lookupComponent={<YourEntityLookupComponentName/>}
+    />
   <% } else { -%>
-    <Input  <% if (index === 0) { -%> autoFocus <% } -%> />
+    <Input <% if (locals.index === 0) { -%> autoFocus <% } -%> />
   <% } -%>
 </Form.Item>

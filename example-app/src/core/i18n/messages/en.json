@@ -29,6 +29,8 @@
   "home.loggedInAs": "You are logged in as {username}",
   "filters.apply": "Apply",
   "filters.reset": "Reset",
+  "filters.showAll": "Show all",
+  "filters.collapse": "Collapse",
   "screen.OwnerCardsEditor": "Owner Cards Editor",
   "screen.OwnerCards": "Owner Cards",
   "screen.OwnerListEditor": "Owner List Editor",

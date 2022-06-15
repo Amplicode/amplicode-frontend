@@ -130,6 +130,12 @@ interface FiltersProps {
 function Filters({ onApplyFilters }: FiltersProps) {
   const [form] = useForm();
 
+  const onResetFilters = async () => {
+    await form.resetFields();
+    const values = await form.validateFields();
+    onApplyFilters(values);
+  };
+
   return (
     <Form
       form={form}
@@ -138,42 +144,39 @@ function Filters({ onApplyFilters }: FiltersProps) {
       initialValues={initialFilterVars}
     >
       <Form.Item shouldUpdate>
-        {() => (
-          <Row gutter={16}>
-            <Col span={8}>
-              <Form.Item
-                label="Identification Number"
-                name={"identificationNumber"}
-              >
-                <Input
-                  suffix={
-                    form.isFieldTouched("identificationNumber") ? (
-                      <CloseCircleOutlined
-                        onClick={() =>
-                          form.resetFields(["identificationNumber"])
-                        }
-                      />
-                    ) : (
-                      <span />
-                    )
-                  }
-                />
-              </Form.Item>
-            </Col>
-          </Row>
-        )}
+        {() => {
+          return (
+            <Row gutter={16}>
+              <Col span={6}>
+                <Form.Item
+                  name="identificationNumber"
+                  label="Identification Number"
+                >
+                  <Input
+                    suffix={
+                      form.isFieldTouched("identificationNumber") ? (
+                        <CloseCircleOutlined
+                          onClick={() =>
+                            form.resetFields(["identificationNumber"])
+                          }
+                        />
+                      ) : (
+                        <span />
+                      )
+                    }
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+          );
+        }}
       </Form.Item>
 
       <Space>
         <Button type="primary" htmlType="submit">
           <FormattedMessage id="filters.apply" />
         </Button>
-        <Button
-          onClick={() => {
-            form.resetFields();
-            onApplyFilters(form.getFieldsValue());
-          }}
-        >
+        <Button onClick={onResetFilters}>
           <FormattedMessage id="filters.reset" />
         </Button>
       </Space>
