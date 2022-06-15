@@ -1,0 +1,75 @@
+.main-layout {
+    height: 100%;
+}
+
+.layout-container.ant-layout {
+    min-height: initial;
+}
+
+.layout-sider.ant-layout-sider {
+    background: #ffffff;
+}
+
+.layout-content {
+    padding: 24px 24px 24px;
+}
+
+.narrow-layout {
+    max-width: 1024px;
+    margin: auto;
+}
+
+.narrow-layout.ant-card {
+    max-width: 1024px;
+    margin: auto;
+}
+
+.lookup-cards .ant-card {
+    cursor: pointer;
+}
+
+.lookup-cards .ant-card:hover {
+    background: #e6f7ff;
+}
+
+.narrow-layout .ant-form-item, .narrow-layout .form-error-message {
+    margin-bottom: 12px;
+}
+
+.ant-list-bordered .ant-list-item {
+    border: 1px solid rgb(217, 217, 217);
+}
+
+.entity-table .ant-table-row, .entity-table-readonly .ant-table-row  {
+    cursor: pointer;
+}
+
+.entity-table .ant-table-row.table-row-selected,
+.entity-table tr.ant-table-row.table-row-selected>td.ant-table-cell-row-hover {
+    background: #e6f7ff;
+}
+
+.anticon.login-icon {
+    color: rgba(0,0,0,.25);
+}
+
+.card-space, .list-space, .table-space, .input-space {
+    width: 100%;
+}
+
+.form-buttons {
+    text-align: center;
+}
+
+.list-wrapper {
+    flex-grow: 1;
+}
+
+form.ant-form .ant-input-number {
+    width: 100%;
+    max-width: 200px;
+}
+
+.ant-breadcrumb.crud-screen-breadcrumb {
+    margin-bottom: 12px;
+}

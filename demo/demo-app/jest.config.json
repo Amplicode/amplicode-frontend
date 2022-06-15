@@ -1,0 +1,19 @@
+{
+  "setupFiles": [
+    "./jestSetup.js"
+  ],
+  "testEnvironment": "jsdom",
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest",
+    "^.+\\.(js|jsx|mjs|cjs)$": "babel-jest",
+    "^.+\\.css$": "./stylesTransform.js",
+    "^.+\\.graphql": "jest-raw-loader",
+    "^.+\\.svg$": "./svgTransform.js"
+  },
+  "transformIgnorePatterns": [
+    "/node_modules/(?!antd|@ant-design|rc-.+?|@babel/runtime).+(js|jsx)$"
+  ],
+  "moduleNameMapper": {
+    "(.*).graphql\\?raw": "$1.graphql"
+  }
+}

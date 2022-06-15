@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2015", // Works in every modern browser
+    "lib": [ // Exclude ScriptHost
+      "DOM",
+      "DOM.Iterable",
+      "ES2015"
+    ],
+    "skipLibCheck": true, // Only type-check `d.ts` that are directly referred
+    "esModuleInterop": true, // Allows importing CommonJS libs using ES2015 syntax
+    // "allowSyntheticDefaultImports" defaults to "true" when "esModuleInterop": true (allows writing `import React from 'react';` instead of `import * as React from 'react';`)
+    "strict": true, // Enables stricter type checking
+    "forceConsistentCasingInFileNames": true, // Can't import from './SomeFile.ts' if the file name is './someFile.ts'
+    "noFallthroughCasesInSwitch": true,
+    "module": "ES2020", // Support dynamic imports and import.meta
+    "moduleResolution": "node", // Most commonly used, required for "resolveJsonModule"
+    "resolveJsonModule": true, // Allows importing JSON files
+    "isolatedModules": true, // TS will warn if code cannot be transpiled by single-file transpilers such as Babel
+    "noEmit": true, // Do not transform TypeScript using TypeScript compiler. Vite uses esbuild in dev env and rollup in production.
+    "jsx": "react-jsx", // React 17 style of JSX transformation
+    "experimentalDecorators": true, // Because we are using MobX decorators
+  },
+  "include": [
+    "src"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "common.ok": "OK",
+  "common.cancel": "Отмена",
+  "common.close": "Закрыть",
+  "common.create": "Создать",
+  "common.edit": "Изменить",
+  "common.open": "Открыть",
+  "common.remove": "Удалить",
+  "common.submit": "ОК",
+  "common.next": "Следующий",
+  "common.back": "Назад",
+  "common.previous": "Предыдущий",
+  "common.requestFailed": "Не удалось выполнить операцию",
+  "common.notAllowed": "У вас недостаточно прав для выполнения этой операции",
+  "common.viewDetails": "Посмотреть подробности",
+  "common.404": "Извините, мы не смогли найти страницу, которую вы искали",
+
+  "auth.login.submit": "Войти",
+  "auth.login.unauthorized": "Не удалось войти. Пользователь не существует или пароль неверный",
+  "auth.login.unknownError": "Не удалось войти",
+  "auth.logout.confirm": "Вы действительно хотите выйти?",
+  "auth.logout.unknownError": "Не удалось войти",
+  
+  "EntityListScreen.deleteConfirmation": "Вы уверены, что хотите удалить эту запись?",
+  "EntityDetailsScreen.savedSuccessfully": "Запись успешно сохранена",
+  "EntityDetailsScreen.deletedSuccessfully": "Запись успешно удалена",
+  "EntityDetailsScreen.validationError": "Ошибка валидации. Пожалуйста, проверьте данные, которые вы ввели",
+  "EntityLookupField.selectEntityInstance": "Выберите {label}",
+  
+  "screen.home": "Главная страница",
+  "home.welcome": "Добро пожаловать в {appName}!",
+  "home.loggedInAs": "Вы вошли как {username}",
+
+  "filters.apply": "Применить",
+  "filters.reset": "Сбросить"
+}

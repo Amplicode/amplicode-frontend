@@ -1,0 +1,398 @@
+# THIS FILE WAS GENERATED AUTOMATICALLY. DO NOT EDIT.
+type ConnectionCursor {
+  value: String
+}
+
+# Mutation root
+type Mutation {
+  deleteNotNullScalarsTestEntity(id: ID): Void
+  deleteOwner(id: ID!): Void
+  deletePet(id: ID!): Void
+  deletePetDescription(identifier: ID): Void
+  deletePetDisease(petDiseaseIdentifier: ID): Void
+  deletePetType(id: ID!): Void
+  deleteScalarsTestEntity(id: ID): Void
+  deleteTag(id: ID): Void
+  deleteVisit(id: ID): Void
+  updateNotNullScalarsTestEntity(input: NotNullScalarsTestEntityInput): NotNullScalarsTestEntity
+  updateOwner(input: OwnerInputDTO): OwnerDTO
+  updatePet(input: PetInputDTO): PetDTO
+  updatePetDescription(input: PetDescriptionInputDTO): PetDescriptionDTO
+  updatePetDisease(input: PetDiseaseInputDTO): PetDiseaseDTO
+  updatePetType(input: PetTypeInputDTO): PetTypeDTO
+  updateScalarsTestEntity(input: ScalarsTestEntityInput): ScalarsTestEntity
+  updateTag(input: TagInputDTO): TagDTO
+  updateVisit(input: VisitInputDTO): VisitDTO
+}
+
+type NotNullScalarsTestEntity {
+  bigDecimalNotNull: BigDecimal!
+  bigIntNotNull: BigInteger!
+  dateTestNotNull: Timestamp!
+  id: ID
+  localDateNotNull: Date!
+  localDateTimeNotNull: LocalDateTime!
+  localTimeNotNull: LocalTime!
+  offsetDateTimeNotNull: DateTime!
+  offsetTimeNotNull: Time!
+  stringNotNull: String!
+  urlNotNull: Url!
+}
+
+type OwnerConnection {
+  edges: [OwnerEdge]
+  pageInfo: PageInfo
+}
+
+type OwnerDTO {
+  address: String
+  city: String
+  email: String
+  firstName: String
+  id: ID
+  lastName: String
+  telephone: String
+}
+
+type OwnerEdge {
+  cursor: ConnectionCursor
+  node: OwnerDTO
+}
+
+type OwnerPage {
+  content: [OwnerDTO]
+  totalElements: Long!
+}
+
+type PageInfo {
+  endCursor: ConnectionCursor
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: ConnectionCursor
+}
+
+type PetDTO {
+  birthDate: Date
+  description: PetDescriptionDTO
+  diseases: [PetDiseaseDTO]
+  id: ID
+  identificationNumber: String
+  owner: OwnerDTO
+  tags: [TagDTO]
+  type: PetTypeDTO
+}
+
+type PetDescriptionDTO {
+  description: String
+  identifier: ID
+}
+
+type PetDiseaseDTO {
+  description: String
+  name: String
+  petDiseaseIdentifier: ID
+}
+
+type PetTypeDTO {
+  defenseStatus: ProtectionStatus
+  id: ID
+  name: String
+}
+
+# Query root
+type Query {
+  notNullScalarsTestEntity(id: ID): NotNullScalarsTestEntity
+  notNullScalarsTestEntityList: [NotNullScalarsTestEntity]
+  owner(id: ID): OwnerDTO
+  ownerByNamesList(filter: OwnerFilterInput): [OwnerDTO]
+  ownerByNamesSeparateMethodsList(filter: OwnerFilterInput): [OwnerDTO]
+  ownerList: [OwnerDTO]
+  ownerListByNamesFilter(filter: OwnerFilterInput): [OwnerDTO]
+  ownerListByNamesFilterOffsetPage(filter: OwnerFilterInput, page: OffsetPageInput): OwnerPage
+  ownerListByNamesFilterOffsetPageSorted(filter: OwnerFilterInput, page: OffsetPageInput, sort: [OwnerOrderByInput]): OwnerPage
+  ownerListByNamesFilterSorted(filter: OwnerFilterInput, sort: [OwnerOrderByInput]): [OwnerDTO]
+  ownerListFilterCursorPageSorted(filter: OwnerFilterInput, page: CursorPageInput, sort: [OwnerOrderByInput]): OwnerConnection
+  ownerListOffsetPage(page: OffsetPageInput): OwnerPage
+  ownerListOffsetPageSorted(page: OffsetPageInput, sort: [OwnerOrderByInput]): OwnerPage
+  ownerListSorted(sort: [OwnerOrderByInput]): [OwnerDTO]
+  pet(id: ID): PetDTO
+  petByIdentificationNumberList(identificationNumber: String): [PetDTO]
+  petDescription(identifier: ID): PetDescriptionDTO
+  petDescriptionList: [PetDescriptionDTO]
+  petDisease(petDiseaseIdentifier: ID): PetDiseaseDTO
+  petDiseaseList: [PetDiseaseDTO]
+  petList: [PetDTO]
+  petListByTypeId(typeId: ID!): [PetDTO]
+  petType(id: ID): PetTypeDTO
+  petTypeList: [PetTypeDTO]
+  scalarsTestEntity(id: ID): ScalarsTestEntity
+  scalarsTestEntityList: [ScalarsTestEntity]
+  tag(id: ID): TagDTO
+  tagList: [TagDTO]
+  userInfo: UserInfo
+  visit(id: ID): VisitDTO
+  visitFilteredList(filter: VisitFilterInput): [VisitDTO]
+  visitList: [VisitDTO]
+}
+
+type ScalarsTestEntity {
+  bigDecimal: BigDecimal
+  bigInt: BigInteger
+  bool: Boolean
+  boolPrimitive: Boolean!
+  bytePrimitive: Int!
+  byteTest: Int
+  dateTest: Timestamp
+  doublePrimitive: Float!
+  doubleTest: Float
+  floatPrimitive: Float!
+  floatTest: Float
+  id: ID
+  intPrimitive: Int!
+  intTest: Int
+  localDate: Date
+  localDateTime: LocalDateTime
+  localTime: LocalTime
+  longPrimitive: Long!
+  longTest: Long
+  offsetDateTime: DateTime
+  offsetTime: Time
+  shortPrimitive: Int!
+  shortTest: Int
+  string: String
+  url: Url
+}
+
+type TagDTO {
+  id: ID
+  name: String
+}
+
+type UserInfo {
+  username: String
+}
+
+type VisitDTO {
+  description: String
+  id: ID
+  pet: PetDTO
+  visitEnd: LocalDateTime
+  visitStart: LocalDateTime
+}
+
+enum Direction {
+  ASC
+  DESC
+}
+
+enum OwnerOrderByProperty {
+  CITY
+  FIRST_NAME
+  LAST_NAME
+}
+
+enum ProtectionStatus {
+  NEEDS_PROTECTION
+  NO_DANGER
+  RED_BOOK
+}
+
+# Java Type: BigDecimal
+scalar BigDecimal
+
+# Java Type: BigInteger
+scalar BigInteger
+
+# Java Type: LocalDate
+scalar Date
+
+# Java Type: OffsetDateTime
+scalar DateTime
+
+# Java Type: LocalDateTime
+scalar LocalDateTime
+
+# Java Type: LocalTime
+scalar LocalTime
+
+# Java Type: Long, long
+scalar Long
+
+# Java Type: OffsetTime
+scalar Time
+
+# Java Type: Date
+scalar Timestamp
+
+# Java Type: URL
+scalar Url
+
+# Java Type: Void
+scalar Void
+
+input CursorPageInput {
+  after: String
+  before: String
+  first: Int!
+  last: Int!
+}
+
+input NotNullScalarsTestEntityInput {
+  bigDecimalNotNull: BigDecimal!
+  bigIntNotNull: BigInteger!
+  dateTestNotNull: Timestamp!
+  id: ID
+  localDateNotNull: Date!
+  localDateTimeNotNull: LocalDateTime!
+  localTimeNotNull: LocalTime!
+  offsetDateTimeNotNull: DateTime!
+  offsetTimeNotNull: Time!
+  stringNotNull: String!
+  urlNotNull: Url!
+}
+
+input OffsetPageInput {
+  number: Int!
+  size: Int!
+}
+
+input OwnerDTOInput {
+  address: String
+  city: String
+  email: String
+  firstName: String
+  id: ID
+  lastName: String
+  telephone: String
+}
+
+input OwnerFilterInput {
+  firstName: String
+  lastName: String
+}
+
+input OwnerInputDTO {
+  address: String
+  city: String
+  email: String
+  firstName: String
+  id: ID
+  lastName: String
+  telephone: String
+}
+
+input OwnerOrderByInput {
+  direction: Direction
+  property: OwnerOrderByProperty
+}
+
+input PetDTOInput {
+  birthDate: Date
+  description: PetDescriptionDTOInput
+  diseases: [PetDiseaseDTOInput]
+  id: ID
+  identificationNumber: String
+  owner: OwnerDTOInput
+  tags: [TagDTOInput]
+  type: PetTypeDTOInput
+}
+
+input PetDescriptionDTOInput {
+  description: String
+  identifier: ID
+}
+
+input PetDescriptionInputDTO {
+  description: String
+  identifier: ID
+}
+
+input PetDiseaseDTOInput {
+  description: String
+  name: String
+  petDiseaseIdentifier: ID
+}
+
+input PetDiseaseInputDTO {
+  description: String
+  name: String
+  petDiseaseIdentifier: ID
+}
+
+input PetInputDTO {
+  birthDate: Date
+  description: PetDescriptionDTOInput
+  diseases: [PetDiseaseDTOInput]
+  id: ID
+  identificationNumber: String
+  owner: OwnerDTOInput
+  tags: [TagDTOInput]
+  type: PetTypeDTOInput
+}
+
+input PetTypeDTOInput {
+  defenseStatus: ProtectionStatus
+  id: ID
+  name: String
+}
+
+input PetTypeInputDTO {
+  defenseStatus: ProtectionStatus
+  id: ID
+  name: String
+}
+
+input ScalarsTestEntityInput {
+  bigDecimal: BigDecimal
+  bigInt: BigInteger
+  bool: Boolean
+  boolPrimitive: Boolean!
+  bytePrimitive: Int!
+  byteTest: Int
+  dateTest: Timestamp
+  doublePrimitive: Float!
+  doubleTest: Float
+  floatPrimitive: Float!
+  floatTest: Float
+  id: ID
+  intPrimitive: Int!
+  intTest: Int
+  localDate: Date
+  localDateTime: LocalDateTime
+  localTime: LocalTime
+  longPrimitive: Long!
+  longTest: Long
+  offsetDateTime: DateTime
+  offsetTime: Time
+  shortPrimitive: Int!
+  shortTest: Int
+  string: String
+  url: Url
+}
+
+input TagDTOInput {
+  id: ID
+  name: String
+}
+
+input TagInputDTO {
+  id: ID
+  name: String
+}
+
+input VisitFilterInput {
+  ownerFirstName: String
+  ownerLastName: String
+  petIdentificationNumber: String
+  visitStartAfter: LocalDateTime
+  visitStartBefore: LocalDateTime
+}
+
+input VisitInputDTO {
+  description: String
+  id: ID
+  pet: PetDTOInput
+  visitEnd: LocalDateTime
+  visitStart: LocalDateTime
+}
+
