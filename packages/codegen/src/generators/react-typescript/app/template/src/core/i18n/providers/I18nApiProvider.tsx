@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
 import { IntlProvider } from "react-intl";
-import { useI18nStore } from "@amplicode/react-core";
+import { useI18nStore } from "@amplicode/react";
 
 export interface I18nApiProviderProps {
   children: React.ReactNode;

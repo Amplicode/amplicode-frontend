@@ -4,7 +4,7 @@ import {
   I18nStore,
   I18nStoreProvider,
   LocaleConfigOption
-} from "@amplicode/react-core";
+} from "@amplicode/react";
 import { AntdConfigProvider } from "./AntdConfigProvider";
 import { DayjsProvider } from "./DayjsProvider";
 import enAntdLocale from "antd/es/locale/en_US";

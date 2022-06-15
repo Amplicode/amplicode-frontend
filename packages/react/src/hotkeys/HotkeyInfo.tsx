@@ -1,7 +1,7 @@
 import { Descriptions } from "antd";
 import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
-import { HotkeyConfig } from "@amplicode/react-core";
+import { HotkeyConfig } from "./hotkeyConfig";
 
 function groupBy<T extends HotkeyConfig, K extends keyof T>(configs: T[], propName: K): Record<string, T[]> {
   return configs.reduce<Record<string, T[]>>((acc: Record<string, T[]>, el) => {

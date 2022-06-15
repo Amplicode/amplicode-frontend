@@ -4,7 +4,7 @@ import { useSecurityStore } from "../security/security-context";
 import { useEffect } from "react";
 import { notification } from "antd";
 import { useIntl } from "react-intl";
-import { EventEmitter } from "@amplicode/react-core";
+import { EventEmitter } from "@amplicode/react";
 
 export interface ServerErrorInterceptorProps {
   serverErrorEmitter: EventEmitter<ServerErrorEvents>;

@@ -13,7 +13,7 @@ import {
 } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { EntityLookupField } from "../../../core/crud/entity-lookup-field/EntityLookupField";
-import { DatePicker } from "@amplicode/react-antd";
+import { DatePicker } from "@amplicode/react";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetDescriptionDTODisplayName } from "../../../core/display-name/getPetDescriptionDTODisplayName";

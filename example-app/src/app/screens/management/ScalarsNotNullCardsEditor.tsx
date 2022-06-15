@@ -13,7 +13,7 @@ import {
   Spin
 } from "antd";
 import { useForm } from "antd/es/form/Form";
-import { DatePicker, TimePicker } from "@amplicode/react-antd";
+import { DatePicker, TimePicker } from "@amplicode/react";
 import { gql } from "@amplicode/gql";
 import { useNavigate, useParams } from "react-router-dom";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
