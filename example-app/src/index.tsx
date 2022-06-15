@@ -15,7 +15,7 @@ import axios from "axios";
 import { BrowserRouter } from "react-router-dom";
 import { onError } from "@apollo/client/link/error";
 import { GRAPHQL_URI, REQUEST_SAME_ORIGIN } from "./config";
-import { EventEmitter } from "@amplicode/react-core";
+import { EventEmitter } from "@amplicode/react";
 import { DevSupport } from "@react-buddy/ide-toolbox";
 import { ComponentPreviews, useInitial } from "./dev";
 import { I18nProvider } from "./core/i18n/providers/I18nProvider";

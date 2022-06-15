@@ -1,4 +1,4 @@
-import { useI18nStore } from "@amplicode/react-core";
+import { useI18nStore } from "@amplicode/react";
 import { ConfigProvider } from "antd";
 import { Locale } from "antd/es/locale-provider";
 import { observer } from "mobx-react";

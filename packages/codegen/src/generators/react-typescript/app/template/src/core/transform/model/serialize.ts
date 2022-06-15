@@ -1,4 +1,4 @@
-import { filterFieldValues } from "@amplicode/react-core";
+import { filterFieldValues } from "@amplicode/react";
 import { NullableObjectOrList } from "../types";
 import { transform } from "../transform";
 

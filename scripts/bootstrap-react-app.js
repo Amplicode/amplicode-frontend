@@ -53,12 +53,11 @@ runCmdSync('node bootstrap-app/generate-lookup/scalars-notnull-lookup-cards.js',
 runCmdSync('node bootstrap-app/generate-lookup/pet-description-lookup-cards.js', './scripts');
 
 runCmdSync('lerna run prepublishOnly');
-runCmdSync(`lerna exec --scope '{@amplicode/react-core,@amplicode/react-antd}' "npm pack"`);
+runCmdSync(`lerna exec --scope @amplicode/react "npm pack"`);
 
+installLocalPackage('react');
 runCmdSync('cd example-app && npm i');
 runCmdSync('cd example-app && npm run generate');
-installLocalPackage('react-core');
-installLocalPackage('react-antd');
 
 function installLocalPackage(packageName) {
   const {version} = require(`../packages/${packageName}/package.json`);

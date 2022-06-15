@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
 import { useEffect, useState } from "react";
-import { useI18nStore } from "@amplicode/react-core";
+import { useI18nStore } from "@amplicode/react";
 import enMessages from "../messages/en.json";
 import ruMessages from "../messages/ru.json";
 

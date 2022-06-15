@@ -1,4 +1,4 @@
-import { useI18nStore } from "@amplicode/react-core";
+import { useI18nStore } from "@amplicode/react";
 import dayjs from "dayjs";
 import { observer } from "mobx-react";
 import weekday from "dayjs/plugin/weekday";

@@ -1,4 +1,4 @@
-import { useHotkeyStore } from '@amplicode/react-core';
+import { useHotkeyStore } from './hotkeyContext';
 import { MacCommandOutlined } from '@ant-design/icons';
 import { Button, Modal } from 'antd';
 import { observer } from 'mobx-react';

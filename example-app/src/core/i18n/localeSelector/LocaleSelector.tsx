@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { observer } from "mobx-react";
 import { runInAction } from "mobx";
-import { useI18nStore } from "@amplicode/react-core";
+import { useI18nStore } from "@amplicode/react";
 import { Select } from "antd";
 import "./LocaleSelector.css";
 
