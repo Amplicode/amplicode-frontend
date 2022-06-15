@@ -13,7 +13,7 @@ describe('getEntityAttributes', async () => {
 
   it('derives a list of entity attributes', () => {
     const attributes = getEntityAttributes(QUERY_NODE, schema, 'id');
-    expect(attributes.sort()).to.deep.equal(RESULT.sort());
+    expect(attributes.map(({gqlType: _gqlType, ...attr}) => ({...attr})).sort()).to.deep.equal(RESULT.sort());
   });
 
   it('relation field is marked as such', () => {
@@ -74,6 +74,7 @@ const RESULT = [
     isRelationField: false,
     name: "identificationNumber",
     type: "String",
+    enumOptions: undefined
   },
   {
     nestedAttributes: [
@@ -89,6 +90,7 @@ const RESULT = [
     isRelationField: true,
     name: "owner",
     type: "OwnerDTO",
+    enumOptions: undefined
   },
   {
     nestedAttributes: [
@@ -100,5 +102,6 @@ const RESULT = [
     isRelationField: true,
     name: "type",
     type: "PetTypeDTO",
+    enumOptions: undefined
   },
 ];

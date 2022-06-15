@@ -1,0 +1,5 @@
+<% if (typeof data === 'string') { -%>
+    <%- include('RenderValue', {data}) -%>
+<% } else { -%>
+    {<%- include('RenderValue', {data}) -%>}
+<% } -%>

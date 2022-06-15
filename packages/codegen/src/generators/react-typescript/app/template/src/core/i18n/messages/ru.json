@@ -32,5 +32,7 @@
   "home.loggedInAs": "Вы вошли как {username}",
 
   "filters.apply": "Применить",
-  "filters.reset": "Сбросить"
+  "filters.reset": "Сбросить",
+  "filters.showAll": "Показать все",
+  "filters.collapse": "Скрыть"
 }

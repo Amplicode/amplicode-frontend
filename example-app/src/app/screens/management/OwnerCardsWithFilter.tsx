@@ -118,6 +118,12 @@ interface FiltersProps {
 function Filters({ onApplyFilters }: FiltersProps) {
   const [form] = useForm();
 
+  const onResetFilters = async () => {
+    await form.resetFields();
+    const values = await form.validateFields();
+    onApplyFilters(values);
+  };
+
   return (
     <Form
       form={form}
@@ -126,57 +132,54 @@ function Filters({ onApplyFilters }: FiltersProps) {
       initialValues={initialFilterVars}
     >
       <Form.Item shouldUpdate>
-        {() => (
-          <Row gutter={16}>
-            <Col span={8}>
-              <Form.Item label="First Name" name={["filter", "firstName"]}>
-                <Input
-                  suffix={
-                    form.isFieldTouched(["filter", "firstName"]) ? (
-                      <CloseCircleOutlined
-                        onClick={() =>
-                          form.resetFields([["filter", "firstName"]])
-                        }
-                      />
-                    ) : (
-                      <span />
-                    )
-                  }
-                />
-              </Form.Item>
-            </Col>
+        {() => {
+          return (
+            <Row gutter={16}>
+              <Col span={6}>
+                <Form.Item name={["filter", "firstName"]} label="First Name">
+                  <Input
+                    suffix={
+                      form.isFieldTouched(["filter", "firstName"]) ? (
+                        <CloseCircleOutlined
+                          onClick={() =>
+                            form.resetFields([["filter", "firstName"]])
+                          }
+                        />
+                      ) : (
+                        <span />
+                      )
+                    }
+                  />
+                </Form.Item>
+              </Col>
 
-            <Col span={8}>
-              <Form.Item label="Last Name" name={["filter", "lastName"]}>
-                <Input
-                  suffix={
-                    form.isFieldTouched(["filter", "lastName"]) ? (
-                      <CloseCircleOutlined
-                        onClick={() =>
-                          form.resetFields([["filter", "lastName"]])
-                        }
-                      />
-                    ) : (
-                      <span />
-                    )
-                  }
-                />
-              </Form.Item>
-            </Col>
-          </Row>
-        )}
+              <Col span={6}>
+                <Form.Item name={["filter", "lastName"]} label="Last Name">
+                  <Input
+                    suffix={
+                      form.isFieldTouched(["filter", "lastName"]) ? (
+                        <CloseCircleOutlined
+                          onClick={() =>
+                            form.resetFields([["filter", "lastName"]])
+                          }
+                        />
+                      ) : (
+                        <span />
+                      )
+                    }
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+          );
+        }}
       </Form.Item>
 
       <Space>
         <Button type="primary" htmlType="submit">
           <FormattedMessage id="filters.apply" />
         </Button>
-        <Button
-          onClick={() => {
-            form.resetFields();
-            onApplyFilters(form.getFieldsValue());
-          }}
-        >
+        <Button onClick={onResetFilters}>
           <FormattedMessage id="filters.reset" />
         </Button>
       </Space>

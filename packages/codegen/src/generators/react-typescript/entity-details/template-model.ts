@@ -3,11 +3,10 @@ import {AmplicodeComponentOptions} from "../../../building-blocks/stages/options
 import {MvpEntityEditorAnswers} from "./answers";
 import {
   DocumentNode,
-  GraphQLEnumType, GraphQLInputObjectType,
+  GraphQLEnumType,
   GraphQLScalarType,
   GraphQLSchema,
-  GraphQLUnionType,
-  GraphQLField,
+  GraphQLObjectType
 } from "graphql";
 import {templateUtilities, UtilTemplateModel} from "../../../building-blocks/stages/template-model/pieces/util";
 import gql from "graphql-tag";
@@ -32,27 +31,14 @@ export interface MvpEntityEditorTemplateModel extends BaseTemplateModel, ScreenT
   refetchQueryName: string,
 }
 
-type GraphQLEditorModel = {
-  queryName: string,
-  mutationName?: string,
-  entityName?: string,
-  attributes: AttributeModel[],
+interface GraphQLEditorModel extends UsingScalars {
+  queryName: string;
+  mutationName?: string;
+  entityName?: string;
+  attributes: AttributeModel[];
   inputVariableName?: string;
   inputTypeName?: string;
-
-  // We need these in order to have correct imports in the templates
-  hasStringScalars?: boolean;
-  hasIntScalars?: boolean;
-  hasFloatScalars?: boolean;
-  hasIDScalars?: boolean;
-  hasBooleanScalars?: boolean;
-  hasEnumScalars?: boolean;
-  hasUnknownCustomScalars?: boolean;
-  hasRelationFields?: boolean;
-
-  hasDateScalars?: boolean;
-  hasTimeScalars?: boolean;
-};
+}
 
 export const deriveEntityDetailsTemplateModel: AmplicodeTemplateModelStage<
   AmplicodeComponentOptions, MvpEntityEditorAnswers, MvpEntityEditorTemplateModel
@@ -141,21 +127,38 @@ export function deriveGraphQLEditorModel(
     throw new Error('Output type name not found');
   }
 
-  const typeMap = schema.getTypeMap();
-  if (typeMap == null) {
-    throw new Error('Type map not found');
-  }
+  // We take attributes from query, otherwise it won't be possible to pair the entity type from editor with entity type from list
+  const attributes = getEntityAttributes(queryNode, schema, idField);  
 
-  const namedType = typeMap[inputTypeName];
+  const usingScalars = deriveUsingScalars(attributes);
 
-  if (namedType == null
-    || namedType instanceof GraphQLScalarType
-    || namedType instanceof GraphQLUnionType
-    || namedType instanceof GraphQLEnumType
-  ) {
-    throw new Error(`Unexpected type ${namedType}`);
-  }
+  return {
+    queryName,
+    mutationName,
+    attributes,
+    entityName,
+    inputVariableName,
+    inputTypeName,
+    ...usingScalars
+  };
+}
 
+
+export interface UsingScalars {
+  // We need these in order to have correct imports in the templates
+  hasStringScalars?: boolean;
+  hasIntScalars?: boolean;
+  hasFloatScalars?: boolean;
+  hasIDScalars?: boolean;
+  hasBooleanScalars?: boolean;
+  hasEnumScalars?: boolean;
+  hasUnknownCustomScalars?: boolean;
+  hasRelationFields?: boolean;
+
+  hasDateScalars?: boolean;
+  hasTimeScalars?: boolean;
+}
+export function deriveUsingScalars(attributes: AttributeModel[]): UsingScalars {
   let hasStringScalars: boolean = false;
   let hasIntScalars: boolean = false;
   let hasFloatScalars: boolean = false;
@@ -168,17 +171,7 @@ export function deriveGraphQLEditorModel(
   let hasDateScalars: boolean = false;
   let hasTimeScalars: boolean = false;
 
-  // We take attributes from query, otherwise it won't be possible to pair the entity type from editor with entity type from list
-  const attributes = getEntityAttributes(queryNode, schema, idField);
-
-  // We need to take some info from mutation input and add it to `attributes`
-  Object.values(namedType.getFields()).map((field: GraphQLField<any, any>) => {
-    const attr = attributes.find(a => a.name === field.name);
-
-    if (attr == null) {
-      return;
-    }
-
+  attributes.forEach(attr => {
     switch (attr.type) {
       case 'Int':
       case 'ID':
@@ -208,27 +201,22 @@ export function deriveGraphQLEditorModel(
         break;
 
       default:
-        if (field.type instanceof GraphQLEnumType) {
-          attr.enumOptions = field.type.getValues();
+        if (attr.gqlType instanceof GraphQLEnumType) {
           hasEnumScalars = true;
           break;
         }
-        if (field.type instanceof GraphQLInputObjectType) {
-          attr.isRelationField = true;
+        if (attr.gqlType instanceof GraphQLObjectType) {
           hasRelationFields = true;
           break;
         }
-        if (field.type instanceof GraphQLScalarType) {
+        if (attr.gqlType instanceof GraphQLScalarType) {
           hasUnknownCustomScalars = true;
+          break;
         }
     }
   });
 
   return {
-    queryName,
-    mutationName,
-    attributes,
-    entityName,
     hasStringScalars,
     hasIntScalars,
     hasFloatScalars,
@@ -239,7 +227,5 @@ export function deriveGraphQLEditorModel(
     hasRelationFields,
     hasDateScalars,
     hasTimeScalars,
-    inputVariableName,
-    inputTypeName
   };
 }

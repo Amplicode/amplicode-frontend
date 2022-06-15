@@ -2,7 +2,7 @@ import {templateUtilities, UtilTemplateModel} from "../../../building-blocks/sta
 import {AmplicodeTemplateModelStage} from "../../../building-blocks/pipelines/amplicodePipeline";
 import {AmplicodeComponentOptions} from "../../../building-blocks/stages/options/pieces/amplicode";
 import {EntityListMode, EntityListAnswers, EntityListType} from "./answers";
-import {getNamedType, GraphQLSchema} from "graphql";
+import {getNamedType, GraphQLEnumType, GraphQLSchema} from "graphql";
 import gql from "graphql-tag";
 import {
   baseTemplateModel,
@@ -20,6 +20,8 @@ import {getTopFieldName} from "../../../building-blocks/stages/template-model/pi
 import {getOperationDefinitionName} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getOperationDefinitionName";
 import { getGraphQLTypeByArgumentName } from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getGraphQLTypeByArgumentName";
 import { capitalizeFirst, splitByCapitalLetter } from "../../../common/utils";
+import { deriveUsingScalars, UsingScalars } from "../entity-details/template-model";
+import { isAnyLeafType } from "../../../building-blocks/stages/template-model/pieces/graphql-utils/isAnyLeafType";
 
 
 export interface EntityListTemplateModel extends
@@ -87,45 +89,57 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
   };
 };
 
-
-interface EntityFilterData {
-  argumentName: string | string[];
-  caption: string;
-  type: string;
-}
 export interface FiltersTemplateModel {
-  filters: EntityFilterData[];
+  filters: AttributeModel[];
   withFilters: boolean;
-  filterImports: {
-    withFilterCheckbox: boolean;
-    withFilterNumber: boolean;
-    withFilterString: boolean;
-    withFilterDate: boolean;
-  };
+  hiddenFilters: AttributeModel[];
+  withHiddenFilters: boolean;
+  maxFiltersInRow: number;
+  filterUsingScalars: UsingScalars;
 }
 export function deriveFiltersTemplateModel(queryName: string, filterByArguments: Array<string[]>, schema?: GraphQLSchema): FiltersTemplateModel {
-  let filters: EntityFilterData[] = [];
+  let filters: AttributeModel[] = [];
   if (filterByArguments != null) {
     if (schema == null) throw new Error('Schema is required for generating filters');
 
     const listQueryType = schema.getQueryType()?.getFields()[queryName];
     if (listQueryType == null) throw new Error('Can\'t find query name in the schema for generating filters');
 
-    filters = filterByArguments.map(argumentName => ({
-      argumentName: argumentName.length === 1 ? argumentName[0] : argumentName,
-      caption: getFilterCaption(argumentName),
-      type: getNamedType(getGraphQLTypeByArgumentName(schema, listQueryType, argumentName)).toString()
-    }))
+    filters = filterByArguments.map(argumentName => {
+      const gqlType = getGraphQLTypeByArgumentName(schema, listQueryType, argumentName);
+      const type = getNamedType(gqlType).toString();
+
+      return {
+        name: argumentName.length === 1 ? argumentName[0] : argumentName,
+        displayName: getFilterCaption(argumentName),
+        type,
+        gqlType,
+        enumOptions: gqlType instanceof GraphQLEnumType
+          ? gqlType.getValues()
+          : undefined,
+        isRelationField: !(isAnyLeafType(gqlType)),
+        nestedAttributes: isAnyLeafType(gqlType)
+          ? undefined
+          : getAttributeNames(type, schema),
+      }
+    })
   }
-
-  const filterImports = getFilterImports(filters);
-
   const withFilters = filters.length > 0;
 
+  const filterUsingScalars = deriveUsingScalars(filters);
+
+
+  const maxFiltersInRow = 4;
+  const hiddenFilters = filters.filter((_, index) => index >= maxFiltersInRow);
+  const withHiddenFilters = hiddenFilters.length > 0;
+
   return {
+    filterUsingScalars,
     filters,
-    filterImports,
     withFilters,
+    hiddenFilters,
+    withHiddenFilters,
+    maxFiltersInRow,
   }
 }
 
@@ -141,13 +155,4 @@ function removeFirstFilterPathString(argumentName: string[]) {
     return tail;
   }
   return argumentName;
-}
-
-function getFilterImports(filters: EntityFilterData[]) {
-  return {
-    withFilterCheckbox: filters.find(filter => filter.type === 'Boolean') != null,
-    withFilterNumber: filters.find(filter => filter.type === 'Int' || filter.type === 'BigInteger' || filter.type === 'Float' || filter.type === 'BigDecimal') != null,
-    withFilterString: filters.find(filter => filter.type === 'String') != null,
-    withFilterDate: filters.find(filter => filter.type === 'Date' || filter.type === 'Time' || filter.type === 'DateTime') != null,
-  }
 }
