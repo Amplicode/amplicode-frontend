@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.20.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.19.0...@amplicode/codegen@0.20.0) (2022-06-15)
+
+
+### Features
+
+* add JSX outline captions for Form.Item elements [#452](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/452) ([1479bae](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/1479baed2f478441161fe54ef382224c777f460d))
+* combine react-core and react-antd into single runtime lib ([6779f16](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/6779f162a793c7604819a188f88dfec264120bd3))
+* horizontal menu [#403](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/issues/403) ([77a740e](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/77a740e9ee25be016d719fd25a69efa4ef0caf57))
+
+
+
+
+
 # [0.19.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.18.0...@amplicode/codegen@0.19.0) (2022-06-10)
 
 

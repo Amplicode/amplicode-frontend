@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.20.0 (2022-06-15)
+
+
+### Features
+
+* combine react-core and react-antd into single runtime lib ([6779f16](https://github.com/Amplicode/amplicode-frontend/commit/6779f162a793c7604819a188f88dfec264120bd3))
+
+
+
+
+
 # [0.12.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react-core@0.11.0...@amplicode/react-core@0.12.0) (2022-06-10)
 
 
