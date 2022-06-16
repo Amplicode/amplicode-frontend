@@ -79,7 +79,7 @@
     <TimePicker <% if (locals.index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.isSingleRelationField) { %>
     <EntityLookupField getDisplayName={get<%= capitalizeFirst(attr.type) %>DisplayName}
-                        label="<%= attr.displayName %>"
+                        drawerTitle="<%= attr.displayName %>"
                         <% if (locals.index === 0) { -%>
                           autoFocus
                         <% } -%>

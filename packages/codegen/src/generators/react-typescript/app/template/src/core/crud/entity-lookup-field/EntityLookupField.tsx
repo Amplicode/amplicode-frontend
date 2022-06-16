@@ -8,12 +8,12 @@ export interface EntityLookupFieldProps {
   onChange?: (value: this['value']) => void;
   lookupComponent?: JSX.Element;
   getDisplayName: (value: Record<string, unknown>) => string;
-  label: string;
+  drawerTitle: string;
   hideClearButton?: boolean;
 }
 
 export function EntityLookupField(props: EntityLookupFieldProps & Omit<InputProps, 'value' | 'onChange'>) {
-  const {value, onChange, lookupComponent, getDisplayName, label, ...rest} = props;
+  const {value, onChange, lookupComponent, getDisplayName, drawerTitle, ...rest} = props;
 
   const [lookupComponentVisible, setLookupComponentVisible] = useState<boolean>(false);
 
@@ -32,12 +32,12 @@ export function EntityLookupField(props: EntityLookupFieldProps & Omit<InputProp
 
   const handleClick = useCallback(() => {
     if (lookupComponent == null) {
-      notification.warn({message: `Please define lookup screen for reference field "${label}"`});
+      notification.warn({message: `Please define lookup screen for reference field "${drawerTitle}"`});
       return;
     }
 
     setLookupComponentVisible(true);
-  }, [setLookupComponentVisible, lookupComponent, label]);
+  }, [setLookupComponentVisible, lookupComponent, drawerTitle]);
 
   return (
     <>
@@ -50,7 +50,7 @@ export function EntityLookupField(props: EntityLookupFieldProps & Omit<InputProp
         {...rest}
       />
       <Drawer visible={lookupComponentVisible}
-              title={label}
+              title={drawerTitle}
               onClose={() => setLookupComponentVisible(false)}
               width="90%"
       >
