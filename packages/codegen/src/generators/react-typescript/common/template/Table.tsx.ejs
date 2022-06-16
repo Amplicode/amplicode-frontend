@@ -170,24 +170,42 @@ export function <%= componentName %>() {
     const items = deserialize(data?.<%= queryName %>);
   <% } -%>
   // selected row id
-  const [selectedRowId, setSelectedRowId] = useState();
+  <% if (multiselect) { -%>
+    const [selectedRowIds, setSelectedRowIds] = useState([]);
+  <% } else { -%>
+    const [selectedRowId, setSelectedRowId] = useState();
+  <% } -%>
 
   <% if (mode === 'view with details') { -%>
     const navigate = useNavigate();
 
     // Open details if row selected
     useEffect(() => {
-      if (selectedRowId != null) {
-        navigate(selectedRowId);
-      }
-    }, [navigate, selectedRowId]);
+      <% if (multiselect) { -%>
+        if (selectedRowIds.length > 0) {
+          navigate(selectedRowIds[0])
+        }
+      }, [navigate, selectedRowIds]);
+      <% } else { -%>
+        if (selectedRowId != null) {
+          navigate(selectedRowId);
+        }
+      }, [navigate, selectedRowId]);
+      <% } -%>
   <% } -%>
 
   return (
     <div className="narrow-layout">
       <Space direction="vertical" className="table-space">
         <% if (mode === 'edit') { -%>
-          <ButtonPanel selectedRowId={selectedRowId} />
+          <ButtonPanel
+            <% if (multiselect) { -%>
+              selectedRowIds={selectedRowIds}
+              setSelectedRowIds={setSelectedRowIds}
+            <% } else { -%>
+              selectedRowId={selectedRowId}
+            <% } -%> 
+            />
         <% } -%>
         <% if (withFilters) { -%>
           <Card>
@@ -198,8 +216,13 @@ export function <%= componentName %>() {
           items={items}
           loading={loading}
           error={error}
-          selectedRowId={selectedRowId}
-          setSelectedRowId={setSelectedRowId}
+          <% if (multiselect) { -%>
+            selectedRowIds={selectedRowIds}
+            setSelectedRowIds={setSelectedRowIds}
+          <% } else { -%>
+            selectedRowId={selectedRowId}
+            setSelectedRowId={setSelectedRowId}
+          <% } -%>
         />
         {/* <Pagination /> - in future */}
       </Space>
@@ -211,12 +234,31 @@ export function <%= componentName %>() {
   /**
    * Button panel above
    */
-  function ButtonPanel({selectedRowId}: { selectedRowId?: string }) {
+  function ButtonPanel({
+    <% if (multiselect) { -%>
+      selectedRowIds, setSelectedRowIds
+    <% } else { -%>
+      selectedRowId
+    <% } -%> 
+  }: {
+    <% if (multiselect) { -%>
+      selectedRowIds: string[], 
+      setSelectedRowIds: (id: any) => any
+    <% } else { -%>
+      selectedRowId?: string
+    <% } -%>
+  }) {
     const intl = useIntl();
     const navigate = useNavigate();
 
     <% if (withDeleteAction) { -%>
-        const { showDeleteConfirm, deleting } = useDeleteConfirm(selectedRowId!);
+      const { showDeleteConfirm, deleting } = useDeleteConfirm(
+        <% if (multiselect) { -%>
+          selectedRowIds[0], setSelectedRowIds
+        <% } else { -%>
+          selectedRowId!
+        <% } -%>
+      );
     <% } -%>
 
     return (
@@ -238,8 +280,20 @@ export function <%= componentName %>() {
           htmlType="button"
           key="edit"
           title={intl.formatMessage({ id: "common.edit" })}
-          disabled={selectedRowId == null}
-          onClick={() => selectedRowId && navigate(selectedRowId)}
+          disabled={
+            <% if (multiselect) { -%>
+              selectedRowIds.length !== 1
+            <% } else { -%>
+              selectedRowId == null
+            <% } -%>
+          }
+          onClick={() => 
+            <% if (multiselect) { -%>
+              selectedRowIds.length > 0 && navigate(selectedRowIds[0])
+            <% } else { -%>
+              selectedRowId && navigate(selectedRowId)
+            <% } -%>
+          }
         >
           <span>
             <FormattedMessage id="common.edit" />
@@ -251,7 +305,13 @@ export function <%= componentName %>() {
             htmlType="button"
             key="remove"
             title={intl.formatMessage({ id: "common.remove" })}
-            disabled={selectedRowId == null}
+            disabled={
+              <% if (multiselect) { -%>
+                selectedRowIds.length !== 1
+              <% } else { -%>
+                selectedRowId == null
+              <% } -%>
+            }
             loading={deleting}
             onClick={showDeleteConfirm}
           >
@@ -270,7 +330,12 @@ export function <%= componentName %>() {
    * Returns a confirmation dialog and invokes delete mutation upon confirmation
    * @param id id of the entity instance that should be deleted
    */
-  function useDeleteConfirm(id: string | null | undefined) {
+  function useDeleteConfirm(
+    id: string | null | undefined,
+    <% if (multiselect) { -%>
+      setSelectedRowIds: (id: any) => any
+    <% } -%> 
+  ) {
     const intl = useIntl();
 
     const [runDeleteMutation, { loading }] = useMutation(<%= MUTATION_CONST %>);
@@ -294,6 +359,9 @@ export function <%= componentName %>() {
 
     // Function that is executed when mutation is successful
     function handleDeleteSuccess() {
+      <% if (multiselect) { -%>
+        setSelectedRowIds([])
+      <% } -%> 
       return message.success(intl.formatMessage({ id: "EntityDetailsScreen.deletedSuccessfully" }));
     }
 
@@ -332,8 +400,13 @@ interface TableSectionProps {
   items?: ItemTableType;
   loading?: boolean;
   error?: ApolloError;
-  selectedRowId?: string;
-  setSelectedRowId: (id: any) => any;
+  <% if (multiselect) { -%>
+    selectedRowIds: string[];
+    setSelectedRowIds: (id: any) => any;
+  <% } else { -%>
+    selectedRowId?: string;
+    setSelectedRowId: (id: any) => any;
+  <% } -%>
 }
 
 /**
@@ -343,8 +416,13 @@ function TableSection({
   items,
   loading,
   error,
-  selectedRowId,
-  setSelectedRowId
+  <% if (multiselect) { -%>
+    selectedRowIds,
+    setSelectedRowIds
+  <% } else { -%>
+    selectedRowId,
+    setSelectedRowId
+  <% } -%> 
 }: TableSectionProps) {
   if (loading) {
     return <Spin />;
@@ -361,6 +439,7 @@ function TableSection({
   const dataSource = items
       .filter(item => item != null)
       .map(item => ({
+        key: item?.<%= idField %>,
         ...item,
       <% if (hasRelationFields || hasCustomScalars) { -%>
         ...{
@@ -392,14 +471,29 @@ function TableSection({
       <Table
         dataSource={dataSource as object[]}
         columns={columns}
-        rowClassName={record =>
-          (record as ItemType)?.<%= idField %> === selectedRowId ? "table-row-selected" : ""
-        }
+        <% if (multiselect) { -%>
+          rowSelection={{
+            selectedRowKeys: selectedRowIds,
+            onChange: (keys: React.Key[]) => setSelectedRowIds(keys)
+          }}
+        <% } else { -%>
+          rowClassName={record =>
+            (record as ItemType)?.<%= idField %> === selectedRowId ? "table-row-selected" : ""
+          }
+        <% } -%>
         onRow={data => {
           return {
             onClick: () => {
               const id = (data as ItemType)?.<%= idField %>;
-              setSelectedRowId(id === selectedRowId ? null : id);
+              <% if (multiselect) { -%>
+                if (selectedRowIds.includes(id!)) {
+                  setSelectedRowIds(selectedRowIds.filter((item: string) => item !== id))
+                } else {
+                  setSelectedRowIds([...selectedRowIds, id]);
+                }
+              <% } else { -%>
+                setSelectedRowId(id === selectedRowId ? null : id);
+              <% } -%>
             }
           };
         }}

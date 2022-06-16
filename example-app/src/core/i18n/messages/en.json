@@ -39,6 +39,8 @@
   "screen.OwnerTable": "Owner Table",
   "screen.OwnerCardsWithFilterEditor": "Owner Cards With Filter Editor",
   "screen.OwnerCardsWithFilter": "Owner Cards With Filter",
+  "screen.OwnerTableWithMultiselectEditor": "Owner Table With Multiselect Editor",
+  "screen.OwnerTableWithMultiselect": "Owner Table With Multiselect",
   "screen.PetCardsEditor": "Pet Cards Editor",
   "screen.PetCards": "Pet Cards",
   "screen.PetListEditor": "Pet List Editor",
