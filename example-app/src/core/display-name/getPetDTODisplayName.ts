@@ -1,5 +1,5 @@
 export function getPetDTODisplayName<TEntity extends Record<string, unknown>>(
-  entityInstance?: TEntity
+  entityInstance?: TEntity | null
 ): string {
   if (entityInstance == null) {
     return "";

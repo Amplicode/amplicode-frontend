@@ -149,7 +149,7 @@ function EditorForm<TData>({
         layout="vertical"
         form={form}
       >
-        <FormFields />
+        <FormFields item={item} />
         <ErrorMessage errorMessage={formError} />
         <FormButtons submitting={submitting} />
       </Form>
@@ -157,7 +157,7 @@ function EditorForm<TData>({
   );
 }
 
-function FormFields() {
+function FormFields({ item }: { item?: ItemType }) {
   return (
     <>
       <Form.Item name="intTest" label="Int Test">

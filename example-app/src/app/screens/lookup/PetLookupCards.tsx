@@ -10,6 +10,8 @@ import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODispla
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetDescriptionDTODisplayName } from "../../../core/display-name/getPetDescriptionDTODisplayName";
+import { getTagDTODisplayName } from "../../../core/display-name/getTagDTODisplayName";
+import { getPetDiseaseDTODisplayName } from "../../../core/display-name/getPetDiseaseDTODisplayName";
 
 const PET_LIST = gql(`
   query Get_Pet_List {
@@ -28,6 +30,15 @@ const PET_LIST = gql(`
       }
       description {
         identifier
+        description
+      }
+      tags {
+        id
+        name
+      }
+      diseases {
+        petDiseaseIdentifier
+        name
         description
       }
     }
@@ -138,6 +149,28 @@ function ItemCard({ item, onSelect }: ItemCardProps) {
         key="description"
         label="Description"
         value={getPetDescriptionDTODisplayName(item.description ?? undefined)}
+      />
+      <ValueWithLabel
+        key="tags"
+        label="Tags"
+        value={
+          item.tags &&
+          item.tags
+            .map(entry => getTagDTODisplayName(entry))
+            .filter(entry => entry !== "")
+            .join(", ")
+        }
+      />
+      <ValueWithLabel
+        key="diseases"
+        label="Diseases"
+        value={
+          item.diseases &&
+          item.diseases
+            .map(entry => getPetDiseaseDTODisplayName(entry))
+            .filter(entry => entry !== "")
+            .join(", ")
+        }
       />
     </Card>
   );

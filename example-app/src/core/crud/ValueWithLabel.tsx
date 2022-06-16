@@ -4,7 +4,7 @@ const { Paragraph, Text } = Typography;
 export interface ValueWithLabelProps {
   key?: string;
   label: string;
-  value?: string | number | boolean;
+  value?: string | number | boolean | null;
   isUrl?: boolean;
   renderIfEmptyValue?: boolean;
 }

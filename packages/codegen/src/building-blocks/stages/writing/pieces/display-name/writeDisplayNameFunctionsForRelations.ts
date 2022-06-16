@@ -9,7 +9,7 @@ export async function writeDisplayNameFunctionsForRelations(
 ) {
   // Write getXXXDisplayName() functions for relation attributes
   const relationAttrs = attributes
-    .filter(attr => attr.isSingleRelationField);
+    .filter(attr => attr.isSingleRelationField || attr.isMultiRelationField);
 
   for (const relation of relationAttrs) {
     if (relation.type == null || relation.nestedAttributes == null) {

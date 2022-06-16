@@ -7,6 +7,8 @@ import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODispla
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetDescriptionDTODisplayName } from "../../../core/display-name/getPetDescriptionDTODisplayName";
+import { getTagDTODisplayName } from "../../../core/display-name/getTagDTODisplayName";
+import { getPetDiseaseDTODisplayName } from "../../../core/display-name/getPetDiseaseDTODisplayName";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
@@ -30,6 +32,15 @@ const PET = gql(`
         identifier
         description
       }
+      tags {
+        id
+        name
+      }
+      diseases {
+        petDiseaseIdentifier
+        name
+        description
+      }      
     }
   }
 `);
@@ -84,6 +95,20 @@ export function ReadOnlyPetTableDetails() {
         </Descriptions.Item>
         <Descriptions.Item label={<strong>Description</strong>}>
           {getPetDescriptionDTODisplayName(item.description ?? undefined)}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>Tags</strong>}>
+          {item.tags &&
+            item.tags
+              .map(entry => getTagDTODisplayName(entry))
+              .filter(entry => entry !== "")
+              .join(", ")}
+        </Descriptions.Item>
+        <Descriptions.Item label={<strong>Diseases</strong>}>
+          {item.diseases &&
+            item.diseases
+              .map(entry => getPetDiseaseDTODisplayName(entry))
+              .filter(entry => entry !== "")
+              .join(", ")}
         </Descriptions.Item>
       </Descriptions>
       <Button htmlType="button" onClick={() => navigate("..")}>
