@@ -153,6 +153,7 @@ function TableSection({
   const dataSource = items
     .filter(item => item != null)
     .map(item => ({
+      key: item?.id,
       ...item,
       ...{
         birthDate: item!.birthDate?.format("LL") ?? undefined,

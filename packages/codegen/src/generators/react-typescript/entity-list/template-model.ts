@@ -33,6 +33,7 @@ export interface EntityListTemplateModel extends
   deleteMutationString?: string,
   idField: string,
   type: EntityListType;
+  multiselect: boolean;
   mode: EntityListMode;
   attributes: AttributeModel[];
   allAttributes: string[];
@@ -54,6 +55,7 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
     query: queryString,
     mutation: deleteMutationString,
     type = 'cards',
+    multiselect = false,
     mode = 'edit',
     idField = 'id',
     filterByArguments
@@ -83,6 +85,7 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
     allAttributes,
     idField,
     type,
+    multiselect,
     mode,
     refetchQuery,
     entityName

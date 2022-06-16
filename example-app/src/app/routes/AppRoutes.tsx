@@ -33,6 +33,7 @@ import { ScalarsListScreenLayout } from "../screens/management/ScalarsListScreen
 import { PetTableScreenLayout } from "../screens/management/PetTableScreenLayout";
 import { PetListScreenLayout } from "../screens/management/PetListScreenLayout";
 import { PetCardsScreenLayout } from "../screens/management/PetCardsScreenLayout";
+import { OwnerTableWithMultiselectScreenLayout } from "../screens/management/OwnerTableWithMultiselectScreenLayout";
 import { OwnerCardsWithFilterScreenLayout } from "../screens/management/OwnerCardsWithFilterScreenLayout";
 import { OwnerTableScreenLayout } from "../screens/management/OwnerTableScreenLayout";
 import { OwnerListScreenLayout } from "../screens/management/OwnerListScreenLayout";
@@ -64,6 +65,13 @@ export function AppRoutes() {
         <Route
           path=":recordId"
           element={<OwnerCardsWithFilterScreenLayout />}
+        />
+      </Route>
+      <Route path="owner-table-with-multiselect">
+        <Route index element={<OwnerTableWithMultiselectScreenLayout />} />
+        <Route
+          path=":recordId"
+          element={<OwnerTableWithMultiselectScreenLayout />}
         />
       </Route>
       <Route path="pet-cards">

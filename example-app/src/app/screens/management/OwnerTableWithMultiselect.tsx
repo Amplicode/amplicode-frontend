@@ -14,57 +14,86 @@ import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
-const REFETCH_QUERIES = ["Get_Pet_Disease_List"];
+const REFETCH_QUERIES = ["Get_Owner_List"];
 
-const PET_DISEASE_LIST = gql(`
-  query Get_Pet_Disease_List {
-    petDiseaseList {
-      description
-      name
-      petDiseaseIdentifier
+const OWNER_LIST = gql(`
+  query Get_Owner_List {
+    ownerList {
+      id
+      firstName
+      lastName
+      city
+      address
+      telephone
+      email
     }
   }
 `);
 
-const DELETE_PET_DISEASE = gql(`
-  mutation Delete_Pet_Disease($id: ID!) {
-    deletePetDisease(petDiseaseIdentifier: $id)
+const DELETE_OWNER = gql(`
+  mutation Delete_Owner($id: ID!) {
+    deleteOwner(id: $id)
   }
 `);
 
 const columns = [
   {
-    title: "Description",
-    dataIndex: "description",
-    key: "description"
+    title: "First Name",
+    dataIndex: "firstName",
+    key: "firstName"
   },
   {
-    title: "Name",
-    dataIndex: "name",
-    key: "name"
+    title: "Last Name",
+    dataIndex: "lastName",
+    key: "lastName"
+  },
+  {
+    title: "City",
+    dataIndex: "city",
+    key: "city"
+  },
+  {
+    title: "Address",
+    dataIndex: "address",
+    key: "address"
+  },
+  {
+    title: "Telephone",
+    dataIndex: "telephone",
+    key: "telephone"
+  },
+  {
+    title: "Email",
+    dataIndex: "email",
+    key: "email"
   }
 ];
 
-export function PetDiseaseTable() {
+export function OwnerTableWithMultiselect() {
   const intl = useIntl();
-  useBreadcrumbItem(intl.formatMessage({ id: "screen.PetDiseaseTable" }));
+  useBreadcrumbItem(
+    intl.formatMessage({ id: "screen.OwnerTableWithMultiselect" })
+  );
 
   // Load the items from server
-  const { loading, error, data } = useQuery(PET_DISEASE_LIST);
-  const items = deserialize(data?.petDiseaseList);
+  const { loading, error, data } = useQuery(OWNER_LIST);
+  const items = deserialize(data?.ownerList);
   // selected row id
-  const [selectedRowId, setSelectedRowId] = useState();
+  const [selectedRowIds, setSelectedRowIds] = useState([]);
 
   return (
     <div className="narrow-layout">
       <Space direction="vertical" className="table-space">
-        <ButtonPanel selectedRowId={selectedRowId} />
+        <ButtonPanel
+          selectedRowIds={selectedRowIds}
+          setSelectedRowIds={setSelectedRowIds}
+        />
         <TableSection
           items={items}
           loading={loading}
           error={error}
-          selectedRowId={selectedRowId}
-          setSelectedRowId={setSelectedRowId}
+          selectedRowIds={selectedRowIds}
+          setSelectedRowIds={setSelectedRowIds}
         />
         {/* <Pagination /> - in future */}
       </Space>
@@ -75,11 +104,20 @@ export function PetDiseaseTable() {
 /**
  * Button panel above
  */
-function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
+function ButtonPanel({
+  selectedRowIds,
+  setSelectedRowIds
+}: {
+  selectedRowIds: string[];
+  setSelectedRowIds: (id: any) => any;
+}) {
   const intl = useIntl();
   const navigate = useNavigate();
 
-  const { showDeleteConfirm, deleting } = useDeleteConfirm(selectedRowId!);
+  const { showDeleteConfirm, deleting } = useDeleteConfirm(
+    selectedRowIds[0],
+    setSelectedRowIds
+  );
 
   return (
     <Space direction="horizontal">
@@ -100,8 +138,8 @@ function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
         htmlType="button"
         key="edit"
         title={intl.formatMessage({ id: "common.edit" })}
-        disabled={selectedRowId == null}
-        onClick={() => selectedRowId && navigate(selectedRowId)}
+        disabled={selectedRowIds.length !== 1}
+        onClick={() => selectedRowIds.length > 0 && navigate(selectedRowIds[0])}
       >
         <span>
           <FormattedMessage id="common.edit" />
@@ -112,7 +150,7 @@ function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
         htmlType="button"
         key="remove"
         title={intl.formatMessage({ id: "common.remove" })}
-        disabled={selectedRowId == null}
+        disabled={selectedRowIds.length !== 1}
         loading={deleting}
         onClick={showDeleteConfirm}
       >
@@ -128,10 +166,13 @@ function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
  * Returns a confirmation dialog and invokes delete mutation upon confirmation
  * @param id id of the entity instance that should be deleted
  */
-function useDeleteConfirm(id: string | null | undefined) {
+function useDeleteConfirm(
+  id: string | null | undefined,
+  setSelectedRowIds: (id: any) => any
+) {
   const intl = useIntl();
 
-  const [runDeleteMutation, { loading }] = useMutation(DELETE_PET_DISEASE);
+  const [runDeleteMutation, { loading }] = useMutation(DELETE_OWNER);
   const deleteItem = useDeleteItem(id, runDeleteMutation, REFETCH_QUERIES);
 
   // Callback that deletes the item
@@ -148,6 +189,8 @@ function useDeleteConfirm(id: string | null | undefined) {
 
   // Function that is executed when mutation is successful
   function handleDeleteSuccess() {
+    setSelectedRowIds([]);
+
     return message.success(
       intl.formatMessage({ id: "EntityDetailsScreen.deletedSuccessfully" })
     );
@@ -185,8 +228,8 @@ interface TableSectionProps {
   items?: ItemTableType;
   loading?: boolean;
   error?: ApolloError;
-  selectedRowId?: string;
-  setSelectedRowId: (id: any) => any;
+  selectedRowIds: string[];
+  setSelectedRowIds: (id: any) => any;
 }
 
 /**
@@ -196,8 +239,8 @@ function TableSection({
   items,
   loading,
   error,
-  selectedRowId,
-  setSelectedRowId
+  selectedRowIds,
+  setSelectedRowIds
 }: TableSectionProps) {
   if (loading) {
     return <Spin />;
@@ -214,7 +257,7 @@ function TableSection({
   const dataSource = items
     .filter(item => item != null)
     .map(item => ({
-      key: item?.petDiseaseIdentifier,
+      key: item?.id,
       ...item
     }));
 
@@ -223,16 +266,21 @@ function TableSection({
       <Table
         dataSource={dataSource as object[]}
         columns={columns}
-        rowClassName={record =>
-          (record as ItemType)?.petDiseaseIdentifier === selectedRowId
-            ? "table-row-selected"
-            : ""
-        }
+        rowSelection={{
+          selectedRowKeys: selectedRowIds,
+          onChange: (keys: React.Key[]) => setSelectedRowIds(keys)
+        }}
         onRow={data => {
           return {
             onClick: () => {
-              const id = (data as ItemType)?.petDiseaseIdentifier;
-              setSelectedRowId(id === selectedRowId ? null : id);
+              const id = (data as ItemType)?.id;
+              if (selectedRowIds.includes(id!)) {
+                setSelectedRowIds(
+                  selectedRowIds.filter((item: string) => item !== id)
+                );
+              } else {
+                setSelectedRowIds([...selectedRowIds, id]);
+              }
             }
           };
         }}
@@ -245,11 +293,11 @@ function TableSection({
 /**
  * Type of data object received when executing the query
  */
-type QueryResultType = ResultOf<typeof PET_DISEASE_LIST>;
+type QueryResultType = ResultOf<typeof OWNER_LIST>;
 /**
  * Type of the items list
  */
-type ItemTableType = QueryResultType["petDiseaseList"];
+type ItemTableType = QueryResultType["ownerList"];
 /**
  * Type of a single item
  */

@@ -48,6 +48,14 @@ const menuItems: ItemType[] = [
   },
   {
     label: (
+      <Link to="owner-table-with-multiselect">
+        <FormattedMessage id="screen.OwnerTableWithMultiselect" />
+      </Link>
+    ),
+    key: "owner-table-with-multiselect"
+  },
+  {
+    label: (
       <Link to="pet-cards">
         <FormattedMessage id="screen.PetCards" />
       </Link>

@@ -7,6 +7,7 @@ export interface EntityManagementAnswers extends ScreenAnswers {
   itemComponentName: string,
   route: string,
   type: EntityListType,
+  multiselect?: boolean;
   mode?: EntityListMode,
   listQuery: string,
   detailsQuery: string,
@@ -47,6 +48,15 @@ export const commonEntityManagementQuestions: StudioTemplateProperty[] =  [
     propertyType: StudioTemplatePropertyType.OPTION,
     defaultValue: 'cards',
     options: ['cards', 'list', 'table'],
+  },
+  {
+    caption: 'Multiselect',
+    code: 'multiselect',
+    propertyType: StudioTemplatePropertyType.BOOLEAN,
+    defaultValue: false,
+    showIf: {
+      type: 'table'
+    }
   },
   {
     caption: 'Entity list mode',

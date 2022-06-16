@@ -6,6 +6,7 @@ export type EntityListType = 'list' | 'cards' | 'table';
 
 export interface EntityListAnswers extends ScreenAnswers {
   type?: EntityListType;
+  multiselect?: boolean;
   mode?: EntityListMode;
   route: string;
   query: string; // TODO may be rename with 'listQuery'
@@ -36,6 +37,15 @@ export const entityListQuestions: StudioTemplateProperty[] = [
     propertyType: StudioTemplatePropertyType.OPTION,
     defaultValue: 'cards',
     options: ['cards', 'list', 'table'],
+  },
+  {
+    caption: 'Multiselect',
+    code: 'multiselect',
+    propertyType: StudioTemplatePropertyType.BOOLEAN,
+    defaultValue: false,
+    showIf: {
+      type: 'table'
+    }
   },
   {
     caption: 'Entity list mode',

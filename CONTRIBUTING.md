@@ -713,6 +713,12 @@ So we need always pass actual set of schema files as parameter.
 
 Codegen has an ability to generate three types of screens for collection of entities - List, Cards and Table.
 
+`Table` template has multiselect capability.
+Variant of component should be configured in `multiselect` variable (passed to the template from `templateModel`):
+
+* `multiselect = 'false'` - default mode without multiselect capability
+* `multiselect = 'true'` - with multiselect. Allows to select more than one row in the table
+
 `List` and `Cards` templates provide ability to generate collection components in three modes.
 Variant of component should be configured in `mode` variable (passed to the template from `templateModel`):
 

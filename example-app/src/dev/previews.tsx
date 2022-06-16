@@ -51,6 +51,8 @@ import { PetList } from "../app/screens/management/PetList";
 import { PetListEditor } from "../app/screens/management/PetListEditor";
 import { PetCards } from "../app/screens/management/PetCards";
 import { PetCardsEditor } from "../app/screens/management/PetCardsEditor";
+import { OwnerTableWithMultiselect } from "../app/screens/management/OwnerTableWithMultiselect";
+import { OwnerTableWithMultiselectEditor } from "../app/screens/management/OwnerTableWithMultiselectEditor";
 import { OwnerCardsWithFilter } from "../app/screens/management/OwnerCardsWithFilter";
 import { OwnerCardsWithFilterEditor } from "../app/screens/management/OwnerCardsWithFilterEditor";
 import { OwnerTable } from "../app/screens/management/OwnerTable";
@@ -88,6 +90,12 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/OwnerCardsWithFilter">
         <OwnerCardsWithFilter />
+      </ComponentPreview>
+      <ComponentPreview path="/OwnerTableWithMultiselectEditor">
+        <OwnerTableWithMultiselectEditor />
+      </ComponentPreview>
+      <ComponentPreview path="/OwnerTableWithMultiselect">
+        <OwnerTableWithMultiselect />
       </ComponentPreview>
       <ComponentPreview path="/PetCardsEditor">
         <PetCardsEditor />

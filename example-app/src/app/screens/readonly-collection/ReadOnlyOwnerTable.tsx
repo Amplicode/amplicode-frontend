@@ -125,6 +125,7 @@ function TableSection({
   const dataSource = items
     .filter(item => item != null)
     .map(item => ({
+      key: item?.id,
       ...item
     }));
 
