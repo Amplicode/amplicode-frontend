@@ -174,7 +174,7 @@ function FormFields({ item }: { item?: ItemType }) {
       <Form.Item name="type" label="Type">
         <EntityLookupField
           getDisplayName={getPetTypeDTODisplayName}
-          label="Type"
+          drawerTitle="Type"
           // TODO Uncomment the code and specify the list component
           // lookupComponent={<YourEntityLookupComponentName/>}
         />
@@ -183,7 +183,7 @@ function FormFields({ item }: { item?: ItemType }) {
       <Form.Item name="owner" label="Owner">
         <EntityLookupField
           getDisplayName={getOwnerDTODisplayName}
-          label="Owner"
+          drawerTitle="Owner"
           // TODO Uncomment the code and specify the list component
           // lookupComponent={<YourEntityLookupComponentName/>}
         />
@@ -192,7 +192,7 @@ function FormFields({ item }: { item?: ItemType }) {
       <Form.Item name="description" label="Description">
         <EntityLookupField
           getDisplayName={getPetDescriptionDTODisplayName}
-          label="Description"
+          drawerTitle="Description"
           // TODO Uncomment the code and specify the list component
           // lookupComponent={<YourEntityLookupComponentName/>}
         />
