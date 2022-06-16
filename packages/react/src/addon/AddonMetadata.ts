@@ -1,7 +1,7 @@
 import React from "react";
 import { ItemType } from "antd/es/menu/hooks/useItems";
 
-export interface MountedComponentMetadata {
+export interface InsertedElementMetadata {
   element: React.ReactElement;
   filePath: string;
   below?: string | string[];
@@ -9,7 +9,7 @@ export interface MountedComponentMetadata {
 }
 
 export interface AddonMetadata {
-  mountedComponents?: MountedComponentMetadata[];
+  insertedElements?: InsertedElementMetadata[];
   menuItems?: ItemType[];
   routes?: React.ReactNode[];
 }
