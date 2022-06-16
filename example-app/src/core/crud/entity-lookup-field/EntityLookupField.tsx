@@ -1,4 +1,4 @@
-import { Drawer, Input, notification } from "antd";
+import { Drawer, Input, notification, InputProps } from "antd";
 import { CloseCircleOutlined, LinkOutlined } from "@ant-design/icons";
 import React, { useCallback, useState } from "react";
 import "./EntityLookupField.css";
@@ -10,17 +10,18 @@ export interface EntityLookupFieldProps {
   getDisplayName: (value: Record<string, unknown>) => string;
   label: string;
   hideClearButton?: boolean;
-  autoFocus?: boolean;
 }
 
-export function EntityLookupField(props: EntityLookupFieldProps) {
+export function EntityLookupField(
+  props: EntityLookupFieldProps & Omit<InputProps, "value" | "onChange">
+) {
   const {
     value,
     onChange,
     lookupComponent,
     getDisplayName,
     label,
-    autoFocus
+    ...rest
   } = props;
 
   const [lookupComponentVisible, setLookupComponentVisible] = useState<boolean>(
@@ -64,7 +65,7 @@ export function EntityLookupField(props: EntityLookupFieldProps) {
           )
         }
         value={value ? getDisplayName(value) : ""}
-        autoFocus={autoFocus}
+        {...rest}
       />
       <Drawer
         visible={lookupComponentVisible}
