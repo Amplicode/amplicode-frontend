@@ -1,9 +1,8 @@
-import React from "react";
 import { useQuery } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import { Card, Empty, Space, Spin } from "antd";
-import { gql } from "@amplicode/gql";
+import { gql } from "../../../gql";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { useIntl } from "react-intl";

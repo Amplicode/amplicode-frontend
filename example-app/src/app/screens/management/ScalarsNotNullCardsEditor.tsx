@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import {
@@ -14,7 +14,7 @@ import {
 } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { DatePicker, TimePicker } from "@amplicode/react";
-import { gql } from "@amplicode/gql";
+import { gql } from "../../../gql";
 import { useNavigate, useParams } from "react-router-dom";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { useSubmitEditor } from "../../../core/crud/useSubmitEditor";

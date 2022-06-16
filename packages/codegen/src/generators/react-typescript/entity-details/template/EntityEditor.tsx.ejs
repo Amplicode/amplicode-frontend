@@ -1,7 +1,7 @@
 <% const QUERY_CONST = toFatSnakeCase(queryName); -%>
 <% const MUTATION_CONST = toFatSnakeCase(mutationName); -%>
 <%# ------- TEMPLATE STARTS HERE ------- -%>
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import {
@@ -42,7 +42,7 @@ import { useForm } from "antd/es/form/Form";
 <% attributes.filter(a => a.isRelationField).forEach(attribute => { -%>
   import { get<%= capitalizeFirst(attribute.type) %>DisplayName } from '<%= relDirShift %>core/display-name/get<%= capitalizeFirst(attribute.type) %>DisplayName';
 <% }) -%>
-import { gql } from "@amplicode/gql";
+import {gql} from "<%= relDirShift %>gql";
 import { useNavigate, useParams } from "react-router-dom";
 import { RequestFailedError } from "<%= relDirShift %>core/crud/RequestFailedError";
 import { useSubmitEditor } from "<%= relDirShift %>core/crud/useSubmitEditor";

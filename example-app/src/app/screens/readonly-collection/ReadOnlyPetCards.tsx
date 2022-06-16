@@ -6,7 +6,7 @@ import { Card, Empty, Space, Spin } from "antd";
 import { EnterOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { gql } from "@amplicode/gql";
+import { gql } from "../../../gql";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";

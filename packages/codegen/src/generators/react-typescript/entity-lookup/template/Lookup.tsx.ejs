@@ -1,11 +1,10 @@
 <% const QUERY_CONST = toFatSnakeCase(queryName); -%>
 <%# ------- TEMPLATE STARTS HERE ------- -%>
-import React from "react";
 import { useQuery } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import { Card, Empty, Space, Spin } from "antd";
-import { gql } from "@amplicode/gql";
+import { gql } from "<%= relDirShift %>gql";
 import { ValueWithLabel } from "<%= relDirShift %>core/crud/ValueWithLabel";
 import { RequestFailedError } from "<%= relDirShift %>core/crud/RequestFailedError";
 import { useIntl } from "react-intl";

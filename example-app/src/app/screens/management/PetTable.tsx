@@ -20,7 +20,7 @@ import { useForm } from "antd/lib/form/Form";
 import { PlusOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
-import { gql } from "@amplicode/gql";
+import { gql } from "../../../gql";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { GraphQLError } from "graphql/error/GraphQLError";
 import { FetchResult } from "@apollo/client/link/core";

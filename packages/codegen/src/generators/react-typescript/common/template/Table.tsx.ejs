@@ -81,7 +81,7 @@ import {
   <% } -%>
   useIntl,
 } from "react-intl";
-import {gql} from "@amplicode/gql";
+import {gql} from "<%= relDirShift %>gql";
 <% if (withDeleteAction) { -%>
   import {useDeleteItem} from "<%= relDirShift %>core/crud/useDeleteItem";
   import {GraphQLError} from "graphql/error/GraphQLError";
