@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.21.0 (2022-06-16)
+
+
+### Features
+
+* change the way addon metadata specifies mounted components ([569ea95](https://github.com/Amplicode/amplicode-frontend/commit/569ea95ceae4520f859b3a35f62bbf9fdb7ed25b))
+* combine react-core and react-antd into single runtime lib ([8abcfbd](https://github.com/Amplicode/amplicode-frontend/commit/8abcfbdd6c34bd3852cea0d09a9766c40f82a9f6))
+
+
+
+
+
 # 0.20.0 (2022-06-15)
 
 
