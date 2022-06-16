@@ -3,7 +3,7 @@ import { ItemType } from "antd/es/menu/hooks/useItems";
 
 export interface MountedComponentMetadata {
   element: React.ReactElement;
-  mountingPoint: 'ROOT' | 'I18N';
+  filePath: string;
   below?: string | string[];
   above?: string | string[];
 }
