@@ -180,6 +180,15 @@ exports.petListQuery = `query Get_Pet_List {
         identifier
         description
       }
+      tags {
+        id
+        name
+      }
+      diseases {
+        petDiseaseIdentifier
+        name
+        description
+      }
     }
   }`;
 
@@ -199,6 +208,15 @@ exports.petListQueryWithFilter = `query Get_Pet_List_With_Filter($identification
       }
       description {
         identifier
+        description
+      }
+      tags {
+        id
+        name
+      }
+      diseases {
+        petDiseaseIdentifier
+        name
         description
       }
     }
@@ -226,6 +244,15 @@ exports.petDetailsQuery = `query Get_Pet($id: ID) {
         identifier
         description
       }
+      tags {
+        id
+        name
+      }
+      diseases {
+        petDiseaseIdentifier
+        name
+        description
+      }      
     }
   }`;
 

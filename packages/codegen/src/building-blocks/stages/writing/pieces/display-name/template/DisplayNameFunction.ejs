@@ -1,4 +1,6 @@
-export function get<%= capitalizeFirst(entityName) %>DisplayName<TEntity extends Record<string, unknown>>(entityInstance?: TEntity): string {
+export function get<%= capitalizeFirst(entityName) %>DisplayName<TEntity extends Record<string, unknown>>(
+  entityInstance?: TEntity | null
+): string {
   if (entityInstance == null) {
     return '';
   }

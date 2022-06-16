@@ -4,7 +4,7 @@ const { Paragraph, Text } = Typography;
 export interface ValueWithLabelProps {
   key?: string;
   label: string;
-  value?: string | number | boolean;
+  value?: string | number | boolean | null;
   isUrl?: boolean;
   renderIfEmptyValue?: boolean;
 }
@@ -13,11 +13,11 @@ export interface ValueWithLabelProps {
  * A simple component that renders a labeled value.
  */
 export function ValueWithLabel({
-                                 label,
-                                 value,
-                                 isUrl,
-                                 renderIfEmptyValue = false
-                               }: ValueWithLabelProps) {
+  label,
+  value,
+  isUrl,
+  renderIfEmptyValue = false
+}: ValueWithLabelProps) {
   if (value == null && !renderIfEmptyValue) {
     return null;
   }

@@ -53,17 +53,20 @@ const QUERY_WITHOUT_ID = gql(`
 
 const QUERY_NODE = gql(`
     query Get_Pet_List {
-        petList {
-            id
-            identificationNumber
-            owner {
-                firstName
-                lastName
-            }
-            type {
-                id
-            }
+      petList {
+        id
+        identificationNumber
+        owner {
+          firstName
+          lastName
         }
+        type {
+          id
+        }
+        tags {
+          id
+        }
+      }
     }
 `);
 
@@ -107,4 +110,17 @@ const RESULT = [
     type: "PetTypeDTO",
     enumOptions: undefined
   },
+  {
+    displayName: "Tags",
+    isMultiRelationField: true,
+    isSingleRelationField: false,
+    name: "tags",
+    nestedAttributes: [
+      "id",
+      "name",
+    ],
+    type: "TagDTO",
+    enumOptions: undefined
+  },
+
 ];

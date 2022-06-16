@@ -29,6 +29,8 @@ import { deserialize } from "../../../core/transform/model/deserialize";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetDescriptionDTODisplayName } from "../../../core/display-name/getPetDescriptionDTODisplayName";
+import { getTagDTODisplayName } from "../../../core/display-name/getTagDTODisplayName";
+import { getPetDiseaseDTODisplayName } from "../../../core/display-name/getPetDiseaseDTODisplayName";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const REFETCH_QUERIES = ["Get_Pet_List_With_Filter"];
@@ -50,6 +52,15 @@ const PET_BY_IDENTIFICATION_NUMBER_LIST = gql(`
       }
       description {
         identifier
+        description
+      }
+      tags {
+        id
+        name
+      }
+      diseases {
+        petDiseaseIdentifier
+        name
         description
       }
     }
@@ -87,6 +98,16 @@ const columns = [
     title: "Description",
     dataIndex: "description",
     key: "description"
+  },
+  {
+    title: "Tags",
+    dataIndex: "tags",
+    key: "tags"
+  },
+  {
+    title: "Diseases",
+    dataIndex: "diseases",
+    key: "diseases"
   }
 ];
 
@@ -337,7 +358,21 @@ function TableSection({
         owner: getOwnerDTODisplayName(item!.owner ?? undefined),
         description: getPetDescriptionDTODisplayName(
           item!.description ?? undefined
-        )
+        ),
+        tags:
+          item &&
+          item.tags &&
+          item.tags
+            .map(entry => getTagDTODisplayName(entry))
+            .filter(entry => entry !== "")
+            .join(", "),
+        diseases:
+          item &&
+          item.diseases &&
+          item.diseases
+            .map(entry => getPetDiseaseDTODisplayName(entry))
+            .filter(entry => entry !== "")
+            .join(", ")
       }
     }));
 

@@ -1,6 +1,6 @@
-export function getPetTypeDTODisplayName<
-  TEntity extends Record<string, unknown>
->(entityInstance?: TEntity | null): string {
+export function getTagDTODisplayName<TEntity extends Record<string, unknown>>(
+  entityInstance?: TEntity | null
+): string {
   if (entityInstance == null) {
     return "";
   }

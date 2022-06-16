@@ -129,6 +129,10 @@ query Get_Pet_List {
       firstName
       lastName
     }
+    tags {
+      id
+      name
+    }
   }
 }
 `;

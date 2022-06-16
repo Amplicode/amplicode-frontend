@@ -98,7 +98,14 @@ describe('codegen standalone table', () => {
           ...{
             birthDate: item!.birthDate?.format("LL") ?? undefined,
             type: getPetTypeDTODisplayName(item!.type ?? undefined),
-            owner: getOwnerDTODisplayName(item!.owner ?? undefined)
+            owner: getOwnerDTODisplayName(item!.owner ?? undefined),
+            tags:
+              item &&
+              item.tags &&
+              item.tags
+                .map(entry => getTagDTODisplayName(entry))
+                .filter(entry => entry !== "")
+                .join(", ")
           }
         }));    
     `;

@@ -96,6 +96,7 @@ describe('codegen readonly cards', () => {
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
     expect(componentFile).to.contain('export function ReadOnlyPetCards() ');
     expect(componentFile).to.contain('query Get_Pet_List {');
+
     expectFileContainsIgnoreSpace(componentFile, expectTag);
 
     const detailsComponentFile = fs.readFileSync(detailsComponentPath, 'utf-8');

@@ -677,6 +677,17 @@ export type Get_Pet_ListQuery = {
       identifier?: string | null;
       description?: string | null;
     } | null;
+    tags?: Array<{
+      __typename?: "TagDTO";
+      id?: string | null;
+      name?: string | null;
+    } | null> | null;
+    diseases?: Array<{
+      __typename?: "PetDiseaseDTO";
+      petDiseaseIdentifier?: string | null;
+      name?: string | null;
+      description?: string | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -826,6 +837,17 @@ export type Get_Pet_List_With_FilterQuery = {
       identifier?: string | null;
       description?: string | null;
     } | null;
+    tags?: Array<{
+      __typename?: "TagDTO";
+      id?: string | null;
+      name?: string | null;
+    } | null> | null;
+    diseases?: Array<{
+      __typename?: "PetDiseaseDTO";
+      petDiseaseIdentifier?: string | null;
+      name?: string | null;
+      description?: string | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -865,6 +887,17 @@ export type Get_PetQuery = {
       identifier?: string | null;
       description?: string | null;
     } | null;
+    tags?: Array<{
+      __typename?: "TagDTO";
+      id?: string | null;
+      name?: string | null;
+    } | null> | null;
+    diseases?: Array<{
+      __typename?: "PetDiseaseDTO";
+      petDiseaseIdentifier?: string | null;
+      name?: string | null;
+      description?: string | null;
+    } | null> | null;
   } | null;
 };
 
@@ -1166,6 +1199,35 @@ export const Get_Pet_ListDocument = {
                         kind: "Field",
                         name: { kind: "Name", value: "identifier" },
                       },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "description" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "tags" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "diseases" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "petDiseaseIdentifier" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "description" },
@@ -1640,6 +1702,35 @@ export const Get_Pet_List_With_FilterDocument = {
                     ],
                   },
                 },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "tags" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "diseases" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "petDiseaseIdentifier" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "description" },
+                      },
+                    ],
+                  },
+                },
               ],
             },
           },
@@ -1768,6 +1859,35 @@ export const Get_PetDocument = {
                         kind: "Field",
                         name: { kind: "Name", value: "identifier" },
                       },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "description" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "tags" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "diseases" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "petDiseaseIdentifier" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "description" },

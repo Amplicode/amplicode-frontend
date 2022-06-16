@@ -1,6 +1,6 @@
 export function getPetDiseaseDTODisplayName<
   TEntity extends Record<string, unknown>
->(entityInstance?: TEntity): string {
+>(entityInstance?: TEntity | null): string {
   if (entityInstance == null) {
     return "";
   }
@@ -9,9 +9,6 @@ export function getPetDiseaseDTODisplayName<
   }
   if (entityInstance.description != null) {
     return String(entityInstance.description);
-  }
-  if (entityInstance.petDiseaseIdentifier != null) {
-    return String(entityInstance.petDiseaseIdentifier);
   }
   return JSON.stringify(entityInstance);
 }

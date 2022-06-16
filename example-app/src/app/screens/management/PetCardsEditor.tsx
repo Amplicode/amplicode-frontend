@@ -7,6 +7,7 @@ import {
   Form,
   FormInstance,
   Input,
+  Select,
   message,
   Space,
   Spin
@@ -17,6 +18,8 @@ import { DatePicker } from "@amplicode/react";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
 import { getPetDescriptionDTODisplayName } from "../../../core/display-name/getPetDescriptionDTODisplayName";
+import { getTagDTODisplayName } from "../../../core/display-name/getTagDTODisplayName";
+import { getPetDiseaseDTODisplayName } from "../../../core/display-name/getPetDiseaseDTODisplayName";
 import { gql } from "../../../gql";
 import { useNavigate, useParams } from "react-router-dom";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
@@ -46,6 +49,15 @@ const PET = gql(`
         identifier
         description
       }
+      tags {
+        id
+        name
+      }
+      diseases {
+        petDiseaseIdentifier
+        name
+        description
+      }      
     }
   }
 `);
@@ -140,7 +152,7 @@ function EditorForm<TData>({
         layout="vertical"
         form={form}
       >
-        <FormFields />
+        <FormFields item={item} />
         <ErrorMessage errorMessage={formError} />
         <FormButtons submitting={submitting} />
       </Form>
@@ -148,7 +160,7 @@ function EditorForm<TData>({
   );
 }
 
-function FormFields() {
+function FormFields({ item }: { item?: ItemType }) {
   return (
     <>
       <Form.Item name="identificationNumber" label="Identification Number">
@@ -184,6 +196,36 @@ function FormFields() {
           // TODO Uncomment the code and specify the list component
           // lookupComponent={<YourEntityLookupComponentName/>}
         />
+      </Form.Item>
+
+      <Form.Item
+        name="tags"
+        label="Tags"
+        getValueProps={object => ({
+          value:
+            object == null
+              ? null
+              : object.map((entry: Record<string, unknown>) =>
+                  getTagDTODisplayName(entry)
+                )
+        })}
+      >
+        <Select mode="tags" disabled />
+      </Form.Item>
+
+      <Form.Item
+        name="diseases"
+        label="Diseases"
+        getValueProps={object => ({
+          value:
+            object == null
+              ? null
+              : object.map((entry: Record<string, unknown>) =>
+                  getPetDiseaseDTODisplayName(entry)
+                )
+        })}
+      >
+        <Select mode="tags" disabled />
       </Form.Item>
     </>
   );

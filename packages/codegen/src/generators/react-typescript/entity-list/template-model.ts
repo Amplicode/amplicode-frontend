@@ -2,7 +2,7 @@ import {templateUtilities, UtilTemplateModel} from "../../../building-blocks/sta
 import {AmplicodeTemplateModelStage} from "../../../building-blocks/pipelines/amplicodePipeline";
 import {AmplicodeComponentOptions} from "../../../building-blocks/stages/options/pieces/amplicode";
 import {EntityListMode, EntityListAnswers, EntityListType} from "./answers";
-import {getNamedType, GraphQLEnumType, GraphQLSchema} from "graphql";
+import {getNamedType, GraphQLEnumType, GraphQLList, GraphQLSchema} from "graphql";
 import gql from "graphql-tag";
 import {
   baseTemplateModel,
@@ -117,7 +117,8 @@ export function deriveFiltersTemplateModel(queryName: string, filterByArguments:
         enumOptions: gqlType instanceof GraphQLEnumType
           ? gqlType.getValues()
           : undefined,
-        isRelationField: !(isAnyLeafType(gqlType)),
+        isSingleRelationField: !isAnyLeafType(gqlType) && !(gqlType instanceof GraphQLList),
+        isMultiRelationField: !isAnyLeafType(gqlType) && gqlType instanceof GraphQLList,
         nestedAttributes: isAnyLeafType(gqlType)
           ? undefined
           : getAttributeNames(type, schema),

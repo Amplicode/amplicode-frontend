@@ -1,6 +1,6 @@
 export function getNotNullScalarsTestEntityDisplayName<
   TEntity extends Record<string, unknown>
->(entityInstance?: TEntity): string {
+>(entityInstance?: TEntity | null): string {
   if (entityInstance == null) {
     return "";
   }
