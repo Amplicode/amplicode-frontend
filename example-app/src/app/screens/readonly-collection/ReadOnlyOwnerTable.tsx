@@ -5,7 +5,7 @@ import { ResultOf } from "@graphql-typed-document-node/core";
 import { Empty, Space, Spin, Table } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-import { gql } from "@amplicode/gql";
+import { gql } from "../../../gql";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
