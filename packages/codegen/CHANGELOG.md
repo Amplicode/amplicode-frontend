@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.23.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.22.0...@amplicode/codegen@0.23.0) (2022-06-16)
+
+
+### Features
+
+* addon metadata - cosmetic changes ([b4e6cea](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/commit/b4e6cea253a5a9e8e89fe8e7882f10cbab62cd95))
+
+
+
+
+
 # [0.22.0](https://github.com/haulmont/jmix-frontend/tree/master/packages/jmix-front-generator/compare/@amplicode/codegen@0.19.0...@amplicode/codegen@0.22.0) (2022-06-16)
 
 

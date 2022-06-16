@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.23.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react@0.22.0...@amplicode/react@0.23.0) (2022-06-16)
+
+
+### Features
+
+* addon metadata - cosmetic changes ([b4e6cea](https://github.com/Amplicode/amplicode-frontend/commit/b4e6cea253a5a9e8e89fe8e7882f10cbab62cd95))
+
+
+
+
+
 # 0.22.0 (2022-06-16)
 
 
