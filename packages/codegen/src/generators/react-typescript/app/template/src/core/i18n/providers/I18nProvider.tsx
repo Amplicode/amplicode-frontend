@@ -5,12 +5,12 @@ import { AntdConfigProvider } from "./AntdConfigProvider";
 import { DayjsProvider } from "./DayjsProvider";
 import enAntdLocale from "antd/es/locale/en_US";
 import ruAntdLocale from "antd/es/locale/ru_RU";
-import enDayjsLocale from "dayjs/locale/en";
-import ruDayjsLocale from "dayjs/locale/ru";
+import "dayjs/locale/en";
+import "dayjs/locale/ru";
 
 export const localeConfigs: Record<string, LocaleConfigOption> = {
-  en: { caption: "English", antdLocale: enAntdLocale, dayjsLocale: enDayjsLocale },
-  ru: { caption: "Русский", antdLocale: ruAntdLocale, dayjsLocale: ruDayjsLocale }
+  en: { caption: "English", antdLocale: enAntdLocale },
+  ru: { caption: "Русский", antdLocale: ruAntdLocale }
 };
 
 export const i18nStore = new I18nStore(localeConfigs, "en")

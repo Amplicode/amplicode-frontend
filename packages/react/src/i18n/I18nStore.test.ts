@@ -17,7 +17,7 @@ const localeTwo = 'localeTwo';
 describe("I18nStore", () => {
   it("merge messages works correctly", () => {
     const i18nStore = new I18nStore({
-      [localeOne]: {caption: 'English', messages: initMessagesOne}
+      [localeOne]: {caption: 'English', antdLocale: {locale: 'en'}, messages: initMessagesOne}
     }, localeOne);
     expect(i18nStore.currentMessages).toEqual(initMessagesOne);
 
@@ -40,8 +40,8 @@ describe("I18nStore", () => {
 
   it("switching between locales works correctly", () => {
     const i18nStore = new I18nStore({
-      [localeOne]: {caption: 'English', messages: initMessagesOne},
-      [localeTwo]: {caption: 'English', messages: initMessagesTwo},
+      [localeOne]: {caption: 'English', antdLocale: {locale: 'en'}, messages: initMessagesOne},
+      [localeTwo]: {caption: 'English', antdLocale: {locale: 'en'}, messages: initMessagesTwo},
     }, localeOne);
     expect(i18nStore.currentLocale).toBe(localeOne);
     expect(i18nStore.currentMessages).toEqual(initMessagesOne);
@@ -54,13 +54,13 @@ describe("I18nStore", () => {
   it('not existed locale works correctly', () => {
     const throwErrorWhileSettingNotExistedLocale = () => {
       const i18nStore = new I18nStore({
-        [localeOne]: {caption: 'English'}
+        [localeOne]: {caption: 'English', antdLocale: {locale: 'en'}}
       }, localeOne);
       i18nStore.setCurrentLocale('notExistedLocale');
     }
     const throwErrorWhileConstructingWithNotExistedLocale = () => {
       new I18nStore({
-        [localeOne]: {caption: 'English'}
+        [localeOne]: {caption: 'English', antdLocale: {locale: 'en'}}
       }, 'notExistedLocale');
     } 
 

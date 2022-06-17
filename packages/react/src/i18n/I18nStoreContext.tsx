@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react"
 import { I18nStore, LocaleConfigOption } from "./I18nStore";
 
-export const I18nStoreContext = createContext(new I18nStore({en: {caption: "English"}}, 'en'));
+export const I18nStoreContext = createContext(new I18nStore({en: {caption: "English", antdLocale: {locale: 'en'}}}, 'en'));
 
 export const useI18nStore = () => useContext(I18nStoreContext);
 

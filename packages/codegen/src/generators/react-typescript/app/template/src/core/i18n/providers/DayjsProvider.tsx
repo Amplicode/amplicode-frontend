@@ -15,9 +15,9 @@ export interface DayjsProviderProps {
   children: React.ReactNode;
 }
 export const DayjsProvider = observer(({ children }: DayjsProviderProps) => {
-  const { currentLocale, localeConfigs } = useI18nStore();
-
-  dayjs.locale(localeConfigs[currentLocale].dayjsLocale);
+  const { currentLocale } = useI18nStore();
+  
+  dayjs.locale(currentLocale);
 
   return <>{children}</>;
 });
