@@ -1,6 +1,5 @@
 import { useI18nStore } from "@amplicode/react";
 import { ConfigProvider } from "antd";
-import { Locale } from "antd/es/locale-provider";
 import { observer } from "mobx-react";
 
 export interface AntdConfigProviderProps {
@@ -13,7 +12,7 @@ export const AntdConfigProvider = observer(
 
     return (
       <ConfigProvider
-        locale={currentLocaleConfig.antdLocale as Locale}
+        locale={currentLocaleConfig.antdLocale}
         direction={currentLocaleConfig.direction}
       >
         {children}

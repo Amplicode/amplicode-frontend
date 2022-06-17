@@ -1,79 +1,11 @@
+import { Locale as AntdLocale } from 'antd/lib/locale-provider'
 import {makeObservable, action, observable, computed, autorun} from "mobx";
 
-export interface DayjsLocale {
-  name: string
-  weekdays?: string[]
-  months?: string[]
-  weekStart?: number
-  weekdaysShort?: string[]
-  monthsShort?: string[]
-  weekdaysMin?: string[]
-  ordinal?: (n: number) => number | string
-  formats: Partial<{
-    LT: string
-    LTS: string
-    L: string
-    LL: string
-    LLL: string
-    LLLL: string
-  }>
-  relativeTime: Partial<{
-    future: string
-    past: string
-    s: string
-    m: string
-    mm: string
-    h: string
-    hh: string
-    d: string
-    dd: string
-    M: string
-    MM: string
-    y: string
-    yy: string
-  }>
-}
-
-export interface AntdLocale {
-  locale: string;
-  Pagination?: unknown;
-  DatePicker?: unknown;
-  TimePicker?: Record<string, unknown>;
-  Calendar?: Record<string, unknown>;
-  Table?: unknown;
-  Modal?: unknown;
-  Popconfirm?: unknown;
-  Transfer?: Partial<unknown>;
-  Select?: Record<string, unknown>;
-  Upload?: unknown;
-  Empty?: unknown;
-  global?: Record<string, unknown>;
-  PageHeader?: {
-      back: string;
-  };
-  Icon?: Record<string, unknown>;
-  Text?: {
-      edit?: unknown;
-      copy?: unknown;
-      copied?: unknown;
-      expand?: unknown;
-  };
-  Form?: {
-      optional?: string;
-      defaultValidateMessages: unknown;
-  };
-  Image?: {
-      preview: string;
-  };
-}
-
 export type LocaleDirection = 'rtl' | 'ltr';
-
 export interface LocaleConfigOption {
   caption: string;
+  antdLocale: AntdLocale;
   direction?: LocaleDirection;
-  antdLocale?: AntdLocale;
-  dayjsLocale?: DayjsLocale;
   messages?: Record<string, string>;
 }
 
