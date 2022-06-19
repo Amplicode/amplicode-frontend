@@ -31,7 +31,7 @@
     "start-react-app": "npm run dev --prefix example-app",
     "publish:versions": "lerna version -m 'chore: bump versions' --no-push --conventional-commits --conventional-graduate",
     "publish:prerelease-versions": "lerna version -m 'chore: bump versions (prerelease)' --no-push --conventional-commits --conventional-prerelease --preid next",
-    "test": "lerna run test -- -- --passWithNoTests",
+    "test": "lerna run test",
     "lint": "lerna run lint -- -- --max-warnings 0",
     "lint-example-app": "eslint --ignore-pattern example-app/build example-app/",
     "test-example-app": "CI=true npm test --prefix example-app"
