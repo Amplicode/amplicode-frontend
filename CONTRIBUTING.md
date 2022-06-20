@@ -927,8 +927,9 @@ export default {
   ] // NOTE: This is a simple case with a single menu item, but we should also support nested menu items here. I.e. an addon can add a top level menu item "User Management" with second level menu items "Item1", "Item2",  "Item3"
 } as AddonMetadata;
 ```
+### Relation fields
 
-### Link Lookup Screen with One To Many Form Field
+#### One To Many Relation - Link Lookup Screen with Form Field
 
 At this moment we don't have ability to link lookup screens with one-to-many fields in the editor due to app generation. 
 Lookup screens are created separately with `entity-lookup` generator. When example app is bootstrapped 
@@ -959,6 +960,13 @@ import {OwnerLookup} from "../lookup/OwnerLookup";
       </Form.Item>
 
 ```
+
+#### X To Many Relation
+
+`X To Many` relation fields are represented in generated screens as read-only components. 
+In collection and details screen related values are shown as comma separated string. 
+In editor - as disabled multiselect component with values as tags inside input.
+
 
 ### Menu Types
 
