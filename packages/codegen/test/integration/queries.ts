@@ -129,10 +129,19 @@ query Get_Pet_List {
       firstName
       lastName
     }
+    description {
+      identifier
+      description
+    }
     tags {
       id
       name
     }
+    diseases {
+      petDiseaseIdentifier
+      name
+      description
+    }  
   }
 }
 `;
@@ -158,9 +167,29 @@ query Get_Pet($id: BigInteger) {
       firstName
       lastName
     }
+    description {
+      identifier
+      description
+    }
+    tags {
+      id
+      name
+    }
+    diseases {
+      petDiseaseIdentifier
+      name
+      description
+    } 
   }
 }
 `;
+
+
+export const petUpsertMutation = `mutation Update_Pet($input: PetInputDTO) {
+    updatePet(input: $input) {
+      id
+    }
+  }`;
 
 /* Scalars */
 

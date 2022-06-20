@@ -99,11 +99,21 @@ describe('codegen standalone table', () => {
             birthDate: item!.birthDate?.format("LL") ?? undefined,
             type: getPetTypeDTODisplayName(item!.type ?? undefined),
             owner: getOwnerDTODisplayName(item!.owner ?? undefined),
+            description: getPetDescriptionDTODisplayName(
+              item!.description ?? undefined
+            ),
             tags:
               item &&
               item.tags &&
               item.tags
                 .map(entry => getTagDTODisplayName(entry))
+                .filter(entry => entry !== "")
+                .join(", "),
+            diseases:
+              item &&
+              item.diseases &&
+              item.diseases
+                .map(entry => getPetDiseaseDTODisplayName(entry))
                 .filter(entry => entry !== "")
                 .join(", ")
           }

@@ -13,7 +13,7 @@ import {unCapitalizeFirst} from "../../../src/common/utils";
 const GENERATOR_DIR = path.join(GENERATORS_DIR, 'entity-management');
 const DEST_DIR = path.join(GENERATORS_DEST_DIR, 'entity-management');
 
-describe('codegen cards management', () => {
+describe('codegen scalars cards management', () => {
 
   beforeEach(async () => await cleanup(DEST_DIR));
 
