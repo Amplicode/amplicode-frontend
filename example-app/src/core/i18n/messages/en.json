@@ -59,6 +59,8 @@
   "screen.PetDiseaseCards": "Pet Disease Cards",
   "screen.PetDiseaseTableEditor": "Pet Disease Table Editor",
   "screen.PetDiseaseTable": "Pet Disease Table",
+  "screen.PetTypeTableEditor": "Pet Type Table Editor",
+  "screen.PetTypeTable": "Pet Type Table",
   "screen.ReadOnlyOwnerCardsDetails": "Read Only Owner Cards Details",
   "screen.ReadOnlyOwnerCards": "Read Only Owner Cards",
   "screen.ReadOnlyOwnerTableDetails": "Read Only Owner Table Details",

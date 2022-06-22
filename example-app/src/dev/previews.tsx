@@ -33,6 +33,8 @@ import { ReadOnlyOwnerTable } from "../app/screens/readonly-collection/ReadOnlyO
 import { ReadOnlyOwnerTableDetails } from "../app/screens/readonly-collection/ReadOnlyOwnerTableDetails";
 import { ReadOnlyOwnerCards } from "../app/screens/readonly-collection/ReadOnlyOwnerCards";
 import { ReadOnlyOwnerCardsDetails } from "../app/screens/readonly-collection/ReadOnlyOwnerCardsDetails";
+import { PetTypeTable } from "../app/screens/management/PetTypeTable";
+import { PetTypeTableEditor } from "../app/screens/management/PetTypeTableEditor";
 import { PetDiseaseTable } from "../app/screens/management/PetDiseaseTable";
 import { PetDiseaseTableEditor } from "../app/screens/management/PetDiseaseTableEditor";
 import { PetDiseaseCards } from "../app/screens/management/PetDiseaseCards";
@@ -150,6 +152,12 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/PetDiseaseTable">
         <PetDiseaseTable />
+      </ComponentPreview>
+      <ComponentPreview path="/PetTypeTableEditor">
+        <PetTypeTableEditor />
+      </ComponentPreview>
+      <ComponentPreview path="/PetTypeTable">
+        <PetTypeTable />
       </ComponentPreview>
       <ComponentPreview path="/ReadOnlyOwnerCardsDetails">
         <ReadOnlyOwnerCardsDetails />

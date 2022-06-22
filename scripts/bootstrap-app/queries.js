@@ -294,10 +294,30 @@ exports.petDiseaseUpsertMutation = `mutation Update_Pet_Disease($input: PetDisea
 
 exports.petTypeListQuery = `query Get_Pet_Type_List {
     petTypeList {
-      id, 
-      name
+      id 
+      name 
+      defenseStatus
     }
   }`;
+
+exports.petTypeDetailsQuery = `query Get_Pet_Type($id: ID) {
+    petType(id: $id) {
+      id
+      name
+      defenseStatus
+    }
+  }`;
+
+exports.petTypeDeleteMutation = `mutation Delete_Pet_Type($id: ID!) {
+    deletePetType(id: $id)
+  }`;
+
+exports.petTypeUpsertMutation = `mutation Update_Pet_Type($input: PetTypeInputDTO) {
+    updatePetType(input: $input) {
+      id
+    }
+  }`;
+
 
 /* Pet Description */
 

@@ -128,6 +128,14 @@ const menuItems: ItemType[] = [
   },
   {
     label: (
+      <Link to="pet-type-table">
+        <FormattedMessage id="screen.PetTypeTable" />
+      </Link>
+    ),
+    key: "pet-type-table"
+  },
+  {
+    label: (
       <Link to="read-only-owner-cards">
         <FormattedMessage id="screen.ReadOnlyOwnerCards" />
       </Link>

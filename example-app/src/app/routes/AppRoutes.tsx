@@ -24,6 +24,7 @@ import { ReadOnlyPetCardsScreenLayout } from "../screens/readonly-collection/Rea
 import { ReadOnlyOwnerListScreenLayout } from "../screens/readonly-collection/ReadOnlyOwnerListScreenLayout";
 import { ReadOnlyOwnerTableScreenLayout } from "../screens/readonly-collection/ReadOnlyOwnerTableScreenLayout";
 import { ReadOnlyOwnerCardsScreenLayout } from "../screens/readonly-collection/ReadOnlyOwnerCardsScreenLayout";
+import { PetTypeTableScreenLayout } from "../screens/management/PetTypeTableScreenLayout";
 import { PetDiseaseTableScreenLayout } from "../screens/management/PetDiseaseTableScreenLayout";
 import { PetDiseaseCardsScreenLayout } from "../screens/management/PetDiseaseCardsScreenLayout";
 import { PetDiseaseListScreenLayout } from "../screens/management/PetDiseaseListScreenLayout";
@@ -109,6 +110,10 @@ export function AppRoutes() {
       <Route path="pet-disease-table">
         <Route index element={<PetDiseaseTableScreenLayout />} />
         <Route path=":recordId" element={<PetDiseaseTableScreenLayout />} />
+      </Route>
+      <Route path="pet-type-table">
+        <Route index element={<PetTypeTableScreenLayout />} />
+        <Route path=":recordId" element={<PetTypeTableScreenLayout />} />
       </Route>
       <Route path="read-only-owner-cards">
         <Route index element={<ReadOnlyOwnerCardsScreenLayout />} />

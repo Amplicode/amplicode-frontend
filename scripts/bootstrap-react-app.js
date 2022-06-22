@@ -21,6 +21,7 @@ runCmdSync('node  bootstrap-app/generate-management/scalars-notnull-management-c
 runCmdSync('node  bootstrap-app/generate-management/pet-disease-management-list.js', './scripts');
 runCmdSync('node  bootstrap-app/generate-management/pet-disease-management-cards.js', './scripts');
 runCmdSync('node  bootstrap-app/generate-management/pet-disease-management-table.js', './scripts');
+runCmdSync('node  bootstrap-app/generate-management/pet-type-management-table.js', './scripts');
 
 runCmdSync('node  bootstrap-app/generate-readonly-collection/owner-cards-readonly.js', './scripts');
 runCmdSync('node  bootstrap-app/generate-readonly-collection/owner-table-readonly.js', './scripts');
