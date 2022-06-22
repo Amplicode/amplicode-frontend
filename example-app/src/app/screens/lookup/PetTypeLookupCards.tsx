@@ -11,8 +11,9 @@ import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeD
 const PET_TYPE_LIST = gql(`
   query Get_Pet_Type_List {
     petTypeList {
-      id, 
-      name
+      id 
+      name 
+      defenseStatus
     }
   }
 `);
@@ -98,6 +99,11 @@ function ItemCard({ item, onSelect }: ItemCardProps) {
       onClick={() => onSelect(item)}
     >
       <ValueWithLabel key="name" label="Name" value={item.name ?? undefined} />
+      <ValueWithLabel
+        key="defenseStatus"
+        label="Defense Status"
+        value={item.defenseStatus ?? undefined}
+      />
     </Card>
   );
 }

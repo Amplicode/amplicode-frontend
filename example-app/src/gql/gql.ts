@@ -11,7 +11,7 @@ const documents = {
     graphql.Get_Pet_Disease_ListDocument,
   "\n  query Get_Pet_List {\n    petList {\n      id\n      identificationNumber\n      birthDate\n      type {\n        id\n        name\n      }\n      owner {\n        id\n        firstName\n        lastName\n      }\n      description {\n        identifier\n        description\n      }\n      tags {\n        id\n        name\n      }\n      diseases {\n        petDiseaseIdentifier\n        name\n        description\n      }\n    }\n  }\n":
     graphql.Get_Pet_ListDocument,
-  "\n  query Get_Pet_Type_List {\n    petTypeList {\n      id, \n      name\n    }\n  }\n":
+  "\n  query Get_Pet_Type_List {\n    petTypeList {\n      id \n      name \n      defenseStatus\n    }\n  }\n":
     graphql.Get_Pet_Type_ListDocument,
   "\n  query Get_Scalars_List {\n    scalarsTestEntityList {\n      id\n      intTest\n      intPrimitive\n      byteTest\n      bytePrimitive\n      shortTest\n      shortPrimitive\n      doubleTest\n      doublePrimitive\n      floatTest\n      floatPrimitive\n      string\n      bool\n      boolPrimitive\n      bigInt\n      longTest\n      longPrimitive\n      bigDecimal\n      localDate\n      localDateTime\n      localTime\n      offsetDateTime\n      offsetTime\n      dateTest\n      url\n    }\n  }\n":
     graphql.Get_Scalars_ListDocument,
@@ -39,6 +39,12 @@ const documents = {
     graphql.Get_Pet_DiseaseDocument,
   "\n  mutation Update_Pet_Disease($input: PetDiseaseInputDTO) {\n    updatePetDisease(input: $input) {\n      petDiseaseIdentifier\n    }\n  }\n":
     graphql.Update_Pet_DiseaseDocument,
+  "\n  mutation Delete_Pet_Type($id: ID!) {\n    deletePetType(id: $id)\n  }\n":
+    graphql.Delete_Pet_TypeDocument,
+  "\n  query Get_Pet_Type($id: ID) {\n    petType(id: $id) {\n      id\n      name\n      defenseStatus\n    }\n  }\n":
+    graphql.Get_Pet_TypeDocument,
+  "\n  mutation Update_Pet_Type($input: PetTypeInputDTO) {\n    updatePetType(input: $input) {\n      id\n    }\n  }\n":
+    graphql.Update_Pet_TypeDocument,
   "\n  mutation Delete_Scalars($id: ID!) {\n    deleteScalarsTestEntity(id: $id)\n  }\n":
     graphql.Delete_ScalarsDocument,
   "\n  query Get_Scalars($id: ID) {\n    scalarsTestEntity(id: $id) {\n      id\n      intTest\n      intPrimitive\n      byteTest\n      bytePrimitive\n      shortTest\n      shortPrimitive\n      doubleTest\n      doublePrimitive\n      floatTest\n      floatPrimitive\n      string\n      bool\n      boolPrimitive\n      bigInt\n      longTest\n      longPrimitive\n      bigDecimal\n      localDate\n      localDateTime\n      localTime\n      offsetDateTime\n      offsetTime\n      dateTest\n      url\n    }\n  }\n":
@@ -66,8 +72,8 @@ export function gql(
   source: "\n  query Get_Pet_List {\n    petList {\n      id\n      identificationNumber\n      birthDate\n      type {\n        id\n        name\n      }\n      owner {\n        id\n        firstName\n        lastName\n      }\n      description {\n        identifier\n        description\n      }\n      tags {\n        id\n        name\n      }\n      diseases {\n        petDiseaseIdentifier\n        name\n        description\n      }\n    }\n  }\n"
 ): typeof documents["\n  query Get_Pet_List {\n    petList {\n      id\n      identificationNumber\n      birthDate\n      type {\n        id\n        name\n      }\n      owner {\n        id\n        firstName\n        lastName\n      }\n      description {\n        identifier\n        description\n      }\n      tags {\n        id\n        name\n      }\n      diseases {\n        petDiseaseIdentifier\n        name\n        description\n      }\n    }\n  }\n"];
 export function gql(
-  source: "\n  query Get_Pet_Type_List {\n    petTypeList {\n      id, \n      name\n    }\n  }\n"
-): typeof documents["\n  query Get_Pet_Type_List {\n    petTypeList {\n      id, \n      name\n    }\n  }\n"];
+  source: "\n  query Get_Pet_Type_List {\n    petTypeList {\n      id \n      name \n      defenseStatus\n    }\n  }\n"
+): typeof documents["\n  query Get_Pet_Type_List {\n    petTypeList {\n      id \n      name \n      defenseStatus\n    }\n  }\n"];
 export function gql(
   source: "\n  query Get_Scalars_List {\n    scalarsTestEntityList {\n      id\n      intTest\n      intPrimitive\n      byteTest\n      bytePrimitive\n      shortTest\n      shortPrimitive\n      doubleTest\n      doublePrimitive\n      floatTest\n      floatPrimitive\n      string\n      bool\n      boolPrimitive\n      bigInt\n      longTest\n      longPrimitive\n      bigDecimal\n      localDate\n      localDateTime\n      localTime\n      offsetDateTime\n      offsetTime\n      dateTest\n      url\n    }\n  }\n"
 ): typeof documents["\n  query Get_Scalars_List {\n    scalarsTestEntityList {\n      id\n      intTest\n      intPrimitive\n      byteTest\n      bytePrimitive\n      shortTest\n      shortPrimitive\n      doubleTest\n      doublePrimitive\n      floatTest\n      floatPrimitive\n      string\n      bool\n      boolPrimitive\n      bigInt\n      longTest\n      longPrimitive\n      bigDecimal\n      localDate\n      localDateTime\n      localTime\n      offsetDateTime\n      offsetTime\n      dateTest\n      url\n    }\n  }\n"];
@@ -107,6 +113,15 @@ export function gql(
 export function gql(
   source: "\n  mutation Update_Pet_Disease($input: PetDiseaseInputDTO) {\n    updatePetDisease(input: $input) {\n      petDiseaseIdentifier\n    }\n  }\n"
 ): typeof documents["\n  mutation Update_Pet_Disease($input: PetDiseaseInputDTO) {\n    updatePetDisease(input: $input) {\n      petDiseaseIdentifier\n    }\n  }\n"];
+export function gql(
+  source: "\n  mutation Delete_Pet_Type($id: ID!) {\n    deletePetType(id: $id)\n  }\n"
+): typeof documents["\n  mutation Delete_Pet_Type($id: ID!) {\n    deletePetType(id: $id)\n  }\n"];
+export function gql(
+  source: "\n  query Get_Pet_Type($id: ID) {\n    petType(id: $id) {\n      id\n      name\n      defenseStatus\n    }\n  }\n"
+): typeof documents["\n  query Get_Pet_Type($id: ID) {\n    petType(id: $id) {\n      id\n      name\n      defenseStatus\n    }\n  }\n"];
+export function gql(
+  source: "\n  mutation Update_Pet_Type($input: PetTypeInputDTO) {\n    updatePetType(input: $input) {\n      id\n    }\n  }\n"
+): typeof documents["\n  mutation Update_Pet_Type($input: PetTypeInputDTO) {\n    updatePetType(input: $input) {\n      id\n    }\n  }\n"];
 export function gql(
   source: "\n  mutation Delete_Scalars($id: ID!) {\n    deleteScalarsTestEntity(id: $id)\n  }\n"
 ): typeof documents["\n  mutation Delete_Scalars($id: ID!) {\n    deleteScalarsTestEntity(id: $id)\n  }\n"];

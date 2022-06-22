@@ -699,6 +699,7 @@ export type Get_Pet_Type_ListQuery = {
     __typename?: "PetTypeDTO";
     id?: string | null;
     name?: string | null;
+    defenseStatus?: ProtectionStatus | null;
   } | null> | null;
 };
 
@@ -943,6 +944,38 @@ export type Update_Pet_DiseaseMutation = {
     __typename?: "PetDiseaseDTO";
     petDiseaseIdentifier?: string | null;
   } | null;
+};
+
+export type Delete_Pet_TypeMutationVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type Delete_Pet_TypeMutation = {
+  __typename?: "Mutation";
+  deletePetType?: any | null;
+};
+
+export type Get_Pet_TypeQueryVariables = Exact<{
+  id?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type Get_Pet_TypeQuery = {
+  __typename?: "Query";
+  petType?: {
+    __typename?: "PetTypeDTO";
+    id?: string | null;
+    name?: string | null;
+    defenseStatus?: ProtectionStatus | null;
+  } | null;
+};
+
+export type Update_Pet_TypeMutationVariables = Exact<{
+  input?: InputMaybe<PetTypeInputDto>;
+}>;
+
+export type Update_Pet_TypeMutation = {
+  __typename?: "Mutation";
+  updatePetType?: { __typename?: "PetTypeDTO"; id?: string | null } | null;
 };
 
 export type Delete_ScalarsMutationVariables = Exact<{
@@ -1261,6 +1294,10 @@ export const Get_Pet_Type_ListDocument = {
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 { kind: "Field", name: { kind: "Name", value: "name" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "defenseStatus" },
+                },
               ],
             },
           },
@@ -2096,6 +2133,146 @@ export const Update_Pet_DiseaseDocument = {
 } as unknown as DocumentNode<
   Update_Pet_DiseaseMutation,
   Update_Pet_DiseaseMutationVariables
+>;
+export const Delete_Pet_TypeDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Delete_Pet_Type" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "deletePetType" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Delete_Pet_TypeMutation,
+  Delete_Pet_TypeMutationVariables
+>;
+export const Get_Pet_TypeDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Get_Pet_Type" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "petType" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "defenseStatus" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<Get_Pet_TypeQuery, Get_Pet_TypeQueryVariables>;
+export const Update_Pet_TypeDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Update_Pet_Type" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "input" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "PetTypeInputDTO" },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "updatePetType" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "input" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "input" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Update_Pet_TypeMutation,
+  Update_Pet_TypeMutationVariables
 >;
 export const Delete_ScalarsDocument = {
   kind: "Document",
