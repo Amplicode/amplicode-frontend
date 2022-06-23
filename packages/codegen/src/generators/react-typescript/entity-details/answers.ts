@@ -18,6 +18,13 @@ export const entityDetailsQuestions = [
     required: true
   },
   {
+    caption: 'Component route',
+    code: 'route',
+    propertyType: StudioTemplatePropertyType.ROUTE,
+    required: true,
+    relatedProperty: 'componentName'
+  },
+  {
     caption: 'Refetch query name',
     code: 'refetchQueryName',
     propertyType: StudioTemplatePropertyType.STRING,
