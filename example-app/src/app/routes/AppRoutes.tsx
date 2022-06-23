@@ -1,3 +1,4 @@
+import { BlankComponent } from "../screens/blank/BlankComponent";
 import { PetDescriptionLookupCards } from "../screens/lookup/PetDescriptionLookupCards";
 import { ScalarsNotNullLookupCards } from "../screens/lookup/ScalarsNotNullLookupCards";
 import { ScalarsLookupCards } from "../screens/lookup/ScalarsLookupCards";
@@ -216,6 +217,10 @@ export function AppRoutes() {
       <Route path="pet-description-lookup-cards">
         <Route index element={<PetDescriptionLookupCards />} />
         <Route path=":recordId" element={<PetDescriptionLookupCards />} />
+      </Route>
+      <Route path="blank-component">
+        <Route index element={<BlankComponent />} />
+        <Route path=":recordId" element={<BlankComponent />} />
       </Route>
     </Routes>
   );

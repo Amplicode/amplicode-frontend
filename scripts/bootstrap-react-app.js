@@ -53,6 +53,8 @@ runCmdSync('node bootstrap-app/generate-lookup/scalars-lookup-cards.js', './scri
 runCmdSync('node bootstrap-app/generate-lookup/scalars-notnull-lookup-cards.js', './scripts');
 runCmdSync('node bootstrap-app/generate-lookup/pet-description-lookup-cards.js', './scripts');
 
+runCmdSync('node bootstrap-app/generate-blank/blank-component.js', './scripts');
+
 runCmdSync('lerna run prepublishOnly');
 runCmdSync(`lerna exec --scope @amplicode/react "npm pack"`);
 

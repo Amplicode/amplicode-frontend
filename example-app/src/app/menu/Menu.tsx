@@ -333,6 +333,14 @@ const menuItems: ItemType[] = [
       </Link>
     ),
     key: "pet-description-lookup-cards"
+  },
+  {
+    label: (
+      <Link to="blank-component">
+        <FormattedMessage id="screen.BlankComponent" />
+      </Link>
+    ),
+    key: "blank-component"
   }
 ];
 

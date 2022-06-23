@@ -92,5 +92,6 @@
   "screen.PetDiseaseLookupCards": "Pet Disease Lookup Cards",
   "screen.ScalarsLookupCards": "Scalars Lookup Cards",
   "screen.ScalarsNotNullLookupCards": "Scalars Not Null Lookup Cards",
-  "screen.PetDescriptionLookupCards": "Pet Description Lookup Cards"
+  "screen.PetDescriptionLookupCards": "Pet Description Lookup Cards",
+  "screen.BlankComponent": "Blank Component"
 }

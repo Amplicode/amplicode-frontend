@@ -1,4 +1,5 @@
 import React from "react";
+import { BlankComponent } from "../app/screens/blank/BlankComponent";
 import { PetDescriptionLookupCards } from "../app/screens/lookup/PetDescriptionLookupCards";
 import { ScalarsNotNullLookupCards } from "../app/screens/lookup/ScalarsNotNullLookupCards";
 import { ScalarsLookupCards } from "../app/screens/lookup/ScalarsLookupCards";
@@ -252,6 +253,9 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/PetDescriptionLookupCards">
         <PetDescriptionLookupCards />
+      </ComponentPreview>
+      <ComponentPreview path="/BlankComponent">
+        <BlankComponent />
       </ComponentPreview>
     </Previews>
   );

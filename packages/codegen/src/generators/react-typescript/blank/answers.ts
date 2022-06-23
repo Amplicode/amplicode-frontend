@@ -12,6 +12,13 @@ export const blankQuestions = [
     required: true
   },
   {
+    caption: 'Component route',
+    code: 'route',
+    propertyType: StudioTemplatePropertyType.ROUTE,
+    required: true,
+    relatedProperty: 'componentName'
+  },
+  {
     caption: "Add to menu",
     code: "shouldAddToMenu",
     propertyType: StudioTemplatePropertyType.BOOLEAN,
