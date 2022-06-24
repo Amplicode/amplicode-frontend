@@ -87,7 +87,7 @@ describe('codegen pet cards management', () => {
         getValueProps={object => ({
           value:
             object == null
-              ? null
+              ? undefined
               : object.map((entry: Record<string, unknown>) =>
                   getTagDTODisplayName(entry)
                 )
@@ -104,7 +104,7 @@ describe('codegen pet cards management', () => {
         getValueProps={object => ({
           value:
             object == null
-              ? null
+              ? undefined
               : object.map((entry: Record<string, unknown>) =>
                   getPetDiseaseDTODisplayName(entry)
                 )
