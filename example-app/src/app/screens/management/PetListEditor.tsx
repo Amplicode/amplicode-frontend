@@ -204,7 +204,7 @@ function FormFields({ item }: { item?: ItemType }) {
         getValueProps={object => ({
           value:
             object == null
-              ? null
+              ? undefined
               : object.map((entry: Record<string, unknown>) =>
                   getTagDTODisplayName(entry)
                 )
@@ -219,7 +219,7 @@ function FormFields({ item }: { item?: ItemType }) {
         getValueProps={object => ({
           value:
             object == null
-              ? null
+              ? undefined
               : object.map((entry: Record<string, unknown>) =>
                   getPetDiseaseDTODisplayName(entry)
                 )

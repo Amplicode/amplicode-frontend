@@ -166,7 +166,7 @@ function FormFields({ item }: { item?: ItemType }) {
               label="<%= capitalizeFirst(attr.name) %>"
               getValueProps={object => ({
                 value: object == null
-                  ? null
+                  ? undefined
                   : object.map((entry: Record<string, unknown>) =>
                     get<%= capitalizeFirst(attr.type) %>DisplayName(entry)
                   )
