@@ -136,6 +136,14 @@ const menuItems: ItemType[] = [
   },
   {
     label: (
+      <Link to="visit-with-filter">
+        <FormattedMessage id="screen.VisitWithFilter" />
+      </Link>
+    ),
+    key: "visit-with-filter"
+  },
+  {
+    label: (
       <Link to="read-only-owner-cards">
         <FormattedMessage id="screen.ReadOnlyOwnerCards" />
       </Link>

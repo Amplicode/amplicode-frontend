@@ -55,6 +55,7 @@ import {
 } from "antd";
 <% if (withFilters) { -%>
   import { useForm } from "antd/lib/form/Form";
+  import { serializeVariables } from '../../../core/transform/model/serializeVariables';
 <% } -%>
 <% if (filterUsingScalars.hasRelationFields) { -%>
   import {EntityLookupField} from '<%= relDirShift %>core/crud/entity-lookup-field/EntityLookupField';
@@ -145,11 +146,16 @@ export function <%= componentName %>() {
 
     // Load the items from server. Will be reloaded reactively if one of variable changes
     const { loading, error, data } = useQuery(<%= QUERY_CONST %>, { variables: filterVars });
-    const items = deserialize(data?.<%= queryName %>);
   <% } else { -%>
     // Load the items from server
     const { loading, error, data } = useQuery(<%= QUERY_CONST %>);
-    const items = deserialize(data?.<%= queryName %>);
+  <% } -%>
+  const items = deserialize(data?.<%= queryName %>);
+
+  <% if (withFilters) { -%>
+    const onApplyFilters = (values: QueryVariablesType) => {
+      setFilterVars(serializeVariables(<%= QUERY_CONST %>, values))
+    };
   <% } -%>
 
   return (
@@ -160,7 +166,7 @@ export function <%= componentName %>() {
         <% } -%>
         <% if (withFilters) { -%>
           <Card>
-            <Filters onApplyFilters={setFilterVars} />
+            <Filters onApplyFilters={onApplyFilters} />
           </Card>
         <% } -%>
         <Cards

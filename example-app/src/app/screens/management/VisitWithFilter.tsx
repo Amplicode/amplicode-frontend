@@ -13,16 +13,20 @@ import {
   Card,
   Empty,
   Space,
-  Spin
+  Spin,
+  Badge
 } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { serializeVariables } from "../../../core/transform/model/serializeVariables";
+import { DatePicker } from "@amplicode/react";
 import {
   DeleteOutlined,
   LoadingOutlined,
   EditOutlined,
   PlusOutlined,
-  CloseCircleOutlined
+  CloseCircleOutlined,
+  UpOutlined,
+  DownOutlined
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -33,49 +37,62 @@ import { GraphQLError } from "graphql/error/GraphQLError";
 import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
-import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
+import { getVisitDTODisplayName } from "../../../core/display-name/getVisitDTODisplayName";
+import { getPetDTODisplayName } from "../../../core/display-name/getPetDTODisplayName";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
+import { NamePath } from "antd/lib/form/interface";
 
-const REFETCH_QUERIES = ["Get_Owner_List_With_Filter"];
+const REFETCH_QUERIES = ["Get_Visit_List_With_Filter"];
 
-const OWNER_BY_NAMES_LIST = gql(`
-  query Get_Owner_List_With_Filter($filter: OwnerFilterInput) {
-    ownerByNamesList(filter: $filter) {
+const VISIT_FILTERED_LIST = gql(`
+  query Get_Visit_List_With_Filter($filter: VisitFilterInput) {
+  visitFilteredList(filter: $filter) {
+    description
+    id
+    pet {
       id
-      firstName
-      lastName
-      city
-      address
-      telephone
-      email
+      identificationNumber
+      birthDate
+      type {
+        id
+        name
+      }
+      owner {
+        id
+        firstName
+        lastName
+      }
     }
+    visitEnd
+    visitStart
   }
+}
 `);
 
-const DELETE_OWNER = gql(`
-  mutation Delete_Owner($id: ID!) {
-    deleteOwner(id: $id)
-  }
+const DELETE_VISIT = gql(`
+  mutation Delete_Visit($id: ID!) {
+  deleteVisit(id: $id)
+}
 `);
 
 const initialFilterVars: QueryVariablesType = {};
 
-export function OwnerCardsWithFilter() {
+export function VisitWithFilter() {
   const intl = useIntl();
-  useBreadcrumbItem(intl.formatMessage({ id: "screen.OwnerCardsWithFilter" }));
+  useBreadcrumbItem(intl.formatMessage({ id: "screen.VisitWithFilter" }));
 
   const [filterVars, setFilterVars] = useState<QueryVariablesType>(
     initialFilterVars
   );
 
   // Load the items from server. Will be reloaded reactively if one of variable changes
-  const { loading, error, data } = useQuery(OWNER_BY_NAMES_LIST, {
+  const { loading, error, data } = useQuery(VISIT_FILTERED_LIST, {
     variables: filterVars
   });
-  const items = deserialize(data?.ownerByNamesList);
+  const items = deserialize(data?.visitFilteredList);
 
   const onApplyFilters = (values: QueryVariablesType) => {
-    setFilterVars(serializeVariables(OWNER_BY_NAMES_LIST, values));
+    setFilterVars(serializeVariables(VISIT_FILTERED_LIST, values));
   };
 
   return (
@@ -117,11 +134,22 @@ function ButtonPanel() {
   );
 }
 
+const couldBeHiddenFilters: NamePath[] = [
+  ["filter", "petIdentificationNumber"]
+];
+
 interface FiltersProps {
   onApplyFilters: (filters: QueryVariablesType) => void;
 }
 function Filters({ onApplyFilters }: FiltersProps) {
   const [form] = useForm();
+
+  const [showAll, setShowAll] = useState(false);
+
+  const [countHiddenTouchedFilters, setCountHiddenTouchedFilters] = useState(0);
+  const [countHiddenInvalideFilters, setCountHiddenInvalideFilters] = useState(
+    0
+  );
 
   const onResetFilters = async () => {
     await form.resetFields();
@@ -138,16 +166,37 @@ function Filters({ onApplyFilters }: FiltersProps) {
     >
       <Form.Item shouldUpdate>
         {() => {
+          const newCountHiddenTouchedFilters = showAll
+            ? 0
+            : couldBeHiddenFilters.filter(filterName =>
+                form.isFieldTouched(filterName)
+              ).length;
+          if (newCountHiddenTouchedFilters !== countHiddenTouchedFilters) {
+            setCountHiddenTouchedFilters(newCountHiddenTouchedFilters);
+          }
+
+          const newCountHiddenInvalideFilters = showAll
+            ? 0
+            : couldBeHiddenFilters.filter(
+                filterName => form.getFieldError(filterName).length > 0
+              ).length;
+          if (newCountHiddenInvalideFilters !== countHiddenInvalideFilters) {
+            setCountHiddenInvalideFilters(newCountHiddenInvalideFilters);
+          }
+
           return (
             <Row gutter={16}>
               <Col span={6}>
-                <Form.Item name={["filter", "firstName"]} label="First Name">
+                <Form.Item
+                  name={["filter", "ownerFirstName"]}
+                  label="Owner First Name"
+                >
                   <Input
                     suffix={
-                      form.isFieldTouched(["filter", "firstName"]) ? (
+                      form.isFieldTouched(["filter", "ownerFirstName"]) ? (
                         <CloseCircleOutlined
                           onClick={() =>
-                            form.resetFields([["filter", "firstName"]])
+                            form.resetFields([["filter", "ownerFirstName"]])
                           }
                         />
                       ) : (
@@ -159,13 +208,60 @@ function Filters({ onApplyFilters }: FiltersProps) {
               </Col>
 
               <Col span={6}>
-                <Form.Item name={["filter", "lastName"]} label="Last Name">
+                <Form.Item
+                  name={["filter", "ownerLastName"]}
+                  label="Owner Last Name"
+                >
                   <Input
                     suffix={
-                      form.isFieldTouched(["filter", "lastName"]) ? (
+                      form.isFieldTouched(["filter", "ownerLastName"]) ? (
                         <CloseCircleOutlined
                           onClick={() =>
-                            form.resetFields([["filter", "lastName"]])
+                            form.resetFields([["filter", "ownerLastName"]])
+                          }
+                        />
+                      ) : (
+                        <span />
+                      )
+                    }
+                  />
+                </Form.Item>
+              </Col>
+
+              <Col span={6}>
+                <Form.Item
+                  name={["filter", "visitStartAfter"]}
+                  label="Visit Start After"
+                >
+                  <DatePicker showTime={{ format: "HH:mm:ss" }} />
+                </Form.Item>
+              </Col>
+
+              <Col span={6}>
+                <Form.Item
+                  name={["filter", "visitStartBefore"]}
+                  label="Visit Start Before"
+                >
+                  <DatePicker showTime={{ format: "HH:mm:ss" }} />
+                </Form.Item>
+              </Col>
+
+              <Col span={6} style={{ display: showAll ? "block" : "none" }}>
+                <Form.Item
+                  name={["filter", "petIdentificationNumber"]}
+                  label="Pet Identification Number"
+                >
+                  <Input
+                    suffix={
+                      form.isFieldTouched([
+                        "filter",
+                        "petIdentificationNumber"
+                      ]) ? (
+                        <CloseCircleOutlined
+                          onClick={() =>
+                            form.resetFields([
+                              ["filter", "petIdentificationNumber"]
+                            ])
                           }
                         />
                       ) : (
@@ -180,14 +276,44 @@ function Filters({ onApplyFilters }: FiltersProps) {
         }}
       </Form.Item>
 
-      <Space>
-        <Button type="primary" htmlType="submit">
-          <FormattedMessage id="filters.apply" />
-        </Button>
-        <Button onClick={onResetFilters}>
-          <FormattedMessage id="filters.reset" />
-        </Button>
-      </Space>
+      <Row justify="space-between">
+        <Col>
+          <Space>
+            <Button type="primary" htmlType="submit">
+              <FormattedMessage id="filters.apply" />
+            </Button>
+            <Button onClick={onResetFilters}>
+              <FormattedMessage id="filters.reset" />
+            </Button>
+          </Space>
+        </Col>
+
+        <Col>
+          <Button type="link" onClick={() => setShowAll(!showAll)}>
+            <Space>
+              <FormattedMessage
+                id={showAll ? "filters.collapse" : "filters.showAll"}
+              />
+              {countHiddenInvalideFilters > 0 && (
+                <Badge
+                  style={{ backgroundColor: "#FF4D4F" }}
+                  size="small"
+                  count={countHiddenInvalideFilters}
+                />
+              )}
+              {countHiddenInvalideFilters === 0 &&
+                countHiddenTouchedFilters > 0 && (
+                  <Badge
+                    style={{ backgroundColor: "#1890ff" }}
+                    size="small"
+                    count={countHiddenTouchedFilters}
+                  />
+                )}
+              {showAll ? <UpOutlined /> : <DownOutlined />}
+            </Space>
+          </Button>
+        </Col>
+      </Row>
     </Form>
   );
 }
@@ -234,35 +360,29 @@ function ItemCard({ item }: { item: ItemType }) {
   return (
     <Card
       key={item.id}
-      title={getOwnerDTODisplayName(item)}
+      title={getVisitDTODisplayName(item)}
       actions={cardActions}
       className="narrow-layout"
     >
       <ValueWithLabel
-        key="firstName"
-        label="First Name"
-        value={item.firstName ?? undefined}
+        key="description"
+        label="Description"
+        value={item.description ?? undefined}
       />
       <ValueWithLabel
-        key="lastName"
-        label="Last Name"
-        value={item.lastName ?? undefined}
-      />
-      <ValueWithLabel key="city" label="City" value={item.city ?? undefined} />
-      <ValueWithLabel
-        key="address"
-        label="Address"
-        value={item.address ?? undefined}
+        key="pet"
+        label="Pet"
+        value={getPetDTODisplayName(item.pet ?? undefined)}
       />
       <ValueWithLabel
-        key="telephone"
-        label="Telephone"
-        value={item.telephone ?? undefined}
+        key="visitEnd"
+        label="Visit End"
+        value={item.visitEnd?.format("LLL") ?? undefined}
       />
       <ValueWithLabel
-        key="email"
-        label="Email"
-        value={item.email ?? undefined}
+        key="visitStart"
+        label="Visit Start"
+        value={item.visitStart?.format("LLL") ?? undefined}
       />
     </Card>
   );
@@ -306,7 +426,7 @@ function useCardActions(item: ItemType): ReactNode[] {
 function useDeleteConfirm(id: string | null | undefined) {
   const intl = useIntl();
 
-  const [runDeleteMutation, { loading }] = useMutation(DELETE_OWNER);
+  const [runDeleteMutation, { loading }] = useMutation(DELETE_VISIT);
   const deleteItem = useDeleteItem(id, runDeleteMutation, REFETCH_QUERIES);
 
   // Callback that deletes the item
@@ -359,15 +479,15 @@ function useDeleteConfirm(id: string | null | undefined) {
 /**
  * Type of data object received when executing the query
  */
-type QueryResultType = ResultOf<typeof OWNER_BY_NAMES_LIST>;
+type QueryResultType = ResultOf<typeof VISIT_FILTERED_LIST>;
 /**
  * Type of variables used to filter the items list
  */
-type QueryVariablesType = VariablesOf<typeof OWNER_BY_NAMES_LIST>;
+type QueryVariablesType = VariablesOf<typeof VISIT_FILTERED_LIST>;
 /**
  * Type of the items list
  */
-type ItemListType = QueryResultType["ownerByNamesList"];
+type ItemListType = QueryResultType["visitFilteredList"];
 /**
  * Type of a single item
  */

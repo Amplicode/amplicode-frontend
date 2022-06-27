@@ -25,7 +25,7 @@ describe('codegen filter in standalone cards', () => {
     await generate(GENERATOR_DIR, opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
-    expect(componentFile).to.contain('<Filters onApplyFilters={setFilterVars} />');
+    expect(componentFile).to.contain('<Filters onApplyFilters={onApplyFilters} />');
     expect(componentFile).to.contain('function Filters({ onApplyFilters }: FiltersProps) {');
     expect(componentFile).to.contain('type QueryVariablesType = VariablesOf<typeof OWNER_BY_NAMES_LIST>;')
   });
@@ -41,7 +41,7 @@ describe('codegen filter in standalone cards', () => {
     const componentWithoutFilterPath = path.join(DEST_DIR, 'CardsWithoutFilterProperty.tsx');
     await generate(GENERATOR_DIR, opts(DEST_DIR, answersWithoutFilterProperty, [SCHEMA_PATH]));
     const componentWithoutFilterFile = fs.readFileSync(componentWithoutFilterPath, 'utf-8');
-    expect(componentWithoutFilterFile).to.not.contain('<Filters onApplyFilters={setFilterVars} />');
+    expect(componentWithoutFilterFile).to.not.contain('<Filters onApplyFilters={onApplyFilters} />');
     expect(componentWithoutFilterFile).to.not.contain('function Filters({ onApplyFilters }: FiltersProps) {');
   });
 
@@ -57,7 +57,7 @@ describe('codegen filter in standalone cards', () => {
     const componentWithNullFilterPath = path.join(DEST_DIR, 'CardsWithNullFilterProperty.tsx');
     await generate(GENERATOR_DIR, opts(DEST_DIR, answersWithNullFilterProperty, [SCHEMA_PATH]));
     const componentWithNullFilterFile = fs.readFileSync(componentWithNullFilterPath, 'utf-8');
-    expect(componentWithNullFilterFile).to.not.contain('<Filters onApplyFilters={setFilterVars} />');
+    expect(componentWithNullFilterFile).to.not.contain('<Filters onApplyFilters={onApplyFilters} />');
     expect(componentWithNullFilterFile).to.not.contain('function Filters({ onApplyFilters }: FiltersProps) {');
 
     const answersWithEmptyArrayFilterProperty = {
@@ -71,7 +71,7 @@ describe('codegen filter in standalone cards', () => {
     const componentWithEmptyArrayFilterPath = path.join(DEST_DIR, 'CardsWithEmptyArrayFilterProperty.tsx');
     await generate(GENERATOR_DIR, opts(DEST_DIR, answersWithEmptyArrayFilterProperty, [SCHEMA_PATH]));
     const componentWithEmptyArrayFilterFile = fs.readFileSync(componentWithEmptyArrayFilterPath, 'utf-8');
-    expect(componentWithEmptyArrayFilterFile).to.not.contain('<Filters onApplyFilters={setFilterVars} />');
+    expect(componentWithEmptyArrayFilterFile).to.not.contain('<Filters onApplyFilters={onApplyFilters} />');
     expect(componentWithEmptyArrayFilterFile).to.not.contain('function Filters({ onApplyFilters }: FiltersProps) {');
   });
 });

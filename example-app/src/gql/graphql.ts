@@ -1078,6 +1078,88 @@ export type Update_Nn_ScalarsMutation = {
   } | null;
 };
 
+export type Get_Visit_List_With_FilterQueryVariables = Exact<{
+  filter?: InputMaybe<VisitFilterInput>;
+}>;
+
+export type Get_Visit_List_With_FilterQuery = {
+  __typename?: "Query";
+  visitFilteredList?: Array<{
+    __typename?: "VisitDTO";
+    description?: string | null;
+    id?: string | null;
+    visitEnd?: any | null;
+    visitStart?: any | null;
+    pet?: {
+      __typename?: "PetDTO";
+      id?: string | null;
+      identificationNumber?: string | null;
+      birthDate?: any | null;
+      type?: {
+        __typename?: "PetTypeDTO";
+        id?: string | null;
+        name?: string | null;
+      } | null;
+      owner?: {
+        __typename?: "OwnerDTO";
+        id?: string | null;
+        firstName?: string | null;
+        lastName?: string | null;
+      } | null;
+    } | null;
+  } | null> | null;
+};
+
+export type Delete_VisitMutationVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type Delete_VisitMutation = {
+  __typename?: "Mutation";
+  deleteVisit?: any | null;
+};
+
+export type Get_VisitQueryVariables = Exact<{
+  id?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type Get_VisitQuery = {
+  __typename?: "Query";
+  visit?: {
+    __typename?: "VisitDTO";
+    description?: string | null;
+    id?: string | null;
+    visitEnd?: any | null;
+    visitStart?: any | null;
+    pet?: {
+      __typename?: "PetDTO";
+      id?: string | null;
+      identificationNumber?: string | null;
+      birthDate?: any | null;
+      type?: {
+        __typename?: "PetTypeDTO";
+        id?: string | null;
+        name?: string | null;
+      } | null;
+      owner?: {
+        __typename?: "OwnerDTO";
+        id?: string | null;
+        firstName?: string | null;
+        lastName?: string | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
+export type Update_VisitMutationVariables = Exact<{
+  input?: InputMaybe<VisitInputDto>;
+}>;
+
+export type Update_VisitMutation = {
+  __typename?: "Mutation";
+  updateVisit?: { __typename?: "VisitDTO"; id?: string | null } | null;
+};
+
 export const Get_Owner_ListDocument = {
   kind: "Document",
   definitions: [
@@ -2631,4 +2713,308 @@ export const Update_Nn_ScalarsDocument = {
 } as unknown as DocumentNode<
   Update_Nn_ScalarsMutation,
   Update_Nn_ScalarsMutationVariables
+>;
+export const Get_Visit_List_With_FilterDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Get_Visit_List_With_Filter" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "filter" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "VisitFilterInput" },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "visitFilteredList" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "filter" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "filter" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "pet" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "identificationNumber" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "birthDate" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "type" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "owner" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "firstName" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "lastName" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "visitEnd" } },
+                { kind: "Field", name: { kind: "Name", value: "visitStart" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Get_Visit_List_With_FilterQuery,
+  Get_Visit_List_With_FilterQueryVariables
+>;
+export const Delete_VisitDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Delete_Visit" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "deleteVisit" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Delete_VisitMutation,
+  Delete_VisitMutationVariables
+>;
+export const Get_VisitDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Get_Visit" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "visit" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "pet" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "identificationNumber" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "birthDate" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "type" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "owner" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "firstName" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "lastName" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "visitEnd" } },
+                { kind: "Field", name: { kind: "Name", value: "visitStart" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<Get_VisitQuery, Get_VisitQueryVariables>;
+export const Update_VisitDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Update_Visit" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "input" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "VisitInputDTO" },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "updateVisit" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "input" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "input" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  Update_VisitMutation,
+  Update_VisitMutationVariables
 >;

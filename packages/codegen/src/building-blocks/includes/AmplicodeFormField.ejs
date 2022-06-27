@@ -80,7 +80,7 @@
   <% } else if (attr.type === 'Date') { %>
     <DatePicker <% if (locals.index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.type === 'LocalDateTime' || attr.type === 'DateTime' || attr.type === 'Timestamp') { %>
-    <DatePicker  showTime={{ format: "HH:mm:ss" }} <% if (index === 0) { -%> autoFocus <% } -%> />
+    <DatePicker  showTime={{ format: "HH:mm:ss" }} <% if (locals.index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.type === 'LocalTime' || attr.type === 'Time') { %>
     <TimePicker <% if (locals.index === 0) { -%> autoFocus <% } -%> />
   <% } else if (attr.isSingleRelationField) { %>

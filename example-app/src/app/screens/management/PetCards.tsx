@@ -16,6 +16,7 @@ import {
   Spin
 } from "antd";
 import { useForm } from "antd/lib/form/Form";
+import { serializeVariables } from "../../../core/transform/model/serializeVariables";
 import {
   DeleteOutlined,
   LoadingOutlined,
@@ -96,12 +97,18 @@ export function PetCards() {
   });
   const items = deserialize(data?.petByIdentificationNumberList);
 
+  const onApplyFilters = (values: QueryVariablesType) => {
+    setFilterVars(
+      serializeVariables(PET_BY_IDENTIFICATION_NUMBER_LIST, values)
+    );
+  };
+
   return (
     <div className="narrow-layout">
       <Space direction="vertical" className="card-space">
         <ButtonPanel />
         <Card>
-          <Filters onApplyFilters={setFilterVars} />
+          <Filters onApplyFilters={onApplyFilters} />
         </Card>
         <Cards items={items} loading={loading} error={error} />
         {/* <Pagination /> - in future */}
