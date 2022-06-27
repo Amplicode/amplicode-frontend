@@ -57,6 +57,14 @@ const documents = {
     graphql.Get_Nn_ScalarsDocument,
   "\n  mutation Update_NN_Scalars($input: NotNullScalarsTestEntityInput) {\n    updateNotNullScalarsTestEntity(input: $input) {\n      id\n    }\n  }\n":
     graphql.Update_Nn_ScalarsDocument,
+  "\n  query Get_Visit_List_With_Filter($filter: VisitFilterInput) {\n  visitFilteredList(filter: $filter) {\n    description\n    id\n    pet {\n      id\n      identificationNumber\n      birthDate\n      type {\n        id\n        name\n      }\n      owner {\n        id\n        firstName\n        lastName\n      }\n    }\n    visitEnd\n    visitStart\n  }\n}\n":
+    graphql.Get_Visit_List_With_FilterDocument,
+  "\n  mutation Delete_Visit($id: ID!) {\n  deleteVisit(id: $id)\n}\n":
+    graphql.Delete_VisitDocument,
+  "\n  query Get_Visit($id: ID) {\n  visit(id: $id) {\n    description\n    id\n    pet {\n      id\n      identificationNumber\n      birthDate\n      type {\n        id\n        name\n      }\n      owner {\n        id\n        firstName\n        lastName\n      }\n    }\n    visitEnd\n    visitStart\n  }\n}\n":
+    graphql.Get_VisitDocument,
+  "\n  mutation Update_Visit($input: VisitInputDTO) {\n  updateVisit(input: $input) {\n    id\n  }\n}\n":
+    graphql.Update_VisitDocument,
 };
 
 export function gql(
@@ -140,6 +148,18 @@ export function gql(
 export function gql(
   source: "\n  mutation Update_NN_Scalars($input: NotNullScalarsTestEntityInput) {\n    updateNotNullScalarsTestEntity(input: $input) {\n      id\n    }\n  }\n"
 ): typeof documents["\n  mutation Update_NN_Scalars($input: NotNullScalarsTestEntityInput) {\n    updateNotNullScalarsTestEntity(input: $input) {\n      id\n    }\n  }\n"];
+export function gql(
+  source: "\n  query Get_Visit_List_With_Filter($filter: VisitFilterInput) {\n  visitFilteredList(filter: $filter) {\n    description\n    id\n    pet {\n      id\n      identificationNumber\n      birthDate\n      type {\n        id\n        name\n      }\n      owner {\n        id\n        firstName\n        lastName\n      }\n    }\n    visitEnd\n    visitStart\n  }\n}\n"
+): typeof documents["\n  query Get_Visit_List_With_Filter($filter: VisitFilterInput) {\n  visitFilteredList(filter: $filter) {\n    description\n    id\n    pet {\n      id\n      identificationNumber\n      birthDate\n      type {\n        id\n        name\n      }\n      owner {\n        id\n        firstName\n        lastName\n      }\n    }\n    visitEnd\n    visitStart\n  }\n}\n"];
+export function gql(
+  source: "\n  mutation Delete_Visit($id: ID!) {\n  deleteVisit(id: $id)\n}\n"
+): typeof documents["\n  mutation Delete_Visit($id: ID!) {\n  deleteVisit(id: $id)\n}\n"];
+export function gql(
+  source: "\n  query Get_Visit($id: ID) {\n  visit(id: $id) {\n    description\n    id\n    pet {\n      id\n      identificationNumber\n      birthDate\n      type {\n        id\n        name\n      }\n      owner {\n        id\n        firstName\n        lastName\n      }\n    }\n    visitEnd\n    visitStart\n  }\n}\n"
+): typeof documents["\n  query Get_Visit($id: ID) {\n  visit(id: $id) {\n    description\n    id\n    pet {\n      id\n      identificationNumber\n      birthDate\n      type {\n        id\n        name\n      }\n      owner {\n        id\n        firstName\n        lastName\n      }\n    }\n    visitEnd\n    visitStart\n  }\n}\n"];
+export function gql(
+  source: "\n  mutation Update_Visit($input: VisitInputDTO) {\n  updateVisit(input: $input) {\n    id\n  }\n}\n"
+): typeof documents["\n  mutation Update_Visit($input: VisitInputDTO) {\n  updateVisit(input: $input) {\n    id\n  }\n}\n"];
 
 export function gql(source: string): unknown;
 export function gql(source: string) {

@@ -34,6 +34,8 @@ import { ReadOnlyOwnerTable } from "../app/screens/readonly-collection/ReadOnlyO
 import { ReadOnlyOwnerTableDetails } from "../app/screens/readonly-collection/ReadOnlyOwnerTableDetails";
 import { ReadOnlyOwnerCards } from "../app/screens/readonly-collection/ReadOnlyOwnerCards";
 import { ReadOnlyOwnerCardsDetails } from "../app/screens/readonly-collection/ReadOnlyOwnerCardsDetails";
+import { VisitWithFilter } from "../app/screens/management/VisitWithFilter";
+import { VisitWithFilterEditor } from "../app/screens/management/VisitWithFilterEditor";
 import { PetTypeTable } from "../app/screens/management/PetTypeTable";
 import { PetTypeTableEditor } from "../app/screens/management/PetTypeTableEditor";
 import { PetDiseaseTable } from "../app/screens/management/PetDiseaseTable";
@@ -159,6 +161,12 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/PetTypeTable">
         <PetTypeTable />
+      </ComponentPreview>
+      <ComponentPreview path="/VisitWithFilterEditor">
+        <VisitWithFilterEditor />
+      </ComponentPreview>
+      <ComponentPreview path="/VisitWithFilter">
+        <VisitWithFilter />
       </ComponentPreview>
       <ComponentPreview path="/ReadOnlyOwnerCardsDetails">
         <ReadOnlyOwnerCardsDetails />
