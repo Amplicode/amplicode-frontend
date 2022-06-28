@@ -17,7 +17,10 @@ import { DatePicker, TimePicker } from "@amplicode/react";
 import { gql } from "../../../gql";
 import { useNavigate, useParams } from "react-router-dom";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
-import { useSubmitEditor } from "../../../core/crud/useSubmitEditor";
+import {
+  FieldError,
+  useSubmitEditor
+} from "../../../core/crud/useSubmitEditor";
 import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 import { FormattedMessage, useIntl } from "react-intl";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
@@ -111,11 +114,14 @@ function EditorForm<TData>({
 
   // Global error message, i.e. error message not related to a particular form field.
   // Examples: cross-validation, network errors.
-  const [formError, setFormError] = useState<string | undefined>();
+  const [formErrors, setFormErrors] = useState<string[]>([]);
+  // Errors related to fields
+  const [fieldErrors, setFieldErrors] = useState<FieldError[]>([]);
 
   const { handleSubmit, submitting } = useSubmitEditor(
     UPDATE_NOT_NULL_SCALARS_TEST_ENTITY,
-    setFormError,
+    setFormErrors,
+    setFieldErrors,
     refetchQueries,
     "NotNullScalarsTestEntityInput",
     id
@@ -134,58 +140,216 @@ function EditorForm<TData>({
         layout="vertical"
         form={form}
       >
-        <FormFields item={item} />
-        <ErrorMessage errorMessage={formError} />
+        <FormFields item={item} fieldErrors={fieldErrors} />
+        {formErrors.map(errorMessage => (
+          <ErrorMessage errorMessage={errorMessage} />
+        ))}
         <FormButtons submitting={submitting} />
       </Form>
     </Card>
   );
 }
 
-function FormFields({ item }: { item?: ItemType }) {
+function FormFields({
+  item,
+  fieldErrors
+}: {
+  item?: ItemType;
+  fieldErrors: FieldError[];
+}) {
   return (
     <>
-      <Form.Item name="bigDecimalNotNull" label="Big Decimal Not Null">
+      <Form.Item
+        name="bigDecimalNotNull"
+        label="Big Decimal Not Null"
+        help={
+          <FieldErrorMessages
+            path="bigDecimalNotNull"
+            fieldErrors={fieldErrors}
+          />
+        }
+        validateStatus={
+          hasError(fieldErrors, "bigDecimalNotNull") ? "error" : "success"
+        }
+      >
         <InputNumber type="number" stringMode autoFocus />
       </Form.Item>
 
-      <Form.Item name="bigIntNotNull" label="Big Int Not Null">
+      <Form.Item
+        name="bigIntNotNull"
+        label="Big Int Not Null"
+        help={
+          <FieldErrorMessages path="bigIntNotNull" fieldErrors={fieldErrors} />
+        }
+        validateStatus={
+          hasError(fieldErrors, "bigIntNotNull") ? "error" : "success"
+        }
+      >
         <InputNumber type="number" precision={0} stringMode />
       </Form.Item>
 
-      <Form.Item name="dateTestNotNull" label="Date Test Not Null">
+      <Form.Item
+        name="dateTestNotNull"
+        label="Date Test Not Null"
+        help={
+          <FieldErrorMessages
+            path="dateTestNotNull"
+            fieldErrors={fieldErrors}
+          />
+        }
+        validateStatus={
+          hasError(fieldErrors, "dateTestNotNull") ? "error" : "success"
+        }
+      >
         <DatePicker showTime={{ format: "HH:mm:ss" }} />
       </Form.Item>
 
-      <Form.Item name="localDateNotNull" label="Local Date Not Null">
+      <Form.Item
+        name="localDateNotNull"
+        label="Local Date Not Null"
+        help={
+          <FieldErrorMessages
+            path="localDateNotNull"
+            fieldErrors={fieldErrors}
+          />
+        }
+        validateStatus={
+          hasError(fieldErrors, "localDateNotNull") ? "error" : "success"
+        }
+      >
         <DatePicker />
       </Form.Item>
 
-      <Form.Item name="localDateTimeNotNull" label="Local Date Time Not Null">
+      <Form.Item
+        name="localDateTimeNotNull"
+        label="Local Date Time Not Null"
+        help={
+          <FieldErrorMessages
+            path="localDateTimeNotNull"
+            fieldErrors={fieldErrors}
+          />
+        }
+        validateStatus={
+          hasError(fieldErrors, "localDateTimeNotNull") ? "error" : "success"
+        }
+      >
         <DatePicker showTime={{ format: "HH:mm:ss" }} />
       </Form.Item>
 
-      <Form.Item name="localTimeNotNull" label="Local Time Not Null">
+      <Form.Item
+        name="localTimeNotNull"
+        label="Local Time Not Null"
+        help={
+          <FieldErrorMessages
+            path="localTimeNotNull"
+            fieldErrors={fieldErrors}
+          />
+        }
+        validateStatus={
+          hasError(fieldErrors, "localTimeNotNull") ? "error" : "success"
+        }
+      >
         <TimePicker />
       </Form.Item>
 
-      <Form.Item name="offsetDateTimeNotNull" label="Offset Date Time Not Null">
+      <Form.Item
+        name="offsetDateTimeNotNull"
+        label="Offset Date Time Not Null"
+        help={
+          <FieldErrorMessages
+            path="offsetDateTimeNotNull"
+            fieldErrors={fieldErrors}
+          />
+        }
+        validateStatus={
+          hasError(fieldErrors, "offsetDateTimeNotNull") ? "error" : "success"
+        }
+      >
         <DatePicker showTime={{ format: "HH:mm:ss" }} />
       </Form.Item>
 
-      <Form.Item name="offsetTimeNotNull" label="Offset Time Not Null">
+      <Form.Item
+        name="offsetTimeNotNull"
+        label="Offset Time Not Null"
+        help={
+          <FieldErrorMessages
+            path="offsetTimeNotNull"
+            fieldErrors={fieldErrors}
+          />
+        }
+        validateStatus={
+          hasError(fieldErrors, "offsetTimeNotNull") ? "error" : "success"
+        }
+      >
         <TimePicker />
       </Form.Item>
 
-      <Form.Item name="stringNotNull" label="String Not Null">
+      <Form.Item
+        name="stringNotNull"
+        label="String Not Null"
+        help={
+          <FieldErrorMessages path="stringNotNull" fieldErrors={fieldErrors} />
+        }
+        validateStatus={
+          hasError(fieldErrors, "stringNotNull") ? "error" : "success"
+        }
+      >
         <Input />
       </Form.Item>
 
-      <Form.Item name="urlNotNull" label="Url Not Null">
+      <Form.Item
+        name="urlNotNull"
+        label="Url Not Null"
+        help={
+          <FieldErrorMessages path="urlNotNull" fieldErrors={fieldErrors} />
+        }
+        validateStatus={
+          hasError(fieldErrors, "urlNotNull") ? "error" : "success"
+        }
+      >
         <Input type="url" />
       </Form.Item>
     </>
   );
+}
+
+/**
+ * return true if fieldErrors contains error for field specified in path
+ *
+ * @param fieldErrors form field errors
+ * @param path field path
+ */
+function hasError(fieldErrors: FieldError[], path: string) {
+  return fieldErrors.some(fieldError => fieldError.path === path);
+}
+
+/**
+ * List of error messages in form field
+ *
+ * @param path field path
+ * @param fieldErrors form field errors
+ * @constructor
+ */
+function FieldErrorMessages({
+  path,
+  fieldErrors
+}: {
+  path: string;
+  fieldErrors: FieldError[];
+}) {
+  if (hasError(fieldErrors, path)) {
+    return (
+      <>
+        {fieldErrors
+          .find(fieldError => fieldError.path === path)!
+          .messages.map(msg => (
+            <div>{msg}</div>
+          ))}
+      </>
+    );
+  }
+
+  return <></>;
 }
 
 /**

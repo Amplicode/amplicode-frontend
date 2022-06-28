@@ -23,7 +23,10 @@ import { getPetDiseaseDTODisplayName } from "../../../core/display-name/getPetDi
 import { gql } from "../../../gql";
 import { useNavigate, useParams } from "react-router-dom";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
-import { useSubmitEditor } from "../../../core/crud/useSubmitEditor";
+import {
+  FieldError,
+  useSubmitEditor
+} from "../../../core/crud/useSubmitEditor";
 import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 import { FormattedMessage, useIntl } from "react-intl";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
@@ -129,11 +132,14 @@ function EditorForm<TData>({
 
   // Global error message, i.e. error message not related to a particular form field.
   // Examples: cross-validation, network errors.
-  const [formError, setFormError] = useState<string | undefined>();
+  const [formErrors, setFormErrors] = useState<string[]>([]);
+  // Errors related to fields
+  const [fieldErrors, setFieldErrors] = useState<FieldError[]>([]);
 
   const { handleSubmit, submitting } = useSubmitEditor(
     UPDATE_PET,
-    setFormError,
+    setFormErrors,
+    setFieldErrors,
     refetchQueries,
     "PetInputDTO",
     id
@@ -152,26 +158,58 @@ function EditorForm<TData>({
         layout="vertical"
         form={form}
       >
-        <FormFields item={item} />
-        <ErrorMessage errorMessage={formError} />
+        <FormFields item={item} fieldErrors={fieldErrors} />
+        {formErrors.map(errorMessage => (
+          <ErrorMessage errorMessage={errorMessage} />
+        ))}
         <FormButtons submitting={submitting} />
       </Form>
     </Card>
   );
 }
 
-function FormFields({ item }: { item?: ItemType }) {
+function FormFields({
+  item,
+  fieldErrors
+}: {
+  item?: ItemType;
+  fieldErrors: FieldError[];
+}) {
   return (
     <>
-      <Form.Item name="identificationNumber" label="Identification Number">
+      <Form.Item
+        name="identificationNumber"
+        label="Identification Number"
+        help={
+          <FieldErrorMessages
+            path="identificationNumber"
+            fieldErrors={fieldErrors}
+          />
+        }
+        validateStatus={
+          hasError(fieldErrors, "identificationNumber") ? "error" : "success"
+        }
+      >
         <Input autoFocus />
       </Form.Item>
 
-      <Form.Item name="birthDate" label="Birth Date">
+      <Form.Item
+        name="birthDate"
+        label="Birth Date"
+        help={<FieldErrorMessages path="birthDate" fieldErrors={fieldErrors} />}
+        validateStatus={
+          hasError(fieldErrors, "birthDate") ? "error" : "success"
+        }
+      >
         <DatePicker />
       </Form.Item>
 
-      <Form.Item name="type" label="Type">
+      <Form.Item
+        name="type"
+        label="Type"
+        help={<FieldErrorMessages path="type" fieldErrors={fieldErrors} />}
+        validateStatus={hasError(fieldErrors, "type") ? "error" : "success"}
+      >
         <EntityLookupField
           getDisplayName={getPetTypeDTODisplayName}
           drawerTitle="Type"
@@ -180,7 +218,12 @@ function FormFields({ item }: { item?: ItemType }) {
         />
       </Form.Item>
 
-      <Form.Item name="owner" label="Owner">
+      <Form.Item
+        name="owner"
+        label="Owner"
+        help={<FieldErrorMessages path="owner" fieldErrors={fieldErrors} />}
+        validateStatus={hasError(fieldErrors, "owner") ? "error" : "success"}
+      >
         <EntityLookupField
           getDisplayName={getOwnerDTODisplayName}
           drawerTitle="Owner"
@@ -189,7 +232,16 @@ function FormFields({ item }: { item?: ItemType }) {
         />
       </Form.Item>
 
-      <Form.Item name="description" label="Description">
+      <Form.Item
+        name="description"
+        label="Description"
+        help={
+          <FieldErrorMessages path="description" fieldErrors={fieldErrors} />
+        }
+        validateStatus={
+          hasError(fieldErrors, "description") ? "error" : "success"
+        }
+      >
         <EntityLookupField
           getDisplayName={getPetDescriptionDTODisplayName}
           drawerTitle="Description"
@@ -201,6 +253,8 @@ function FormFields({ item }: { item?: ItemType }) {
       <Form.Item
         name="tags"
         label="Tags"
+        help={<FieldErrorMessages path="tags" fieldErrors={fieldErrors} />}
+        validateStatus={hasError(fieldErrors, "tags") ? "error" : "success"}
         getValueProps={object => ({
           value:
             object == null
@@ -216,6 +270,8 @@ function FormFields({ item }: { item?: ItemType }) {
       <Form.Item
         name="diseases"
         label="Diseases"
+        help={<FieldErrorMessages path="diseases" fieldErrors={fieldErrors} />}
+        validateStatus={hasError(fieldErrors, "diseases") ? "error" : "success"}
         getValueProps={object => ({
           value:
             object == null
@@ -229,6 +285,45 @@ function FormFields({ item }: { item?: ItemType }) {
       </Form.Item>
     </>
   );
+}
+
+/**
+ * return true if fieldErrors contains error for field specified in path
+ *
+ * @param fieldErrors form field errors
+ * @param path field path
+ */
+function hasError(fieldErrors: FieldError[], path: string) {
+  return fieldErrors.some(fieldError => fieldError.path === path);
+}
+
+/**
+ * List of error messages in form field
+ *
+ * @param path field path
+ * @param fieldErrors form field errors
+ * @constructor
+ */
+function FieldErrorMessages({
+  path,
+  fieldErrors
+}: {
+  path: string;
+  fieldErrors: FieldError[];
+}) {
+  if (hasError(fieldErrors, path)) {
+    return (
+      <>
+        {fieldErrors
+          .find(fieldError => fieldError.path === path)!
+          .messages.map(msg => (
+            <div>{msg}</div>
+          ))}
+      </>
+    );
+  }
+
+  return <></>;
 }
 
 /**

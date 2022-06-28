@@ -15,7 +15,10 @@ import { useForm } from "antd/es/form/Form";
 import { gql } from "../../../gql";
 import { useNavigate, useParams } from "react-router-dom";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
-import { useSubmitEditor } from "../../../core/crud/useSubmitEditor";
+import {
+  FieldError,
+  useSubmitEditor
+} from "../../../core/crud/useSubmitEditor";
 import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 import { FormattedMessage, useIntl } from "react-intl";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
@@ -99,11 +102,14 @@ function EditorForm<TData>({
 
   // Global error message, i.e. error message not related to a particular form field.
   // Examples: cross-validation, network errors.
-  const [formError, setFormError] = useState<string | undefined>();
+  const [formErrors, setFormErrors] = useState<string[]>([]);
+  // Errors related to fields
+  const [fieldErrors, setFieldErrors] = useState<FieldError[]>([]);
 
   const { handleSubmit, submitting } = useSubmitEditor(
     UPDATE_PET_DISEASE,
-    setFormError,
+    setFormErrors,
+    setFieldErrors,
     refetchQueries,
     "PetDiseaseInputDTO",
     id,
@@ -123,26 +129,87 @@ function EditorForm<TData>({
         layout="vertical"
         form={form}
       >
-        <FormFields item={item} />
-        <ErrorMessage errorMessage={formError} />
+        <FormFields item={item} fieldErrors={fieldErrors} />
+        {formErrors.map(errorMessage => (
+          <ErrorMessage errorMessage={errorMessage} />
+        ))}
         <FormButtons submitting={submitting} />
       </Form>
     </Card>
   );
 }
 
-function FormFields({ item }: { item?: ItemType }) {
+function FormFields({
+  item,
+  fieldErrors
+}: {
+  item?: ItemType;
+  fieldErrors: FieldError[];
+}) {
   return (
     <>
-      <Form.Item name="description" label="Description">
+      <Form.Item
+        name="description"
+        label="Description"
+        help={
+          <FieldErrorMessages path="description" fieldErrors={fieldErrors} />
+        }
+        validateStatus={
+          hasError(fieldErrors, "description") ? "error" : "success"
+        }
+      >
         <Input autoFocus />
       </Form.Item>
 
-      <Form.Item name="name" label="Name">
+      <Form.Item
+        name="name"
+        label="Name"
+        help={<FieldErrorMessages path="name" fieldErrors={fieldErrors} />}
+        validateStatus={hasError(fieldErrors, "name") ? "error" : "success"}
+      >
         <Input />
       </Form.Item>
     </>
   );
+}
+
+/**
+ * return true if fieldErrors contains error for field specified in path
+ *
+ * @param fieldErrors form field errors
+ * @param path field path
+ */
+function hasError(fieldErrors: FieldError[], path: string) {
+  return fieldErrors.some(fieldError => fieldError.path === path);
+}
+
+/**
+ * List of error messages in form field
+ *
+ * @param path field path
+ * @param fieldErrors form field errors
+ * @constructor
+ */
+function FieldErrorMessages({
+  path,
+  fieldErrors
+}: {
+  path: string;
+  fieldErrors: FieldError[];
+}) {
+  if (hasError(fieldErrors, path)) {
+    return (
+      <>
+        {fieldErrors
+          .find(fieldError => fieldError.path === path)!
+          .messages.map(msg => (
+            <div>{msg}</div>
+          ))}
+      </>
+    );
+  }
+
+  return <></>;
 }
 
 /**
