@@ -84,6 +84,8 @@ describe('codegen pet cards management', () => {
       <Form.Item
         name="tags"
         label="Tags"
+        help={<FieldErrorMessages path="tags" fieldErrors={fieldErrors} />}
+        validateStatus={hasError(fieldErrors, "tags") ? "error" : "success"}
         getValueProps={object => ({
           value:
             object == null
@@ -101,6 +103,8 @@ describe('codegen pet cards management', () => {
       <Form.Item
         name="diseases"
         label="Diseases"
+        help={<FieldErrorMessages path="diseases" fieldErrors={fieldErrors} />}
+        validateStatus={hasError(fieldErrors, "diseases") ? "error" : "success"}
         getValueProps={object => ({
           value:
             object == null

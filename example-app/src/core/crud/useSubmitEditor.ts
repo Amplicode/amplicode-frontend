@@ -12,12 +12,18 @@ import { useCallback } from "react";
 import { serialize } from "../transform/model/serialize";
 import { useNavigate } from "react-router-dom";
 
+export interface FieldError {
+  path: string;
+  messages: string[];
+}
+
 /**
  * Returns an object containing `handleSubmit` callback that is executed after user clicks `Submit` button on an editor form
  * and client-side validation is successful, and `submitting` boolean indicating whether submit is in progress.
  *
  * @param mutation
- * @param setFormError
+ * @param setFormErrors set global form errors
+ * @param setFieldErrors set errors related to fields
  * @param refetchQueries
  * @param typename GraphQL input type name
  * @param idFieldName name of id field
@@ -25,7 +31,8 @@ import { useNavigate } from "react-router-dom";
  */
 export function useSubmitEditor<TData>(
   mutation: DocumentNode,
-  setFormError: (message: string) => void,
+  setFormErrors: (message: string[]) => void,
+  setFieldErrors: (fieldErrors: FieldError[]) => void,
   refetchQueries:
     | ((result: FetchResult<TData>) => InternalRefetchQueriesInclude)
     | InternalRefetchQueriesInclude
@@ -62,11 +69,32 @@ export function useSubmitEditor<TData>(
    */
   const handleGraphQLError = useCallback(
     (errors: ReadonlyArray<GraphQLError>) => {
-      setFormError(errors.join("\n"));
-      console.error(errors);
+      let formErrors: string[] = [];
+      let fieldErrors: FieldError[] = [];
+
+      errors.forEach(error => {
+        if (isFieldError(error)) {
+          const path = error.extensions.path[0];
+          if (fieldErrors.some(fieldError => fieldError.path === path)) {
+            //error with such path already exist in fieldErrors - add message to array
+            fieldErrors
+              .find(fieldError => fieldError.path === path)!
+              .messages.push(error.message);
+          } else {
+            //error with such path not exist in fieldErrors - create new field error
+            fieldErrors.push({ messages: [error.message], path });
+          }
+        } else {
+          // global error
+          formErrors.push(error.message);
+        }
+      });
+
+      setFormErrors(formErrors);
+      setFieldErrors(fieldErrors);
       return message.error(intl.formatMessage({ id: "common.requestFailed" }));
     },
-    [intl, setFormError]
+    [intl, setFieldErrors, setFormErrors]
   );
 
   /**
@@ -76,11 +104,11 @@ export function useSubmitEditor<TData>(
    */
   const handleNetworkError = useCallback(
     (error: Error | ApolloError) => {
-      setFormError(error.message);
+      setFormErrors([error.message]);
       console.error(error);
       return message.error(intl.formatMessage({ id: "common.requestFailed" }));
     },
-    [intl, setFormError]
+    [intl, setFormErrors]
   );
 
   /**
@@ -112,7 +140,12 @@ export function useSubmitEditor<TData>(
           }
           return handleGraphQLError(errors);
         })
-        .catch(handleNetworkError);
+        .catch(error => {
+          if (error.graphQLErrors != null && error.graphQLErrors.length > 0) {
+            return handleGraphQLError(error.graphQLErrors);
+          }
+          return handleNetworkError(error);
+        });
     },
     [
       id,
@@ -129,4 +162,13 @@ export function useSubmitEditor<TData>(
     handleSubmit,
     submitting
   };
+}
+
+function isFieldError(error: GraphQLError): boolean {
+  return (
+    error.extensions?.classification != null &&
+    error.extensions.classification === "BeanValidationError" &&
+    error.extensions.path?.length > 0 &&
+    error.extensions.path[0] !== ""
+  );
 }

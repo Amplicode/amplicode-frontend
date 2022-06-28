@@ -63,19 +63,40 @@ describe('codegen scalars cards management', () => {
     expectFileContainsIgnoreSpace(componentFile, urlValueWithLabel);
 
     const bigDecimalFormItem = `
-      <Form.Item name="bigDecimalNotNull" label="Big Decimal Not Null">
+      <Form.Item
+        name="bigDecimalNotNull"
+        label="Big Decimal Not Null"
+        help={<FieldErrorMessages path="bigDecimalNotNull" fieldErrors={fieldErrors} />}
+        validateStatus={
+          hasError(fieldErrors, "bigDecimalNotNull") ? "error" : "success"
+        }
+      >
         <InputNumber type="number" stringMode autoFocus />
       </Form.Item>`;
     expectFileContainsIgnoreSpace(editorComponentFile, bigDecimalFormItem);
 
     const bigIntFormItem = `
-      <Form.Item name="bigIntNotNull" label="Big Int Not Null">
+      <Form.Item
+        name="bigIntNotNull"
+        label="Big Int Not Null"
+        help={<FieldErrorMessages path="bigIntNotNull" fieldErrors={fieldErrors} />}
+        validateStatus={
+          hasError(fieldErrors, "bigIntNotNull") ? "error" : "success"
+        }
+       >
         <InputNumber type="number" precision={0} stringMode />
       </Form.Item>`;
     expectFileContainsIgnoreSpace(editorComponentFile, bigIntFormItem);
 
     const urlFormItem = `
-      <Form.Item name="urlNotNull" label="Url Not Null">
+      <Form.Item
+        name="urlNotNull"
+        label="Url Not Null"
+        help={<FieldErrorMessages path="urlNotNull" fieldErrors={fieldErrors} />}
+        validateStatus={
+          hasError(fieldErrors, "urlNotNull") ? "error" : "success"
+        }
+      >
         <Input type="url" />
       </Form.Item>`;
     expectFileContainsIgnoreSpace(editorComponentFile, urlFormItem);
@@ -92,7 +113,14 @@ describe('codegen scalars cards management', () => {
       expectFileContainsIgnoreSpace(componentFile, valueWithLabel);
 
       const formItem = `
-      <Form.Item name="${field}" label="${label}">
+      <Form.Item 
+        name="${field}" 
+        label="${label}"
+        help={<FieldErrorMessages path="${field}" fieldErrors={fieldErrors}/>}
+        validateStatus={
+          hasError(fieldErrors, "${field}") ? "error" : "success"
+        }
+      >
         <TimePicker />
       </Form.Item>`;
 
@@ -111,7 +139,14 @@ describe('codegen scalars cards management', () => {
       expectFileContainsIgnoreSpace(componentFile, valueWithLabel);
 
       const formItem = `
-      <Form.Item name="${field}" label="${label}">
+      <Form.Item 
+        name="${field}" 
+        label="${label}"
+        help={<FieldErrorMessages path="${field}" fieldErrors={fieldErrors}/>}
+        validateStatus={
+          hasError(fieldErrors, "${field}") ? "error" : "success"
+        }
+      >
         <DatePicker />
       </Form.Item>`;
 
@@ -130,7 +165,14 @@ describe('codegen scalars cards management', () => {
       expectFileContainsIgnoreSpace(componentFile, valueWithLabel);
 
       const formItem = `
-      <Form.Item name="${field}" label="${label}">
+      <Form.Item 
+        name="${field}" 
+        label="${label}"
+        help={<FieldErrorMessages path="${field}" fieldErrors={fieldErrors}/>}
+        validateStatus={
+          hasError(fieldErrors, "${field}") ? "error" : "success"
+        }
+      >
         <DatePicker showTime={{ format: "HH:mm:ss" }} />
       </Form.Item>`;
 

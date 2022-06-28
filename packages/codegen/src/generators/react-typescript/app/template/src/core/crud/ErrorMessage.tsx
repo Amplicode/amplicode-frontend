@@ -1,4 +1,4 @@
-import {Alert} from "antd";
+import { Alert } from "antd";
 import React from "react";
 
 /**
@@ -6,16 +6,17 @@ import React from "react";
  *
  * @param errorMessage
  */
-export function ErrorMessage({errorMessage}: {errorMessage?: string}) {
+export function ErrorMessage({ errorMessage }: { errorMessage?: string }) {
   if (errorMessage == null) {
     return null;
   }
 
   return (
     <Alert
-      message={errorMessage}
+      description={errorMessage}
       type="error"
-      className='form-error-message'
+      className="form-error-message"
+      showIcon
     />
   );
 }

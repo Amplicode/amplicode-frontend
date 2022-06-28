@@ -12,6 +12,11 @@ export function ErrorMessage({ errorMessage }: { errorMessage?: string }) {
   }
 
   return (
-    <Alert message={errorMessage} type="error" className="form-error-message" />
+    <Alert
+      description={errorMessage}
+      type="error"
+      className="form-error-message"
+      showIcon
+    />
   );
 }

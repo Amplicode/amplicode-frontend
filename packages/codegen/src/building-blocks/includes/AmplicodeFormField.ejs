@@ -1,6 +1,12 @@
 <Form.Item
   name=<%- include(includesPath('RenderReactPropValue'), {data: attr.name}) %>
   label='<%= attr.displayName %>'
+
+  <% if (locals.withValidation) { -%>
+    help={<FieldErrorMessages path="<%= attr.name %>" fieldErrors={fieldErrors} />}
+    validateStatus={hasError(fieldErrors, "<%= attr.name %>") ? "error" : "success"}
+  <% } -%>
+
   <% if (attr?.type === 'Boolean') { -%>
     valuePropName='checked'
     initialValue={false}
