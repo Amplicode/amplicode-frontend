@@ -5,7 +5,7 @@ import { FormattedMessage } from "react-intl";
 import { SmileOutlined } from "@ant-design/icons";
 
 const QUERY = gql`
-  query {
+  query UserInfo {
     userInfo {
       username
     }

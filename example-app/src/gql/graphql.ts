@@ -609,9 +609,16 @@ export type VisitInputDto = {
   visitStart?: InputMaybe<Scalars["LocalDateTime"]>;
 };
 
-export type Get_Owner_ListQueryVariables = Exact<{ [key: string]: never }>;
+export type UserInfoQueryVariables = Exact<{ [key: string]: never }>;
 
-export type Get_Owner_ListQuery = {
+export type UserInfoQuery = {
+  __typename?: "Query";
+  userInfo?: { __typename?: "UserInfo"; username?: string | null } | null;
+};
+
+export type GetOwnerListQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetOwnerListQuery = {
   __typename?: "Query";
   ownerList?: Array<{
     __typename?: "OwnerDTO";
@@ -625,142 +632,11 @@ export type Get_Owner_ListQuery = {
   } | null> | null;
 };
 
-export type Get_Pet_Description_ListQueryVariables = Exact<{
-  [key: string]: never;
-}>;
-
-export type Get_Pet_Description_ListQuery = {
-  __typename?: "Query";
-  petDescriptionList?: Array<{
-    __typename?: "PetDescriptionDTO";
-    identifier?: string | null;
-    description?: string | null;
-  } | null> | null;
-};
-
-export type Get_Pet_Disease_ListQueryVariables = Exact<{
-  [key: string]: never;
-}>;
-
-export type Get_Pet_Disease_ListQuery = {
-  __typename?: "Query";
-  petDiseaseList?: Array<{
-    __typename?: "PetDiseaseDTO";
-    description?: string | null;
-    name?: string | null;
-    petDiseaseIdentifier?: string | null;
-  } | null> | null;
-};
-
-export type Get_Pet_ListQueryVariables = Exact<{ [key: string]: never }>;
-
-export type Get_Pet_ListQuery = {
-  __typename?: "Query";
-  petList?: Array<{
-    __typename?: "PetDTO";
-    id?: string | null;
-    identificationNumber?: string | null;
-    birthDate?: any | null;
-    type?: {
-      __typename?: "PetTypeDTO";
-      id?: string | null;
-      name?: string | null;
-    } | null;
-    owner?: {
-      __typename?: "OwnerDTO";
-      id?: string | null;
-      firstName?: string | null;
-      lastName?: string | null;
-    } | null;
-    description?: {
-      __typename?: "PetDescriptionDTO";
-      identifier?: string | null;
-      description?: string | null;
-    } | null;
-    tags?: Array<{
-      __typename?: "TagDTO";
-      id?: string | null;
-      name?: string | null;
-    } | null> | null;
-    diseases?: Array<{
-      __typename?: "PetDiseaseDTO";
-      petDiseaseIdentifier?: string | null;
-      name?: string | null;
-      description?: string | null;
-    } | null> | null;
-  } | null> | null;
-};
-
-export type Get_Pet_Type_ListQueryVariables = Exact<{ [key: string]: never }>;
-
-export type Get_Pet_Type_ListQuery = {
-  __typename?: "Query";
-  petTypeList?: Array<{
-    __typename?: "PetTypeDTO";
-    id?: string | null;
-    name?: string | null;
-  } | null> | null;
-};
-
-export type Get_Scalars_ListQueryVariables = Exact<{ [key: string]: never }>;
-
-export type Get_Scalars_ListQuery = {
-  __typename?: "Query";
-  scalarsTestEntityList?: Array<{
-    __typename?: "ScalarsTestEntity";
-    id?: string | null;
-    intTest?: number | null;
-    intPrimitive: number;
-    byteTest?: number | null;
-    bytePrimitive: number;
-    shortTest?: number | null;
-    shortPrimitive: number;
-    doubleTest?: number | null;
-    doublePrimitive: number;
-    floatTest?: number | null;
-    floatPrimitive: number;
-    string?: string | null;
-    bool?: boolean | null;
-    boolPrimitive: boolean;
-    bigInt?: any | null;
-    longTest?: any | null;
-    longPrimitive: any;
-    bigDecimal?: any | null;
-    localDate?: any | null;
-    localDateTime?: any | null;
-    localTime?: any | null;
-    offsetDateTime?: any | null;
-    offsetTime?: any | null;
-    dateTest?: any | null;
-    url?: any | null;
-  } | null> | null;
-};
-
-export type Get_Nn_Scalars_ListQueryVariables = Exact<{ [key: string]: never }>;
-
-export type Get_Nn_Scalars_ListQuery = {
-  __typename?: "Query";
-  notNullScalarsTestEntityList?: Array<{
-    __typename?: "NotNullScalarsTestEntity";
-    id?: string | null;
-    bigDecimalNotNull: any;
-    bigIntNotNull: any;
-    dateTestNotNull: any;
-    localDateNotNull: any;
-    localDateTimeNotNull: any;
-    localTimeNotNull: any;
-    offsetDateTimeNotNull: any;
-    offsetTimeNotNull: any;
-    stringNotNull: string;
-    urlNotNull: any;
-  } | null> | null;
-};
-
-export type Delete_OwnerMutationVariables = Exact<{
+export type DeleteOwnerMutationVariables = Exact<{
   id: Scalars["ID"];
 }>;
 
-export type Delete_OwnerMutation = {
+export type DeleteOwnerMutation = {
   __typename?: "Mutation";
   deleteOwner?: any | null;
 };
@@ -792,32 +668,14 @@ export type Update_OwnerMutation = {
   updateOwner?: { __typename?: "OwnerDTO"; id?: string | null } | null;
 };
 
-export type Get_Owner_List_With_FilterQueryVariables = Exact<{
-  filter?: InputMaybe<OwnerFilterInput>;
-}>;
-
-export type Get_Owner_List_With_FilterQuery = {
-  __typename?: "Query";
-  ownerByNamesList?: Array<{
-    __typename?: "OwnerDTO";
-    id?: string | null;
-    firstName?: string | null;
-    lastName?: string | null;
-    city?: string | null;
-    address?: string | null;
-    telephone?: string | null;
-    email?: string | null;
-  } | null> | null;
-};
-
-export type Get_Pet_List_With_FilterQueryVariables = Exact<{
+export type GetPetListWithFilterQueryVariables = Exact<{
   identificationNumber?: InputMaybe<Scalars["String"]>;
 }>;
 
-export type Get_Pet_List_With_FilterQuery = {
+export type GetPetListWithFilterQuery = {
   __typename?: "Query";
   petByIdentificationNumberList?: Array<{
-    __typename?: "PetDTO";
+    __typename: "PetDTO";
     id?: string | null;
     identificationNumber?: string | null;
     birthDate?: any | null;
@@ -851,20 +709,20 @@ export type Get_Pet_List_With_FilterQuery = {
   } | null> | null;
 };
 
-export type Delete_PetMutationVariables = Exact<{
+export type DeletePetMutationVariables = Exact<{
   id: Scalars["ID"];
 }>;
 
-export type Delete_PetMutation = {
+export type DeletePetMutation = {
   __typename?: "Mutation";
   deletePet?: any | null;
 };
 
-export type Get_PetQueryVariables = Exact<{
+export type GetPetQueryVariables = Exact<{
   id?: InputMaybe<Scalars["ID"]>;
 }>;
 
-export type Get_PetQuery = {
+export type GetPetQuery = {
   __typename?: "Query";
   pet?: {
     __typename?: "PetDTO";
@@ -901,48 +759,47 @@ export type Get_PetQuery = {
   } | null;
 };
 
-export type Update_PetMutationVariables = Exact<{
+export type UpdatePetMutationVariables = Exact<{
   input?: InputMaybe<PetInputDto>;
 }>;
 
-export type Update_PetMutation = {
+export type UpdatePetMutation = {
   __typename?: "Mutation";
   updatePet?: { __typename?: "PetDTO"; id?: string | null } | null;
 };
 
-export type Delete_Pet_DiseaseMutationVariables = Exact<{
-  id: Scalars["ID"];
-}>;
+export type Get_Scalars_ListQueryVariables = Exact<{ [key: string]: never }>;
 
-export type Delete_Pet_DiseaseMutation = {
-  __typename?: "Mutation";
-  deletePetDisease?: any | null;
-};
-
-export type Get_Pet_DiseaseQueryVariables = Exact<{
-  id?: InputMaybe<Scalars["ID"]>;
-}>;
-
-export type Get_Pet_DiseaseQuery = {
+export type Get_Scalars_ListQuery = {
   __typename?: "Query";
-  petDisease?: {
-    __typename?: "PetDiseaseDTO";
-    description?: string | null;
-    name?: string | null;
-    petDiseaseIdentifier?: string | null;
-  } | null;
-};
-
-export type Update_Pet_DiseaseMutationVariables = Exact<{
-  input?: InputMaybe<PetDiseaseInputDto>;
-}>;
-
-export type Update_Pet_DiseaseMutation = {
-  __typename?: "Mutation";
-  updatePetDisease?: {
-    __typename?: "PetDiseaseDTO";
-    petDiseaseIdentifier?: string | null;
-  } | null;
+  scalarsTestEntityList?: Array<{
+    __typename?: "ScalarsTestEntity";
+    id?: string | null;
+    intTest?: number | null;
+    intPrimitive: number;
+    byteTest?: number | null;
+    bytePrimitive: number;
+    shortTest?: number | null;
+    shortPrimitive: number;
+    doubleTest?: number | null;
+    doublePrimitive: number;
+    floatTest?: number | null;
+    floatPrimitive: number;
+    string?: string | null;
+    bool?: boolean | null;
+    boolPrimitive: boolean;
+    bigInt?: any | null;
+    longTest?: any | null;
+    longPrimitive: any;
+    bigDecimal?: any | null;
+    localDate?: any | null;
+    localDateTime?: any | null;
+    localTime?: any | null;
+    offsetDateTime?: any | null;
+    offsetTime?: any | null;
+    dateTest?: any | null;
+    url?: any | null;
+  } | null> | null;
 };
 
 export type Delete_ScalarsMutationVariables = Exact<{
@@ -1002,56 +859,38 @@ export type Update_ScalarsMutation = {
   } | null;
 };
 
-export type Delete_Nn_ScalarsMutationVariables = Exact<{
-  id: Scalars["ID"];
-}>;
-
-export type Delete_Nn_ScalarsMutation = {
-  __typename?: "Mutation";
-  deleteNotNullScalarsTestEntity?: any | null;
-};
-
-export type Get_Nn_ScalarsQueryVariables = Exact<{
-  id?: InputMaybe<Scalars["ID"]>;
-}>;
-
-export type Get_Nn_ScalarsQuery = {
-  __typename?: "Query";
-  notNullScalarsTestEntity?: {
-    __typename?: "NotNullScalarsTestEntity";
-    id?: string | null;
-    bigDecimalNotNull: any;
-    bigIntNotNull: any;
-    dateTestNotNull: any;
-    localDateNotNull: any;
-    localDateTimeNotNull: any;
-    localTimeNotNull: any;
-    offsetDateTimeNotNull: any;
-    offsetTimeNotNull: any;
-    stringNotNull: string;
-    urlNotNull: any;
-  } | null;
-};
-
-export type Update_Nn_ScalarsMutationVariables = Exact<{
-  input?: InputMaybe<NotNullScalarsTestEntityInput>;
-}>;
-
-export type Update_Nn_ScalarsMutation = {
-  __typename?: "Mutation";
-  updateNotNullScalarsTestEntity?: {
-    __typename?: "NotNullScalarsTestEntity";
-    id?: string | null;
-  } | null;
-};
-
-export const Get_Owner_ListDocument = {
+export const UserInfoDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "query",
-      name: { kind: "Name", value: "Get_Owner_List" },
+      name: { kind: "Name", value: "UserInfo" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "userInfo" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "username" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<UserInfoQuery, UserInfoQueryVariables>;
+export const GetOwnerListDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetOwnerList" },
       selectionSet: {
         kind: "SelectionSet",
         selections: [
@@ -1075,354 +914,14 @@ export const Get_Owner_ListDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<Get_Owner_ListQuery, Get_Owner_ListQueryVariables>;
-export const Get_Pet_Description_ListDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "Get_Pet_Description_List" },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "petDescriptionList" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "identifier" } },
-                { kind: "Field", name: { kind: "Name", value: "description" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Get_Pet_Description_ListQuery,
-  Get_Pet_Description_ListQueryVariables
->;
-export const Get_Pet_Disease_ListDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "Get_Pet_Disease_List" },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "petDiseaseList" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "description" } },
-                { kind: "Field", name: { kind: "Name", value: "name" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "petDiseaseIdentifier" },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Get_Pet_Disease_ListQuery,
-  Get_Pet_Disease_ListQueryVariables
->;
-export const Get_Pet_ListDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "Get_Pet_List" },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "petList" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "identificationNumber" },
-                },
-                { kind: "Field", name: { kind: "Name", value: "birthDate" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "type" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "id" } },
-                      { kind: "Field", name: { kind: "Name", value: "name" } },
-                    ],
-                  },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "owner" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "id" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "firstName" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "lastName" },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "description" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "identifier" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "description" },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "tags" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "id" } },
-                      { kind: "Field", name: { kind: "Name", value: "name" } },
-                    ],
-                  },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "diseases" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "petDiseaseIdentifier" },
-                      },
-                      { kind: "Field", name: { kind: "Name", value: "name" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "description" },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<Get_Pet_ListQuery, Get_Pet_ListQueryVariables>;
-export const Get_Pet_Type_ListDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "Get_Pet_Type_List" },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "petTypeList" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "name" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Get_Pet_Type_ListQuery,
-  Get_Pet_Type_ListQueryVariables
->;
-export const Get_Scalars_ListDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "Get_Scalars_List" },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "scalarsTestEntityList" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "intTest" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "intPrimitive" },
-                },
-                { kind: "Field", name: { kind: "Name", value: "byteTest" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "bytePrimitive" },
-                },
-                { kind: "Field", name: { kind: "Name", value: "shortTest" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "shortPrimitive" },
-                },
-                { kind: "Field", name: { kind: "Name", value: "doubleTest" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "doublePrimitive" },
-                },
-                { kind: "Field", name: { kind: "Name", value: "floatTest" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "floatPrimitive" },
-                },
-                { kind: "Field", name: { kind: "Name", value: "string" } },
-                { kind: "Field", name: { kind: "Name", value: "bool" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "boolPrimitive" },
-                },
-                { kind: "Field", name: { kind: "Name", value: "bigInt" } },
-                { kind: "Field", name: { kind: "Name", value: "longTest" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "longPrimitive" },
-                },
-                { kind: "Field", name: { kind: "Name", value: "bigDecimal" } },
-                { kind: "Field", name: { kind: "Name", value: "localDate" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "localDateTime" },
-                },
-                { kind: "Field", name: { kind: "Name", value: "localTime" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "offsetDateTime" },
-                },
-                { kind: "Field", name: { kind: "Name", value: "offsetTime" } },
-                { kind: "Field", name: { kind: "Name", value: "dateTest" } },
-                { kind: "Field", name: { kind: "Name", value: "url" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Get_Scalars_ListQuery,
-  Get_Scalars_ListQueryVariables
->;
-export const Get_Nn_Scalars_ListDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "Get_NN_Scalars_List" },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "notNullScalarsTestEntityList" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "bigDecimalNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "bigIntNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "dateTestNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "localDateNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "localDateTimeNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "localTimeNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "offsetDateTimeNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "offsetTimeNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "stringNotNull" },
-                },
-                { kind: "Field", name: { kind: "Name", value: "urlNotNull" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Get_Nn_Scalars_ListQuery,
-  Get_Nn_Scalars_ListQueryVariables
->;
-export const Delete_OwnerDocument = {
+} as unknown as DocumentNode<GetOwnerListQuery, GetOwnerListQueryVariables>;
+export const DeleteOwnerDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "mutation",
-      name: { kind: "Name", value: "Delete_Owner" },
+      name: { kind: "Name", value: "DeleteOwner" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
@@ -1454,10 +953,7 @@ export const Delete_OwnerDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  Delete_OwnerMutation,
-  Delete_OwnerMutationVariables
->;
+} as unknown as DocumentNode<DeleteOwnerMutation, DeleteOwnerMutationVariables>;
 export const Get_OwnerDocument = {
   kind: "Document",
   definitions: [
@@ -1557,70 +1053,13 @@ export const Update_OwnerDocument = {
   Update_OwnerMutation,
   Update_OwnerMutationVariables
 >;
-export const Get_Owner_List_With_FilterDocument = {
+export const GetPetListWithFilterDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "query",
-      name: { kind: "Name", value: "Get_Owner_List_With_Filter" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "filter" },
-          },
-          type: {
-            kind: "NamedType",
-            name: { kind: "Name", value: "OwnerFilterInput" },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "ownerByNamesList" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "filter" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "filter" },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "firstName" } },
-                { kind: "Field", name: { kind: "Name", value: "lastName" } },
-                { kind: "Field", name: { kind: "Name", value: "city" } },
-                { kind: "Field", name: { kind: "Name", value: "address" } },
-                { kind: "Field", name: { kind: "Name", value: "telephone" } },
-                { kind: "Field", name: { kind: "Name", value: "email" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Get_Owner_List_With_FilterQuery,
-  Get_Owner_List_With_FilterQueryVariables
->;
-export const Get_Pet_List_With_FilterDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "Get_Pet_List_With_Filter" },
+      name: { kind: "Name", value: "GetPetListWithFilter" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
@@ -1650,6 +1089,7 @@ export const Get_Pet_List_With_FilterDocument = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
+                { kind: "Field", name: { kind: "Name", value: "__typename" } },
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 {
                   kind: "Field",
@@ -1739,16 +1179,16 @@ export const Get_Pet_List_With_FilterDocument = {
     },
   ],
 } as unknown as DocumentNode<
-  Get_Pet_List_With_FilterQuery,
-  Get_Pet_List_With_FilterQueryVariables
+  GetPetListWithFilterQuery,
+  GetPetListWithFilterQueryVariables
 >;
-export const Delete_PetDocument = {
+export const DeletePetDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "mutation",
-      name: { kind: "Name", value: "Delete_Pet" },
+      name: { kind: "Name", value: "DeletePet" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
@@ -1780,14 +1220,14 @@ export const Delete_PetDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<Delete_PetMutation, Delete_PetMutationVariables>;
-export const Get_PetDocument = {
+} as unknown as DocumentNode<DeletePetMutation, DeletePetMutationVariables>;
+export const GetPetDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "query",
-      name: { kind: "Name", value: "Get_Pet" },
+      name: { kind: "Name", value: "GetPet" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
@@ -1902,14 +1342,14 @@ export const Get_PetDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<Get_PetQuery, Get_PetQueryVariables>;
-export const Update_PetDocument = {
+} as unknown as DocumentNode<GetPetQuery, GetPetQueryVariables>;
+export const UpdatePetDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "mutation",
-      name: { kind: "Name", value: "Update_Pet" },
+      name: { kind: "Name", value: "UpdatePet" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
@@ -1950,88 +1390,75 @@ export const Update_PetDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<Update_PetMutation, Update_PetMutationVariables>;
-export const Delete_Pet_DiseaseDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "mutation",
-      name: { kind: "Name", value: "Delete_Pet_Disease" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "deletePetDisease" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "petDiseaseIdentifier" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "id" },
-                },
-              },
-            ],
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Delete_Pet_DiseaseMutation,
-  Delete_Pet_DiseaseMutationVariables
->;
-export const Get_Pet_DiseaseDocument = {
+} as unknown as DocumentNode<UpdatePetMutation, UpdatePetMutationVariables>;
+export const Get_Scalars_ListDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "query",
-      name: { kind: "Name", value: "Get_Pet_Disease" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
-        },
-      ],
+      name: { kind: "Name", value: "Get_Scalars_List" },
       selectionSet: {
         kind: "SelectionSet",
         selections: [
           {
             kind: "Field",
-            name: { kind: "Name", value: "petDisease" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "petDiseaseIdentifier" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "id" },
-                },
-              },
-            ],
+            name: { kind: "Name", value: "scalarsTestEntityList" },
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                { kind: "Field", name: { kind: "Name", value: "description" } },
-                { kind: "Field", name: { kind: "Name", value: "name" } },
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "intTest" } },
                 {
                   kind: "Field",
-                  name: { kind: "Name", value: "petDiseaseIdentifier" },
+                  name: { kind: "Name", value: "intPrimitive" },
                 },
+                { kind: "Field", name: { kind: "Name", value: "byteTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "bytePrimitive" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "shortTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "shortPrimitive" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "doubleTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "doublePrimitive" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "floatTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "floatPrimitive" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "string" } },
+                { kind: "Field", name: { kind: "Name", value: "bool" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "boolPrimitive" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "bigInt" } },
+                { kind: "Field", name: { kind: "Name", value: "longTest" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "longPrimitive" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "bigDecimal" } },
+                { kind: "Field", name: { kind: "Name", value: "localDate" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "localDateTime" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "localTime" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "offsetDateTime" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "offsetTime" } },
+                { kind: "Field", name: { kind: "Name", value: "dateTest" } },
+                { kind: "Field", name: { kind: "Name", value: "url" } },
               ],
             },
           },
@@ -2040,62 +1467,8 @@ export const Get_Pet_DiseaseDocument = {
     },
   ],
 } as unknown as DocumentNode<
-  Get_Pet_DiseaseQuery,
-  Get_Pet_DiseaseQueryVariables
->;
-export const Update_Pet_DiseaseDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "mutation",
-      name: { kind: "Name", value: "Update_Pet_Disease" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "input" },
-          },
-          type: {
-            kind: "NamedType",
-            name: { kind: "Name", value: "PetDiseaseInputDTO" },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "updatePetDisease" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "input" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "input" },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "petDiseaseIdentifier" },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Update_Pet_DiseaseMutation,
-  Update_Pet_DiseaseMutationVariables
+  Get_Scalars_ListQuery,
+  Get_Scalars_ListQueryVariables
 >;
 export const Delete_ScalarsDocument = {
   kind: "Document",
@@ -2282,176 +1655,4 @@ export const Update_ScalarsDocument = {
 } as unknown as DocumentNode<
   Update_ScalarsMutation,
   Update_ScalarsMutationVariables
->;
-export const Delete_Nn_ScalarsDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "mutation",
-      name: { kind: "Name", value: "Delete_NN_Scalars" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "deleteNotNullScalarsTestEntity" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "id" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "id" },
-                },
-              },
-            ],
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Delete_Nn_ScalarsMutation,
-  Delete_Nn_ScalarsMutationVariables
->;
-export const Get_Nn_ScalarsDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "Get_NN_Scalars" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "notNullScalarsTestEntity" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "id" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "id" },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "bigDecimalNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "bigIntNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "dateTestNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "localDateNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "localDateTimeNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "localTimeNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "offsetDateTimeNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "offsetTimeNotNull" },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "stringNotNull" },
-                },
-                { kind: "Field", name: { kind: "Name", value: "urlNotNull" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<Get_Nn_ScalarsQuery, Get_Nn_ScalarsQueryVariables>;
-export const Update_Nn_ScalarsDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "mutation",
-      name: { kind: "Name", value: "Update_NN_Scalars" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "input" },
-          },
-          type: {
-            kind: "NamedType",
-            name: { kind: "Name", value: "NotNullScalarsTestEntityInput" },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "updateNotNullScalarsTestEntity" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "input" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "input" },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  Update_Nn_ScalarsMutation,
-  Update_Nn_ScalarsMutationVariables
 >;

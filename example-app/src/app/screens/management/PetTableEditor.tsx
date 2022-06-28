@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { useLazyQuery } from "@apollo/client";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import {
   Button,
@@ -10,7 +9,7 @@ import {
   Select,
   message,
   Space,
-  Spin
+  Spin, notification
 } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { EntityLookupField } from "../../../core/crud/entity-lookup-field/EntityLookupField";
@@ -23,15 +22,16 @@ import { getPetDiseaseDTODisplayName } from "../../../core/display-name/getPetDi
 import { gql } from "../../../gql";
 import { useNavigate, useParams } from "react-router-dom";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
-import { useSubmitEditor } from "../../../core/crud/useSubmitEditor";
 import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 import { FormattedMessage, useIntl } from "react-intl";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
+import {useGetPetQuery, useLazyGetPetQuery, useUpdatePetMutation} from "../../../api/generatedApi";
+import {serialize} from "../../../core/transform/model/serialize";
 
 const PET = gql(`
-  query Get_Pet($id: ID) {
+  query GetPet($id: ID) {
     pet(id: $id) {
       id
       identificationNumber
@@ -63,7 +63,7 @@ const PET = gql(`
 `);
 
 const UPDATE_PET = gql(`
-  mutation Update_Pet($input: PetInputDTO) {
+  mutation UpdatePet($input: PetInputDTO) {
     updatePet(input: $input) {
       id
     }
@@ -126,18 +126,33 @@ function EditorForm<TData>({
   id
 }: EditorFormProps<TData>) {
   const [form] = useForm();
+  const navigate = useNavigate();
 
   // Global error message, i.e. error message not related to a particular form field.
   // Examples: cross-validation, network errors.
   const [formError, setFormError] = useState<string | undefined>();
 
-  const { handleSubmit, submitting } = useSubmitEditor(
-    UPDATE_PET,
-    setFormError,
-    refetchQueries,
-    "PetInputDTO",
-    id
-  );
+  const [runUpdateMutation, { isLoading }] = useUpdatePetMutation();
+
+  const handleSubmit = useCallback((values: any) => {
+    const input = serialize(
+      {...values, id},
+      'PetInputDTO');
+    runUpdateMutation({input})
+      .then((result) => {
+        console.log('result', result);
+        if ('data' in result) {
+          navigate('..');
+          return message.success("Entity updated successfully");
+        }
+        if ('error' in result) {
+          setFormError(result.error.message);
+          return message.error("Error");
+        }
+      })
+  }, [id, navigate, runUpdateMutation]);
+
+
   const handleClientValidationFailed = useClientValidationFailed();
 
   // Put the item into the form.
@@ -154,7 +169,7 @@ function EditorForm<TData>({
       >
         <FormFields item={item} />
         <ErrorMessage errorMessage={formError} />
-        <FormButtons submitting={submitting} />
+        <FormButtons submitting={isLoading} />
       </Form>
     </Card>
   );
@@ -264,16 +279,12 @@ function useLoadItem(id?: string) {
   // Get the function that will load item from server,
   // also get variables that will contain loading/error state and response data
   // once the response is received
-  const [loadItem, { loading, error, data }] = useLazyQuery(PET, {
-    variables: {
-      id
-    }
-  });
+  const [loadItem, { isLoading, error, data }] = useLazyGetPetQuery();
 
   // Load item if `id` has been provided in props
   useEffect(() => {
     if (id != null && id !== "new") {
-      loadItem();
+      loadItem({id});
     }
   }, [loadItem, id]);
 
@@ -286,7 +297,7 @@ function useLoadItem(id?: string) {
 
   return {
     item,
-    itemLoading: loading,
+    itemLoading: isLoading,
     itemError: error
   };
 }

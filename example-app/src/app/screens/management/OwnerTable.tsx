@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useQuery, useMutation } from "@apollo/client";
-import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import { Button, Modal, message, Empty, Space, Spin, Table } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -9,15 +7,15 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { gql } from "../../../gql";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { GraphQLError } from "graphql/error/GraphQLError";
-import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
+import {useDeleteOwnerMutation, useGetOwnerListQuery} from "../../../api/generatedApi";
 
 const REFETCH_QUERIES = ["Get_Owner_List"];
 
 const OWNER_LIST = gql(`
-  query Get_Owner_List {
+  query GetOwnerList {
     ownerList {
       id
       firstName
@@ -31,7 +29,7 @@ const OWNER_LIST = gql(`
 `);
 
 const DELETE_OWNER = gql(`
-  mutation Delete_Owner($id: ID!) {
+  mutation DeleteOwner($id: ID!) {
     deleteOwner(id: $id)
   }
 `);
@@ -74,7 +72,7 @@ export function OwnerTable() {
   useBreadcrumbItem(intl.formatMessage({ id: "screen.OwnerTable" }));
 
   // Load the items from server
-  const { loading, error, data } = useQuery(OWNER_LIST);
+  const { error, data, isLoading } = useGetOwnerListQuery();
   const items = deserialize(data?.ownerList);
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
@@ -85,7 +83,7 @@ export function OwnerTable() {
         <ButtonPanel selectedRowId={selectedRowId} />
         <TableSection
           items={items}
-          loading={loading}
+          loading={isLoading}
           error={error}
           selectedRowId={selectedRowId}
           setSelectedRowId={setSelectedRowId}
@@ -155,13 +153,13 @@ function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
 function useDeleteConfirm(id: string | null | undefined) {
   const intl = useIntl();
 
-  const [runDeleteMutation, { loading }] = useMutation(DELETE_OWNER);
+  const [runDeleteMutation, { isLoading }] = useDeleteOwnerMutation();
   const deleteItem = useDeleteItem(id, runDeleteMutation, REFETCH_QUERIES);
 
   // Callback that deletes the item
   const handleDeleteItem = () => {
     deleteItem()
-      .then(({ errors }: FetchResult) => {
+      .then(({ errors }: any) => {
         if (errors == null || errors.length === 0) {
           return handleDeleteSuccess();
         }
@@ -186,7 +184,7 @@ function useDeleteConfirm(id: string | null | undefined) {
   }
 
   // Function that is executed when mutation results in a network error (such as 4xx or 5xx)
-  function handleDeleteNetworkError(error: Error | ApolloError) {
+  function handleDeleteNetworkError(error: Error | any) {
     console.error(error);
     return message.error(intl.formatMessage({ id: "common.requestFailed" }));
   }
@@ -201,14 +199,14 @@ function useDeleteConfirm(id: string | null | undefined) {
         cancelText: intl.formatMessage({ id: "common.cancel" }),
         onOk: handleDeleteItem
       }),
-    deleting: loading
+    deleting: isLoading
   };
 }
 
 interface TableSectionProps {
   items?: ItemTableType;
   loading?: boolean;
-  error?: ApolloError;
+  error?: any;
   selectedRowId?: string;
   setSelectedRowId: (id: any) => any;
 }

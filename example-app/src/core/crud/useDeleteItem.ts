@@ -1,3 +1,4 @@
+import { MutationTrigger } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import { MutationFn } from "../type-aliases/MutationFn";
 import { RefetchQueries } from "../type-aliases/RefetchQueries";
 
@@ -11,7 +12,7 @@ import { RefetchQueries } from "../type-aliases/RefetchQueries";
  */
 export function useDeleteItem(
   id: string | null | undefined,
-  runDeleteMutation: MutationFn<any, any>,
+  runDeleteMutation: MutationTrigger<any>,
   refetchQueries?: RefetchQueries
 ) {
   /**

@@ -1,6 +1,6 @@
 import { Menu } from "antd";
 import { ItemType } from "antd/es/menu/hooks/useItems";
-import { HomeOutlined } from "@ant-design/icons";
+import {HomeOutlined, SubnodeOutlined} from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 

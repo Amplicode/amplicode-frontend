@@ -24,6 +24,10 @@ import { ServerErrorInterceptor } from "./core/error/ServerErrorInterceptor";
 import { ServerErrorEvents } from "./core/error/ServerErrorEvents";
 import { SecurityStore } from "./core/security/security";
 import { SecurityContext } from "./core/security/security-context";
+import {Action, configureStore, createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {Provider, TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import {createApi, fetchBaseQuery, setupListeners} from '@reduxjs/toolkit/query/react'
+import {ReduxProvider} from "./core/store/store";
 
 export const serverErrorEmitter = new EventEmitter<ServerErrorEvents>();
 
@@ -71,22 +75,24 @@ const securityStore = new SecurityStore(client);
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <SecurityContext.Provider value={securityStore}>
-        <I18nProvider>
-          <BrowserRouter>
-            <ServerErrorInterceptor serverErrorEmitter={serverErrorEmitter}>
-              <DevSupport
-                ComponentPreviews={ComponentPreviews}
-                useInitialHook={useInitial}
-              >
-                <App />
-              </DevSupport>
-            </ServerErrorInterceptor>
-          </BrowserRouter>
-        </I18nProvider>
-      </SecurityContext.Provider>
-    </ApolloProvider>
+    <ReduxProvider>
+      <ApolloProvider client={client}>
+        <SecurityContext.Provider value={securityStore}>
+          <I18nProvider>
+            <BrowserRouter>
+              <ServerErrorInterceptor serverErrorEmitter={serverErrorEmitter}>
+                <DevSupport
+                  ComponentPreviews={ComponentPreviews}
+                  useInitialHook={useInitial}
+                >
+                  <App />
+                </DevSupport>
+              </ServerErrorInterceptor>
+            </BrowserRouter>
+          </I18nProvider>
+        </SecurityContext.Provider>
+      </ApolloProvider>
+    </ReduxProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

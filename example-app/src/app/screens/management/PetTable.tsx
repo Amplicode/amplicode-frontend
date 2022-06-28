@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useQuery, useMutation } from "@apollo/client";
-import { ApolloError } from "@apollo/client/errors";
 import { ResultOf, VariablesOf } from "@graphql-typed-document-node/core";
 import {
   Button,
@@ -23,7 +21,6 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { gql } from "../../../gql";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
 import { GraphQLError } from "graphql/error/GraphQLError";
-import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
@@ -32,12 +29,15 @@ import { getPetDescriptionDTODisplayName } from "../../../core/display-name/getP
 import { getTagDTODisplayName } from "../../../core/display-name/getTagDTODisplayName";
 import { getPetDiseaseDTODisplayName } from "../../../core/display-name/getPetDiseaseDTODisplayName";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
+import {useDeletePetMutation, useGetPetListWithFilterQuery} from "../../../api/generatedApi";
 
 const REFETCH_QUERIES = ["Get_Pet_List_With_Filter"];
 
+// TODO generation doesn't work properly with Get_Pet_List_With_Filter
 const PET_BY_IDENTIFICATION_NUMBER_LIST = gql(`
-  query Get_Pet_List_With_Filter($identificationNumber: String) {
+  query GetPetListWithFilter($identificationNumber: String) {
     petByIdentificationNumberList(identificationNumber: $identificationNumber) {
+      __typename
       id
       identificationNumber
       birthDate
@@ -68,7 +68,7 @@ const PET_BY_IDENTIFICATION_NUMBER_LIST = gql(`
 `);
 
 const DELETE_PET = gql(`
-  mutation Delete_Pet($id: ID!) {
+  mutation DeletePet($id: ID!) {
     deletePet(id: $id)
   }
 `);
@@ -122,10 +122,9 @@ export function PetTable() {
   );
 
   // Load the items from server. Will be reloaded reactively if one of variable changes
-  const { loading, error, data } = useQuery(PET_BY_IDENTIFICATION_NUMBER_LIST, {
-    variables: filterVars
-  });
+  const { isLoading, error, data } = useGetPetListWithFilterQuery(filterVars);
   const items = deserialize(data?.petByIdentificationNumberList);
+
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
@@ -138,7 +137,7 @@ export function PetTable() {
         </Card>
         <TableSection
           items={items}
-          loading={loading}
+          loading={isLoading}
           error={error}
           selectedRowId={selectedRowId}
           setSelectedRowId={setSelectedRowId}
@@ -208,13 +207,13 @@ function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
 function useDeleteConfirm(id: string | null | undefined) {
   const intl = useIntl();
 
-  const [runDeleteMutation, { loading }] = useMutation(DELETE_PET);
+  const [runDeleteMutation, { isLoading }] = useDeletePetMutation();
   const deleteItem = useDeleteItem(id, runDeleteMutation, REFETCH_QUERIES);
 
   // Callback that deletes the item
   const handleDeleteItem = () => {
     deleteItem()
-      .then(({ errors }: FetchResult) => {
+      .then(({ errors }: any) => {
         if (errors == null || errors.length === 0) {
           return handleDeleteSuccess();
         }
@@ -239,7 +238,7 @@ function useDeleteConfirm(id: string | null | undefined) {
   }
 
   // Function that is executed when mutation results in a network error (such as 4xx or 5xx)
-  function handleDeleteNetworkError(error: Error | ApolloError) {
+  function handleDeleteNetworkError(error: Error | any) {
     console.error(error);
     return message.error(intl.formatMessage({ id: "common.requestFailed" }));
   }
@@ -254,7 +253,7 @@ function useDeleteConfirm(id: string | null | undefined) {
         cancelText: intl.formatMessage({ id: "common.cancel" }),
         onOk: handleDeleteItem
       }),
-    deleting: loading
+    deleting: isLoading
   };
 }
 
@@ -321,7 +320,7 @@ function Filters({ onApplyFilters }: FiltersProps) {
 interface TableSectionProps {
   items?: ItemTableType;
   loading?: boolean;
-  error?: ApolloError;
+  error?: any;
   selectedRowId?: string;
   setSelectedRowId: (id: any) => any;
 }
