@@ -54,6 +54,11 @@ Run backend:
 ./mvnw clean spring-boot:run
 ```
 
+Backend db cleanup (sometimes required after backend update):
+```
+rm -rf .amplicode/h2/*
+```
+
 #### Frontend
 
 Re-generate and start `example-app`:
@@ -985,4 +990,79 @@ By default `menuType = 'vertical'`
 You can change `menuType` by running `npm` command for generating example-app
 
 Example: `npm run bootstrap-react-app -- --menuType=horizontal`
+
+### Server Side Validation
+
+Generated app has ability to show field and entity bean validation errors, received from server. 
+Supposed that server returns localized messages in format described below. 
+
+```
+{
+  "errors": [
+    {
+      "message": "must match \"^[a-zA-Z0-9_]*$\"",
+      ...
+      "extensions": {
+        "path": ["identificationNumber"],
+        "invalidValue": "@@@##",
+        "classification": "BeanValidationError"
+      }
+    },
+    {
+      "message": "Pets with birthdate before 01.01.2022 should have identification number starting with A",
+      ...
+      "extensions": {
+        "path": [""],
+        "invalidValue": "io.jmix2mvp.petclinic.entity.Pet@518cbe88",
+        "classification": "BeanValidationError"
+      }
+    }    
+  ...
+  ]
+}
+```
+Error will be shown if `extensions.classification` is equal to `BeanValidationError`. 
+If `extensions.path[0]` is not empty, validation message will be shown as field error, under field component input. 
+If `extensions.path[0]` is empty, validation message will be shown as whole form error, in the bottom part of the form. 
+
+Each field and whole entity can have zero, one or multiple error messages for each item. 
+
+### Testing Example App
+
+#### Testing Bean Validation
+
+Validation messages could be tested by submitting form with data below
+```
+mutation {
+  updatePet(input: {
+    identificationNumber: "@@@###",
+    birthDate: "2011-01-01"
+  }) {
+    id
+  }
+}
+```
+
+#### Testing X to Many Relations
+
+At this moment generated app doesn't allow to assign `many to many` relation between entities via screens. 
+We can use GraphiQL instead (tags with id `1`,`2` and `3` shoud be exist in DB)
+```
+mutation {
+  updatePet(input: {
+    identificationNumber: "00011",
+    tags: [
+      {id: 1},
+      {id: 2},
+      {id: 3},
+    ]
+  }) {
+    id
+    identificationNumber,
+    tags {
+      id
+    }
+  }
+}
+```
 
