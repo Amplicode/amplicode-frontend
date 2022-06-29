@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useMemo, useState} from "react";
 import { ResultOf, VariablesOf } from "@graphql-typed-document-node/core";
 import {
   Button,
@@ -123,7 +123,7 @@ export function PetTable() {
 
   // Load the items from server. Will be reloaded reactively if one of variable changes
   const { isLoading, error, data } = useGetPetListWithFilterQuery(filterVars);
-  const items = deserialize(data?.petByIdentificationNumberList);
+  const items = useMemo(() => deserialize(data?.petByIdentificationNumberList), [data?.petByIdentificationNumberList]);
 
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();

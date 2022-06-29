@@ -1101,6 +1101,15 @@ const injectedRtkApi = api.injectEndpoints({
         document: GetPetListWithFilterDocument,
         variables,
       }),
+      // Simple approach, may cause some unnecessary requests
+      // providesTags: ['Pet']
+      //
+      // More granular/correct approach,
+      providesTags: (result, error, arg) => {
+        return result?.petByIdentificationNumberList
+          ? [...result.petByIdentificationNumberList.map(({id}: any) => ({type: 'Pet' as const, id}))]
+          : [];
+      }
     }),
     DeletePet: build.mutation<DeletePetMutation, DeletePetMutationVariables>({
       query: (variables) => ({ document: DeletePetDocument, variables }),
@@ -1113,6 +1122,15 @@ const injectedRtkApi = api.injectEndpoints({
       UpdatePetMutationVariables | void
     >({
       query: (variables) => ({ document: UpdatePetDocument, variables }),
+      // Simple approach, may cause some unnecessary requests
+      // invalidatesTags: ['Pet']
+      //
+      // More granular/correct approach
+      invalidatesTags: (result, error, arg) => {
+        return result?.updatePet?.id
+          ? [{ type: 'Pet', id: result.updatePet.id }]
+          : []
+      },
     }),
     Get_Scalars_List: build.query<
       Get_Scalars_ListQuery,

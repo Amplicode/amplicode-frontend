@@ -6,4 +6,5 @@ export const api = createApi({
     url: '/graphql',
   }),
   endpoints: () => ({}),
+  tagTypes: ['Pet', 'Owner']
 })
