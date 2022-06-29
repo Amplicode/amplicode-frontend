@@ -80,43 +80,46 @@ describe('codegen pet cards management', () => {
     `);
 
     expectFileContainsIgnoreSpace(editorComponentFile,
-      `
-      <Form.Item
-        name="tags"
-        label="Tags"
-        help={<FieldErrorMessages path="tags" fieldErrors={fieldErrors} />}
-        validateStatus={hasError(fieldErrors, "tags") ? "error" : "success"}
-        getValueProps={object => ({
-          value:
-            object == null
-              ? undefined
-              : object.map((entry: Record<string, unknown>) =>
-                  getTagDTODisplayName(entry)
-                )
-        })}
-      >
-        <Select mode="tags" disabled />
-      </Form.Item>
-    `);
+      xToManyFormItem('tags', 'Tags', 'getTagDTODisplayName'));
     expectFileContainsIgnoreSpace(editorComponentFile,
-      `
-      <Form.Item
-        name="diseases"
-        label="Diseases"
-        help={<FieldErrorMessages path="diseases" fieldErrors={fieldErrors} />}
-        validateStatus={hasError(fieldErrors, "diseases") ? "error" : "success"}
-        getValueProps={object => ({
-          value:
-            object == null
-              ? undefined
-              : object.map((entry: Record<string, unknown>) =>
-                  getPetDiseaseDTODisplayName(entry)
-                )
-        })}
-      >
-        <Select mode="tags" disabled />
-      </Form.Item>
-    `);
+      xToManyFormItem('diseases', 'Diseases', 'getPetDiseaseDTODisplayName'));
 
+    expectFileContainsIgnoreSpace(editorComponentFile, `
+      <Card className="narrow-layout">
+        <Form
+          onFinish={handleSubmit}
+          onFinishFailed={handleClientValidationFailed}
+          layout="vertical"
+          form={form}
+        >
+          <FormFields item={item} fieldErrors={fieldErrors} />
+          {formErrors.map(errorMessage => (
+            <ErrorMessage errorMessage={errorMessage} />
+          ))}
+          <FormButtons submitting={submitting} />
+        </Form>
+      </Card>    
+    `);
   });
 });
+
+function xToManyFormItem(field: string, label: string, displayNameFunc: string) {
+  return `
+    <Form.Item
+      name="${field}"
+      label="${label}"
+      help={<FieldErrorMessages path="${field}" fieldErrors={fieldErrors} />}
+      validateStatus={hasError(fieldErrors, "${field}") ? "error" : "success"}
+      getValueProps={object => ({
+        value:
+          object == null
+            ? undefined
+            : object.map((entry: Record<string, unknown>) =>
+                ${displayNameFunc}(entry)
+              )
+      })}
+    >
+      <Select mode="tags" disabled />
+    </Form.Item>
+`;
+}

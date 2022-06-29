@@ -62,18 +62,8 @@ describe('codegen scalars cards management', () => {
       />`;
     expectFileContainsIgnoreSpace(componentFile, urlValueWithLabel);
 
-    const bigDecimalFormItem = `
-      <Form.Item
-        name="bigDecimalNotNull"
-        label="Big Decimal Not Null"
-        help={<FieldErrorMessages path="bigDecimalNotNull" fieldErrors={fieldErrors} />}
-        validateStatus={
-          hasError(fieldErrors, "bigDecimalNotNull") ? "error" : "success"
-        }
-      >
-        <InputNumber type="number" stringMode autoFocus />
-      </Form.Item>`;
-    expectFileContainsIgnoreSpace(editorComponentFile, bigDecimalFormItem);
+    expectFileContainsIgnoreSpace(editorComponentFile,
+      formItem('bigDecimalNotNull', 'Big Decimal Not Null', `<InputNumber type="number" stringMode autoFocus />`));
 
     const bigIntFormItem = `
       <Form.Item
@@ -88,18 +78,8 @@ describe('codegen scalars cards management', () => {
       </Form.Item>`;
     expectFileContainsIgnoreSpace(editorComponentFile, bigIntFormItem);
 
-    const urlFormItem = `
-      <Form.Item
-        name="urlNotNull"
-        label="Url Not Null"
-        help={<FieldErrorMessages path="urlNotNull" fieldErrors={fieldErrors} />}
-        validateStatus={
-          hasError(fieldErrors, "urlNotNull") ? "error" : "success"
-        }
-      >
-        <Input type="url" />
-      </Form.Item>`;
-    expectFileContainsIgnoreSpace(editorComponentFile, urlFormItem);
+    expectFileContainsIgnoreSpace(editorComponentFile,
+      formItem('urlNotNull', 'Url Not Null', `<Input type="url" />`));
 
     [ 'Local Time Not Null', 'Offset Time Not Null'].forEach(label => {
       const field = unCapitalizeFirst(label.replace(" ", ""));
@@ -112,19 +92,8 @@ describe('codegen scalars cards management', () => {
 
       expectFileContainsIgnoreSpace(componentFile, valueWithLabel);
 
-      const formItem = `
-      <Form.Item 
-        name="${field}" 
-        label="${label}"
-        help={<FieldErrorMessages path="${field}" fieldErrors={fieldErrors}/>}
-        validateStatus={
-          hasError(fieldErrors, "${field}") ? "error" : "success"
-        }
-      >
-        <TimePicker />
-      </Form.Item>`;
-
-      expectFileContainsIgnoreSpace(editorComponentFile, formItem);
+      expectFileContainsIgnoreSpace(editorComponentFile,
+        formItem(field, label, `<TimePicker />`));
     });
 
     [ 'Local Date Not Null'].forEach(label => {
@@ -138,19 +107,8 @@ describe('codegen scalars cards management', () => {
 
       expectFileContainsIgnoreSpace(componentFile, valueWithLabel);
 
-      const formItem = `
-      <Form.Item 
-        name="${field}" 
-        label="${label}"
-        help={<FieldErrorMessages path="${field}" fieldErrors={fieldErrors}/>}
-        validateStatus={
-          hasError(fieldErrors, "${field}") ? "error" : "success"
-        }
-      >
-        <DatePicker />
-      </Form.Item>`;
-
-      expectFileContainsIgnoreSpace(editorComponentFile, formItem);
+      expectFileContainsIgnoreSpace(editorComponentFile,
+        formItem(field, label, `<DatePicker />`));
     });
 
     [ 'Date Test Not Null', 'Local Date Time Not Null', 'Offset Date Time Not Null'].forEach(label => {
@@ -164,7 +122,16 @@ describe('codegen scalars cards management', () => {
 
       expectFileContainsIgnoreSpace(componentFile, valueWithLabel);
 
-      const formItem = `
+      expectFileContainsIgnoreSpace(editorComponentFile,
+        formItem(field, label, `<DatePicker showTime={{ format: "HH:mm:ss" }} />`));
+    });
+
+  });
+
+});
+
+export function formItem(field: string, label: string, component: string) {
+  return `
       <Form.Item 
         name="${field}" 
         label="${label}"
@@ -173,15 +140,11 @@ describe('codegen scalars cards management', () => {
           hasError(fieldErrors, "${field}") ? "error" : "success"
         }
       >
-        <DatePicker showTime={{ format: "HH:mm:ss" }} />
-      </Form.Item>`;
+        ${component}
+      </Form.Item>
 
-      expectFileContainsIgnoreSpace(editorComponentFile, formItem);
-    });
-
-  });
-
-});
+  `;
+}
 
 
 
