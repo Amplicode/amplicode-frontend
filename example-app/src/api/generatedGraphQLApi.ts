@@ -1,4 +1,4 @@
-import { api } from "./baseApi";
+import { api } from "./baseGraphQLApi";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {

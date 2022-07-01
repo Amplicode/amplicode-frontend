@@ -27,7 +27,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
-import {useGetPetQuery, useLazyGetPetQuery, useUpdatePetMutation} from "../../../api/generatedApi";
+import {useGetPetQuery, useLazyGetPetQuery, useUpdatePetMutation} from "../../../api/generatedGraphQLApi";
 import {serialize} from "../../../core/transform/model/serialize";
 
 const PET = gql(`

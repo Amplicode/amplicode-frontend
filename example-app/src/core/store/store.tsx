@@ -1,14 +1,20 @@
 import {configureStore} from "@reduxjs/toolkit";
-import { api } from "../../api/generatedApi";
+import { api } from "../../api/generatedGraphQLApi";
 import {setupListeners} from "@reduxjs/toolkit/dist/query/react";
 import {Provider, TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {PropsWithChildren} from "react";
 import {loggerMiddleware} from "../middleware/loggerMiddleware";
 import {serializationMiddleware} from "../middleware/serializationMiddleware";
+import {counterReducer} from "../../app/screens/counter/counterSlice";
+import {securityReducer} from "../security/securitySlice";
+import {restApi} from "../../api/restApi";
 
 const store = configureStore({
   reducer: {
-    [api.reducerPath]: api.reducer
+    [api.reducerPath]: api.reducer,
+    [restApi.reducerPath]: restApi.reducer,
+    counter: counterReducer,
+    security: securityReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(api.middleware, loggerMiddleware, serializationMiddleware),

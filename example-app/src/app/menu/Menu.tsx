@@ -16,6 +16,14 @@ const menuItems: ItemType[] = [
   },
   {
     label: (
+      <Link to="counter">
+        Counter
+      </Link>
+    ),
+    key: "counter"
+  },
+  {
+    label: (
       <Link to="owner-cards">
         <FormattedMessage id="screen.OwnerCards" />
       </Link>

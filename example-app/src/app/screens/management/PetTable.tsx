@@ -29,7 +29,7 @@ import { getPetDescriptionDTODisplayName } from "../../../core/display-name/getP
 import { getTagDTODisplayName } from "../../../core/display-name/getTagDTODisplayName";
 import { getPetDiseaseDTODisplayName } from "../../../core/display-name/getPetDiseaseDTODisplayName";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
-import {useDeletePetMutation, useGetPetListWithFilterQuery} from "../../../api/generatedApi";
+import {useDeletePetMutation, useGetPetListWithFilterQuery} from "../../../api/generatedGraphQLApi";
 
 const REFETCH_QUERIES = ["Get_Pet_List_With_Filter"];
 

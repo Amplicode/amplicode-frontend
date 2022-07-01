@@ -5,12 +5,12 @@ documents:
 generates:
   ./src/gql:
     preset: gql-tag-operations-preset
-  ./src/api/generatedApi.ts:
+  ./src/api/generatedGraphQLApi.ts:
     plugins:
       - typescript
       - typescript-operations
       - typescript-rtk-query:
-          importBaseApiFrom: './baseApi'
+          importBaseApiFrom: './baseGraphQLApi'
           exportHooks: true
 hooks:
   afterAllFileWrite:

@@ -1,4 +1,4 @@
-import { Button, Modal, notification, Space } from "antd";
+import { Button, Modal, notification } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { useCallback } from "react";
@@ -8,10 +8,15 @@ import { observer } from "mobx-react";
 import { useSecurityStore } from "../../core/security/security-context";
 import { LocaleSelector } from "../../core/i18n/localeSelector/LocaleSelector";
 import Logo from "./amplicode-logo.svg";
+import {useLogoutMutation} from "../../api/restApi";
+import {useAppDispatch} from "../../core/store/store";
+import {setLoggedOut} from "../../core/security/securitySlice";
 
 export const AppHeader = observer(() => {
   const intl = useIntl();
-  const securityStore = useSecurityStore();
+
+  const [logout] = useLogoutMutation();
+  const dispatch = useAppDispatch();
 
   const showLogoutConfirm = useCallback(() => {
     Modal.confirm({
@@ -20,12 +25,8 @@ export const AppHeader = observer(() => {
       cancelText: intl.formatMessage({ id: "common.cancel" }),
       onOk: async () => {
         try {
-          const response = await securityStore.logout();
-          if (response.status !== 200) {
-            notification.error({
-              message: intl.formatMessage({ id: "auth.logout.unknownError" })
-            });
-          }
+          await logout({});
+          dispatch(setLoggedOut());
         } catch (error) {
           if (axios.isAxiosError(error)) {
             notification.error({
@@ -35,7 +36,7 @@ export const AppHeader = observer(() => {
         }
       }
     });
-  }, [intl, securityStore]);
+  }, [intl, logout]);
 
   return (
     <div className="app-header">

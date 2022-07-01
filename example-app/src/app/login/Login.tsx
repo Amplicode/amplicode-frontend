@@ -7,14 +7,18 @@ import "./Login.css";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useSecurityStore } from "../../core/security/security-context";
 import { LocaleSelector } from "../../core/i18n/localeSelector/LocaleSelector";
+import {useLoginMutation} from "../../api/restApi";
+import qs from "qs";
+import {useAppDispatch} from "../../core/store/store";
+import {setLoggedIn} from "../../core/security/securitySlice";
 
 export const Login = observer(() => {
-  const intl = useIntl();
-  const securityStore = useSecurityStore();
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [performingLoginRequest, setPerformingLoginRequest] = useState(false);
+
+  const [login, {isLoading}] = useLoginMutation();
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (process.env.NODE_ENV === "development") {
@@ -33,34 +37,15 @@ export const Login = observer(() => {
   );
 
   const doLogin = useCallback(async () => {
-    setPerformingLoginRequest(true);
-    try {
-      const response = await securityStore.login(username, password);
-      switch (response.status) {
-        case 200:
-          break;
-        default:
-          notification.error({
-            message: intl.formatMessage({ id: "auth.login.unknownError" })
-          });
+      const response = await login(qs.stringify({username, password}));
+      if ('error' in response) {
+        notification.error({
+          message: response.error
+        });
+        return;
       }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        switch (error.response?.data.status) {
-          case 401:
-            notification.error({
-              message: intl.formatMessage({ id: "auth.login.unauthorized" })
-            });
-            break;
-          default:
-            notification.error({
-              message: intl.formatMessage({ id: "auth.login.unknownError" })
-            });
-        }
-      }
-    }
-    setPerformingLoginRequest(false);
-  }, [securityStore, username, password, intl]);
+      dispatch(setLoggedIn());
+  }, [dispatch, login, password, username]);
 
   return (
     <div className="login-form-container">
@@ -99,7 +84,7 @@ export const Login = observer(() => {
               htmlType="submit"
               size="large"
               block={true}
-              loading={performingLoginRequest}
+              loading={isLoading}
             >
               <FormattedMessage id="auth.login.submit" />
             </Button>

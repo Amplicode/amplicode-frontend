@@ -3,29 +3,11 @@ import { Result, Spin } from "antd";
 import "./Home.css";
 import { FormattedMessage } from "react-intl";
 import { SmileOutlined } from "@ant-design/icons";
-
-const QUERY = gql`
-  query UserInfo {
-    userInfo {
-      username
-    }
-  }
-`;
+import {useAppSelector} from "../../../core/store/store";
+import {selectUserName} from "../../../core/security/securitySlice";
 
 export const Home = () => {
-  const { loading, error, data } = useQuery(QUERY);
-
-  if (loading) {
-    return <Spin />;
-  }
-
-  if (error != null) {
-    return (
-      <Result status="error" title="Query failed" subTitle={error.message} />
-    );
-  }
-
-  const { username } = data?.userInfo;
+  const username = useAppSelector(selectUserName);
 
   return (
     <Result

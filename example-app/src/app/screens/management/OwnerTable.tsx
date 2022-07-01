@@ -10,7 +10,7 @@ import { GraphQLError } from "graphql/error/GraphQLError";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
-import {useDeleteOwnerMutation, useGetOwnerListQuery} from "../../../api/generatedApi";
+import {useDeleteOwnerMutation, useGetOwnerListQuery} from "../../../api/generatedGraphQLApi";
 
 const REFETCH_QUERIES = ["Get_Owner_List"];
 
