@@ -52,6 +52,7 @@ export function PetTypeTable() {
   // Load the items from server
   const { loading, error, data } = useQuery(PET_TYPE_LIST);
   const items = deserialize(data?.petTypeList);
+
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
@@ -66,16 +67,18 @@ export function PetTypeTable() {
           selectedRowId={selectedRowId}
           setSelectedRowId={setSelectedRowId}
         />
-        {/* <Pagination /> - in future */}
       </Space>
     </div>
   );
 }
 
+interface ButtonPanelProps {
+  selectedRowId?: string;
+}
 /**
  * Button panel above
  */
-function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
+function ButtonPanel({ selectedRowId }: ButtonPanelProps) {
   const intl = useIntl();
   const navigate = useNavigate();
 
@@ -95,7 +98,6 @@ function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
           <FormattedMessage id="common.create" />
         </span>
       </Button>
-
       <Button
         htmlType="button"
         key="edit"
@@ -107,7 +109,6 @@ function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
           <FormattedMessage id="common.edit" />
         </span>
       </Button>
-
       <Button
         htmlType="button"
         key="remove"
@@ -235,6 +236,7 @@ function TableSection({
           };
         }}
         scroll={{ x: true }}
+        pagination={false}
       />
     </Space>
   );

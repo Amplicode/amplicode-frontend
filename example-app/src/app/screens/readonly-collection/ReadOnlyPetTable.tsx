@@ -92,6 +92,7 @@ export function ReadOnlyPetTable() {
   // Load the items from server
   const { loading, error, data } = useQuery(PET_LIST);
   const items = deserialize(data?.petList);
+
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
@@ -114,7 +115,6 @@ export function ReadOnlyPetTable() {
           selectedRowId={selectedRowId}
           setSelectedRowId={setSelectedRowId}
         />
-        {/* <Pagination /> - in future */}
       </Space>
     </div>
   );
@@ -196,6 +196,7 @@ function TableSection({
           };
         }}
         scroll={{ x: true }}
+        pagination={false}
       />
     </Space>
   );

@@ -36,8 +36,10 @@ import { ScalarsListScreenLayout } from "../screens/management/ScalarsListScreen
 import { PetTableScreenLayout } from "../screens/management/PetTableScreenLayout";
 import { PetListScreenLayout } from "../screens/management/PetListScreenLayout";
 import { PetCardsScreenLayout } from "../screens/management/PetCardsScreenLayout";
+import { OwnerTableWithFilterSortPageScreenLayout } from "../screens/management/OwnerTableWithFilterSortPageScreenLayout";
+import { OwnerListWithFilterSortPageScreenLayout } from "../screens/management/OwnerListWithFilterSortPageScreenLayout";
+import { OwnerCardsWithFilterSortPageScreenLayout } from "../screens/management/OwnerCardsWithFilterSortPageScreenLayout";
 import { OwnerTableWithMultiselectScreenLayout } from "../screens/management/OwnerTableWithMultiselectScreenLayout";
-import { OwnerCardsWithFilterScreenLayout } from "../screens/management/OwnerCardsWithFilterScreenLayout";
 import { OwnerTableScreenLayout } from "../screens/management/OwnerTableScreenLayout";
 import { OwnerListScreenLayout } from "../screens/management/OwnerListScreenLayout";
 import { OwnerCardsScreenLayout } from "../screens/management/OwnerCardsScreenLayout";
@@ -63,18 +65,32 @@ export function AppRoutes() {
         <Route index element={<OwnerTableScreenLayout />} />
         <Route path=":recordId" element={<OwnerTableScreenLayout />} />
       </Route>
-      <Route path="owner-cards-with-filter">
-        <Route index element={<OwnerCardsWithFilterScreenLayout />} />
-        <Route
-          path=":recordId"
-          element={<OwnerCardsWithFilterScreenLayout />}
-        />
-      </Route>
       <Route path="owner-table-with-multiselect">
         <Route index element={<OwnerTableWithMultiselectScreenLayout />} />
         <Route
           path=":recordId"
           element={<OwnerTableWithMultiselectScreenLayout />}
+        />
+      </Route>
+      <Route path="owner-cards-with-filter-sort-page">
+        <Route index element={<OwnerCardsWithFilterSortPageScreenLayout />} />
+        <Route
+          path=":recordId"
+          element={<OwnerCardsWithFilterSortPageScreenLayout />}
+        />
+      </Route>
+      <Route path="owner-list-with-filter-sort-page">
+        <Route index element={<OwnerListWithFilterSortPageScreenLayout />} />
+        <Route
+          path=":recordId"
+          element={<OwnerListWithFilterSortPageScreenLayout />}
+        />
+      </Route>
+      <Route path="owner-table-with-filter-sort-page">
+        <Route index element={<OwnerTableWithFilterSortPageScreenLayout />} />
+        <Route
+          path=":recordId"
+          element={<OwnerTableWithFilterSortPageScreenLayout />}
         />
       </Route>
       <Route path="pet-cards">

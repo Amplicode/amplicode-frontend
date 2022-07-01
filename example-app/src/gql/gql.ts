@@ -23,8 +23,8 @@ const documents = {
     graphql.Get_OwnerDocument,
   "\n  mutation Update_Owner($input: OwnerInputDTO) {\n    updateOwner(input: $input) {\n      id\n    }\n  }\n":
     graphql.Update_OwnerDocument,
-  "\n  query Get_Owner_List_With_Filter($filter: OwnerFilterInput) {\n    ownerByNamesList(filter: $filter) {\n      id\n      firstName\n      lastName\n      city\n      address\n      telephone\n      email\n    }\n  }\n":
-    graphql.Get_Owner_List_With_FilterDocument,
+  "\n  query Get_Owner_List_With_Filter_Page_Sort($filter: OwnerFilterInput, $page: OffsetPageInput, $sort: [OwnerOrderByInput]) {\n  ownerListByNamesFilterOffsetPageSorted(filter: $filter, page: $page, sort: $sort) {\n    content {\n      id\n      firstName\n      lastName\n      city\n      address\n      telephone\n      email\n    }\n    totalElements\n  }\n}\n":
+    graphql.Get_Owner_List_With_Filter_Page_SortDocument,
   "\n  query Get_Pet_List_With_Filter($identificationNumber: String) {\n    petByIdentificationNumberList(identificationNumber: $identificationNumber) {\n      id\n      identificationNumber\n      birthDate\n      type {\n        id\n        name\n      }\n      owner {\n        id\n        firstName\n        lastName\n      }\n      description {\n        identifier\n        description\n      }\n      tags {\n        id\n        name\n      }\n      diseases {\n        petDiseaseIdentifier\n        name\n        description\n      }\n    }\n  }\n":
     graphql.Get_Pet_List_With_FilterDocument,
   "\n  mutation Delete_Pet($id: ID!) {\n    deletePet(id: $id)\n  }\n":
@@ -98,8 +98,8 @@ export function gql(
   source: "\n  mutation Update_Owner($input: OwnerInputDTO) {\n    updateOwner(input: $input) {\n      id\n    }\n  }\n"
 ): typeof documents["\n  mutation Update_Owner($input: OwnerInputDTO) {\n    updateOwner(input: $input) {\n      id\n    }\n  }\n"];
 export function gql(
-  source: "\n  query Get_Owner_List_With_Filter($filter: OwnerFilterInput) {\n    ownerByNamesList(filter: $filter) {\n      id\n      firstName\n      lastName\n      city\n      address\n      telephone\n      email\n    }\n  }\n"
-): typeof documents["\n  query Get_Owner_List_With_Filter($filter: OwnerFilterInput) {\n    ownerByNamesList(filter: $filter) {\n      id\n      firstName\n      lastName\n      city\n      address\n      telephone\n      email\n    }\n  }\n"];
+  source: "\n  query Get_Owner_List_With_Filter_Page_Sort($filter: OwnerFilterInput, $page: OffsetPageInput, $sort: [OwnerOrderByInput]) {\n  ownerListByNamesFilterOffsetPageSorted(filter: $filter, page: $page, sort: $sort) {\n    content {\n      id\n      firstName\n      lastName\n      city\n      address\n      telephone\n      email\n    }\n    totalElements\n  }\n}\n"
+): typeof documents["\n  query Get_Owner_List_With_Filter_Page_Sort($filter: OwnerFilterInput, $page: OffsetPageInput, $sort: [OwnerOrderByInput]) {\n  ownerListByNamesFilterOffsetPageSorted(filter: $filter, page: $page, sort: $sort) {\n    content {\n      id\n      firstName\n      lastName\n      city\n      address\n      telephone\n      email\n    }\n    totalElements\n  }\n}\n"];
 export function gql(
   source: "\n  query Get_Pet_List_With_Filter($identificationNumber: String) {\n    petByIdentificationNumberList(identificationNumber: $identificationNumber) {\n      id\n      identificationNumber\n      birthDate\n      type {\n        id\n        name\n      }\n      owner {\n        id\n        firstName\n        lastName\n      }\n      description {\n        identifier\n        description\n      }\n      tags {\n        id\n        name\n      }\n      diseases {\n        petDiseaseIdentifier\n        name\n        description\n      }\n    }\n  }\n"
 ): typeof documents["\n  query Get_Pet_List_With_Filter($identificationNumber: String) {\n    petByIdentificationNumberList(identificationNumber: $identificationNumber) {\n      id\n      identificationNumber\n      birthDate\n      type {\n        id\n        name\n      }\n      owner {\n        id\n        firstName\n        lastName\n      }\n      description {\n        identifier\n        description\n      }\n      tags {\n        id\n        name\n      }\n      diseases {\n        petDiseaseIdentifier\n        name\n        description\n      }\n    }\n  }\n"];

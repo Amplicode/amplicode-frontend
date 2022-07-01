@@ -39,6 +39,8 @@ export const deriveManagementTemplateModel = async (
     deleteMutation,
     shouldAddToMenu,
     filterByArguments,
+    orderByArguments,
+    paginationArgument,
     listIdField,
     detailsIdField
   } = answers;
@@ -69,6 +71,8 @@ export const deriveManagementTemplateModel = async (
       mutation: deleteMutation,
       shouldAddToMenu: false,
       filterByArguments,
+      orderByArguments,
+      paginationArgument,
       idField: listIdField
     },
     schema

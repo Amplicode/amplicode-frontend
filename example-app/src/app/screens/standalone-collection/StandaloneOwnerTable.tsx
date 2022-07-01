@@ -76,6 +76,7 @@ export function StandaloneOwnerTable() {
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
   const items = deserialize(data?.ownerList);
+
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
@@ -90,16 +91,18 @@ export function StandaloneOwnerTable() {
           selectedRowId={selectedRowId}
           setSelectedRowId={setSelectedRowId}
         />
-        {/* <Pagination /> - in future */}
       </Space>
     </div>
   );
 }
 
+interface ButtonPanelProps {
+  selectedRowId?: string;
+}
 /**
  * Button panel above
  */
-function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
+function ButtonPanel({ selectedRowId }: ButtonPanelProps) {
   const intl = useIntl();
   const navigate = useNavigate();
 
@@ -119,7 +122,6 @@ function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
           <FormattedMessage id="common.create" />
         </span>
       </Button>
-
       <Button
         htmlType="button"
         key="edit"
@@ -131,7 +133,6 @@ function ButtonPanel({ selectedRowId }: { selectedRowId?: string }) {
           <FormattedMessage id="common.edit" />
         </span>
       </Button>
-
       <Button
         htmlType="button"
         key="remove"
@@ -259,6 +260,7 @@ function TableSection({
           };
         }}
         scroll={{ x: true }}
+        pagination={false}
       />
     </Space>
   );

@@ -1,0 +1,18 @@
+<% if (withOrderBy) { -%>
+    </Col>
+    <Col>
+      <Select
+        style={{ minWidth: "220px" }}
+        allowClear
+        placeholder={intl.formatMessage({id: "sort.sortBy"})}
+        onChange={applySort}
+        options={[
+          <% orderBy.forEach(orderBy => { -%>
+            {label: <><%= capitalizeFirst(splitByCapitalLetter(orderBy)) -%> (<ArrowDownOutlined />)</>, value: JSON.stringify({direction: Direction.Desc, property: OwnerOrderByProperty.<%= orderBy -%>})},
+            {label: <><%= capitalizeFirst(splitByCapitalLetter(orderBy)) -%> (<ArrowUpOutlined />)</>, value: JSON.stringify({direction: Direction.Asc, property: OwnerOrderByProperty.<%= orderBy -%>})},
+          <% }) -%>
+        ]}
+      />
+    </Col>
+  </Row>
+<% } -%>

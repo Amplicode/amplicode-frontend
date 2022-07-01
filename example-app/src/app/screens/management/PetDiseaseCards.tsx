@@ -52,7 +52,6 @@ export function PetDiseaseCards() {
       <Space direction="vertical" className="card-space">
         <ButtonPanel />
         <Cards items={items} loading={loading} error={error} />
-        {/* <Pagination /> - in future */}
       </Space>
     </div>
   );
@@ -66,7 +65,7 @@ function ButtonPanel() {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <Space>
       <Button
         htmlType="button"
         key="create"
@@ -79,7 +78,7 @@ function ButtonPanel() {
           <FormattedMessage id="common.create" />
         </span>
       </Button>
-    </div>
+    </Space>
   );
 }
 

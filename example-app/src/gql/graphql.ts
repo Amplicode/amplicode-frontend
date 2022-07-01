@@ -793,22 +793,30 @@ export type Update_OwnerMutation = {
   updateOwner?: { __typename?: "OwnerDTO"; id?: string | null } | null;
 };
 
-export type Get_Owner_List_With_FilterQueryVariables = Exact<{
+export type Get_Owner_List_With_Filter_Page_SortQueryVariables = Exact<{
   filter?: InputMaybe<OwnerFilterInput>;
+  page?: InputMaybe<OffsetPageInput>;
+  sort?: InputMaybe<
+    Array<InputMaybe<OwnerOrderByInput>> | InputMaybe<OwnerOrderByInput>
+  >;
 }>;
 
-export type Get_Owner_List_With_FilterQuery = {
+export type Get_Owner_List_With_Filter_Page_SortQuery = {
   __typename?: "Query";
-  ownerByNamesList?: Array<{
-    __typename?: "OwnerDTO";
-    id?: string | null;
-    firstName?: string | null;
-    lastName?: string | null;
-    city?: string | null;
-    address?: string | null;
-    telephone?: string | null;
-    email?: string | null;
-  } | null> | null;
+  ownerListByNamesFilterOffsetPageSorted?: {
+    __typename?: "OwnerPage";
+    totalElements: any;
+    content?: Array<{
+      __typename?: "OwnerDTO";
+      id?: string | null;
+      firstName?: string | null;
+      lastName?: string | null;
+      city?: string | null;
+      address?: string | null;
+      telephone?: string | null;
+      email?: string | null;
+    } | null> | null;
+  } | null;
 };
 
 export type Get_Pet_List_With_FilterQueryVariables = Exact<{
@@ -1676,13 +1684,13 @@ export const Update_OwnerDocument = {
   Update_OwnerMutation,
   Update_OwnerMutationVariables
 >;
-export const Get_Owner_List_With_FilterDocument = {
+export const Get_Owner_List_With_Filter_Page_SortDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "query",
-      name: { kind: "Name", value: "Get_Owner_List_With_Filter" },
+      name: { kind: "Name", value: "Get_Owner_List_With_Filter_Page_Sort" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
@@ -1695,13 +1703,35 @@ export const Get_Owner_List_With_FilterDocument = {
             name: { kind: "Name", value: "OwnerFilterInput" },
           },
         },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "page" } },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "OffsetPageInput" },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "sort" } },
+          type: {
+            kind: "ListType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "OwnerOrderByInput" },
+            },
+          },
+        },
       ],
       selectionSet: {
         kind: "SelectionSet",
         selections: [
           {
             kind: "Field",
-            name: { kind: "Name", value: "ownerByNamesList" },
+            name: {
+              kind: "Name",
+              value: "ownerListByNamesFilterOffsetPageSorted",
+            },
             arguments: [
               {
                 kind: "Argument",
@@ -1711,17 +1741,58 @@ export const Get_Owner_List_With_FilterDocument = {
                   name: { kind: "Name", value: "filter" },
                 },
               },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "page" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "page" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "sort" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "sort" },
+                },
+              },
             ],
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "firstName" } },
-                { kind: "Field", name: { kind: "Name", value: "lastName" } },
-                { kind: "Field", name: { kind: "Name", value: "city" } },
-                { kind: "Field", name: { kind: "Name", value: "address" } },
-                { kind: "Field", name: { kind: "Name", value: "telephone" } },
-                { kind: "Field", name: { kind: "Name", value: "email" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "content" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "firstName" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "lastName" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "city" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "address" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "telephone" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "email" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "totalElements" },
+                },
               ],
             },
           },
@@ -1730,8 +1801,8 @@ export const Get_Owner_List_With_FilterDocument = {
     },
   ],
 } as unknown as DocumentNode<
-  Get_Owner_List_With_FilterQuery,
-  Get_Owner_List_With_FilterQueryVariables
+  Get_Owner_List_With_Filter_Page_SortQuery,
+  Get_Owner_List_With_Filter_Page_SortQueryVariables
 >;
 export const Get_Pet_List_With_FilterDocument = {
   kind: "Document",

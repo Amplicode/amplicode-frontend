@@ -1,13 +1,14 @@
 <% const hiddenFilterNames = hiddenFilters.map(filter => filter.name); -%>
+<% const QUERY_CONST = toFatSnakeCase(queryName); -%>
 <%# ------- TEMPLATE STARTS HERE ------- -%>
 <% if (withHiddenFilters) { -%>
   const couldBeHiddenFilters: NamePath[] = <%- include(includesPath('RenderValue'), {data: hiddenFilterNames}) %>;
 <% } -%>
 
 interface FiltersProps {
-  onApplyFilters: (filters: QueryVariablesType) => void;
+  setVariables: Dispatch<SetStateAction<QueryVariablesType>>;
 }
-function Filters({onApplyFilters}: FiltersProps) {
+function Filters({setVariables}: FiltersProps) {
   const [form] = useForm();
 
   <% if (withHiddenFilters) { -%>
@@ -19,16 +20,21 @@ function Filters({onApplyFilters}: FiltersProps) {
 
   const onResetFilters = async () => {
     await form.resetFields();
-    const values = await form.validateFields();
-    onApplyFilters(values);
+    const filters = await form.validateFields();
+    setVariables(variables =>
+      mergeDeep(
+        variables,  
+        serializeVariables(<%= QUERY_CONST %>, filters)
+      )
+    );
   };
-
+  
   return (
     <Form
       form={form}
       layout="vertical"
-      onFinish={onApplyFilters}
-      initialValues={initialFilterVars}
+      onFinish={filters => setVariables(variables => mergeDeep(variables, serializeVariables(<%= QUERY_CONST %>, filters)))}
+      initialValues={initialVariables}
     >
       <Form.Item shouldUpdate>
         {() => {

@@ -11,6 +11,8 @@ import {
   Col,
   Form,
   Input,
+  Pagination,
+  Select,
   Empty,
   Space,
   Spin,
@@ -18,7 +20,12 @@ import {
 } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { serializeVariables } from "../../../core/transform/model/serializeVariables";
-import { PlusOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import {
+  PlusOutlined,
+  CloseCircleOutlined,
+  ArrowUpOutlined,
+  ArrowDownOutlined
+} from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import { gql } from "../../../gql";
@@ -27,108 +34,112 @@ import { GraphQLError } from "graphql/error/GraphQLError";
 import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
-import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
-import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
-import { getPetDescriptionDTODisplayName } from "../../../core/display-name/getPetDescriptionDTODisplayName";
-import { getTagDTODisplayName } from "../../../core/display-name/getTagDTODisplayName";
-import { getPetDiseaseDTODisplayName } from "../../../core/display-name/getPetDiseaseDTODisplayName";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 import { mergeDeep } from "@apollo/client/utilities";
+import { Direction, OwnerOrderByProperty } from "../../../gql/graphql";
 
-const REFETCH_QUERIES = ["Get_Pet_List_With_Filter"];
+const REFETCH_QUERIES = ["Get_Owner_List_With_Filter_Page_Sort"];
 
-const PET_BY_IDENTIFICATION_NUMBER_LIST = gql(`
-  query Get_Pet_List_With_Filter($identificationNumber: String) {
-    petByIdentificationNumberList(identificationNumber: $identificationNumber) {
+const OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED = gql(`
+  query Get_Owner_List_With_Filter_Page_Sort($filter: OwnerFilterInput, $page: OffsetPageInput, $sort: [OwnerOrderByInput]) {
+  ownerListByNamesFilterOffsetPageSorted(filter: $filter, page: $page, sort: $sort) {
+    content {
       id
-      identificationNumber
-      birthDate
-      type {
-        id
-        name
-      }
-      owner {
-        id
-        firstName
-        lastName
-      }
-      description {
-        identifier
-        description
-      }
-      tags {
-        id
-        name
-      }
-      diseases {
-        petDiseaseIdentifier
-        name
-        description
-      }
+      firstName
+      lastName
+      city
+      address
+      telephone
+      email
     }
+    totalElements
   }
+}
 `);
 
-const DELETE_PET = gql(`
-  mutation Delete_Pet($id: ID!) {
-    deletePet(id: $id)
+const DELETE_OWNER = gql(`
+  mutation Delete_Owner($id: ID!) {
+    deleteOwner(id: $id)
   }
 `);
 
 const columns = [
   {
-    title: "Identification Number",
-    dataIndex: "identificationNumber",
-    key: "identificationNumber"
+    title: "First Name",
+    dataIndex: "firstName",
+    key: "firstName"
   },
   {
-    title: "Birth Date",
-    dataIndex: "birthDate",
-    key: "birthDate"
+    title: "Last Name",
+    dataIndex: "lastName",
+    key: "lastName"
   },
   {
-    title: "Type",
-    dataIndex: "type",
-    key: "type"
+    title: "City",
+    dataIndex: "city",
+    key: "city"
   },
   {
-    title: "Owner",
-    dataIndex: "owner",
-    key: "owner"
+    title: "Address",
+    dataIndex: "address",
+    key: "address"
   },
   {
-    title: "Description",
-    dataIndex: "description",
-    key: "description"
+    title: "Telephone",
+    dataIndex: "telephone",
+    key: "telephone"
   },
   {
-    title: "Tags",
-    dataIndex: "tags",
-    key: "tags"
-  },
-  {
-    title: "Diseases",
-    dataIndex: "diseases",
-    key: "diseases"
+    title: "Email",
+    dataIndex: "email",
+    key: "email"
   }
 ];
 
 const initialVariables: QueryVariablesType = {};
 
-export function PetTable() {
+export function OwnerTableWithFilterSortPage() {
   const intl = useIntl();
-  useBreadcrumbItem(intl.formatMessage({ id: "screen.PetTable" }));
+  useBreadcrumbItem(
+    intl.formatMessage({ id: "screen.OwnerTableWithFilterSortPage" })
+  );
 
   const [variables, setVariables] = useState<QueryVariablesType>(
     initialVariables
   );
 
   // Load the items from server. Will be reloaded reactively if one of variable changes
-  const { loading, error, data } = useQuery(PET_BY_IDENTIFICATION_NUMBER_LIST, {
-    variables
-  });
-  const items = deserialize(data?.petByIdentificationNumberList);
+  const {
+    loading,
+    error,
+    data
+  } = useQuery(OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED, { variables });
+  const items = deserialize(
+    data?.ownerListByNamesFilterOffsetPageSorted?.content
+  );
 
+  const [pagination, setPagination] = useState<{
+    currect: number;
+    pageSize: number;
+  }>({
+    currect: 1,
+    pageSize: 10
+  });
+
+  const applyPagination = (currect: number, pageSize: number) => {
+    setPagination({
+      currect,
+      pageSize
+    });
+    setVariables(
+      mergeDeep(variables, {
+        page: {
+          number: currect - 1,
+          size: pageSize
+        }
+      })
+    );
+  };
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
@@ -138,13 +149,23 @@ export function PetTable() {
         <Card>
           <Filters setVariables={setVariables} />
         </Card>
-        <ButtonPanel selectedRowId={selectedRowId} />
+        <ButtonPanel
+          selectedRowId={selectedRowId}
+          setVariables={setVariables}
+        />
         <TableSection
           items={items}
           loading={loading}
           error={error}
           selectedRowId={selectedRowId}
           setSelectedRowId={setSelectedRowId}
+        />
+        <Pagination
+          current={pagination?.currect}
+          pageSize={pagination?.pageSize}
+          onChange={applyPagination}
+          showSizeChanger
+          total={data?.ownerListByNamesFilterOffsetPageSorted?.totalElements}
         />
       </Space>
     </div>
@@ -153,54 +174,121 @@ export function PetTable() {
 
 interface ButtonPanelProps {
   selectedRowId?: string;
+  setVariables: Dispatch<SetStateAction<QueryVariablesType>>;
 }
 /**
  * Button panel above
  */
-function ButtonPanel({ selectedRowId }: ButtonPanelProps) {
+function ButtonPanel({ selectedRowId, setVariables }: ButtonPanelProps) {
   const intl = useIntl();
   const navigate = useNavigate();
 
   const { showDeleteConfirm, deleting } = useDeleteConfirm(selectedRowId!);
 
+  const applySort = (sort: string) => {
+    if (sort != null) {
+      setVariables(variables =>
+        mergeDeep(variables, { sort: JSON.parse(sort) })
+      );
+    }
+  };
+
   return (
-    <Space direction="horizontal">
-      <Button
-        htmlType="button"
-        key="create"
-        title={intl.formatMessage({ id: "common.create" })}
-        type="primary"
-        icon={<PlusOutlined />}
-        onClick={() => navigate("new")}
-      >
-        <span>
-          <FormattedMessage id="common.create" />
-        </span>
-      </Button>
-      <Button
-        htmlType="button"
-        key="edit"
-        title={intl.formatMessage({ id: "common.edit" })}
-        disabled={selectedRowId == null}
-        onClick={() => selectedRowId && navigate(selectedRowId)}
-      >
-        <span>
-          <FormattedMessage id="common.edit" />
-        </span>
-      </Button>
-      <Button
-        htmlType="button"
-        key="remove"
-        title={intl.formatMessage({ id: "common.remove" })}
-        disabled={selectedRowId == null}
-        loading={deleting}
-        onClick={showDeleteConfirm}
-      >
-        <span>
-          <FormattedMessage id="common.remove" />
-        </span>
-      </Button>
-    </Space>
+    <Row justify="space-between" gutter={[16, 8]}>
+      <Col>
+        <Space direction="horizontal">
+          <Button
+            htmlType="button"
+            key="create"
+            title={intl.formatMessage({ id: "common.create" })}
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => navigate("new")}
+          >
+            <span>
+              <FormattedMessage id="common.create" />
+            </span>
+          </Button>
+          <Button
+            htmlType="button"
+            key="edit"
+            title={intl.formatMessage({ id: "common.edit" })}
+            disabled={selectedRowId == null}
+            onClick={() => selectedRowId && navigate(selectedRowId)}
+          >
+            <span>
+              <FormattedMessage id="common.edit" />
+            </span>
+          </Button>
+          <Button
+            htmlType="button"
+            key="remove"
+            title={intl.formatMessage({ id: "common.remove" })}
+            disabled={selectedRowId == null}
+            loading={deleting}
+            onClick={showDeleteConfirm}
+          >
+            <span>
+              <FormattedMessage id="common.remove" />
+            </span>
+          </Button>
+        </Space>
+      </Col>
+      <Col>
+        <Select
+          style={{ minWidth: "220px" }}
+          allowClear
+          placeholder={intl.formatMessage({ id: "sort.sortBy" })}
+          onChange={applySort}
+          options={[
+            {
+              label: (
+                <>
+                  City (<ArrowDownOutlined />)
+                </>
+              ),
+              value: JSON.stringify({
+                direction: Direction.Desc,
+                property: OwnerOrderByProperty.City
+              })
+            },
+            {
+              label: (
+                <>
+                  City (<ArrowUpOutlined />)
+                </>
+              ),
+              value: JSON.stringify({
+                direction: Direction.Asc,
+                property: OwnerOrderByProperty.City
+              })
+            },
+            {
+              label: (
+                <>
+                  First Name (<ArrowDownOutlined />)
+                </>
+              ),
+              value: JSON.stringify({
+                direction: Direction.Desc,
+                property: OwnerOrderByProperty.FirstName
+              })
+            },
+            {
+              label: (
+                <>
+                  First Name (<ArrowUpOutlined />)
+                </>
+              ),
+              value: JSON.stringify({
+                direction: Direction.Asc,
+                property: OwnerOrderByProperty.FirstName
+              })
+            }
+          ]}
+        />
+      </Col>
+    </Row>
   );
 }
 
@@ -211,7 +299,7 @@ function ButtonPanel({ selectedRowId }: ButtonPanelProps) {
 function useDeleteConfirm(id: string | null | undefined) {
   const intl = useIntl();
 
-  const [runDeleteMutation, { loading }] = useMutation(DELETE_PET);
+  const [runDeleteMutation, { loading }] = useMutation(DELETE_OWNER);
   const deleteItem = useDeleteItem(id, runDeleteMutation, REFETCH_QUERIES);
 
   // Callback that deletes the item
@@ -273,7 +361,10 @@ function Filters({ setVariables }: FiltersProps) {
     setVariables(variables =>
       mergeDeep(
         variables,
-        serializeVariables(PET_BY_IDENTIFICATION_NUMBER_LIST, filters)
+        serializeVariables(
+          OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED,
+          filters
+        )
       )
     );
   };
@@ -286,7 +377,10 @@ function Filters({ setVariables }: FiltersProps) {
         setVariables(variables =>
           mergeDeep(
             variables,
-            serializeVariables(PET_BY_IDENTIFICATION_NUMBER_LIST, filters)
+            serializeVariables(
+              OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED,
+              filters
+            )
           )
         )
       }
@@ -297,16 +391,31 @@ function Filters({ setVariables }: FiltersProps) {
           return (
             <Row gutter={16}>
               <Col span={6}>
-                <Form.Item
-                  name="identificationNumber"
-                  label="Identification Number"
-                >
+                <Form.Item name={["filter", "firstName"]} label="First Name">
                   <Input
                     suffix={
-                      form.isFieldTouched("identificationNumber") ? (
+                      form.isFieldTouched(["filter", "firstName"]) ? (
                         <CloseCircleOutlined
                           onClick={() =>
-                            form.resetFields(["identificationNumber"])
+                            form.resetFields([["filter", "firstName"]])
+                          }
+                        />
+                      ) : (
+                        <span />
+                      )
+                    }
+                  />
+                </Form.Item>
+              </Col>
+
+              <Col span={6}>
+                <Form.Item name={["filter", "lastName"]} label="Last Name">
+                  <Input
+                    suffix={
+                      form.isFieldTouched(["filter", "lastName"]) ? (
+                        <CloseCircleOutlined
+                          onClick={() =>
+                            form.resetFields([["filter", "lastName"]])
                           }
                         />
                       ) : (
@@ -367,29 +476,7 @@ function TableSection({
     .filter(item => item != null)
     .map(item => ({
       key: item?.id,
-      ...item,
-      ...{
-        birthDate: item!.birthDate?.format("LL") ?? undefined,
-        type: getPetTypeDTODisplayName(item!.type ?? undefined),
-        owner: getOwnerDTODisplayName(item!.owner ?? undefined),
-        description: getPetDescriptionDTODisplayName(
-          item!.description ?? undefined
-        ),
-        tags:
-          item &&
-          item.tags &&
-          item.tags
-            .map(entry => getTagDTODisplayName(entry))
-            .filter(entry => entry !== "")
-            .join(", "),
-        diseases:
-          item &&
-          item.diseases &&
-          item.diseases
-            .map(entry => getPetDiseaseDTODisplayName(entry))
-            .filter(entry => entry !== "")
-            .join(", ")
-      }
+      ...item
     }));
 
   return (
@@ -418,15 +505,22 @@ function TableSection({
 /**
  * Type of data object received when executing the query
  */
-type QueryResultType = ResultOf<typeof PET_BY_IDENTIFICATION_NUMBER_LIST>;
+type QueryResultType = ResultOf<
+  typeof OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED
+>;
 /**
  * Type of variables used to filter the items list
  */
-type QueryVariablesType = VariablesOf<typeof PET_BY_IDENTIFICATION_NUMBER_LIST>;
+type QueryVariablesType = VariablesOf<
+  typeof OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED
+>;
 /**
  * Type of the items list
  */
-type ItemTableType = QueryResultType["petByIdentificationNumberList"];
+type ItemTableType = Exclude<
+  QueryResultType["ownerListByNamesFilterOffsetPageSorted"],
+  null | undefined
+>["content"];
 /**
  * Type of a single item
  */

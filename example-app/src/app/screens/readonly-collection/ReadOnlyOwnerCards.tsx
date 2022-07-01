@@ -39,7 +39,6 @@ export function ReadOnlyOwnerCards() {
     <div className="narrow-layout">
       <Space direction="vertical" className="card-space">
         <Cards items={items} loading={loading} error={error} />
-        {/* <Pagination /> - in future */}
       </Space>
     </div>
   );
