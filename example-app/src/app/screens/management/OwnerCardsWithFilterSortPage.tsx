@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, Dispatch, SetStateAction } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf, VariablesOf } from "@graphql-typed-document-node/core";
@@ -13,7 +13,9 @@ import {
   Card,
   Empty,
   Space,
-  Spin
+  Spin,
+  Pagination,
+  Select
 } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { serializeVariables } from "../../../core/transform/model/serializeVariables";
@@ -22,7 +24,9 @@ import {
   LoadingOutlined,
   EditOutlined,
   PlusOutlined,
-  CloseCircleOutlined
+  CloseCircleOutlined,
+  ArrowUpOutlined,
+  ArrowDownOutlined
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -33,14 +37,17 @@ import { GraphQLError } from "graphql/error/GraphQLError";
 import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
-import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
+import { getOwnerPageDisplayName } from "../../../core/display-name/getOwnerPageDisplayName";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
+import { mergeDeep } from "@apollo/client/utilities";
+import { Direction, OwnerOrderByProperty } from "../../../gql/graphql";
 
-const REFETCH_QUERIES = ["Get_Owner_List_With_Filter"];
+const REFETCH_QUERIES = ["Get_Owner_List_With_Filter_Page_Sort"];
 
-const OWNER_BY_NAMES_LIST = gql(`
-  query Get_Owner_List_With_Filter($filter: OwnerFilterInput) {
-    ownerByNamesList(filter: $filter) {
+const OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED = gql(`
+  query Get_Owner_List_With_Filter_Page_Sort($filter: OwnerFilterInput, $page: OffsetPageInput, $sort: [OwnerOrderByInput]) {
+  ownerListByNamesFilterOffsetPageSorted(filter: $filter, page: $page, sort: $sort) {
+    content {
       id
       firstName
       lastName
@@ -49,7 +56,9 @@ const OWNER_BY_NAMES_LIST = gql(`
       telephone
       email
     }
+    totalElements
   }
+}
 `);
 
 const DELETE_OWNER = gql(`
@@ -58,83 +67,201 @@ const DELETE_OWNER = gql(`
   }
 `);
 
-const initialFilterVars: QueryVariablesType = {};
+const initialVariables: QueryVariablesType = {};
 
-export function OwnerCardsWithFilter() {
+export function OwnerCardsWithFilterSortPage() {
   const intl = useIntl();
-  useBreadcrumbItem(intl.formatMessage({ id: "screen.OwnerCardsWithFilter" }));
+  useBreadcrumbItem(
+    intl.formatMessage({ id: "screen.OwnerCardsWithFilterSortPage" })
+  );
 
-  const [filterVars, setFilterVars] = useState<QueryVariablesType>(
-    initialFilterVars
+  const [variables, setVariables] = useState<QueryVariablesType>(
+    initialVariables
   );
 
   // Load the items from server. Will be reloaded reactively if one of variable changes
-  const { loading, error, data } = useQuery(OWNER_BY_NAMES_LIST, {
-    variables: filterVars
-  });
-  const items = deserialize(data?.ownerByNamesList);
+  const {
+    loading,
+    error,
+    data
+  } = useQuery(OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED, { variables });
+  const items = deserialize(
+    data?.ownerListByNamesFilterOffsetPageSorted?.content
+  );
 
-  const onApplyFilters = (values: QueryVariablesType) => {
-    setFilterVars(serializeVariables(OWNER_BY_NAMES_LIST, values));
+  const [pagination, setPagination] = useState<{
+    currect: number;
+    pageSize: number;
+  }>({
+    currect: 1,
+    pageSize: 10
+  });
+
+  const applyPagination = (currect: number, pageSize: number) => {
+    setPagination({
+      currect,
+      pageSize
+    });
+    setVariables(
+      mergeDeep(variables, {
+        page: {
+          number: currect - 1,
+          size: pageSize
+        }
+      })
+    );
   };
 
   return (
     <div className="narrow-layout">
       <Space direction="vertical" className="card-space">
-        <ButtonPanel />
         <Card>
-          <Filters onApplyFilters={onApplyFilters} />
+          <Filters setVariables={setVariables} />
         </Card>
+        <ButtonPanel setVariables={setVariables} />
         <Cards items={items} loading={loading} error={error} />
-        {/* <Pagination /> - in future */}
+        <Pagination
+          current={pagination?.currect}
+          pageSize={pagination?.pageSize}
+          onChange={applyPagination}
+          showSizeChanger
+          total={data?.ownerListByNamesFilterOffsetPageSorted?.totalElements}
+        />
       </Space>
     </div>
   );
 }
 
+interface ButtonPanelProps {
+  setVariables: Dispatch<SetStateAction<QueryVariablesType>>;
+}
 /**
  * Button panel above the cards
  */
-function ButtonPanel() {
+function ButtonPanel({ setVariables }: ButtonPanelProps) {
   const intl = useIntl();
   const navigate = useNavigate();
 
+  const applySort = (sort: string) => {
+    if (sort != null) {
+      setVariables(variables =>
+        mergeDeep(variables, { sort: JSON.parse(sort) })
+      );
+    }
+  };
+
   return (
-    <div>
-      <Button
-        htmlType="button"
-        key="create"
-        title={intl.formatMessage({ id: "common.create" })}
-        type="primary"
-        icon={<PlusOutlined />}
-        onClick={() => navigate("new")}
-      >
-        <span>
-          <FormattedMessage id="common.create" />
-        </span>
-      </Button>
-    </div>
+    <Row justify="space-between" gutter={[16, 8]}>
+      <Col>
+        <Space>
+          <Button
+            htmlType="button"
+            key="create"
+            title={intl.formatMessage({ id: "common.create" })}
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => navigate("new")}
+          >
+            <span>
+              <FormattedMessage id="common.create" />
+            </span>
+          </Button>
+        </Space>
+      </Col>
+      <Col>
+        <Select
+          style={{ minWidth: "220px" }}
+          allowClear
+          placeholder={intl.formatMessage({ id: "sort.sortBy" })}
+          onChange={applySort}
+          options={[
+            {
+              label: (
+                <>
+                  City (<ArrowDownOutlined />)
+                </>
+              ),
+              value: JSON.stringify({
+                direction: Direction.Desc,
+                property: OwnerOrderByProperty.City
+              })
+            },
+            {
+              label: (
+                <>
+                  City (<ArrowUpOutlined />)
+                </>
+              ),
+              value: JSON.stringify({
+                direction: Direction.Asc,
+                property: OwnerOrderByProperty.City
+              })
+            },
+            {
+              label: (
+                <>
+                  First Name (<ArrowDownOutlined />)
+                </>
+              ),
+              value: JSON.stringify({
+                direction: Direction.Desc,
+                property: OwnerOrderByProperty.FirstName
+              })
+            },
+            {
+              label: (
+                <>
+                  First Name (<ArrowUpOutlined />)
+                </>
+              ),
+              value: JSON.stringify({
+                direction: Direction.Asc,
+                property: OwnerOrderByProperty.FirstName
+              })
+            }
+          ]}
+        />
+      </Col>
+    </Row>
   );
 }
 
 interface FiltersProps {
-  onApplyFilters: (filters: QueryVariablesType) => void;
+  setVariables: Dispatch<SetStateAction<QueryVariablesType>>;
 }
-function Filters({ onApplyFilters }: FiltersProps) {
+function Filters({ setVariables }: FiltersProps) {
   const [form] = useForm();
 
   const onResetFilters = async () => {
     await form.resetFields();
-    const values = await form.validateFields();
-    onApplyFilters(values);
+    const filters = await form.validateFields();
+    setVariables(variables =>
+      mergeDeep(
+        variables,
+        serializeVariables(
+          OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED,
+          filters
+        )
+      )
+    );
   };
 
   return (
     <Form
       form={form}
       layout="vertical"
-      onFinish={onApplyFilters}
-      initialValues={initialFilterVars}
+      onFinish={filters =>
+        setVariables(variables =>
+          mergeDeep(
+            variables,
+            serializeVariables(
+              OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED,
+              filters
+            )
+          )
+        )
+      }
+      initialValues={initialVariables}
     >
       <Form.Item shouldUpdate>
         {() => {
@@ -234,7 +361,7 @@ function ItemCard({ item }: { item: ItemType }) {
   return (
     <Card
       key={item.id}
-      title={getOwnerDTODisplayName(item)}
+      title={getOwnerPageDisplayName(item)}
       actions={cardActions}
       className="narrow-layout"
     >
@@ -359,15 +486,22 @@ function useDeleteConfirm(id: string | null | undefined) {
 /**
  * Type of data object received when executing the query
  */
-type QueryResultType = ResultOf<typeof OWNER_BY_NAMES_LIST>;
+type QueryResultType = ResultOf<
+  typeof OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED
+>;
 /**
  * Type of variables used to filter the items list
  */
-type QueryVariablesType = VariablesOf<typeof OWNER_BY_NAMES_LIST>;
+type QueryVariablesType = VariablesOf<
+  typeof OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED
+>;
 /**
  * Type of the items list
  */
-type ItemListType = QueryResultType["ownerByNamesList"];
+type ItemListType = Exclude<
+  QueryResultType["ownerListByNamesFilterOffsetPageSorted"],
+  null | undefined
+>["content"];
 /**
  * Type of a single item
  */

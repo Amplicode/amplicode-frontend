@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, Dispatch, SetStateAction } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf, VariablesOf } from "@graphql-typed-document-node/core";
@@ -40,6 +40,7 @@ import { getPetDescriptionDTODisplayName } from "../../../core/display-name/getP
 import { getTagDTODisplayName } from "../../../core/display-name/getTagDTODisplayName";
 import { getPetDiseaseDTODisplayName } from "../../../core/display-name/getPetDiseaseDTODisplayName";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
+import { mergeDeep } from "@apollo/client/utilities";
 
 const REFETCH_QUERIES = ["Get_Pet_List_With_Filter"];
 
@@ -81,37 +82,30 @@ const DELETE_PET = gql(`
   }
 `);
 
-const initialFilterVars: QueryVariablesType = {};
+const initialVariables: QueryVariablesType = {};
 
 export function PetCards() {
   const intl = useIntl();
   useBreadcrumbItem(intl.formatMessage({ id: "screen.PetCards" }));
 
-  const [filterVars, setFilterVars] = useState<QueryVariablesType>(
-    initialFilterVars
+  const [variables, setVariables] = useState<QueryVariablesType>(
+    initialVariables
   );
 
   // Load the items from server. Will be reloaded reactively if one of variable changes
   const { loading, error, data } = useQuery(PET_BY_IDENTIFICATION_NUMBER_LIST, {
-    variables: filterVars
+    variables
   });
   const items = deserialize(data?.petByIdentificationNumberList);
-
-  const onApplyFilters = (values: QueryVariablesType) => {
-    setFilterVars(
-      serializeVariables(PET_BY_IDENTIFICATION_NUMBER_LIST, values)
-    );
-  };
 
   return (
     <div className="narrow-layout">
       <Space direction="vertical" className="card-space">
-        <ButtonPanel />
         <Card>
-          <Filters onApplyFilters={onApplyFilters} />
+          <Filters setVariables={setVariables} />
         </Card>
+        <ButtonPanel />
         <Cards items={items} loading={loading} error={error} />
-        {/* <Pagination /> - in future */}
       </Space>
     </div>
   );
@@ -125,7 +119,7 @@ function ButtonPanel() {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <Space>
       <Button
         htmlType="button"
         key="create"
@@ -138,28 +132,40 @@ function ButtonPanel() {
           <FormattedMessage id="common.create" />
         </span>
       </Button>
-    </div>
+    </Space>
   );
 }
 
 interface FiltersProps {
-  onApplyFilters: (filters: QueryVariablesType) => void;
+  setVariables: Dispatch<SetStateAction<QueryVariablesType>>;
 }
-function Filters({ onApplyFilters }: FiltersProps) {
+function Filters({ setVariables }: FiltersProps) {
   const [form] = useForm();
 
   const onResetFilters = async () => {
     await form.resetFields();
-    const values = await form.validateFields();
-    onApplyFilters(values);
+    const filters = await form.validateFields();
+    setVariables(variables =>
+      mergeDeep(
+        variables,
+        serializeVariables(PET_BY_IDENTIFICATION_NUMBER_LIST, filters)
+      )
+    );
   };
 
   return (
     <Form
       form={form}
       layout="vertical"
-      onFinish={onApplyFilters}
-      initialValues={initialFilterVars}
+      onFinish={filters =>
+        setVariables(variables =>
+          mergeDeep(
+            variables,
+            serializeVariables(PET_BY_IDENTIFICATION_NUMBER_LIST, filters)
+          )
+        )
+      }
+      initialValues={initialVariables}
     >
       <Form.Item shouldUpdate>
         {() => {

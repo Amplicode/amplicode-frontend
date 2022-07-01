@@ -19,7 +19,7 @@ import {
   FieldError,
   useSubmitEditor
 } from "../../../core/crud/useSubmitEditor";
-import { ErrorMessages } from "../../../core/crud/ErrorMessages";
+import { ErrorMessage } from "../../../core/crud/ErrorMessage";
 import { FormattedMessage, useIntl } from "react-intl";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 import { deserialize } from "../../../core/transform/model/deserialize";
@@ -47,7 +47,7 @@ const UPDATE_OWNER = gql(`
   }
 `);
 
-export interface OwnerCardsWithFilterEditorProps<TData = any> {
+export interface OwnerListsWithFilterSortPageEditorProps<TData = any> {
   /**
    * A list of queries that needs to be refetched once the editor has been submitted.
    * For example, you might need to refresh entity list after editing an entity instance.
@@ -58,12 +58,12 @@ export interface OwnerCardsWithFilterEditorProps<TData = any> {
   refetchQueries?: RefetchQueries<TData>;
 }
 
-export function OwnerCardsWithFilterEditor({
+export function OwnerListsWithFilterSortPageEditor({
   refetchQueries
-}: OwnerCardsWithFilterEditorProps<QueryResultType>) {
+}: OwnerListsWithFilterSortPageEditorProps<QueryResultType>) {
   const intl = useIntl();
   useBreadcrumbItem(
-    intl.formatMessage({ id: "screen.OwnerCardsWithFilterEditor" })
+    intl.formatMessage({ id: "screen.OwnerListsWithFilterSortPageEditor" })
   );
 
   const { recordId } = useParams();
@@ -135,7 +135,9 @@ function EditorForm<TData>({
         form={form}
       >
         <FormFields item={item} fieldErrors={fieldErrors} />
-        <ErrorMessages errorMessages={formErrors} />
+        {formErrors.map(errorMessage => (
+          <ErrorMessage errorMessage={errorMessage} />
+        ))}
         <FormButtons submitting={submitting} />
       </Form>
     </Card>

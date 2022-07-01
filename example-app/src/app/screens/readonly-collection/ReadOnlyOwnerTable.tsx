@@ -64,6 +64,7 @@ export function ReadOnlyOwnerTable() {
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
   const items = deserialize(data?.ownerList);
+
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
@@ -86,7 +87,6 @@ export function ReadOnlyOwnerTable() {
           selectedRowId={selectedRowId}
           setSelectedRowId={setSelectedRowId}
         />
-        {/* <Pagination /> - in future */}
       </Space>
     </div>
   );
@@ -146,6 +146,7 @@ function TableSection({
           };
         }}
         scroll={{ x: true }}
+        pagination={false}
       />
     </Space>
   );

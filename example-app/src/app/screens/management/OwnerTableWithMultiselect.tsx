@@ -78,6 +78,7 @@ export function OwnerTableWithMultiselect() {
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
   const items = deserialize(data?.ownerList);
+
   // selected row id
   const [selectedRowIds, setSelectedRowIds] = useState([]);
 
@@ -95,22 +96,19 @@ export function OwnerTableWithMultiselect() {
           selectedRowIds={selectedRowIds}
           setSelectedRowIds={setSelectedRowIds}
         />
-        {/* <Pagination /> - in future */}
       </Space>
     </div>
   );
 }
 
+interface ButtonPanelProps {
+  selectedRowIds: string[];
+  setSelectedRowIds: (id: any) => any;
+}
 /**
  * Button panel above
  */
-function ButtonPanel({
-  selectedRowIds,
-  setSelectedRowIds
-}: {
-  selectedRowIds: string[];
-  setSelectedRowIds: (id: any) => any;
-}) {
+function ButtonPanel({ selectedRowIds, setSelectedRowIds }: ButtonPanelProps) {
   const intl = useIntl();
   const navigate = useNavigate();
 
@@ -133,7 +131,6 @@ function ButtonPanel({
           <FormattedMessage id="common.create" />
         </span>
       </Button>
-
       <Button
         htmlType="button"
         key="edit"
@@ -145,7 +142,6 @@ function ButtonPanel({
           <FormattedMessage id="common.edit" />
         </span>
       </Button>
-
       <Button
         htmlType="button"
         key="remove"
@@ -285,6 +281,7 @@ function TableSection({
           };
         }}
         scroll={{ x: true }}
+        pagination={false}
       />
     </Space>
   );

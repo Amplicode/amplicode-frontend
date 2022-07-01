@@ -56,10 +56,14 @@ import { PetList } from "../app/screens/management/PetList";
 import { PetListEditor } from "../app/screens/management/PetListEditor";
 import { PetCards } from "../app/screens/management/PetCards";
 import { PetCardsEditor } from "../app/screens/management/PetCardsEditor";
+import { OwnerTableWithFilterSortPage } from "../app/screens/management/OwnerTableWithFilterSortPage";
+import { OwnerTableWithFilterSortPageEditor } from "../app/screens/management/OwnerTableWithFilterSortPageEditor";
+import { OwnerListWithFilterSortPage } from "../app/screens/management/OwnerListWithFilterSortPage";
+import { OwnerListsWithFilterSortPageEditor } from "../app/screens/management/OwnerListsWithFilterSortPageEditor";
+import { OwnerCardsWithFilterSortPage } from "../app/screens/management/OwnerCardsWithFilterSortPage";
+import { OwnerCardsWithFilterSortPageEditor } from "../app/screens/management/OwnerCardsWithFilterSortPageEditor";
 import { OwnerTableWithMultiselect } from "../app/screens/management/OwnerTableWithMultiselect";
 import { OwnerTableWithMultiselectEditor } from "../app/screens/management/OwnerTableWithMultiselectEditor";
-import { OwnerCardsWithFilter } from "../app/screens/management/OwnerCardsWithFilter";
-import { OwnerCardsWithFilterEditor } from "../app/screens/management/OwnerCardsWithFilterEditor";
 import { OwnerTable } from "../app/screens/management/OwnerTable";
 import { OwnerTableEditor } from "../app/screens/management/OwnerTableEditor";
 import { OwnerList } from "../app/screens/management/OwnerList";
@@ -90,17 +94,29 @@ const ComponentPreviews = () => {
       <ComponentPreview path="/OwnerTable">
         <OwnerTable />
       </ComponentPreview>
-      <ComponentPreview path="/OwnerCardsWithFilterEditor">
-        <OwnerCardsWithFilterEditor />
-      </ComponentPreview>
-      <ComponentPreview path="/OwnerCardsWithFilter">
-        <OwnerCardsWithFilter />
-      </ComponentPreview>
       <ComponentPreview path="/OwnerTableWithMultiselectEditor">
         <OwnerTableWithMultiselectEditor />
       </ComponentPreview>
       <ComponentPreview path="/OwnerTableWithMultiselect">
         <OwnerTableWithMultiselect />
+      </ComponentPreview>
+      <ComponentPreview path="/OwnerCardsWithFilterSortPageEditor">
+        <OwnerCardsWithFilterSortPageEditor />
+      </ComponentPreview>
+      <ComponentPreview path="/OwnerCardsWithFilterSortPage">
+        <OwnerCardsWithFilterSortPage />
+      </ComponentPreview>
+      <ComponentPreview path="/OwnerListsWithFilterSortPageEditor">
+        <OwnerListsWithFilterSortPageEditor />
+      </ComponentPreview>
+      <ComponentPreview path="/OwnerListWithFilterSortPage">
+        <OwnerListWithFilterSortPage />
+      </ComponentPreview>
+      <ComponentPreview path="/OwnerTableWithFilterSortPageEditor">
+        <OwnerTableWithFilterSortPageEditor />
+      </ComponentPreview>
+      <ComponentPreview path="/OwnerTableWithFilterSortPage">
+        <OwnerTableWithFilterSortPage />
       </ComponentPreview>
       <ComponentPreview path="/PetCardsEditor">
         <PetCardsEditor />

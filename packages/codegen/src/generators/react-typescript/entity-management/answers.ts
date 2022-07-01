@@ -16,6 +16,8 @@ export interface EntityManagementAnswers extends ScreenAnswers {
   listIdField?: string,
   detailsIdField?: string,
   filterByArguments: Array<string[]>;
+  orderByArguments: Array<string[]>;
+  paginationArgument?: string[];
 }
 
 export const commonEntityManagementQuestions: StudioTemplateProperty[] =  [
@@ -88,6 +90,28 @@ export const commonEntityManagementQuestions: StudioTemplateProperty[] =  [
     caption: "Select arguments to filter by",
     code: "filterByArguments",
     propertyType: StudioTemplatePropertyType.FILTER_QUERY_ARGUMENT_ARRAY,
+    relatedProperty: 'listQuery',
+    required: false,
+    step: {
+      name: "Entity List",
+      order: "1",
+    }
+  },
+  {
+    caption: "Select arguments to order by",
+    code: "orderByArguments",
+    propertyType: StudioTemplatePropertyType.ORDER_QUERY_ARGUMENT_ARRAY,
+    relatedProperty: 'listQuery',
+    required: false,
+    step: {
+      name: "Entity List",
+      order: "1",
+    }
+  },
+  {
+    caption: "Select an argument for pagination",
+    code: "paginationArgument",
+    propertyType: StudioTemplatePropertyType.PAGINATION_QUERY_ARGUMENT,
     relatedProperty: 'listQuery',
     required: false,
     step: {

@@ -61,7 +61,6 @@ export function ReadOnlyPetList() {
     <div className="narrow-layout">
       <Space direction="vertical" className="list-space">
         <ListItems items={items} loading={loading} error={error} />
-        {/* <Pagination /> - in future */}
       </Space>
     </div>
   );

@@ -126,6 +126,22 @@ exports.ownerListQuery = `query Get_Owner_List {
     }
   }`;
 
+exports.ownerListByNamesFilterOffsetPageSorted = `query Get_Owner_List_With_Filter_Page_Sort($filter: OwnerFilterInput, $page: OffsetPageInput, $sort: [OwnerOrderByInput]) {
+  ownerListByNamesFilterOffsetPageSorted(filter: $filter, page: $page, sort: $sort) {
+    content {
+      id
+      firstName
+      lastName
+      city
+      address
+      telephone
+      email
+    }
+    totalElements
+  }
+}`;
+
+
 exports.ownerListQueryWithFilter = `query Get_Owner_List_With_Filter($filter: OwnerFilterInput) {
     ownerByNamesList(filter: $filter) {
       id

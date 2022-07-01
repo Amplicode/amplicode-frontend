@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Breadcrumb } from "antd";
-import { OwnerCardsWithFilter } from "./OwnerCardsWithFilter";
-import { OwnerCardsWithFilterEditor } from "./OwnerCardsWithFilterEditor";
+import { OwnerTableWithFilterSortPage } from "./OwnerTableWithFilterSortPage";
+import { OwnerTableWithFilterSortPageEditor } from "./OwnerTableWithFilterSortPageEditor";
 import { BreadcrumbContext } from "../../../core/screen/BreadcrumbContext";
 import { usePageTitle } from "../../../core/screen/usePageTitle";
 import { useIntl } from "react-intl";
 
-export function OwnerCardsWithFilterScreenLayout() {
+export function OwnerTableWithFilterSortPageScreenLayout() {
   const intl = useIntl();
-  usePageTitle(intl.formatMessage({ id: "screen.OwnerCardsWithFilter" }));
+  usePageTitle(
+    intl.formatMessage({ id: "screen.OwnerTableWithFilterSortPage" })
+  );
 
   const { recordId } = useParams();
   const [breadcrumbItems, setBreadcrumbItems] = useState<string[]>([]);
@@ -26,11 +28,11 @@ export function OwnerCardsWithFilterScreenLayout() {
 
       <BreadcrumbContext.Provider value={setBreadcrumbItems}>
         <div style={{ display: recordId ? "none" : "block" }}>
-          <OwnerCardsWithFilter />
+          <OwnerTableWithFilterSortPage />
         </div>
         {recordId && (
-          <OwnerCardsWithFilterEditor
-            refetchQueries={["Get_Owner_List_With_Filter"]}
+          <OwnerTableWithFilterSortPageEditor
+            refetchQueries={["Get_Owner_List_With_Filter_Page_Sort"]}
           />
         )}
       </BreadcrumbContext.Provider>

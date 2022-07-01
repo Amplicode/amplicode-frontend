@@ -40,19 +40,35 @@ const menuItems: ItemType[] = [
   },
   {
     label: (
-      <Link to="owner-cards-with-filter">
-        <FormattedMessage id="screen.OwnerCardsWithFilter" />
-      </Link>
-    ),
-    key: "owner-cards-with-filter"
-  },
-  {
-    label: (
       <Link to="owner-table-with-multiselect">
         <FormattedMessage id="screen.OwnerTableWithMultiselect" />
       </Link>
     ),
     key: "owner-table-with-multiselect"
+  },
+  {
+    label: (
+      <Link to="owner-cards-with-filter-sort-page">
+        <FormattedMessage id="screen.OwnerCardsWithFilterSortPage" />
+      </Link>
+    ),
+    key: "owner-cards-with-filter-sort-page"
+  },
+  {
+    label: (
+      <Link to="owner-list-with-filter-sort-page">
+        <FormattedMessage id="screen.OwnerListWithFilterSortPage" />
+      </Link>
+    ),
+    key: "owner-list-with-filter-sort-page"
+  },
+  {
+    label: (
+      <Link to="owner-table-with-filter-sort-page">
+        <FormattedMessage id="screen.OwnerTableWithFilterSortPage" />
+      </Link>
+    ),
+    key: "owner-table-with-filter-sort-page"
   },
   {
     label: (
