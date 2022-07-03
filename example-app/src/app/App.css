@@ -70,6 +70,10 @@ form.ant-form .ant-input-number {
     max-width: 200px;
 }
 
+form.ant-form .form-error-message:nth-last-child(2) {
+    margin-bottom: 36px;
+}
+
 .ant-breadcrumb.crud-screen-breadcrumb {
     margin-bottom: 12px;
 }

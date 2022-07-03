@@ -93,9 +93,7 @@ describe('codegen pet cards management', () => {
           form={form}
         >
           <FormFields item={item} fieldErrors={fieldErrors} />
-          {formErrors.map(errorMessage => (
-            <ErrorMessage errorMessage={errorMessage} />
-          ))}
+          <ErrorMessages errorMessages={formErrors} />
           <FormButtons submitting={submitting} />
         </Form>
       </Card>    
