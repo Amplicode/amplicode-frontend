@@ -22,7 +22,7 @@ import {
   FieldError,
   useSubmitEditor
 } from "../../../core/crud/useSubmitEditor";
-import { ErrorMessage } from "../../../core/crud/ErrorMessage";
+import { ErrorMessages } from "../../../core/crud/ErrorMessages";
 import { FormattedMessage, useIntl } from "react-intl";
 import { RefetchQueries } from "../../../core/type-aliases/RefetchQueries";
 import { deserialize } from "../../../core/transform/model/deserialize";
@@ -147,9 +147,7 @@ function EditorForm<TData>({
         form={form}
       >
         <FormFields item={item} fieldErrors={fieldErrors} />
-        {formErrors.map(errorMessage => (
-          <ErrorMessage errorMessage={errorMessage} />
-        ))}
+        <ErrorMessages errorMessages={formErrors} />
         <FormButtons submitting={submitting} />
       </Form>
     </Card>

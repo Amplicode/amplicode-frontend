@@ -46,7 +46,7 @@ import { gql } from "<%= relDirShift %>gql";
 import { useNavigate, useParams } from "react-router-dom";
 import { RequestFailedError } from "<%= relDirShift %>core/crud/RequestFailedError";
 import { FieldError, useSubmitEditor } from "<%= relDirShift %>core/crud/useSubmitEditor";
-import { ErrorMessage } from "<%= relDirShift %>core/crud/ErrorMessage";
+import { ErrorMessages } from "<%= relDirShift %>core/crud/ErrorMessages";
 import { FormattedMessage, useIntl } from "react-intl";
 import { RefetchQueries } from "<%= relDirShift %>core/type-aliases/RefetchQueries";
 import { deserialize } from "<%= relDirShift %>core/transform/model/deserialize";
@@ -149,9 +149,7 @@ function EditorForm<TData>({
         form={form}
       >
         <FormFields item={item} fieldErrors={fieldErrors} />
-        {formErrors.map(errorMessage => (
-          <ErrorMessage errorMessage={errorMessage} />
-        ))}
+        <ErrorMessages errorMessages={formErrors} />
         <FormButtons submitting={submitting} />
       </Form>
     </Card>
