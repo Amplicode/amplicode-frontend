@@ -19,11 +19,12 @@ import { EventEmitter } from "@amplicode/react";
 import { DevSupport } from "@react-buddy/ide-toolbox";
 import { ComponentPreviews, useInitial } from "./dev";
 import { I18nProvider } from "./core/i18n/providers/I18nProvider";
-import { i18nStore } from './core/i18n/providers/I18nProvider';
+import { i18nStore } from "./core/i18n/providers/I18nProvider";
 import { ServerErrorInterceptor } from "./core/error/ServerErrorInterceptor";
 import { ServerErrorEvents } from "./core/error/ServerErrorEvents";
 import { SecurityStore } from "./core/security/security";
 import { SecurityContext } from "./core/security/security-context";
+import { AppErrorBoundary } from "./core/error/ErrorBoundary";
 
 export const serverErrorEmitter = new EventEmitter<ServerErrorEvents>();
 
@@ -45,14 +46,14 @@ const errorLink = onError(errorResponse =>
 );
 
 const localeLink = new ApolloLink((operation, forward) => {
-  operation.setContext(({headers = {} }) => ({
+  operation.setContext(({ headers = {} }) => ({
     headers: {
       ...headers,
-      'accept-language': i18nStore.currentLocale || null
+      "accept-language": i18nStore.currentLocale || null
     }
   }));
-  return forward(operation)
-})
+  return forward(operation);
+});
 
 const client = new ApolloClient({
   link: from([localeLink, errorLink, httpLink]),
@@ -80,7 +81,9 @@ ReactDOM.render(
                 ComponentPreviews={ComponentPreviews}
                 useInitialHook={useInitial}
               >
-                <App />
+                <AppErrorBoundary>
+                  <App />
+                </AppErrorBoundary>
               </DevSupport>
             </ServerErrorInterceptor>
           </BrowserRouter>

@@ -4,6 +4,7 @@ import path from "path";
 import {expect} from "chai";
 import assert from "assert";
 import {cleanup, generate, GENERATORS_DEST_DIR, GENERATORS_DIR, opts, SCHEMA2_PATH, SCHEMA_PATH} from "../common";
+import {expectFileContainsIgnoreSpace} from "../../../src/test/test-commons";
 
 const DEST_DIR = path.join(GENERATORS_DEST_DIR, 'app');
 const GENERATOR_DIR = path.join(GENERATORS_DIR, 'app');
@@ -25,6 +26,7 @@ describe('codegen app test', () => {
     const codegenConfigPath = path.join(DEST_DIR, 'codegen.yml');
     const devEnvPath = path.join(DEST_DIR, '.env.development');
     const prodEnvPath = path.join(DEST_DIR, '.env.production');
+    const errorBoundaryPath = path.join(DEST_DIR, 'src', 'core', 'error', 'ErrorBoundary.tsx');
 
     // check that we remove previously generated app
     assert.ok(!fs.existsSync(codegenConfigPath));
@@ -45,6 +47,36 @@ describe('codegen app test', () => {
     const appSchemaPath = path.join(DEST_DIR, 'src', 'core', 'schema', 'schema.graphql');
     expect(fs.readFileSync(appSchemaPath, 'utf-8')).to.contain('type PetDTO {');
     expect(fs.readFileSync(appSchemaPath, 'utf-8')).not.to.contain('type TestEntity {');
+
+    const errorBoundaryFile = fs.readFileSync(errorBoundaryPath, 'utf-8');
+    expectFileContainsIgnoreSpace(errorBoundaryFile, `
+      export const AppErrorBoundary = function(props: React.PropsWithChildren<{}>) {
+        const intl = useIntl();
+      
+        return (
+          <ErrorBoundary
+            message={intl.formatMessage({ id: "common.unknownAppError" })}
+            render={message => <Result status="warning" title={message} />}
+          >
+            {props.children}
+          </ErrorBoundary>
+        );
+      };
+    `);
+    expectFileContainsIgnoreSpace(errorBoundaryFile, `
+      export const ScreenErrorBoundary = (props: PropsWithChildren<{}>) => {
+        const intl = useIntl();
+      
+        return (
+          <ErrorBoundary
+            message={intl.formatMessage({ id: "common.unknownScreenError" })}
+            render={message => <Result status="warning" title={message} />}
+          >
+            {props.children}
+          </ErrorBoundary>
+        );
+      };
+    `);
   });
 
   it('should generate app (composite schema)', async () => {
