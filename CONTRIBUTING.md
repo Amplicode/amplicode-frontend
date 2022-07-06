@@ -991,7 +991,52 @@ You can change `menuType` by running `npm` command for generating example-app
 
 Example: `npm run bootstrap-react-app -- --menuType=horizontal`
 
-### Server Side Validation
+### Error Handling
+
+By default app is used [Notification](https://ant.design/components/notification/) for failed mutations, 
+and [Result](https://ant.design/components/result/) for failed queries. 
+More details about testing different cases of error handling could be found in [TESTING.md](TESTING.md).
+
+#### Error Boundaries
+
+For unexpected frontend errors (not listed below), app is used two levels of 
+[error boundaries](https://reactjs.org/docs/error-boundaries.html).
+
+`ScreenErrorBoundary` wraps screen component and allows keeping alive cross-screen functionality
+such as menu, logout or language selection. `AppErrorBoundary` catch errors outside screen. 
+In this case only 'Unexpected Error' message will appear on page. 
+
+#### Internal Server Error (500) in Screens
+
+App handle internal server errors in catch block of exact query or mutation, without relying on error boundaries. 
+Such approach implemented because of different GraphQL requests could be expected different behaviour in case of error.
+
+#### GraphQL Error Statuses FORBIDDEN and UNAUTHORIZED
+
+Generated app should distinct server response which fail in case of user is not logged in (not authenticated)
+and response which defines that user hasn't access to exact mutation or query. 
+App will redirect not authenticated user to login screen, and for `FORBIDDEN` query or mutation app will show error message. 
+
+Generated [GraphQL Error Handler](example-app/src/core/error/ServerErrorInterceptor.tsx#L21) 
+code assumes that for not authenticated user GraphQL server returns
+```
+{"errors":[{"extensions":{"classification":"UNAUTHORIZED"}}], ...}
+```
+and
+```
+{"errors":[{"extensions":{"classification":"FORBIDDEN"}}], ...}
+```
+if user has not enough permissions for query.
+
+If the server handles errors differently, or has a different response structure, generated code should be modified.
+
+#### Handling Request Timeout 
+
+By default generated app doesn't cancel GraphQL queries by timeout. 
+App could be customized by wrapping [Apollo Http Link](example-app/src/index.tsx#L38) 
+with [Apollo Link Timeout](https://github.com/drcallaway/apollo-link-timeout).  
+
+#### Server Side Validation
 
 Generated app has ability to show field and entity bean validation errors, received from server. 
 Supposed that server returns localized messages in format described below. 
@@ -1026,43 +1071,3 @@ If `extensions.path[0]` is not empty, validation message will be shown as field 
 If `extensions.path[0]` is empty, validation message will be shown as whole form error, in the bottom part of the form. 
 
 Each field and whole entity can have zero, one or multiple error messages for each item. 
-
-### Testing Example App
-
-#### Testing Bean Validation
-
-Validation messages could be tested by submitting form with data below
-```
-mutation {
-  updatePet(input: {
-    identificationNumber: "@@@###",
-    birthDate: "2011-01-01"
-  }) {
-    id
-  }
-}
-```
-
-#### Testing X to Many Relations
-
-At this moment generated app doesn't allow to assign `many to many` relation between entities via screens. 
-We can use GraphiQL instead (tags with id `1`,`2` and `3` shoud be exist in DB)
-```
-mutation {
-  updatePet(input: {
-    identificationNumber: "00011",
-    tags: [
-      {id: 1},
-      {id: 2},
-      {id: 3},
-    ]
-  }) {
-    id
-    identificationNumber,
-    tags {
-      id
-    }
-  }
-}
-```
-

@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import { Layout } from "antd";
 import { AppHeader } from "../header/Header";
 import { AppRoutes } from "../routes/AppRoutes";
+import { ScreenErrorBoundary } from "../../core/error/ErrorBoundary";
 import { AppMenu } from "../menu/Menu";
 
 export const AppMain = observer(() => {
@@ -22,7 +23,9 @@ export const AppMain = observer(() => {
         </Layout.Sider>
         <Layout className="layout-content">
           <Layout.Content>
-            <AppRoutes />
+            <ScreenErrorBoundary>
+              <AppRoutes />
+            </ScreenErrorBoundary>
           </Layout.Content>
         </Layout>
       </Layout>

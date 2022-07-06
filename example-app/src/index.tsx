@@ -24,6 +24,7 @@ import { ServerErrorInterceptor } from "./core/error/ServerErrorInterceptor";
 import { ServerErrorEvents } from "./core/error/ServerErrorEvents";
 import { SecurityStore } from "./core/security/security";
 import { SecurityContext } from "./core/security/security-context";
+import { AppErrorBoundary } from "./core/error/ErrorBoundary";
 
 export const serverErrorEmitter = new EventEmitter<ServerErrorEvents>();
 
@@ -80,7 +81,9 @@ ReactDOM.render(
                 ComponentPreviews={ComponentPreviews}
                 useInitialHook={useInitial}
               >
-                <App />
+                <AppErrorBoundary>
+                  <App />
+                </AppErrorBoundary>
               </DevSupport>
             </ServerErrorInterceptor>
           </BrowserRouter>
