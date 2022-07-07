@@ -151,7 +151,7 @@ export function OwnerListWithFilterSortPage() {
       );
       changePagination(initialPagination);
     },
-    [mergeQueryVariales]
+    [changePagination, mergeQueryVariales]
   );
 
   const afterResetFilters = useCallback(() => applySort(undefined), [
