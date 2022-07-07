@@ -36,5 +36,7 @@
   "filters.apply": "Применить",
   "filters.reset": "Сбросить",
   "filters.showAll": "Показать все",
-  "filters.collapse": "Скрыть"
+  "filters.collapse": "Скрыть",
+
+  "sort.sortBy": "Сортировать по"
 }

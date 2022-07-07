@@ -36,5 +36,7 @@
   "filters.apply": "Apply",
   "filters.reset": "Reset",
   "filters.showAll": "Show all",
-  "filters.collapse": "Collapse"
+  "filters.collapse": "Collapse",
+
+  "sort.sortBy": "Sort by"
 }

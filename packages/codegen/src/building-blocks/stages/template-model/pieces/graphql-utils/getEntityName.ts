@@ -1,4 +1,5 @@
-import {GraphQLSchema} from "graphql";
+import {getNamedType, GraphQLSchema, isInputObjectType, isObjectType} from "graphql";
+import { unpackPaginationType } from "./unpackPaginationType";
 
 export function getEntityName(queryName: string, schema: GraphQLSchema) {
   const type = schema.getQueryType()?.getFields()?.[queryName]?.type;
@@ -7,9 +8,9 @@ export function getEntityName(queryName: string, schema: GraphQLSchema) {
     throw new Error(`queryName: ${queryName}, cannot find type in field: ${JSON.stringify(schema.getQueryType()?.getFields()?.[queryName])}`);
   }
 
-  if ('ofType' in type) {
-    return type.ofType.name;
-  }
+  const entityType = isInputObjectType(type) || isObjectType(type)
+    ? unpackPaginationType(type, schema)
+    : type
 
-  return type.name;
+  return getNamedType(entityType).name;
 }

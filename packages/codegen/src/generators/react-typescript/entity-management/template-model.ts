@@ -40,7 +40,7 @@ export const deriveManagementTemplateModel = async (
     shouldAddToMenu,
     filterByArguments,
     orderByArguments,
-    paginationArgument,
+    paginationType,
     listIdField,
     detailsIdField
   } = answers;
@@ -72,7 +72,7 @@ export const deriveManagementTemplateModel = async (
       shouldAddToMenu: false,
       filterByArguments,
       orderByArguments,
-      paginationArgument,
+      paginationType,
       idField: listIdField
     },
     schema

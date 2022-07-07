@@ -1,4 +1,5 @@
 import { DocumentNode } from "graphql";
+import { unpackPaginationFields } from "./unpackPaginationFields";
 
 export function getSelectedFieldNamesFromTopField(documentNode: DocumentNode) {
   const operation = documentNode.definitions[0];
@@ -11,17 +12,7 @@ export function getSelectedFieldNamesFromTopField(documentNode: DocumentNode) {
 
   if (selectedFields == null) throw new Error('Fields from topField aren\'t found');
 
-  // For pagintation
-  const content = selectedFields.find(field => field.kind === 'Field' && field.name.value === 'content' && Array.isArray(field.selectionSet?.selections));
-  const totalElements = selectedFields.find(field => field.kind === 'Field' && field.name.value === 'content' && Array.isArray(field.selectionSet?.selections));
-  if (
-    content != null
-    && content.kind === 'Field'
-    && content.selectionSet != null
-    && totalElements != null
-  ) {
-    selectedFields = content.selectionSet.selections;
-  }
+  selectedFields = unpackPaginationFields(selectedFields);
 
   return selectedFields
     .map(topField => {

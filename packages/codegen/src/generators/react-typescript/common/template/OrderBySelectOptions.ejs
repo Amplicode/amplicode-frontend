@@ -1,0 +1,11 @@
+const sortBySelectorOptions: DefaultOptionType[] = [
+  <% orderByArguments.forEach(orderBy => { -%>
+    {
+      label: <><%= splitByCapitalLetter(fatSnakeToPascal(orderBy.property)) -%> (<% if(orderBy.direction === 'ASC') { -%><ArrowUpOutlined /><% } else { -%><ArrowDownOutlined /><% } -%>)</>,
+      value: JSON.stringify({
+        direction: Direction.<%= fatSnakeToPascal(orderBy.direction) -%>,
+        property: OwnerOrderByProperty.<%= fatSnakeToPascal(orderBy.property) -%>
+      })
+    },
+  <% }) -%>
+];

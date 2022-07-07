@@ -1,4 +1,4 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, useCallback } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf, VariablesOf } from "@graphql-typed-document-node/core";
@@ -11,9 +11,7 @@ import {
   Col,
   Form,
   Input,
-  Empty,
   Space,
-  Spin,
   Table
 } from "antd";
 import { useForm } from "antd/lib/form/Form";
@@ -113,21 +111,39 @@ const columns = [
   }
 ];
 
-const initialVariables: QueryVariablesType = {};
+const initialQueryVariables: QueryVariablesType = {};
 
 export function PetTable() {
   const intl = useIntl();
   useBreadcrumbItem(intl.formatMessage({ id: "screen.PetTable" }));
 
-  const [variables, setVariables] = useState<QueryVariablesType>(
-    initialVariables
+  const [queryVariables, setQueryVariables] = useState<QueryVariablesType>(
+    initialQueryVariables
   );
 
   // Load the items from server. Will be reloaded reactively if one of variable changes
   const { loading, error, data } = useQuery(PET_BY_IDENTIFICATION_NUMBER_LIST, {
-    variables
+    variables: queryVariables
   });
+
+  const mergeQueryVariales = useCallback(
+    (newQueryVariables: QueryVariablesType) => {
+      setQueryVariables(queryVariables =>
+        mergeDeep(queryVariables, newQueryVariables)
+      );
+    },
+    []
+  );
   const items = deserialize(data?.petByIdentificationNumberList);
+
+  const applyFilters = useCallback(
+    (filters: QueryVariablesType) => {
+      mergeQueryVariales(
+        serializeVariables(PET_BY_IDENTIFICATION_NUMBER_LIST, filters)
+      );
+    },
+    [mergeQueryVariales]
+  );
 
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
@@ -136,7 +152,7 @@ export function PetTable() {
     <div className="narrow-layout">
       <Space direction="vertical" className="table-space">
         <Card>
-          <Filters setVariables={setVariables} />
+          <Filters onApplyFilters={applyFilters} />
         </Card>
         <ButtonPanel selectedRowId={selectedRowId} />
         <TableSection
@@ -262,35 +278,23 @@ function useDeleteConfirm(id: string | null | undefined) {
 }
 
 interface FiltersProps {
-  setVariables: Dispatch<SetStateAction<QueryVariablesType>>;
+  onApplyFilters: (queryVariables: QueryVariablesType) => void;
 }
-function Filters({ setVariables }: FiltersProps) {
+function Filters({ onApplyFilters }: FiltersProps) {
   const [form] = useForm();
 
   const onResetFilters = async () => {
     await form.resetFields();
     const filters = await form.validateFields();
-    setVariables(variables =>
-      mergeDeep(
-        variables,
-        serializeVariables(PET_BY_IDENTIFICATION_NUMBER_LIST, filters)
-      )
-    );
+    onApplyFilters(filters);
   };
 
   return (
     <Form
       form={form}
       layout="vertical"
-      onFinish={filters =>
-        setVariables(variables =>
-          mergeDeep(
-            variables,
-            serializeVariables(PET_BY_IDENTIFICATION_NUMBER_LIST, filters)
-          )
-        )
-      }
-      initialValues={initialVariables}
+      onFinish={onApplyFilters}
+      initialValues={initialQueryVariables}
     >
       <Form.Item shouldUpdate>
         {() => {
@@ -351,20 +355,12 @@ function TableSection({
   selectedRowId,
   setSelectedRowId
 }: TableSectionProps) {
-  if (loading) {
-    return <Spin />;
-  }
-
   if (error) {
     return <RequestFailedError />;
   }
 
-  if (items == null || items.length === 0) {
-    return <Empty />;
-  }
-
   const dataSource = items
-    .filter(item => item != null)
+    ?.filter(item => item != null)
     .map(item => ({
       key: item?.id,
       ...item,
@@ -395,7 +391,8 @@ function TableSection({
   return (
     <Space direction="vertical" className="table-space entity-table">
       <Table
-        dataSource={dataSource as object[]}
+        loading={loading}
+        dataSource={dataSource}
         columns={columns}
         rowClassName={record =>
           (record as ItemType)?.id === selectedRowId ? "table-row-selected" : ""

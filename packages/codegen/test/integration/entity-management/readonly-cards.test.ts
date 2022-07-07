@@ -38,7 +38,6 @@ describe('codegen readonly cards', () => {
     const expectTag = `
     <Space direction="vertical" className="card-space">
       <Cards items={items} loading={loading} error={error} />
-      {/* <Pagination /> - in future */}
     </Space>`;
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');
@@ -90,7 +89,6 @@ describe('codegen readonly cards', () => {
     const expectTag = `
     <Space direction="vertical" className="card-space">
       <Cards items={items} loading={loading} error={error} />
-      {/* <Pagination /> - in future */}
     </Space>`;
 
     const componentFile = fs.readFileSync(componentPath, 'utf-8');

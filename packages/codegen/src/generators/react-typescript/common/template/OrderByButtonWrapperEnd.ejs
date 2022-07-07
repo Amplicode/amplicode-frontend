@@ -2,16 +2,12 @@
     </Col>
     <Col>
       <Select
-        style={{ minWidth: "220px" }}
+        value={JSON.stringify(sortValue)}
+        className="sort-by-select-width"
         allowClear
-        placeholder={intl.formatMessage({id: "sort.sortBy"})}
-        onChange={applySort}
-        options={[
-          <% orderBy.forEach(orderBy => { -%>
-            {label: <><%= capitalizeFirst(splitByCapitalLetter(orderBy)) -%> (<ArrowDownOutlined />)</>, value: JSON.stringify({direction: Direction.Desc, property: OwnerOrderByProperty.<%= orderBy -%>})},
-            {label: <><%= capitalizeFirst(splitByCapitalLetter(orderBy)) -%> (<ArrowUpOutlined />)</>, value: JSON.stringify({direction: Direction.Asc, property: OwnerOrderByProperty.<%= orderBy -%>})},
-          <% }) -%>
-        ]}
+        placeholder={intl.formatMessage({ id: "sort.sortBy" })}
+        onChange={sortBy => onApplySort(sortBy && JSON.parse(sortBy))}
+        options={sortBySelectorOptions}
       />
     </Col>
   </Row>

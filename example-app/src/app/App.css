@@ -77,3 +77,7 @@ form.ant-form .form-error-message:nth-last-child(2) {
 .ant-breadcrumb.crud-screen-breadcrumb {
     margin-bottom: 12px;
 }
+
+.sort-by-select-width {
+    min-width: 220px;
+}

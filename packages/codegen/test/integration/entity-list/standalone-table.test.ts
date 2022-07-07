@@ -14,7 +14,8 @@ const displayNameFiles = [
 const expectTag = `
     <Space direction="vertical" className="table-space entity-table">
       <Table
-        dataSource={dataSource as object[]}
+        loading={loading}
+        dataSource={dataSource}
         columns={columns}
         rowClassName={record =>
           (record as ItemType)?.id === selectedRowId ? "table-row-selected" : ""
@@ -28,6 +29,7 @@ const expectTag = `
           };
         }}
         scroll={{ x: true }}
+        pagination={false}
       />
     </Space>`;
 
@@ -92,7 +94,7 @@ describe('codegen standalone table', () => {
 
     const expectDataSource = `
       const dataSource = items
-        .filter(item => item != null)
+        ?.filter(item => item != null)
         .map(item => ({
           key: item?.id,
           ...item,
