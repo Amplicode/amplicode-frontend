@@ -22,7 +22,6 @@ import { getGraphQLTypeByArgumentName } from "../../../building-blocks/stages/te
 import { capitalizeFirst, splitByCapitalLetter } from "../../../common/utils";
 import { deriveUsingScalars, UsingScalars } from "../entity-details/template-model";
 import { isAnyLeafType } from "../../../building-blocks/stages/template-model/pieces/graphql-utils/isAnyLeafType";
-import { fatSnakeToPascal } from "../../../building-blocks/util/fat-snake-to-pascal";
 
 
 export interface EntityListTemplateModel extends
@@ -62,7 +61,7 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
     idField = 'id',
     filterByArguments,
     orderByArguments,
-    paginationArgument
+    paginationType
   } = answers;
 
   const queryNode = gql(queryString);
@@ -80,7 +79,7 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
     ...deriveScreenTemplateModel(options, answers, schema),
     ...deriveFiltersTemplateModel(queryName, filterByArguments, schema),
     ...deriveOrderByTemplateModel(queryName, orderByArguments, schema),
-    ...derivePatinationTemplateModel(queryName, paginationArgument, schema),
+    ...derivePatinationTemplateModel(queryName, paginationType, schema),
     componentName,
     route,
     queryName,
@@ -106,7 +105,7 @@ export interface FiltersTemplateModel {
   maxFiltersInRow: number;
   filterUsingScalars: UsingScalars;
 }
-export function deriveFiltersTemplateModel(queryName: string, filterByArguments: Array<string[]>, schema: GraphQLSchema): FiltersTemplateModel {
+export function deriveFiltersTemplateModel(queryName: string, filterByArguments: Array<string[]> | undefined, schema: GraphQLSchema): FiltersTemplateModel {
   let filters: AttributeModel[] = [];
   if (filterByArguments != null) {
     const listQueryType = schema.getQueryType()?.getFields()[queryName];
@@ -165,35 +164,31 @@ function removeFirstFilterPathString(argumentName: string[]) {
   return argumentName;
 }
 
+export interface OrderByType {
+  property: string;
+  direction: 'ASC' | 'DESC';
+}
 export interface OrderByTemplateModel {
-  orderBy?: string[];
-  orderByQueryPath?: string[];
+  orderByArguments?: OrderByType[];
+  orderByType?: string;
   withOrderBy: boolean;
 }
-export function deriveOrderByTemplateModel(queryName: string, orderByArguments: Array<string[]>, schema: GraphQLSchema): OrderByTemplateModel {
-  let orderBy: string[] | undefined;
+export function deriveOrderByTemplateModel(queryName: string, orderByArguments: OrderByType[] | undefined, schema: GraphQLSchema): OrderByTemplateModel {
+  let orderByType: string | undefined;
   
   if (orderByArguments != null) {
     const listQueryType = schema.getQueryType()?.getFields()[queryName];
     if (listQueryType == null) throw new Error('Can\'t find query name in the schema for generating filters');
 
-    const baseOfArguments = orderByArguments[0].slice(0, orderByArguments[0].length - 1);
-    if (orderByArguments.every(args => baseOfArguments.every((el, index) => el === args[index]))) {
-      const enumType = getGraphQLTypeByArgumentName(schema, listQueryType, baseOfArguments);
+    const orderByGQLType = listQueryType.args.find(e => e.name === 'sort')?.type;
 
-      if (enumType instanceof GraphQLEnumType) {
-        const findEnumValues = orderByArguments.map(args => args[args.length - 1])
-        orderBy = findEnumValues
-          .map(enumName => enumType.getValue(enumName)?.name as string)
-          .map(enumName => fatSnakeToPascal(enumName));
-      }
-    }
+    orderByType = orderByGQLType != null ? getNamedType(orderByGQLType).toString() : undefined;
   }
 
   return {
-    orderBy,
-    orderByQueryPath: orderByArguments?.[0].slice(0, orderByArguments?.[0].length - 2),
-    withOrderBy: orderBy != null && orderBy.length > 0
+    orderByArguments,
+    orderByType,
+    withOrderBy: orderByArguments != null && orderByArguments.length > 0
   };
 }
 
@@ -204,28 +199,12 @@ export interface PaginationTemplateModel {
   paginationQueryPath?: string[];
   withPagination: boolean; 
 }
-export function derivePatinationTemplateModel(queryName: string, paginationArgument: string[] | undefined, schema: GraphQLSchema): PaginationTemplateModel {
+export function derivePatinationTemplateModel(queryName: string, paginationType: PaginationType | undefined, schema: GraphQLSchema): PaginationTemplateModel {
   const listQueryType = schema.getQueryType()?.getFields()[queryName];
   if (listQueryType == null) throw new Error('Can\'t find query name in the schema for generating filters');
-  
-  let paginationType: PaginationType | undefined;
-  if (paginationArgument != null) {
-    const gqlType = getGraphQLTypeByArgumentName(schema, listQueryType, paginationArgument);
-    const type = getNamedType(gqlType).toString();
-
-    switch (type) {
-      case 'OffsetPageInput':
-        paginationType = 'offset';
-        break;
-      case 'CursorPageInput':
-        paginationType = 'cursor';
-        break;
-    }
-  }
 
   return {
     paginationType,
-    paginationQueryPath: paginationArgument,
-    withPagination: paginationArgument != null
+    withPagination: paginationType != null
   };
 }

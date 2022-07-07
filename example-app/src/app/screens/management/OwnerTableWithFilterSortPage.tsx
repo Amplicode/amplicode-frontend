@@ -1,4 +1,4 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, useCallback } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf, VariablesOf } from "@graphql-typed-document-node/core";
@@ -13,9 +13,7 @@ import {
   Input,
   Pagination,
   Select,
-  Empty,
   Space,
-  Spin,
   Table
 } from "antd";
 import { useForm } from "antd/lib/form/Form";
@@ -37,6 +35,8 @@ import { deserialize } from "../../../core/transform/model/deserialize";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 import { mergeDeep } from "@apollo/client/utilities";
 import { Direction, OwnerOrderByProperty } from "../../../gql/graphql";
+import { DefaultOptionType } from "antd/lib/select";
+import { OffsetPaginationType } from "../../../core/crud/OffsetPaginationType";
 
 const REFETCH_QUERIES = ["Get_Owner_List_With_Filter_Page_Sort"];
 
@@ -96,7 +96,11 @@ const columns = [
   }
 ];
 
-const initialVariables: QueryVariablesType = {};
+const initialQueryVariables: QueryVariablesType = {};
+const initialPagination: OffsetPaginationType = {
+  current: 1,
+  pageSize: 10
+};
 
 export function OwnerTableWithFilterSortPage() {
   const intl = useIntl();
@@ -104,8 +108,8 @@ export function OwnerTableWithFilterSortPage() {
     intl.formatMessage({ id: "screen.OwnerTableWithFilterSortPage" })
   );
 
-  const [variables, setVariables] = useState<QueryVariablesType>(
-    initialVariables
+  const [queryVariables, setQueryVariables] = useState<QueryVariablesType>(
+    initialQueryVariables
   );
 
   // Load the items from server. Will be reloaded reactively if one of variable changes
@@ -113,33 +117,74 @@ export function OwnerTableWithFilterSortPage() {
     loading,
     error,
     data
-  } = useQuery(OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED, { variables });
+  } = useQuery(OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED, {
+    variables: queryVariables
+  });
+
+  const mergeQueryVariales = useCallback(
+    (newQueryVariables: QueryVariablesType) => {
+      setQueryVariables(queryVariables =>
+        mergeDeep(queryVariables, newQueryVariables)
+      );
+    },
+    []
+  );
   const items = deserialize(
     data?.ownerListByNamesFilterOffsetPageSorted?.content
   );
 
-  const [pagination, setPagination] = useState<{
-    currect: number;
-    pageSize: number;
-  }>({
-    currect: 1,
-    pageSize: 10
-  });
+  const [pagination, setPagination] = useState<OffsetPaginationType>(
+    initialPagination
+  );
 
-  const applyPagination = (currect: number, pageSize: number) => {
-    setPagination({
-      currect,
-      pageSize
-    });
-    setVariables(
-      mergeDeep(variables, {
+  const changePagination = useCallback(
+    (pagination: OffsetPaginationType) => {
+      setPagination(pagination);
+      mergeQueryVariales({
         page: {
-          number: currect - 1,
-          size: pageSize
+          number: pagination.current - 1,
+          size: pagination.pageSize
         }
-      })
-    );
-  };
+      });
+    },
+    [mergeQueryVariales]
+  );
+  const applyPagination = useCallback(
+    (current: number, pageSize: number) =>
+      changePagination({
+        current,
+        pageSize
+      }),
+    [changePagination]
+  );
+
+  const [sortValue, setSortValue] = useState<QueryVariablesType["sort"]>();
+
+  const applySort = useCallback(
+    (newSortValue: QueryVariablesType["sort"] | undefined) => {
+      mergeQueryVariales({ sort: newSortValue });
+      setSortValue(newSortValue);
+    },
+    [mergeQueryVariales]
+  );
+
+  const applyFilters = useCallback(
+    (filters: QueryVariablesType) => {
+      mergeQueryVariales(
+        serializeVariables(
+          OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED,
+          filters
+        )
+      );
+      changePagination(initialPagination);
+    },
+    [mergeQueryVariales]
+  );
+
+  const afterResetFilters = useCallback(() => applySort(undefined), [
+    applySort
+  ]);
+
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
@@ -147,11 +192,15 @@ export function OwnerTableWithFilterSortPage() {
     <div className="narrow-layout">
       <Space direction="vertical" className="table-space">
         <Card>
-          <Filters setVariables={setVariables} />
+          <Filters
+            onApplyFilters={applyFilters}
+            onAfterReset={afterResetFilters}
+          />
         </Card>
         <ButtonPanel
           selectedRowId={selectedRowId}
-          setVariables={setVariables}
+          onApplySort={applySort}
+          sortValue={sortValue}
         />
         <TableSection
           items={items}
@@ -161,7 +210,7 @@ export function OwnerTableWithFilterSortPage() {
           setSelectedRowId={setSelectedRowId}
         />
         <Pagination
-          current={pagination?.currect}
+          current={pagination?.current}
           pageSize={pagination?.pageSize}
           onChange={applyPagination}
           showSizeChanger
@@ -172,26 +221,70 @@ export function OwnerTableWithFilterSortPage() {
   );
 }
 
+const sortBySelectorOptions: DefaultOptionType[] = [
+  {
+    label: (
+      <>
+        City (<ArrowDownOutlined />)
+      </>
+    ),
+    value: JSON.stringify({
+      direction: Direction.Desc,
+      property: OwnerOrderByProperty.City
+    })
+  },
+  {
+    label: (
+      <>
+        City (<ArrowUpOutlined />)
+      </>
+    ),
+    value: JSON.stringify({
+      direction: Direction.Asc,
+      property: OwnerOrderByProperty.City
+    })
+  },
+  {
+    label: (
+      <>
+        First Name (<ArrowDownOutlined />)
+      </>
+    ),
+    value: JSON.stringify({
+      direction: Direction.Desc,
+      property: OwnerOrderByProperty.FirstName
+    })
+  },
+  {
+    label: (
+      <>
+        First Name (<ArrowUpOutlined />)
+      </>
+    ),
+    value: JSON.stringify({
+      direction: Direction.Asc,
+      property: OwnerOrderByProperty.FirstName
+    })
+  }
+];
+
 interface ButtonPanelProps {
   selectedRowId?: string;
-  setVariables: Dispatch<SetStateAction<QueryVariablesType>>;
+  onApplySort: (sort: QueryVariablesType["sort"]) => void;
+  sortValue?: QueryVariablesType["sort"];
 }
 /**
  * Button panel above
  */
-function ButtonPanel({ selectedRowId, setVariables }: ButtonPanelProps) {
+function ButtonPanel({
+  selectedRowId,
+  onApplySort,
+  sortValue
+}: ButtonPanelProps) {
   const intl = useIntl();
   const navigate = useNavigate();
 
   const { showDeleteConfirm, deleting } = useDeleteConfirm(selectedRowId!);
-
-  const applySort = (sort: string) => {
-    if (sort != null) {
-      setVariables(variables =>
-        mergeDeep(variables, { sort: JSON.parse(sort) })
-      );
-    }
-  };
 
   return (
     <Row justify="space-between" gutter={[16, 8]}>
@@ -236,56 +329,12 @@ function ButtonPanel({ selectedRowId, setVariables }: ButtonPanelProps) {
       </Col>
       <Col>
         <Select
-          style={{ minWidth: "220px" }}
+          value={JSON.stringify(sortValue)}
+          className="sort-by-select-width"
           allowClear
           placeholder={intl.formatMessage({ id: "sort.sortBy" })}
-          onChange={applySort}
-          options={[
-            {
-              label: (
-                <>
-                  City (<ArrowDownOutlined />)
-                </>
-              ),
-              value: JSON.stringify({
-                direction: Direction.Desc,
-                property: OwnerOrderByProperty.City
-              })
-            },
-            {
-              label: (
-                <>
-                  City (<ArrowUpOutlined />)
-                </>
-              ),
-              value: JSON.stringify({
-                direction: Direction.Asc,
-                property: OwnerOrderByProperty.City
-              })
-            },
-            {
-              label: (
-                <>
-                  First Name (<ArrowDownOutlined />)
-                </>
-              ),
-              value: JSON.stringify({
-                direction: Direction.Desc,
-                property: OwnerOrderByProperty.FirstName
-              })
-            },
-            {
-              label: (
-                <>
-                  First Name (<ArrowUpOutlined />)
-                </>
-              ),
-              value: JSON.stringify({
-                direction: Direction.Asc,
-                property: OwnerOrderByProperty.FirstName
-              })
-            }
-          ]}
+          onChange={sortBy => onApplySort(sortBy && JSON.parse(sortBy))}
+          options={sortBySelectorOptions}
         />
       </Col>
     </Row>
@@ -350,41 +399,25 @@ function useDeleteConfirm(id: string | null | undefined) {
 }
 
 interface FiltersProps {
-  setVariables: Dispatch<SetStateAction<QueryVariablesType>>;
+  onApplyFilters: (queryVariables: QueryVariablesType) => void;
+  onAfterReset: () => void;
 }
-function Filters({ setVariables }: FiltersProps) {
+function Filters({ onApplyFilters, onAfterReset }: FiltersProps) {
   const [form] = useForm();
 
   const onResetFilters = async () => {
     await form.resetFields();
     const filters = await form.validateFields();
-    setVariables(variables =>
-      mergeDeep(
-        variables,
-        serializeVariables(
-          OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED,
-          filters
-        )
-      )
-    );
+    onApplyFilters(filters);
+    onAfterReset();
   };
 
   return (
     <Form
       form={form}
       layout="vertical"
-      onFinish={filters =>
-        setVariables(variables =>
-          mergeDeep(
-            variables,
-            serializeVariables(
-              OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED,
-              filters
-            )
-          )
-        )
-      }
-      initialValues={initialVariables}
+      onFinish={onApplyFilters}
+      initialValues={initialQueryVariables}
     >
       <Form.Item shouldUpdate>
         {() => {
@@ -460,20 +493,12 @@ function TableSection({
   selectedRowId,
   setSelectedRowId
 }: TableSectionProps) {
-  if (loading) {
-    return <Spin />;
-  }
-
   if (error) {
     return <RequestFailedError />;
   }
 
-  if (items == null || items.length === 0) {
-    return <Empty />;
-  }
-
   const dataSource = items
-    .filter(item => item != null)
+    ?.filter(item => item != null)
     .map(item => ({
       key: item?.id,
       ...item
@@ -482,7 +507,8 @@ function TableSection({
   return (
     <Space direction="vertical" className="table-space entity-table">
       <Table
-        dataSource={dataSource as object[]}
+        loading={loading}
+        dataSource={dataSource}
         columns={columns}
         rowClassName={record =>
           (record as ItemType)?.id === selectedRowId ? "table-row-selected" : ""

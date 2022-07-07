@@ -1,4 +1,4 @@
-import { ReactNode, useState, Dispatch, SetStateAction } from "react";
+import { ReactNode, useState, useCallback } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf, VariablesOf } from "@graphql-typed-document-node/core";
@@ -76,25 +76,43 @@ const DELETE_VISIT = gql(`
 }
 `);
 
-const initialVariables: QueryVariablesType = {};
+const initialQueryVariables: QueryVariablesType = {};
 
 export function VisitWithFilter() {
   const intl = useIntl();
   useBreadcrumbItem(intl.formatMessage({ id: "screen.VisitWithFilter" }));
 
-  const [variables, setVariables] = useState<QueryVariablesType>(
-    initialVariables
+  const [queryVariables, setQueryVariables] = useState<QueryVariablesType>(
+    initialQueryVariables
   );
 
   // Load the items from server. Will be reloaded reactively if one of variable changes
-  const { loading, error, data } = useQuery(VISIT_FILTERED_LIST, { variables });
+  const { loading, error, data } = useQuery(VISIT_FILTERED_LIST, {
+    variables: queryVariables
+  });
+
+  const mergeQueryVariales = useCallback(
+    (newQueryVariables: QueryVariablesType) => {
+      setQueryVariables(queryVariables =>
+        mergeDeep(queryVariables, newQueryVariables)
+      );
+    },
+    []
+  );
   const items = deserialize(data?.visitFilteredList);
+
+  const applyFilters = useCallback(
+    (filters: QueryVariablesType) => {
+      mergeQueryVariales(serializeVariables(VISIT_FILTERED_LIST, filters));
+    },
+    [mergeQueryVariales]
+  );
 
   return (
     <div className="narrow-layout">
       <Space direction="vertical" className="card-space">
         <Card>
-          <Filters setVariables={setVariables} />
+          <Filters onApplyFilters={applyFilters} />
         </Card>
         <ButtonPanel />
         <Cards items={items} loading={loading} error={error} />
@@ -133,9 +151,9 @@ const couldBeHiddenFilters: NamePath[] = [
 ];
 
 interface FiltersProps {
-  setVariables: Dispatch<SetStateAction<QueryVariablesType>>;
+  onApplyFilters: (queryVariables: QueryVariablesType) => void;
 }
-function Filters({ setVariables }: FiltersProps) {
+function Filters({ onApplyFilters }: FiltersProps) {
   const [form] = useForm();
 
   const [showAll, setShowAll] = useState(false);
@@ -148,21 +166,15 @@ function Filters({ setVariables }: FiltersProps) {
   const onResetFilters = async () => {
     await form.resetFields();
     const filters = await form.validateFields();
-    setVariables(variables =>
-      mergeDeep(variables, serializeVariables(VISIT_FILTERED_LIST, filters))
-    );
+    onApplyFilters(filters);
   };
 
   return (
     <Form
       form={form}
       layout="vertical"
-      onFinish={filters =>
-        setVariables(variables =>
-          mergeDeep(variables, serializeVariables(VISIT_FILTERED_LIST, filters))
-        )
-      }
-      initialValues={initialVariables}
+      onFinish={onApplyFilters}
+      initialValues={initialQueryVariables}
     >
       <Form.Item shouldUpdate>
         {() => {

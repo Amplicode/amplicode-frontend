@@ -7,9 +7,8 @@ import {
   <% if (withFilters) { -%>
     useState,
   <% } -%>
-  <% if (withFilters || withOrderBy) { -%>
-    Dispatch,
-    SetStateAction,
+  <% if (withFilters || withOrderBy || withPagination) { -%>
+    useCallback,
   <% } -%>
 } from "react";
 import {
@@ -66,7 +65,7 @@ import {
 } from "antd";
 <% if (withFilters) { -%>
   import { useForm } from "antd/lib/form/Form";
-  import { serializeVariables } from '../../../core/transform/model/serializeVariables';
+  import { serializeVariables } from '<%= relDirShift %>core/transform/model/serializeVariables';
 <% } -%>
 <% if (filterUsingScalars.hasRelationFields) { -%>
   import {EntityLookupField} from '<%= relDirShift %>core/crud/entity-lookup-field/EntityLookupField';
@@ -136,7 +135,11 @@ import {useBreadcrumbItem} from "<%= relDirShift %>core/screen/useBreadcrumbItem
   import { mergeDeep } from "@apollo/client/utilities";
 <% } -%>
 <% if (withOrderBy) { -%>
-  import { Direction, OwnerOrderByProperty } from "../../../gql/graphql";
+  import { Direction, OwnerOrderByProperty } from "<%= relDirShift %>gql/graphql";
+  import { DefaultOptionType } from "antd/lib/select";
+<% } -%>
+<% if (locals?.paginationType === 'offset') { -%>
+  import { OffsetPaginationType } from "<%= relDirShift %>core/crud/OffsetPaginationType";
 <% } -%>
 
 <% if (withDeleteAction || mode === 'edit') { -%>
@@ -154,7 +157,13 @@ const <%= MUTATION_CONST %> = gql(`
 <% } -%>
 
 <% if (withFilters) { -%>
-  const initialVariables: QueryVariablesType = {};
+  const initialQueryVariables: QueryVariablesType = {};
+<% } -%>
+<% if (locals?.paginationType === 'offset') { -%>
+  const initialPagination: OffsetPaginationType = {
+    current: 1,
+    pageSize: 10
+  };
 <% } -%>
 
 export function <%= componentName %>() {
@@ -162,12 +171,21 @@ export function <%= componentName %>() {
   useBreadcrumbItem(intl.formatMessage({id: 'screen.<%= componentName %>'}));
 
   <% if (withFilters || withOrderBy || withPagination) { -%>
-    const [variables, setVariables] = useState<QueryVariablesType>(
-      initialVariables
+    const [queryVariables, setQueryVariables] = useState<QueryVariablesType>(
+      initialQueryVariables
     );
 
     // Load the items from server. Will be reloaded reactively if one of variable changes
-    const { loading, error, data } = useQuery(<%= QUERY_CONST %>, { variables });
+    const { loading, error, data } = useQuery(<%= QUERY_CONST %>, { variables: queryVariables });
+
+    const mergeQueryVariales = useCallback((newQueryVariables: QueryVariablesType) => {
+      setQueryVariables(queryVariables =>
+        mergeDeep(
+          queryVariables,
+          newQueryVariables
+        )
+      )
+    }, []);
   <% } else { -%>
     // Load the items from server
     const { loading, error, data } = useQuery(<%= QUERY_CONST %>);
@@ -179,29 +197,50 @@ export function <%= componentName %>() {
   <% } -%>
 
   <% if (locals?.paginationType === 'offset') { -%>
-    const [pagination, setPagination] = useState<{
-      currect: number,
-      pageSize: number,
-    }>({
-      currect: 1,
-      pageSize: 10,
-    });
+    const [pagination, setPagination] = useState<OffsetPaginationType>(initialPagination);
 
-    const applyPagination = (currect: number, pageSize: number) => {
-      setPagination({
-        currect,
-        pageSize
-      });
-      setVariables(mergeDeep(
-        variables,
-        <%- include('GQLVariableWrapperStart', {path: paginationQueryPath}) -%>
-          {
-            number: currect - 1,
-            size: pageSize
+    const changePagination = useCallback(
+      (pagination: OffsetPaginationType) => {
+        setPagination(pagination);
+        mergeQueryVariales({
+          page: {
+            number: pagination.current - 1,
+            size: pagination.pageSize
           }
-        <%- include('GQLVariableWrapperEnd', {path: paginationQueryPath}) -%>
-      ));
-    }
+        });
+      },
+      [mergeQueryVariales]
+    );
+    const applyPagination = useCallback(
+      (current: number, pageSize: number) => changePagination({
+          current,
+          pageSize,
+        })
+      ,
+      [changePagination]
+    );
+  <% } -%>
+
+  <% if (withOrderBy) { -%>
+    const [sortValue, setSortValue] = useState<QueryVariablesType['sort']>();
+
+    const applySort = useCallback((newSortValue: QueryVariablesType['sort'] | undefined) => {
+      mergeQueryVariales({ sort: newSortValue });
+      setSortValue(newSortValue);
+    }, [mergeQueryVariales]);
+  <% } -%>
+
+  <% if (withFilters) { -%>
+    const applyFilters = useCallback((filters: QueryVariablesType) => {
+      mergeQueryVariales(serializeVariables(<%= QUERY_CONST %>, filters));
+      <% if (locals?.paginationType === 'offset') { -%>
+        changePagination(initialPagination);
+      <% } -%>
+    }, [mergeQueryVariales]);
+  
+    <% if (withOrderBy) { -%>
+      const afterResetFilters = useCallback(() => applySort(undefined), [applySort]);  
+    <% } -%>  
   <% } -%>
 
   return (
@@ -209,13 +248,18 @@ export function <%= componentName %>() {
       <Space direction="vertical" className="list-space">
         <% if (withFilters) { -%>
           <Card>
-            <Filters setVariables={setVariables} />
+            <Filters
+              onApplyFilters={applyFilters}
+              <% if (withOrderBy) { -%>
+                onAfterReset={afterResetFilters}
+              <% } -%>
+            />
           </Card>
         <% } -%>
         <% if (mode === 'edit') { -%>
           <ButtonPanel
             <% if (withOrderBy) { -%>
-              setVariables={setVariables}
+              onApplySort={applySort} sortValue={sortValue}
             <% } -%>
           />
         <% } -%>
@@ -226,7 +270,7 @@ export function <%= componentName %>() {
         />
         <% if (locals?.paginationType === 'offset') { -%>
           <Pagination
-            current={pagination?.currect}
+            current={pagination?.current}
             pageSize={pagination?.pageSize}
             onChange={applyPagination}
             showSizeChanger
@@ -238,10 +282,15 @@ export function <%= componentName %>() {
   );
 }
 
+<% if (withOrderBy) { -%>
+  <%- include('OrderBySelectOptions', locals) %>
+<% } -%>
+
 <% if (mode === 'edit' || withOrderBy) { -%>
   <% if (withOrderBy) { -%>
     interface ButtonPanelProps {
-      setVariables: Dispatch<SetStateAction<QueryVariablesType>>;
+      onApplySort: (sort: QueryVariablesType['sort']) => void;
+      sortValue?: QueryVariablesType['sort'];
     }
   <% } -%>
   /**
@@ -249,24 +298,11 @@ export function <%= componentName %>() {
    */
   function ButtonPanel(
     <% if (withOrderBy) { -%>
-      {setVariables}: ButtonPanelProps
+      {onApplySort, sortValue}: ButtonPanelProps
     <% } -%>
   ) {
     const intl = useIntl();
     const navigate = useNavigate();
-
-    <% if (withOrderBy) { -%>
-      const applySort = (sort: string) => {
-        if (sort != null) {
-          setVariables(variables => mergeDeep(
-            variables,
-            <%- include('GQLVariableWrapperStart', {path: orderByQueryPath}) -%>
-              JSON.parse(sort)
-            <%- include('GQLVariableWrapperEnd', {path: orderByQueryPath}) -%>
-          ));
-        }
-      }
-    <% } -%>
 
     return (
       <%- include('OrderByButtonWrapperStart', locals) -%>

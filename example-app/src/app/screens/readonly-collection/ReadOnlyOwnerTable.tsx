@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
-import { Empty, Space, Spin, Table } from "antd";
+import { Space, Table } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { gql } from "../../../gql";
@@ -110,20 +110,12 @@ function TableSection({
   selectedRowId,
   setSelectedRowId
 }: TableSectionProps) {
-  if (loading) {
-    return <Spin />;
-  }
-
   if (error) {
     return <RequestFailedError />;
   }
 
-  if (items == null || items.length === 0) {
-    return <Empty />;
-  }
-
   const dataSource = items
-    .filter(item => item != null)
+    ?.filter(item => item != null)
     .map(item => ({
       key: item?.id,
       ...item
@@ -132,7 +124,8 @@ function TableSection({
   return (
     <Space direction="vertical" className="table-space entity-table-readonly">
       <Table
-        dataSource={dataSource as object[]}
+        loading={loading}
+        dataSource={dataSource}
         columns={columns}
         rowClassName={record =>
           (record as ItemType)?.id === selectedRowId ? "table-row-selected" : ""

@@ -33,6 +33,7 @@
   "filters.reset": "Reset",
   "filters.showAll": "Show all",
   "filters.collapse": "Collapse",
+  "sort.sortBy": "Sort by",
   "screen.OwnerCardsEditor": "Owner Cards Editor",
   "screen.OwnerCards": "Owner Cards",
   "screen.OwnerListEditor": "Owner List Editor",

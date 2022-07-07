@@ -6,9 +6,17 @@
 <% } -%>
 
 interface FiltersProps {
-  setVariables: Dispatch<SetStateAction<QueryVariablesType>>;
+  onApplyFilters: (queryVariables: QueryVariablesType) => void;
+  <% if (withOrderBy) { -%>
+    onAfterReset: () => void;
+  <% } -%>
 }
-function Filters({setVariables}: FiltersProps) {
+function Filters({
+  onApplyFilters,
+  <% if (withOrderBy) { -%>
+    onAfterReset,
+  <% } -%>
+}: FiltersProps) {
   const [form] = useForm();
 
   <% if (withHiddenFilters) { -%>
@@ -21,20 +29,18 @@ function Filters({setVariables}: FiltersProps) {
   const onResetFilters = async () => {
     await form.resetFields();
     const filters = await form.validateFields();
-    setVariables(variables =>
-      mergeDeep(
-        variables,  
-        serializeVariables(<%= QUERY_CONST %>, filters)
-      )
-    );
+    onApplyFilters(filters);
+    <% if (withOrderBy) { -%>
+      onAfterReset();
+    <% } -%>
   };
   
   return (
     <Form
       form={form}
       layout="vertical"
-      onFinish={filters => setVariables(variables => mergeDeep(variables, serializeVariables(<%= QUERY_CONST %>, filters)))}
-      initialValues={initialVariables}
+      onFinish={onApplyFilters}
+      initialValues={initialQueryVariables}
     >
       <Form.Item shouldUpdate>
         {() => {

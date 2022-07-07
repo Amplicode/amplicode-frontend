@@ -1,6 +1,7 @@
 import {EntityListMode, EntityListType} from "../entity-list/answers";
 import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/studio/studio-model";
 import {ScreenAnswers} from "../../../building-blocks/stages/answers/amplicode/ScreenAnswers";
+import { OrderByType } from "../entity-list/template-model";
 
 export interface EntityManagementAnswers extends ScreenAnswers {
   listComponentName: string,
@@ -15,9 +16,9 @@ export interface EntityManagementAnswers extends ScreenAnswers {
   deleteMutation?: string,
   listIdField?: string,
   detailsIdField?: string,
-  filterByArguments: Array<string[]>;
-  orderByArguments: Array<string[]>;
-  paginationArgument?: string[];
+  filterByArguments?: Array<string[]>;
+  orderByArguments?: OrderByType[];
+  paginationType?: 'offset' | 'cursor';
 }
 
 export const commonEntityManagementQuestions: StudioTemplateProperty[] =  [
@@ -109,9 +110,9 @@ export const commonEntityManagementQuestions: StudioTemplateProperty[] =  [
     }
   },
   {
-    caption: "Select an argument for pagination",
-    code: "paginationArgument",
-    propertyType: StudioTemplatePropertyType.PAGINATION_QUERY_ARGUMENT,
+    caption: "Pagination type",
+    code: "paginationType",
+    propertyType: StudioTemplatePropertyType.PAGINATION_TYPE,
     relatedProperty: 'listQuery',
     required: false,
     step: {

@@ -12,8 +12,13 @@ const answers = btoa(JSON.stringify({
   deleteMutation: esc(ownerDeleteMutation),
   upsertMutation: esc(ownerUpsertMutation),
   filterByArguments: [['filter', 'firstName'], ['filter', 'lastName']],
-  orderByArguments: [['sort', 'property', 'CITY'], ['sort', 'property', 'FIRST_NAME']],
-  paginationArgument: ['page']
+  orderByArguments: [
+    {property: 'CITY', direction: 'DESC'},
+    {property: 'CITY', direction: 'ASC'},
+    {property: 'FIRST_NAME', direction: 'DESC'},
+    {property: 'FIRST_NAME', direction: 'ASC'},
+  ],
+  paginationType: 'offset'
 }));
 
 runCmdSync(`node ${amplicodegen} react-typescript:entity-management`

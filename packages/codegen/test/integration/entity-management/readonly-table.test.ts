@@ -25,7 +25,6 @@ const expectTag = `
           selectedRowId={selectedRowId}
           setSelectedRowId={setSelectedRowId}
         />
-        {/* <Pagination /> - in future */}
       </Space>`;
 
 describe('codegen readonly table', () => {
