@@ -178,7 +178,7 @@ export function OwnerTableWithFilterSortPage() {
       );
       changePagination(initialPagination);
     },
-    [mergeQueryVariales]
+    [changePagination, mergeQueryVariales]
   );
 
   const afterResetFilters = useCallback(() => applySort(undefined), [

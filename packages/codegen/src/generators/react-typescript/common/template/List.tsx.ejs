@@ -236,7 +236,7 @@ export function <%= componentName %>() {
       <% if (locals?.paginationType === 'offset') { -%>
         changePagination(initialPagination);
       <% } -%>
-    }, [mergeQueryVariales]);
+    }, [<% if (locals?.paginationType === 'offset') { -%> changePagination, <% } -%> mergeQueryVariales]);
   
     <% if (withOrderBy) { -%>
       const afterResetFilters = useCallback(() => applySort(undefined), [applySort]);  
