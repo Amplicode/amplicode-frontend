@@ -6,11 +6,12 @@ import {
   GraphQLEnumType,
   GraphQLScalarType,
   GraphQLSchema,
-  GraphQLObjectType
+  GraphQLObjectType,
+  getNamedType,
+  isOutputType
 } from "graphql";
 import {templateUtilities, UtilTemplateModel} from "../../../building-blocks/stages/template-model/pieces/util";
 import gql from "graphql-tag";
-import {GraphQLOutputType} from "graphql/type/definition";
 import {
   deriveScreenTemplateModel,
   ScreenTemplateModel
@@ -33,6 +34,7 @@ export interface MvpEntityEditorTemplateModel extends BaseTemplateModel, ScreenT
 
 interface GraphQLEditorModel extends UsingScalars {
   queryName: string;
+  idIsNotNull: boolean;
   mutationName?: string;
   entityName?: string;
   attributes: AttributeModel[];
@@ -82,6 +84,13 @@ export function deriveGraphQLEditorModel(
     throw new Error('Schema is required for this generator');
   }
 
+  const queryOperationDefinition = queryNode.definitions[0];
+  if (queryOperationDefinition.kind !== 'OperationDefinition') {
+    throw new Error("Operation definition not found in query");
+  }
+
+  const idIsNotNull = queryOperationDefinition.variableDefinitions?.[0].type.kind === 'NonNullType'
+
   const queryName = getTopFieldName(queryNode);
   const entityName = getEntityName(queryName, schema);
 
@@ -90,19 +99,20 @@ export function deriveGraphQLEditorModel(
 
     return {
       queryName,
+      idIsNotNull,
       attributes: readOnlyAttributes,
       entityName
     }
   }
 
-  const operationDefinition = mutationNode.definitions[0];
-  if (!('variableDefinitions' in operationDefinition) || operationDefinition.variableDefinitions == null) {
+  const mutationOperationDefinition = mutationNode.definitions[0];
+  if (!('variableDefinitions' in mutationOperationDefinition) || mutationOperationDefinition.variableDefinitions == null) {
     throw new Error('Variable definitions not found in mutation');
   }
 
-  const inputVariableName = operationDefinition.variableDefinitions[0].variable.name.value;
+  const inputVariableName = mutationOperationDefinition.variableDefinitions[0].variable.name.value;
 
-  const inputType = operationDefinition.variableDefinitions[0].type;
+  const inputType = mutationOperationDefinition.variableDefinitions[0].type;
 
   let inputTypeName: string | undefined;
   if ('name' in inputType) {
@@ -122,8 +132,8 @@ export function deriveGraphQLEditorModel(
     throw new Error('Query type not found');
   }
 
-  const outputType: GraphQLOutputType = queryType.getFields()[queryName].type;
-  if (!('name' in outputType)) {
+  const outputType = getNamedType(queryType.getFields()[queryName].type);
+  if (!isOutputType(outputType)) {
     throw new Error('Output type name not found');
   }
 
@@ -134,6 +144,7 @@ export function deriveGraphQLEditorModel(
 
   return {
     queryName,
+    idIsNotNull,
     mutationName,
     attributes,
     entityName,

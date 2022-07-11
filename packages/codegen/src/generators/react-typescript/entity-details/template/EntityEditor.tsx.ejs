@@ -82,6 +82,9 @@ export function <%= componentName %>({
 
   const { recordId } = useParams();
 
+  <% if(idIsNotNull) { -%>
+    if (recordId == null) throw new Error('recordId must be defined');
+  <% } -%>
   // Load the item if `id` is provided
   const { item, itemLoading, itemError } = useLoadItem(recordId);
 
@@ -260,8 +263,8 @@ function FormButtons({ submitting }: { submitting?: boolean }) {
  *
  * @param id
  */
-function useLoadItem(id?: string) {
-  const [item, setItem] = useState<ItemType | null>();
+function useLoadItem(id<% if(!idIsNotNull) { -%>?<% } -%>: string) {
+  const [item, setItem] = useState<ItemType<% if(!idIsNotNull) { -%> | null<% } -%>>();
 
   // Get the function that will load item from server,
   // also get variables that will contain loading/error state and response data
@@ -274,7 +277,7 @@ function useLoadItem(id?: string) {
 
   // Load item if `id` has been provided in props
   useEffect(() => {
-    if (id != null && id !== "new") {
+    if (<% if(!idIsNotNull) { -%>id != null && <% } -%>id !== "new") {
       loadItem();
     }
   }, [loadItem, id]);
