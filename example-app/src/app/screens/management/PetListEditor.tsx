@@ -7,13 +7,13 @@ import {
   Form,
   FormInstance,
   Input,
-  Select,
   message,
   Space,
   Spin
 } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { EntityLookupField } from "../../../core/crud/entity-lookup-field/EntityLookupField";
+import { EntityRelationsField } from "../../../core/crud/entity-relations-field/EntityRelationsField";
 import { DatePicker } from "@amplicode/react";
 import { getPetTypeDTODisplayName } from "../../../core/display-name/getPetTypeDTODisplayName";
 import { getOwnerDTODisplayName } from "../../../core/display-name/getOwnerDTODisplayName";
@@ -262,7 +262,7 @@ function FormFields({
                 )
         })}
       >
-        <Select mode="tags" disabled />
+        <EntityRelationsField />
       </Form.Item>
 
       <Form.Item
@@ -279,7 +279,7 @@ function FormFields({
                 )
         })}
       >
-        <Select mode="tags" disabled />
+        <EntityRelationsField />
       </Form.Item>
     </>
   );

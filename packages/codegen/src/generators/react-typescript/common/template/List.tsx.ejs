@@ -379,29 +379,30 @@ function ListItem({item}: {item: ItemType}) {
       <List.Item actions={rowActions}>
         <div className="list-wrapper">
           <% attributes.forEach(attr => { -%>
-            <ValueWithLabel key='<%= attr.name %>'
-                            label='<%= attr.displayName %>'
-                            <% if (attr.isSingleRelationField) { -%>
-                              value={get<%= capitalizeFirst(attr.type) %>DisplayName(item.<%= attr.name %> ?? undefined)}
-                            <% } else if (attr.isMultiRelationField) { -%>
-                              value={
-                                item.<%= attr.name %> &&
-                                item.<%= attr.name %>
-                                  .map(entry => get<%= capitalizeFirst(attr.type) %>DisplayName(entry))
-                                  .filter(entry => entry !== "")
-                                  .join(', ')}
-                            <% } else if (attr.type === 'Date') { -%>
-                              value={item.<%= attr.name %>?.format("LL") ?? undefined}
-                            <% } else if (attr.type === 'LocalDateTime' || attr.type === 'DateTime' || attr.type === 'Timestamp') { -%>
-                              value={item.<%= attr.name %>?.format("LLL") ?? undefined}
-                            <% } else if (attr.type === 'LocalTime' || attr.type === 'Time') { -%>
-                              value={item.<%= attr.name %>?.format("LTS") ?? undefined}
-                            <% } else if (attr.type === 'Url') { -%>
-                              value={item.<%= attr.name %> ?? undefined} isUrl={true}
-                            <% } else { -%>
-                              value={item.<%= attr.name %> ?? undefined}
-                            <% } -%>
-                    />
+            <ValueWithLabel
+              key='<%= attr.name %>'
+              label='<%= attr.displayName %>'
+              <% if (attr.isSingleRelationField) { -%>
+                value={get<%= capitalizeFirst(attr.type) %>DisplayName(item.<%= attr.name %> ?? undefined)}
+              <% } else if (attr.isMultiRelationField) { -%>
+                value={
+                  item.<%= attr.name %> &&
+                  item.<%= attr.name %>
+                    .map(entry => get<%= capitalizeFirst(attr.type) %>DisplayName(entry))
+                    .filter(entry => entry !== "")
+                }
+              <% } else if (attr.type === 'Date') { -%>
+                value={item.<%= attr.name %>?.format("LL") ?? undefined}
+              <% } else if (attr.type === 'LocalDateTime' || attr.type === 'DateTime' || attr.type === 'Timestamp') { -%>
+                value={item.<%= attr.name %>?.format("LLL") ?? undefined}
+              <% } else if (attr.type === 'LocalTime' || attr.type === 'Time') { -%>
+                value={item.<%= attr.name %>?.format("LTS") ?? undefined}
+              <% } else if (attr.type === 'Url') { -%>
+                value={item.<%= attr.name %> ?? undefined} isUrl={true}
+              <% } else { -%>
+                value={item.<%= attr.name %> ?? undefined}
+              <% } -%>
+            />
           <% }) -%>
         </div>
       </List.Item>

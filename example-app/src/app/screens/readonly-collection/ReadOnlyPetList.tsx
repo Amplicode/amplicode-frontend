@@ -144,7 +144,6 @@ function ListItem({ item }: { item: ItemType }) {
             item.tags
               .map(entry => getTagDTODisplayName(entry))
               .filter(entry => entry !== "")
-              .join(", ")
           }
         />
         <ValueWithLabel
@@ -155,7 +154,6 @@ function ListItem({ item }: { item: ItemType }) {
             item.diseases
               .map(entry => getPetDiseaseDTODisplayName(entry))
               .filter(entry => entry !== "")
-              .join(", ")
           }
         />
       </div>

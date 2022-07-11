@@ -18,7 +18,7 @@ import {
   <% if (locals.hasBooleanScalars) { -%>
     Checkbox,
   <% } -%>
-  <% if (locals.hasEnumScalars || attributes.some(attr => attr.isMultiRelationField)) { -%>
+  <% if (locals.hasEnumScalars) { -%>
     Select,
   <% } -%>
   message,
@@ -28,6 +28,9 @@ import {
 import { useForm } from "antd/es/form/Form";
 <% if (attributes.some(attr => attr.isSingleRelationField)) { -%>
   import { EntityLookupField } from '<%= relDirShift %>core/crud/entity-lookup-field/EntityLookupField';
+<% } -%>
+<% if (attributes.some(attr => attr.isMultiRelationField)) { -%>
+  import { EntityRelationsField } from '<%= relDirShift %>core/crud/entity-relations-field/EntityRelationsField';
 <% } -%>
 <% if (locals.hasDateScalars || locals.hasTimeScalars) { -%>
   import {
@@ -183,7 +186,7 @@ function FormFields({
                   )
               })}
             >
-            <Select mode="tags" disabled/>
+              <EntityRelationsField />
           </Form.Item>
           <% } %>
       <% }) %>

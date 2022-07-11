@@ -117,7 +117,7 @@ function ItemCard({ item, onSelect }: ItemCardProps) {
               item.<%= attr.name %>
                 .map(entry => get<%= capitalizeFirst(attr.type) %>DisplayName(entry))
                 .filter(entry => entry !== "")
-                .join(", ")}
+            }
           />
         <% } -%>
       <% }) -%>
