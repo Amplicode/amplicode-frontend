@@ -39,26 +39,13 @@ export class ErrorBoundary extends React.Component<
   }
 }
 
-export const AppErrorBoundary = function(props: React.PropsWithChildren<{}>) {
+export const AppErrorBoundary = function(props: PropsWithChildren<{}>) {
   const intl = useIntl();
 
   return (
     <ErrorBoundary
       message={intl.formatMessage({ id: "common.unknownAppError" })}
-      render={message => <Result status="warning" title={message} />}
-    >
-      {props.children}
-    </ErrorBoundary>
-  );
-};
-
-export const ScreenErrorBoundary = (props: PropsWithChildren<{}>) => {
-  const intl = useIntl();
-
-  return (
-    <ErrorBoundary
-      message={intl.formatMessage({ id: "common.unknownScreenError" })}
-      render={message => <Result status="warning" title={message} />}
+      render={message => <Result status="error" title={message} />}
     >
       {props.children}
     </ErrorBoundary>
