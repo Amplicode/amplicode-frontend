@@ -22,6 +22,9 @@ export function <%= componentName %>() {
   const {recordId} = useParams();
   const navigate = useNavigate();
 
+  <% if(idIsNotNull) { -%>
+    if (recordId == null) throw new Error('recordId must be defined');
+  <% } -%>
   const {loading: queryLoading, error: queryError, data} = useQuery(<%= toFatSnakeCase(queryName) %>, {
     variables: {
       id: recordId
