@@ -1,6 +1,6 @@
 {
   "name": "@amplicode/react",
-  "version": "0.23.0",
+  "version": "0.23.1",
   "description": "Runtime for Amplicode Frontend",
   "publishConfig": {
     "access": "public"

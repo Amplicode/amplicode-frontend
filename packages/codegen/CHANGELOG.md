@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.24.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/codegen@0.23.0...@amplicode/codegen@0.24.0) (2022-07-11)
+
+
+### Bug Fixes
+
+* add example with hidden filters ([1b97da0](https://github.com/Amplicode/amplicode-frontend/commit/1b97da0fe0748ff789ddc34bf10d74656f058196))
+* app crashes when opening datepicker [#416](https://github.com/Amplicode/amplicode-frontend/issues/416) ([2177031](https://github.com/Amplicode/amplicode-frontend/commit/21770315cb7b237e1e1f0c4662624d76a30ac6a3))
+* entity editor: x-to-many component shows element with empty name due new item creation [#473](https://github.com/Amplicode/amplicode-frontend/issues/473) ([1d3ed4a](https://github.com/Amplicode/amplicode-frontend/commit/1d3ed4a3e7d1e27aa67cc742e850f6ccca5a0a08))
+* screens created with "blank screen" and "details screen" templates are registered with "undefin ([a2ccb65](https://github.com/Amplicode/amplicode-frontend/commit/a2ccb655cfe9319ecbf3cc167380275c5fdbd745))
+* spaces before and after error messages should be equal [#486](https://github.com/Amplicode/amplicode-frontend/issues/486) ([422f706](https://github.com/Amplicode/amplicode-frontend/commit/422f706063b01aabd4a12ccbe20d61e3d8ab9fda))
+
+
+### Features
+
+* add multiselect table [#411](https://github.com/Amplicode/amplicode-frontend/issues/411) ([0f068a8](https://github.com/Amplicode/amplicode-frontend/commit/0f068a85cc3337e443fad12bd0875b001fb5a612))
+* associations - support in CRUD screen templates (x-to-many) [#243](https://github.com/Amplicode/amplicode-frontend/issues/243) ([c7477fe](https://github.com/Amplicode/amplicode-frontend/commit/c7477fe4e391bf41fbd13b49bccb1a632feebab7))
+* bean validation in entity editor [#373](https://github.com/Amplicode/amplicode-frontend/issues/373) ([9ce7dff](https://github.com/Amplicode/amplicode-frontend/commit/9ce7dff250c03d15dfa8c2d553852722e24950c6))
+* graceful handling of 403 / internal server / network errors [#96](https://github.com/Amplicode/amplicode-frontend/issues/96) ([da75aaf](https://github.com/Amplicode/amplicode-frontend/commit/da75aafdee6ccc583eb06113755378e01a689a14))
+* import generated typings by relative path [#428](https://github.com/Amplicode/amplicode-frontend/issues/428) ([210524a](https://github.com/Amplicode/amplicode-frontend/commit/210524a31eb06b822be70e1289401200b1d1e290))
+* improve entity list filters [#340](https://github.com/Amplicode/amplicode-frontend/issues/340) ([978c506](https://github.com/Amplicode/amplicode-frontend/commit/978c50630e6d5e299a1ef5b837eab9928e0dbb81))
+* sorting and pagination [#396](https://github.com/Amplicode/amplicode-frontend/issues/396) ([da962d9](https://github.com/Amplicode/amplicode-frontend/commit/da962d92b266613397db479451919063d92e5540))
+* support OAuth2.0 using Keycloak with backend as client [#419](https://github.com/Amplicode/amplicode-frontend/issues/419) ([625ae27](https://github.com/Amplicode/amplicode-frontend/commit/625ae2767c4b467ea6d89520a0c1f6513ad68ec9))
+
+
+
+
+
 # [0.23.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/codegen@0.22.0...@amplicode/codegen@0.23.0) (2022-06-16)
 
 

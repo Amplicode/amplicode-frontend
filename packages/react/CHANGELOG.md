@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.23.1](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react@0.23.0...@amplicode/react@0.23.1) (2022-07-11)
+
+
+### Bug Fixes
+
+* app crashes when opening datepicker [#416](https://github.com/Amplicode/amplicode-frontend/issues/416) ([2177031](https://github.com/Amplicode/amplicode-frontend/commit/21770315cb7b237e1e1f0c4662624d76a30ac6a3))
+
+
+
+
+
 # [0.23.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/react@0.22.0...@amplicode/react@0.23.0) (2022-06-16)
 
 
