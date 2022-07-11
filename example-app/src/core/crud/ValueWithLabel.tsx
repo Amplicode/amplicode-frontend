@@ -1,10 +1,10 @@
-import { Typography } from "antd";
+import { Tag, Typography } from "antd";
 const { Paragraph, Text } = Typography;
 
 export interface ValueWithLabelProps {
   key?: string;
   label: string;
-  value?: string | number | boolean | null;
+  value?: string | number | boolean | null | string[];
   isUrl?: boolean;
   renderIfEmptyValue?: boolean;
 }
@@ -18,16 +18,20 @@ export function ValueWithLabel({
   isUrl,
   renderIfEmptyValue = false
 }: ValueWithLabelProps) {
-  if (value == null && !renderIfEmptyValue) {
+  const valueIsEmptyArray = Array.isArray(value) && value.length === 0;
+  if ((value == null || valueIsEmptyArray) && !renderIfEmptyValue) {
     return null;
   }
 
-  let formattedValue: string | number | boolean = value!;
-  if (value === true) {
-    formattedValue = "✓";
-  }
-  if (value === false) {
-    formattedValue = "✕";
+  if (Array.isArray(value)) {
+    return (
+      <Paragraph>
+        <Text strong>{label}: </Text>
+        {value.map(entry => (
+          <Tag>{entry}</Tag>
+        ))}
+      </Paragraph>
+    );
   }
 
   if (isUrl === true) {
@@ -39,6 +43,14 @@ export function ValueWithLabel({
         </a>
       </Paragraph>
     );
+  }
+
+  let formattedValue: string | number | boolean = value!;
+  if (value === true) {
+    formattedValue = "✓";
+  }
+  if (value === false) {
+    formattedValue = "✕";
   }
 
   return (

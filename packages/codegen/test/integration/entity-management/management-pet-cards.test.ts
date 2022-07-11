@@ -60,7 +60,6 @@ describe('codegen pet cards management', () => {
           item.diseases
             .map(entry => getPetDiseaseDTODisplayName(entry))
             .filter(entry => entry !== "")
-            .join(", ")
         }
       />
     `);
@@ -74,7 +73,6 @@ describe('codegen pet cards management', () => {
           item.tags
             .map(entry => getTagDTODisplayName(entry))
             .filter(entry => entry !== "")
-            .join(", ")
         }
       />
     `);
@@ -117,7 +115,7 @@ function xToManyFormItem(field: string, label: string, displayNameFunc: string) 
               )
       })}
     >
-      <Select mode="tags" disabled />
+      <EntityRelationsField />
     </Form.Item>
 `;
 }

@@ -119,7 +119,6 @@ describe('codegen lookup cards', () => {
           item.tags
             .map(entry => getTagDTODisplayName(entry))
             .filter(entry => entry !== "")
-            .join(", ")
         }
       />
       `);
@@ -132,7 +131,6 @@ describe('codegen lookup cards', () => {
           item.diseases
             .map(entry => getPetDiseaseDTODisplayName(entry))
             .filter(entry => entry !== "")
-            .join(", ")
         }
       />
       `);

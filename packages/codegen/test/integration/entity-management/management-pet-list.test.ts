@@ -51,7 +51,6 @@ describe('codegen pet list management', () => {
           item.diseases
             .map(entry => getPetDiseaseDTODisplayName(entry))
             .filter(entry => entry !== "")
-            .join(", ")
         }
       />
     `);
@@ -64,7 +63,6 @@ describe('codegen pet list management', () => {
           item.tags
             .map(entry => getTagDTODisplayName(entry))
             .filter(entry => entry !== "")
-            .join(", ")
         }
       />
     `);
