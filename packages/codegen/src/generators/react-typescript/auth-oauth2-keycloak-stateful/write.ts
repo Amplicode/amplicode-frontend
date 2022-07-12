@@ -3,6 +3,7 @@ import {EmptyTemplateModel} from "../../../building-blocks/stages/template-model
 import {writeTemplate} from "../../../building-blocks/stages/writing/pieces/writeTemplate";
 import {replaceEnvVarValueInFile} from "../../../building-blocks/stages/writing/pieces/variables/replaceEnvVarValue";
 import {replaceStringValueInFile} from "../../../building-blocks/stages/writing/pieces/variables/replaceStringValue";
+import {removeEnvVarInFile} from "../../../building-blocks/stages/writing/pieces/variables/removeEnvVar";
 
 export async function write_Auth_OAuth2_Keycloak_Stateful(
   _templateModel: EmptyTemplateModel, gen: YeomanGenerator
@@ -15,4 +16,9 @@ export async function write_Auth_OAuth2_Keycloak_Stateful(
 
   await replaceEnvVarValueInFile( gen, '.env.development', 'VITE_LOGIN_URI', '/oauth2/authorize');
   await replaceEnvVarValueInFile(gen, '.env.production', 'VITE_LOGIN_URI', '/oauth2/authorize');
+
+  await removeEnvVarInFile(gen, '.env.development', 'VITE_DEV_LOGIN');
+  await removeEnvVarInFile(gen, '.env.development', 'VITE_DEV_PASSWORD');
+  await removeEnvVarInFile(gen, '.env.production', 'VITE_DEV_LOGIN');
+  await removeEnvVarInFile(gen, '.env.production', 'VITE_DEV_PASSWORD');
 }
