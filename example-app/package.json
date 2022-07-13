@@ -23,10 +23,12 @@
     "graphql": "^15.5.1",
     "mobx": "^6.3.2",
     "mobx-react": "^7.2.0",
+    "oidc-client-ts": "^2.0.5",
     "qs": "^6.7.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-intl": "^5.20.10",
+    "react-oidc-context": "^2.1.1",
     "react-router-dom": "^6.3.0",
     "typescript": "^4.3.5",
     "web-vitals": "^1.1.2"
