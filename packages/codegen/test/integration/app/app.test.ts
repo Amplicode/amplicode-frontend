@@ -26,6 +26,7 @@ describe('codegen app test', () => {
     const codegenConfigPath = path.join(DEST_DIR, 'codegen.yml');
     const devEnvPath = path.join(DEST_DIR, '.env.development');
     const prodEnvPath = path.join(DEST_DIR, '.env.production');
+    const viteConfigPath = path.join(DEST_DIR, 'vite.config.ts');
     const errorBoundaryPath = path.join(DEST_DIR, 'src', 'core', 'error', 'ErrorBoundary.tsx');
 
     // check that we remove previously generated app
@@ -63,6 +64,10 @@ describe('codegen app test', () => {
         );
       };
     `);
+
+    const configFile = fs.readFileSync(viteConfigPath, 'utf-8');
+    expectFileContainsIgnoreSpace(configFile,`const BASE_URL = process.env.BASE_URL ?? "/";`);
+    expectFileContainsIgnoreSpace(configFile, 'base: `${BASE_URL}`');
   });
 
   it('should generate app (composite schema)', async () => {
