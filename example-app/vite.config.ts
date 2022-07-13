@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react";
 const PORT = "8080";
 const SERVER_URL = "http://localhost";
 const LOGIN_BASE_URL = "login";
+const BASE_URL = process.env.BASE_URL ?? "/";
 
 export default defineConfig({
   assetsInclude: ["**/*.graphql"],
@@ -11,6 +12,7 @@ export default defineConfig({
   server: {
     proxy: {
       [`^/(graphql|${LOGIN_BASE_URL}|logout)`]: `${SERVER_URL}:${PORT}`
-    }
+    },
+    base: `${BASE_URL}`
   }
 });
