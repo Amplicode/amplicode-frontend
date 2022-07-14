@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.25.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/codegen@0.24.0...@amplicode/codegen@0.25.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* error when generating Entity Management screens for queries & mutations with non-null modifiers ([abc1c60](https://github.com/Amplicode/amplicode-frontend/commit/abc1c600e505db73c5776bc25fe1309e07cbcc7e))
+
+
+### Features
+
+* add criteria for component generator [#479](https://github.com/Amplicode/amplicode-frontend/issues/479) ([a9244e6](https://github.com/Amplicode/amplicode-frontend/commit/a9244e6deca8da8913cb59ef345b53b48dadd1e3))
+* allow setting BASE_URL with environment variable [#497](https://github.com/Amplicode/amplicode-frontend/issues/497) ([f13f558](https://github.com/Amplicode/amplicode-frontend/commit/f13f558744b497a34f2c98d747d2357ff1c9db33))
+* improve how to-many associations are displayed [#483](https://github.com/Amplicode/amplicode-frontend/issues/483) ([2accbb3](https://github.com/Amplicode/amplicode-frontend/commit/2accbb379242cc94e98704dd1a34abcdbc4e4ba7))
+
+
+
+
+
 # [0.24.0](https://github.com/Amplicode/amplicode-frontend/compare/@amplicode/codegen@0.23.0...@amplicode/codegen@0.24.0) (2022-07-11)
 
 
