@@ -369,13 +369,13 @@ export type Query = {
   ownerListOffsetPage?: Maybe<OwnerPage>;
   ownerListOffsetPageSorted?: Maybe<OwnerPage>;
   ownerListSorted?: Maybe<Array<Maybe<OwnerDto>>>;
-  pet?: Maybe<PetDto>;
+  pet: PetDto;
   petByIdentificationNumberList?: Maybe<Array<Maybe<PetDto>>>;
   petDescription?: Maybe<PetDescriptionDto>;
   petDescriptionList?: Maybe<Array<Maybe<PetDescriptionDto>>>;
   petDisease?: Maybe<PetDiseaseDto>;
   petDiseaseList?: Maybe<Array<Maybe<PetDiseaseDto>>>;
-  petList?: Maybe<Array<Maybe<PetDto>>>;
+  petList: Array<Maybe<PetDto>>;
   petListByTypeId?: Maybe<Array<Maybe<PetDto>>>;
   petType?: Maybe<PetTypeDto>;
   petTypeList?: Maybe<Array<Maybe<PetTypeDto>>>;
@@ -448,7 +448,7 @@ export type QueryOwnerListSortedArgs = {
 };
 
 export type QueryPetArgs = {
-  id?: InputMaybe<Scalars["ID"]>;
+  id: Scalars["ID"];
 };
 
 export type QueryPetByIdentificationNumberListArgs = {
@@ -656,7 +656,7 @@ export type Get_Pet_ListQueryVariables = Exact<{ [key: string]: never }>;
 
 export type Get_Pet_ListQuery = {
   __typename?: "Query";
-  petList?: Array<{
+  petList: Array<{
     __typename?: "PetDTO";
     id?: string | null;
     identificationNumber?: string | null;
@@ -688,7 +688,7 @@ export type Get_Pet_ListQuery = {
       name?: string | null;
       description?: string | null;
     } | null> | null;
-  } | null> | null;
+  } | null>;
 };
 
 export type Get_Pet_Type_ListQueryVariables = Exact<{ [key: string]: never }>;
@@ -870,12 +870,12 @@ export type Delete_PetMutation = {
 };
 
 export type Get_PetQueryVariables = Exact<{
-  id?: InputMaybe<Scalars["ID"]>;
+  id: Scalars["ID"];
 }>;
 
 export type Get_PetQuery = {
   __typename?: "Query";
-  pet?: {
+  pet: {
     __typename?: "PetDTO";
     id?: string | null;
     identificationNumber?: string | null;
@@ -907,7 +907,7 @@ export type Get_PetQuery = {
       name?: string | null;
       description?: string | null;
     } | null> | null;
-  } | null;
+  };
 };
 
 export type Update_PetMutationVariables = Exact<{
@@ -1982,7 +1982,10 @@ export const Get_PetDocument = {
         {
           kind: "VariableDefinition",
           variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
         },
       ],
       selectionSet: {

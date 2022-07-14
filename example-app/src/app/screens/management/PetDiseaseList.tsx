@@ -45,7 +45,9 @@ export function PetDiseaseList() {
   // Load the items from server
   const { loading, error, data } = useQuery(PET_DISEASE_LIST);
 
-  const items = useMemo(() => deserialize(data?.petDiseaseList), [data]);
+  const items = useMemo(() => deserialize(data?.petDiseaseList), [
+    data?.petDiseaseList
+  ]);
 
   return (
     <div className="narrow-layout">

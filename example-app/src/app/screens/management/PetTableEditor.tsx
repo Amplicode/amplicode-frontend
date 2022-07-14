@@ -34,7 +34,7 @@ import { deserialize } from "../../../core/transform/model/deserialize";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const PET = gql(`
-  query Get_Pet($id: ID) {
+  query Get_Pet($id: ID!) {
     pet(id: $id) {
       id
       identificationNumber
@@ -92,6 +92,7 @@ export function PetTableEditor({
 
   const { recordId } = useParams();
 
+  if (recordId == null) throw new Error("recordId must be defined");
   // Load the item if `id` is provided
   const { item, itemLoading, itemError } = useLoadItem(recordId);
 
@@ -351,7 +352,7 @@ function FormButtons({ submitting }: { submitting?: boolean }) {
  *
  * @param id
  */
-function useLoadItem(id?: string) {
+function useLoadItem(id: string) {
   // Get the function that will load item from server,
   // also get variables that will contain loading/error state and response data
   // once the response is received
@@ -363,12 +364,12 @@ function useLoadItem(id?: string) {
 
   // Load item if `id` has been provided in props
   useEffect(() => {
-    if (id != null && id !== "new") {
+    if (id !== "new") {
       loadItem();
     }
   }, [loadItem, id]);
 
-  const item: ItemType = useMemo(() => deserialize(data?.pet), [data]);
+  const item = useMemo(() => deserialize(data?.pet), [data?.pet]);
 
   return {
     item,

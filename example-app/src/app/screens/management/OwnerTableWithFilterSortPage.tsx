@@ -132,7 +132,7 @@ export function OwnerTableWithFilterSortPage() {
 
   const items = useMemo(
     () => deserialize(data?.ownerListByNamesFilterOffsetPageSorted?.content),
-    [data]
+    [data?.ownerListByNamesFilterOffsetPageSorted?.content]
   );
 
   const [pagination, setPagination] = useState<OffsetPaginationType>(

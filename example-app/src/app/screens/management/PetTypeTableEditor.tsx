@@ -260,7 +260,7 @@ function useLoadItem(id?: string) {
     }
   }, [loadItem, id]);
 
-  const item: ItemType = useMemo(() => deserialize(data?.petType), [data]);
+  const item = useMemo(() => deserialize(data?.petType), [data?.petType]);
 
   return {
     item,

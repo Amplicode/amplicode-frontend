@@ -26,7 +26,7 @@ describe('getGraphQLTypeByRelativePath', async () => {
     if(queryType == null) throw new Error();
   
     const petType = getGraphQLTypeByRelativePath(schema, queryType, ['pet']);
-    expect(petType.toString()).to.eq('PetDTO');
+    expect(petType.toString()).to.eq('PetDTO!');
 
     const identificationNumberType = getGraphQLTypeByRelativePath(schema, queryType, ['pet', 'identificationNumber']);
     expect(identificationNumberType.toString()).to.eq('String');
@@ -41,11 +41,11 @@ describe('getGraphQLTypeByRelativePath', async () => {
 
     const petType = getGraphQLTypeByRelativePath(schema, queryType, ['pet']);
     const petStringType = getGraphQLTypeByRelativePath(schema, petType, []);
-    expect(petStringType.toString()).to.eq('PetDTO');
+    expect(petStringType.toString()).to.eq('PetDTO!');
 
     const petListType = getGraphQLTypeByRelativePath(schema, queryType, ['petList']);
     const petListStringType = getGraphQLTypeByRelativePath(schema, petListType, []);
-    expect(petListStringType.toString()).to.eq('[PetDTO]');
+    expect(petListStringType.toString()).to.eq('[PetDTO]!');
   });
 
   // TODO enable when TestDTO will be added to the graphql schema
@@ -101,7 +101,7 @@ describe('getGraphQLTypeByRelativePath', async () => {
     if(queryType == null) throw new Error();
 
     const petListType = getGraphQLTypeByRelativePath(schema, queryType, ['petList']);
-    expect(petListType.toString()).to.eq('[PetDTO]');
+    expect(petListType.toString()).to.eq('[PetDTO]!');
   });
 
   it('get type by deep path', () => {

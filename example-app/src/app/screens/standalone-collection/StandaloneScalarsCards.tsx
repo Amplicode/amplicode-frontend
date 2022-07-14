@@ -70,7 +70,9 @@ export function StandaloneScalarsCards() {
   // Load the items from server
   const { loading, error, data } = useQuery(SCALARS_TEST_ENTITY_LIST);
 
-  const items = useMemo(() => deserialize(data?.scalarsTestEntityList), [data]);
+  const items = useMemo(() => deserialize(data?.scalarsTestEntityList), [
+    data?.scalarsTestEntityList
+  ]);
 
   return (
     <div className="narrow-layout">

@@ -42,13 +42,13 @@ type Query {
   ownerListOffsetPage(page: OffsetPageInput): OwnerPage
   ownerListOffsetPageSorted(page: OffsetPageInput, sort: [OwnerOrderByInput]): OwnerPage
   ownerListSorted(sort: [OwnerOrderByInput]): [OwnerDTO]
-  pet(id: ID): PetDTO
+  pet(id: ID!): PetDTO!
   petByIdentificationNumberList(identificationNumber: String): [PetDTO]
   petDescription(identifier: ID): PetDescriptionDTO
   petDescriptionList: [PetDescriptionDTO]
   petDisease(petDiseaseIdentifier: ID): PetDiseaseDTO
   petDiseaseList: [PetDiseaseDTO]
-  petList: [PetDTO]
+  petList: [PetDTO]!
   petListByTypeId(typeId: ID!): [PetDTO]
   petType(id: ID): PetTypeDTO
   petTypeList: [PetTypeDTO]

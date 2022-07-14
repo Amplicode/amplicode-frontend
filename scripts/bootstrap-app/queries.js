@@ -242,7 +242,7 @@ exports.petDeleteMutation = `mutation Delete_Pet($id: ID!) {
     deletePet(id: $id)
   }`;
 
-exports.petDetailsQuery = `query Get_Pet($id: ID) {
+exports.petDetailsQuery = `query Get_Pet($id: ID!) {
     pet(id: $id) {
       id
       identificationNumber

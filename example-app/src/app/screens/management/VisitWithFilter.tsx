@@ -100,7 +100,9 @@ export function VisitWithFilter() {
     []
   );
 
-  const items = useMemo(() => deserialize(data?.visitFilteredList), [data]);
+  const items = useMemo(() => deserialize(data?.visitFilteredList), [
+    data?.visitFilteredList
+  ]);
 
   const applyFilters = useCallback(
     (filters: QueryVariablesType) => {
