@@ -12,9 +12,6 @@ import {
 
 const GENERATOR_DIR = path.join(GENERATORS_DIR, 'entity-management');
 const DEST_DIR = path.join(GENERATORS_DEST_DIR, 'entity-management');
-const displayNameFiles = [
-  path.join(DEST_DIR, 'core', 'display-name', 'getOwnerDTODisplayName.ts'),
-  path.join(DEST_DIR, 'core', 'display-name', 'getPetTypeDTODisplayName.ts')];
 
 const expectTag = `
       <Space direction="vertical" className="table-space">
@@ -66,8 +63,8 @@ describe('codegen readonly table', () => {
     expect(componentFile).to.contain('title: "Last Name",');
     expect(componentFile).to.contain('title: "Telephone",');
 
-    // getXXXName files
-    displayNameFiles.forEach(file => expect(fs.existsSync(file)).to.be.false);
+    // getXXXName file
+    expect(fs.existsSync(path.join(DEST_DIR, 'core', 'display-name', 'getOwnerDTODisplayName.ts'))).to.be.true;
   });
 
   it('should generate readonly table screen - Pet', async () => {
@@ -103,6 +100,9 @@ describe('codegen readonly table', () => {
     expect(componentFile).to.contain('title: "Owner",');
     expect(componentFile).to.contain('title: "Type",');
 
+    const displayNameFiles = [
+      path.join(DEST_DIR, 'core', 'display-name', 'getOwnerDTODisplayName.ts'),
+      path.join(DEST_DIR, 'core', 'display-name', 'getPetTypeDTODisplayName.ts')];
     // getXXXName files
     displayNameFiles.forEach(file => expect(fs.existsSync(file)).to.be.true);
   });

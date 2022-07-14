@@ -4,6 +4,7 @@ import {MvpEntityEditorTemplateModel} from "./template-model";
 import path from "path";
 import {writeDisplayNameFunctionsForRelations} from "../../../building-blocks/stages/writing/pieces/display-name/writeDisplayNameFunctionsForRelations";
 import {writeGraphQLSchema} from "../common/writeGraphQLSchema";
+import {writeDisplayNameFunction} from "../../../building-blocks/stages/writing/pieces/display-name/writeDisplayNameFunction";
 
 export async function writeEntityDetails(
   templateModel: MvpEntityEditorTemplateModel, gen: YeomanGenerator
@@ -14,6 +15,14 @@ export async function writeEntityDetails(
   }
 
   await writeAmplicodeComponent(templateModel, gen, path.join(__dirname, 'template', 'EntityDetails.tsx.ejs'));
+
+  await writeDisplayNameFunction({
+    gen,
+    entityName: templateModel.entityName,
+    attributes: templateModel.allAttributes,
+    dirShift: templateModel.relDirShift,
+    idAttrName: templateModel.idField
+  });
 
   await writeDisplayNameFunctionsForRelations(gen, templateModel.attributes, templateModel.relDirShift);
 

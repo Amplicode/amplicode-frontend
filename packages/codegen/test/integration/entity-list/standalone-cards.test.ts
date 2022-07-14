@@ -13,7 +13,7 @@ import {
 
 const DEST_DIR = path.join(GENERATORS_DEST_DIR, 'entity-list');
 const GENERATOR_DIR = path.join(GENERATORS_DIR, 'entity-list');
-const displayNameFunctionFile = path.join(DEST_DIR, 'core', 'display-name', 'getOwnerDTODisplayName.ts');
+const displayNameFuncFilePath = path.join(DEST_DIR, 'core', 'display-name', 'getOwnerDTODisplayName.ts');
 
 describe('codegen standalone cards', () => {
 
@@ -32,7 +32,7 @@ describe('codegen standalone cards', () => {
     };
     const componentPath = path.join(DEST_DIR, 'StandaloneOwnerCards.tsx');
     // check that cleanup is completed, before test start
-    expect(fs.existsSync(displayNameFunctionFile)).to.be.false;
+    expect(fs.existsSync(displayNameFuncFilePath)).to.be.false;
 
     await generate(GENERATOR_DIR, opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
@@ -50,7 +50,28 @@ describe('codegen standalone cards', () => {
     expectFileContainsIgnoreSpace(componentFile, expectCardsTag);
 
     // check that displayName function is written for 'cards'
-    expect(fs.existsSync(displayNameFunctionFile)).to.be.true;
+    expect(fs.existsSync(displayNameFuncFilePath)).to.be.true;
+
+    const displayNameFuncFile = fs.readFileSync(displayNameFuncFilePath, 'utf-8');
+    expectFileContainsIgnoreSpace(displayNameFuncFile, `
+      if (entityInstance.firstName != null && entityInstance.lastName != null) {
+        return String(\`\${entityInstance.firstName} \${entityInstance.lastName}\`);
+      }    
+    `);
+    expectFileContainsIgnoreSpace(displayNameFuncFile, `
+      if (entityInstance.firstName != null) {
+        return String(entityInstance.firstName);
+      }
+      if (entityInstance.lastName != null) {
+        return String(entityInstance.lastName);
+      }
+    `);
+    expectFileContainsIgnoreSpace(displayNameFuncFile, `
+      if (entityInstance.id != null) {
+        return String(entityInstance.id);
+      }
+    `);
+
   });
 
   it('should generate standalone cards screen - Pet', async () => {
@@ -66,7 +87,7 @@ describe('codegen standalone cards', () => {
     };
     const componentPath = path.join(DEST_DIR, 'StandalonePetCards.tsx');
     // check that cleanup is completed, before test start
-    expect(fs.existsSync(displayNameFunctionFile)).to.be.false;
+    expect(fs.existsSync(displayNameFuncFilePath)).to.be.false;
 
     await generate(GENERATOR_DIR, opts(DEST_DIR, answers, [SCHEMA_PATH]));
 
@@ -84,7 +105,7 @@ describe('codegen standalone cards', () => {
     expectFileContainsIgnoreSpace(componentFile, expectCardsTag);
 
     // check that displayName function is written for 'cards'
-    expect(fs.existsSync(displayNameFunctionFile)).to.be.true;
+    expect(fs.existsSync(displayNameFuncFilePath)).to.be.true;
   });
 
   it('should generate standalone cards screen - ScalarsTestEntity', async () => {
