@@ -36,6 +36,8 @@ export interface GeneratorInfo {
   path: string;
   templateOverride?: string;
   group?: string;
+  // true by default
+  isFrontendComponent?: boolean;
 }
 
 export interface GeneratorDiscoveryOptions {
@@ -154,12 +156,13 @@ function collectGenerators(generatorsDir: string, genFileName: string = GENERATO
       const params = generatorExports.params;
       const description = generatorExports.description;
       const index = generatorExports.index ?? dirs.length; // will be pushed to a tail if no index
+      const isFrontendComponent = generatorExports.isFrontendComponent !== false; // set to true, if this param not defined
 
       const iconPath = generatorExports.icon
         ? path.relative(process.cwd(), path.join(generatorPath, generatorExports.icon))
         : undefined;
 
-      generators.push({name, options, params, description, iconPath, index, path: generatorPath});
+      generators.push({name, options, params, description, iconPath, index, path: generatorPath, isFrontendComponent});
       return generators;
     } else {
       return generators;

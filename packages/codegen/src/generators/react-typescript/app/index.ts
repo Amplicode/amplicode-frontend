@@ -24,8 +24,11 @@ export class AppGenerator extends YeomanGenerator {
   }
 }
 
+const isFrontendComponent = false;
+
 export {
   AppGenerator as generator,
   amplicodeCommonOptionsConfig as options,
   appQuestions as params,
+  isFrontendComponent,
 }

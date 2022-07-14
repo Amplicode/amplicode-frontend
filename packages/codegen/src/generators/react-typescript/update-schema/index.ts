@@ -22,7 +22,10 @@ export class UpdateSchemaGenerator extends YeomanGenerator {
   }
 }
 
+const isFrontendComponent = false;
+
 export {
   UpdateSchemaGenerator as generator,
   amplicodeCommonOptionsConfig as options,
+  isFrontendComponent,
 };

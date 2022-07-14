@@ -9,4 +9,6 @@ export interface GeneratorExports {
   description?: string;
   icon?: string;
   index?: number;
+  // 'true' by default
+  isFrontendComponent?: boolean;
 }
