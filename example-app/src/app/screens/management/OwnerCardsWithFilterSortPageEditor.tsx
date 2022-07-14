@@ -295,7 +295,7 @@ function useLoadItem(id?: string) {
     }
   }, [loadItem, id]);
 
-  const item: ItemType = useMemo(() => deserialize(data?.owner), [data]);
+  const item = useMemo(() => deserialize(data?.owner), [data?.owner]);
 
   return {
     item,

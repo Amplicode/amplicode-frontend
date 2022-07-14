@@ -92,7 +92,7 @@ export function ReadOnlyPetTable() {
   // Load the items from server
   const { loading, error, data } = useQuery(PET_LIST);
 
-  const items = useMemo(() => deserialize(data?.petList), [data]);
+  const items = useMemo(() => deserialize(data?.petList), [data?.petList]);
 
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();

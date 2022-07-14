@@ -397,10 +397,9 @@ function useLoadItem(id?: string) {
     }
   }, [loadItem, id]);
 
-  const item: ItemType = useMemo(
-    () => deserialize(data?.notNullScalarsTestEntity),
-    [data]
-  );
+  const item = useMemo(() => deserialize(data?.notNullScalarsTestEntity), [
+    data?.notNullScalarsTestEntity
+  ]);
 
   return {
     item,

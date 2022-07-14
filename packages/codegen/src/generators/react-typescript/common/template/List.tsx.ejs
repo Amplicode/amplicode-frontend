@@ -192,7 +192,10 @@ export function <%= componentName %>() {
     const { loading, error, data } = useQuery(<%= QUERY_CONST %>);
   <% } -%>
 
-  const items = useMemo(() => deserialize(data?.<%= queryName %><% if (locals?.paginationType === 'offset') { -%>?.content<% } -%>), [data]);
+  const items = useMemo(
+    () => deserialize(data?.<%= queryName %><% if (locals?.paginationType === 'offset') { -%>?.content<% } -%>),
+    [data?.<%= queryName %><% if (locals?.paginationType === 'offset') { -%>?.content<% } -%>]
+  );
 
   <% if (locals?.paginationType === 'offset') { -%>
     const [pagination, setPagination] = useState<OffsetPaginationType>(initialPagination);

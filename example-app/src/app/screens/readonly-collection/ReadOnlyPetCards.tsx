@@ -57,7 +57,7 @@ export function ReadOnlyPetCards() {
   // Load the items from server
   const { loading, error, data } = useQuery(PET_LIST);
 
-  const items = useMemo(() => deserialize(data?.petList), [data]);
+  const items = useMemo(() => deserialize(data?.petList), [data?.petList]);
 
   return (
     <div className="narrow-layout">

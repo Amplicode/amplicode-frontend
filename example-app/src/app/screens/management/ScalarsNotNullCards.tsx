@@ -55,7 +55,7 @@ export function ScalarsNotNullCards() {
   const { loading, error, data } = useQuery(NOT_NULL_SCALARS_TEST_ENTITY_LIST);
 
   const items = useMemo(() => deserialize(data?.notNullScalarsTestEntityList), [
-    data
+    data?.notNullScalarsTestEntityList
   ]);
 
   return (

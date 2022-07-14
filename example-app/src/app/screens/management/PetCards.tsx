@@ -108,7 +108,7 @@ export function PetCards() {
 
   const items = useMemo(
     () => deserialize(data?.petByIdentificationNumberList),
-    [data]
+    [data?.petByIdentificationNumberList]
   );
 
   const applyFilters = useCallback(

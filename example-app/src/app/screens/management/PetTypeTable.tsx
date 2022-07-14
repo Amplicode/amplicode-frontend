@@ -52,7 +52,9 @@ export function PetTypeTable() {
   // Load the items from server
   const { loading, error, data } = useQuery(PET_TYPE_LIST);
 
-  const items = useMemo(() => deserialize(data?.petTypeList), [data]);
+  const items = useMemo(() => deserialize(data?.petTypeList), [
+    data?.petTypeList
+  ]);
 
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();

@@ -14,7 +14,7 @@ import { deserialize } from "../../../core/transform/model/deserialize";
 import { useBreadcrumbItem } from "../../../core/screen/useBreadcrumbItem";
 
 const PET = gql(`
-  query Get_Pet($id: ID) {
+  query Get_Pet($id: ID!) {
     pet(id: $id) {
       id
       identificationNumber
@@ -52,6 +52,7 @@ export function StandalonePetDetails() {
   const { recordId } = useParams();
   const navigate = useNavigate();
 
+  if (recordId == null) throw new Error("recordId must be defined");
   const { loading: queryLoading, error: queryError, data } = useQuery(PET, {
     variables: {
       id: recordId

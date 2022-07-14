@@ -280,7 +280,7 @@ function useLoadItem(id<% if(!idIsNotNull) { -%>?<% } -%>: string) {
     }
   }, [loadItem, id]);
 
-  const item: ItemType = useMemo(() => deserialize(data?.<%= queryName %>), [data]);
+  const item = useMemo(() => deserialize(data?.<%= queryName %>), [data?.<%= queryName %>]);
 
   return {
     item,

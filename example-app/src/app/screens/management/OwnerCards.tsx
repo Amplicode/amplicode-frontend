@@ -50,7 +50,7 @@ export function OwnerCards() {
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
 
-  const items = useMemo(() => deserialize(data?.ownerList), [data]);
+  const items = useMemo(() => deserialize(data?.ownerList), [data?.ownerList]);
 
   return (
     <div className="narrow-layout">

@@ -64,7 +64,7 @@ export function ReadOnlyOwnerTable() {
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
 
-  const items = useMemo(() => deserialize(data?.ownerList), [data]);
+  const items = useMemo(() => deserialize(data?.ownerList), [data?.ownerList]);
 
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
