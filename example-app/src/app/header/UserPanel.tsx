@@ -4,10 +4,13 @@ import {useCallback} from "react";
 import {Button, Modal, notification} from "antd";
 import axios from "axios";
 import {LogoutOutlined} from "@ant-design/icons";
+import { useAuth } from "react-oidc-context";
 
 export function UserPanel() {
   const intl = useIntl();
   const securityStore = useSecurityStore();
+
+  const auth = useAuth();
 
   const showLogoutConfirm = useCallback(() => {
     Modal.confirm({
@@ -15,20 +18,22 @@ export function UserPanel() {
       okText: intl.formatMessage({ id: "common.ok" }),
       cancelText: intl.formatMessage({ id: "common.cancel" }),
       onOk: async () => {
-        try {
-          const response = await securityStore.logout();
-          if (response.status !== 200) {
-            notification.error({
-              message: intl.formatMessage({ id: "auth.logout.unknownError" })
-            });
-          }
-        } catch (error) {
-          if (axios.isAxiosError(error)) {
-            notification.error({
-              message: intl.formatMessage({ id: "auth.logout.unknownError" })
-            });
-          }
-        }
+        const post_logout_redirect_uri = window.location.href;
+        auth.signoutRedirect({post_logout_redirect_uri});
+        // try {
+        //   const response = await securityStore.logout();
+        //   if (response.status !== 200) {
+        //     notification.error({
+        //       message: intl.formatMessage({ id: "auth.logout.unknownError" })
+        //     });
+        //   }
+        // } catch (error) {
+        //   if (axios.isAxiosError(error)) {
+        //     notification.error({
+        //       message: intl.formatMessage({ id: "auth.logout.unknownError" })
+        //     });
+        //   }
+        // }
       }
     });
   }, [intl, securityStore]);
