@@ -24,6 +24,7 @@ import {getEntityAttributes} from "../../../building-blocks/stages/template-mode
 import {getEntityName} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getEntityName";
 import {AttributeModel} from "../../../building-blocks/stages/template-model/pieces/entity";
 import {getTopFieldName} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getTopFieldName";
+import {getAttributeNames} from "../../../building-blocks/stages/template-model/pieces/graphql-utils/getAttributeNames";
 
 export interface MvpEntityEditorTemplateModel extends BaseTemplateModel, ScreenTemplateModel, UtilTemplateModel, GraphQLEditorModel {
   queryString: string,
@@ -36,10 +37,11 @@ interface GraphQLEditorModel extends UsingScalars {
   queryName: string;
   idIsNotNull: boolean;
   mutationName?: string;
-  entityName?: string;
+  entityName: string;
   attributes: AttributeModel[];
   inputVariableName?: string;
   inputTypeName?: string;
+  allAttributes: string[];
 }
 
 export const deriveEntityDetailsTemplateModel: AmplicodeTemplateModelStage<
@@ -94,6 +96,8 @@ export function deriveGraphQLEditorModel(
   const queryName = getTopFieldName(queryNode);
   const entityName = getEntityName(queryName, schema);
 
+  const allAttributes = getAttributeNames(entityName, schema);
+
   if (mutationNode == null) {
     const readOnlyAttributes = getEntityAttributes(queryNode, schema, idField);
 
@@ -101,7 +105,8 @@ export function deriveGraphQLEditorModel(
       queryName,
       idIsNotNull,
       attributes: readOnlyAttributes,
-      entityName
+      entityName,
+      allAttributes
     }
   }
 
@@ -138,7 +143,7 @@ export function deriveGraphQLEditorModel(
   }
 
   // We take attributes from query, otherwise it won't be possible to pair the entity type from editor with entity type from list
-  const attributes = getEntityAttributes(queryNode, schema, idField);  
+  const attributes = getEntityAttributes(queryNode, schema, idField);
 
   const usingScalars = deriveUsingScalars(attributes);
 
@@ -150,6 +155,7 @@ export function deriveGraphQLEditorModel(
     entityName,
     inputVariableName,
     inputTypeName,
+    allAttributes,
     ...usingScalars
   };
 }
