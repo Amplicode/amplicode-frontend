@@ -1,4 +1,4 @@
-import { ReactNode, useState, useCallback } from "react";
+import { ReactNode, useMemo, useState, useCallback } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf, VariablesOf } from "@graphql-typed-document-node/core";
@@ -102,8 +102,10 @@ export function OwnerCardsWithFilterSortPage() {
     },
     []
   );
-  const items = deserialize(
-    data?.ownerListByNamesFilterOffsetPageSorted?.content
+
+  const items = useMemo(
+    () => deserialize(data?.ownerListByNamesFilterOffsetPageSorted?.content),
+    [data]
   );
 
   const [pagination, setPagination] = useState<OffsetPaginationType>(

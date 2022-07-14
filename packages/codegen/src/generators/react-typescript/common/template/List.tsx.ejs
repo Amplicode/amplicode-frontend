@@ -4,6 +4,7 @@
 <%# ------- TEMPLATE STARTS HERE ------- -%>
 import {
   ReactNode,
+  useMemo,
   <% if (withFilters) { -%>
     useState,
   <% } -%>
@@ -190,11 +191,8 @@ export function <%= componentName %>() {
     // Load the items from server
     const { loading, error, data } = useQuery(<%= QUERY_CONST %>);
   <% } -%>
-  <% if (locals?.paginationType === 'offset') { -%>
-    const items = deserialize(data?.<%= queryName %>?.content);
-  <% } else { -%>
-    const items = deserialize(data?.<%= queryName %>);
-  <% } -%>
+
+  const items = useMemo(() => deserialize(data?.<%= queryName %><% if (locals?.paginationType === 'offset') { -%>?.content<% } -%>), [data]);
 
   <% if (locals?.paginationType === 'offset') { -%>
     const [pagination, setPagination] = useState<OffsetPaginationType>(initialPagination);

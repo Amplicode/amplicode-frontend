@@ -6,6 +6,7 @@
 <% const MUTATION_CONST = deleteMutationName ? toFatSnakeCase(deleteMutationName) : undefined; -%>
 <%# ------- TEMPLATE STARTS HERE ------- -%>
 import {
+  useMemo,
   <% if (mode === 'view with details') { -%>
     useEffect,
   <% } -%>
@@ -206,11 +207,8 @@ export function <%= componentName %>() {
     // Load the items from server
     const { loading, error, data } = useQuery(<%= QUERY_CONST %>);
   <% } -%>
-  <% if (locals?.paginationType === 'offset') { -%>
-    const items = deserialize(data?.<%= queryName %>?.content);
-  <% } else { -%>
-    const items = deserialize(data?.<%= queryName %>);
-  <% } -%>
+  
+  const items = useMemo(() => deserialize(data?.<%= queryName %><% if (locals?.paginationType === 'offset') { -%>?.content<% } -%>), [data]);
 
   <% if (locals?.paginationType === 'offset') { -%>
     const [pagination, setPagination] = useState<OffsetPaginationType>(initialPagination);

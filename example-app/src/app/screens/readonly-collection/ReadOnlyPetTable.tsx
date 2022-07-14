@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
@@ -91,7 +91,8 @@ export function ReadOnlyPetTable() {
 
   // Load the items from server
   const { loading, error, data } = useQuery(PET_LIST);
-  const items = deserialize(data?.petList);
+
+  const items = useMemo(() => deserialize(data?.petList), [data]);
 
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();

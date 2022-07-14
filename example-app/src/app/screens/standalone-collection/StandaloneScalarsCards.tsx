@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
@@ -69,7 +69,8 @@ export function StandaloneScalarsCards() {
 
   // Load the items from server
   const { loading, error, data } = useQuery(SCALARS_TEST_ENTITY_LIST);
-  const items = deserialize(data?.scalarsTestEntityList);
+
+  const items = useMemo(() => deserialize(data?.scalarsTestEntityList), [data]);
 
   return (
     <div className="narrow-layout">
