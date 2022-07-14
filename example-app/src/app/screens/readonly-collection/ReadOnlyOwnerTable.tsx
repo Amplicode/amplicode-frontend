@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
@@ -63,7 +63,8 @@ export function ReadOnlyOwnerTable() {
 
   // Load the items from server
   const { loading, error, data } = useQuery(OWNER_LIST);
-  const items = deserialize(data?.ownerList);
+
+  const items = useMemo(() => deserialize(data?.ownerList), [data]);
 
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();

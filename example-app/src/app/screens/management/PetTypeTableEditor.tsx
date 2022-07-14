@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useMemo, useCallback, useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import {
@@ -244,8 +244,6 @@ function FormButtons({ submitting }: { submitting?: boolean }) {
  * @param id
  */
 function useLoadItem(id?: string) {
-  const [item, setItem] = useState<ItemType | null>();
-
   // Get the function that will load item from server,
   // also get variables that will contain loading/error state and response data
   // once the response is received
@@ -262,12 +260,7 @@ function useLoadItem(id?: string) {
     }
   }, [loadItem, id]);
 
-  // Get the received item, if any
-  useEffect(() => {
-    if (data?.petType != null) {
-      setItem(deserialize(data?.petType));
-    }
-  }, [data, setItem]);
+  const item: ItemType = useMemo(() => deserialize(data?.petType), [data]);
 
   return {
     item,
