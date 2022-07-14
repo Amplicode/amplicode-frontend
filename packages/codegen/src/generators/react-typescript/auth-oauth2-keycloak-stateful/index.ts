@@ -21,9 +21,11 @@ export class Auth_OAuth2_Keycloak_Stateful extends YeomanGenerator {
 }
 
 const description = 'OAuth2.0 with Keycloak (Stateful)';
+const isFrontendComponent = false;
 
 export {
   Auth_OAuth2_Keycloak_Stateful as generator,
   amplicodeCommonOptionsConfig as options,
   description,
+  isFrontendComponent,
 };

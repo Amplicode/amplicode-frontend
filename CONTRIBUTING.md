@@ -587,6 +587,22 @@ export const deriveTemplateModel = (
 }
 ```
 
+#### Generator Details
+
+List of generators could be seen by running 
+```
+amplicodegen list
+```
+Each generator contains `name`, `options` and `params`. 
+Additional information could be provided in properties:
+
+* description: more detailed info about generator
+* iconPath: path to icon, used in generated screen
+* index: generator position in list  
+* path: an absolute path to generator
+* isFrontendComponent: if true - generator is used to create frontend component 
+  (by default `isFrontendComponent = true` for all generators)
+
 #### Testing Your Changes Manually
 
 Generators should be tested from both CLI and Amplicode Studio. In either case the codegen library should be built first:

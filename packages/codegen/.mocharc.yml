@@ -1,5 +1,5 @@
 spec:
-  './**/*.test.ts'
+  ['./**/*.test.ts', 'test/e2e/cli/**/*.test.js']
 require:
   ts-node/register
 timeout:
