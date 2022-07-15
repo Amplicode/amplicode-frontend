@@ -24,6 +24,7 @@
   "auth.signingOut": "Signing out...",
   "auth.loading": "Loading...",
   "auth.failed": "Authentication failed",
+  "auth.redirectAfterLogin": "Login successful. Redirecting...",
   "EntityListScreen.deleteConfirmation": "Are you sure you want to delete this record?",
   "EntityDetailsScreen.savedSuccessfully": "Saved successfully",
   "EntityDetailsScreen.deletedSuccessfully": "Deleted successfully",
