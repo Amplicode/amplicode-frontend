@@ -33,7 +33,6 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { gql } from "../../../gql";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
 import { useDeleteItem } from "../../../core/crud/useDeleteItem";
-import { GraphQLError } from "graphql/error/GraphQLError";
 import { FetchResult } from "@apollo/client/link/core";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
@@ -94,12 +93,8 @@ export function OwnerCardsWithFilterSortPage() {
     variables: queryVariables
   });
 
-  const mergeQueryVariales = useCallback(
-    (newQueryVariables: QueryVariablesType) => {
-      setQueryVariables(queryVariables =>
-        mergeDeep(queryVariables, newQueryVariables)
-      );
-    },
+  const mergeQueryVariables = useCallback(newQueryVariables => setQueryVariables(
+    queryVariables => mergeDeep(queryVariables, newQueryVariables)),
     []
   );
 
@@ -115,14 +110,14 @@ export function OwnerCardsWithFilterSortPage() {
   const changePagination = useCallback(
     (pagination: OffsetPaginationType) => {
       setPagination(pagination);
-      mergeQueryVariales({
+      mergeQueryVariables({
         page: {
           number: pagination.current - 1,
           size: pagination.pageSize
         }
       });
     },
-    [mergeQueryVariales]
+    [mergeQueryVariables]
   );
   const applyPagination = useCallback(
     (current: number, pageSize: number) =>
@@ -137,15 +132,15 @@ export function OwnerCardsWithFilterSortPage() {
 
   const applySort = useCallback(
     (newSortValue: QueryVariablesType["sort"] | undefined) => {
-      mergeQueryVariales({ sort: newSortValue });
+      mergeQueryVariables({ sort: newSortValue });
       setSortValue(newSortValue);
     },
-    [mergeQueryVariales]
+    [mergeQueryVariables]
   );
 
   const applyFilters = useCallback(
     (filters: QueryVariablesType) => {
-      mergeQueryVariales(
+      mergeQueryVariables(
         serializeVariables(
           OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED,
           filters
@@ -153,7 +148,7 @@ export function OwnerCardsWithFilterSortPage() {
       );
       changePagination(initialPagination);
     },
-    [changePagination, mergeQueryVariales]
+    [changePagination, mergeQueryVariables]
   );
 
   const afterResetFilters = useCallback(() => applySort(undefined), [
@@ -295,6 +290,7 @@ function Filters({ onApplyFilters, onAfterReset }: FiltersProps) {
       initialValues={initialQueryVariables}
     >
       <Form.Item shouldUpdate>
+        {/* content wrapped with function for proper re-render by reset button */}
         {() => {
           return (
             <Row gutter={16}>
@@ -350,7 +346,7 @@ function Filters({ onApplyFilters, onAfterReset }: FiltersProps) {
   );
 }
 
-interface ItemCardsListProps {
+interface CardsProps {
   items?: ItemListType;
   loading?: boolean;
   error?: ApolloError;
@@ -359,7 +355,7 @@ interface ItemCardsListProps {
 /**
  * Collection of cards, each card representing an item
  */
-function Cards({ items, loading, error }: ItemCardsListProps) {
+function Cards({ items, loading, error }: CardsProps) {
   if (loading) {
     return <Spin />;
   }
@@ -439,11 +435,7 @@ function useCardActions(item: ItemType): ReactNode[] {
     <EditOutlined
       key="edit"
       title={intl.formatMessage({ id: "common.edit" })}
-      onClick={() => {
-        if (item?.id != null) {
-          navigate(item.id);
-        }
-      }}
+      onClick={() => item?.id != null ?? navigate(item!.id!)}
     />,
     deleting ? (
       <LoadingOutlined />
@@ -472,40 +464,26 @@ function useDeleteConfirm(id: string | null | undefined) {
     deleteItem()
       .then(({ errors }: FetchResult) => {
         if (errors == null || errors.length === 0) {
-          return handleDeleteSuccess();
+          return message.success(
+            intl.formatMessage({ id: "EntityDetailsScreen.deletedSuccessfully" })
+          );
         }
-        return handleDeleteGraphQLError(errors);
+
+        // graphql error
+        console.error(errors);
+        return message.error(intl.formatMessage({ id: "common.requestFailed" }));
       })
-      .catch(handleDeleteNetworkError);
-  }
-
-  // Function that is executed when mutation is successful
-  function handleDeleteSuccess() {
-    return message.success(
-      intl.formatMessage({ id: "EntityDetailsScreen.deletedSuccessfully" })
-    );
-  }
-
-  // Function that is executed when mutation results in a GraphQL error
-  function handleDeleteGraphQLError(
-    errors: ReadonlyArray<GraphQLError> | undefined
-  ) {
-    console.error(errors);
-    return message.error(intl.formatMessage({ id: "common.requestFailed" }));
-  }
-
-  // Function that is executed when mutation results in a network error (such as 4xx or 5xx)
-  function handleDeleteNetworkError(error: Error | ApolloError) {
-    console.error(error);
-    return message.error(intl.formatMessage({ id: "common.requestFailed" }));
+      // network error
+      .catch(error => {
+        console.error(error);
+        return message.error(intl.formatMessage({ id: "common.requestFailed" }));
+      });
   }
 
   return {
     showDeleteConfirm: () =>
       Modal.confirm({
-        content: intl.formatMessage({
-          id: "EntityListScreen.deleteConfirmation"
-        }),
+        content: intl.formatMessage({id: "EntityListScreen.deleteConfirmation"}),
         okText: intl.formatMessage({ id: "common.ok" }),
         cancelText: intl.formatMessage({ id: "common.cancel" }),
         onOk: handleDeleteItem
