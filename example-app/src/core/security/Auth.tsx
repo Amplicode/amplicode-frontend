@@ -1,47 +1,49 @@
 import { Result } from "antd";
-import {PropsWithChildren, useEffect, useState} from "react";
-import {FormattedMessage, useIntl} from "react-intl";
-import { useAuth } from "react-oidc-context";
-import {LoadingOutlined, LoginOutlined, LogoutOutlined} from "@ant-design/icons";
-import {ID_TOKEN_STORAGE_KEY} from "./oidcConfig";
+import {PropsWithChildren, useEffect} from "react";
+import {FormattedMessage} from "react-intl";
+import {LoginOutlined, LogoutOutlined} from "@ant-design/icons";
+import React from "react";
+import { Loading } from "../feedback/Loading";
+import {useSecurity} from "./useSecurity";
+import { observer } from "mobx-react";
 
-export function Auth({children}: PropsWithChildren<any>) {
-  const auth = useAuth();
-
-  const [init, setInit] = useState<boolean>(false);
-
-  const {isLoading, activeNavigator, isAuthenticated, error, signinRedirect} = auth;
+export const Auth = observer(({children}: PropsWithChildren<unknown>) => {
+  const {isLoggedIn, isInProgress, isLoading, isSigningIn, isSigningOut, error, login, checkSession} = useSecurity();
 
   useEffect(() => {
-    console.log('*************');
-
-    if (!init && !isAuthenticated && !isLoading && !activeNavigator && !error) {
-      console.log('REDIRECT SIGN IN');
-      setInit(true);
-      void signinRedirect();
+    if (isLoggedIn) {
+      void checkSession();
     }
-  }, [activeNavigator, error, init, isAuthenticated, isLoading, signinRedirect]);
+  }, [checkSession, isLoggedIn])
 
-  switch (auth.activeNavigator) {
-    case 'signinSilent':
-      return (
-        <Result title={<FormattedMessage id='auth.signingIn' />}
-                icon={<LoginOutlined/>}
-        />
-      );
-    case 'signoutRedirect':
-      return (
-        <Result title={<FormattedMessage id='auth.signingOut' />}
-                icon={<LogoutOutlined/>}
-        />
-      );
+  useEffect(() => {
+    if (!isLoggedIn && !isInProgress && error == null) {
+      void login();
+    }
+  }, [error, isInProgress, isLoggedIn, login]);
+
+  if (isSigningIn) {
+    return (
+      <Result title={<FormattedMessage id='auth.signingIn' />}
+              icon={<LoginOutlined/>}
+      />
+    );
   }
 
-  if (auth.isLoading) {
+  if (isSigningOut) {
+    return (
+      <Result title={<FormattedMessage id='auth.signingOut' />}
+              icon={<LogoutOutlined/>}
+      />
+    );
+  }
+
+  if (isLoading) {
     return <Loading/>;
   }
 
-  if (auth.error) {
+  if (error) {
+    console.error(error);
     return (
       <Result title={<FormattedMessage id='auth.failed' />}
               subTitle={<FormattedMessage id='common.unknownAppError' />}
@@ -50,24 +52,10 @@ export function Auth({children}: PropsWithChildren<any>) {
     )
   }
 
-  if (auth.isAuthenticated) {
-    // We need to wait until onSigninCallback puts the token into local storage, so that it can be picked up by Apollo Client's authLink
-    if (!localStorage.getItem(ID_TOKEN_STORAGE_KEY)) {
-      return <Loading/>;
-    }
-
-    return children;
+  if (isLoggedIn) {
+    return <>{children}</>;
   }
 
   return <Loading/>;
-}
+});
 
-function Loading() {
-  const intl = useIntl();
-
-  return (
-    <Result title={<FormattedMessage id='auth.loading' />}
-            icon={<LoadingOutlined/>}
-    />
-  );
-}

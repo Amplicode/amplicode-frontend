@@ -1,31 +1,11 @@
-import { gql, useQuery } from "@apollo/client";
-import { Result, Spin } from "antd";
+import { Result } from "antd";
 import "./Home.css";
 import { FormattedMessage } from "react-intl";
 import { SmileOutlined } from "@ant-design/icons";
-
-const QUERY = gql`
-  query {
-    userInfo {
-      username
-    }
-  }
-`;
+import {useSecurity} from "../../../core/security/useSecurity";
 
 export const Home = () => {
-  const { loading, error, data } = useQuery(QUERY);
-
-  if (loading) {
-    return <Spin />;
-  }
-
-  if (error != null) {
-    return (
-      <Result status="error" title="Query failed" subTitle={error.message} />
-    );
-  }
-
-  const { username } = data?.userInfo;
+  const {userName} = useSecurity();
 
   return (
     <Result
@@ -36,7 +16,7 @@ export const Home = () => {
           values={{ appName: "Jmix2 Petclinic" }}
         />
       }
-      subTitle={<FormattedMessage id="home.loggedInAs" values={{ username }} />}
+      subTitle={<FormattedMessage id="home.loggedInAs" values={{ userName }} />}
     />
   );
 };

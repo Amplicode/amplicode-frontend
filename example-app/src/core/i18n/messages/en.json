@@ -32,7 +32,7 @@
   "EntityLookupField.selectEntityInstance": "Select {label}",
   "screen.home": "Home",
   "home.welcome": "Welcome to {appName}!",
-  "home.loggedInAs": "You are logged in as {username}",
+  "home.loggedInAs": "You are logged in as {userName}",
   "filters.apply": "Apply",
   "filters.reset": "Reset",
   "filters.showAll": "Show all",

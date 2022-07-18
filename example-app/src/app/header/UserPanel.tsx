@@ -18,8 +18,7 @@ export function UserPanel() {
       okText: intl.formatMessage({ id: "common.ok" }),
       cancelText: intl.formatMessage({ id: "common.cancel" }),
       onOk: async () => {
-        const post_logout_redirect_uri = window.location.href;
-        auth.signoutRedirect({post_logout_redirect_uri});
+        await securityStore.logout();
         // try {
         //   const response = await securityStore.logout();
         //   if (response.status !== 200) {

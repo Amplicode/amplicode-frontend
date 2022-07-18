@@ -17,6 +17,8 @@ import { act } from "react-dom/test-utils";
 import { SecurityStore } from "../core/security/security";
 import { SecurityContext } from "../core/security/security-context";
 
+// TODO rewrite
+
 it("renders without crashing", () => {
   axios.defaults.withCredentials = !REQUEST_SAME_ORIGIN;
 

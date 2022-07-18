@@ -21,6 +21,11 @@
   "auth.login.unknownError": "Не удалось войти",
   "auth.logout.confirm": "Вы действительно хотите выйти?",
   "auth.logout.unknownError": "Не удалось войти",
+  "auth.signingIn": "Вход...",
+  "auth.signingOut": "Выход...",
+  "auth.loading": "Загрузка...",
+  "auth.failed": "Ошибка аутентификации",
+  "auth.redirectAfterLogin": "Вы вошли. Перенаправляем...",
   
   "EntityListScreen.deleteConfirmation": "Вы уверены, что хотите удалить эту запись?",
   "EntityDetailsScreen.savedSuccessfully": "Запись успешно сохранена",
@@ -30,7 +35,7 @@
   
   "screen.home": "Главная страница",
   "home.welcome": "Добро пожаловать в {appName}!",
-  "home.loggedInAs": "Вы вошли как {username}",
+  "home.loggedInAs": "Вы вошли как {userName}",
 
   "filters.apply": "Применить",
   "filters.reset": "Сбросить",

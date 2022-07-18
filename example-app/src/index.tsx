@@ -23,10 +23,10 @@ import { serverErrorEmitter } from "./core/error/serverErrorEmitter";
 
 ReactDOM.render(
   <React.StrictMode>
-    <SecurityProvider>
-      <ApiProvider>
-        <I18nProvider>
-          <BrowserRouter>
+    <BrowserRouter>
+      <SecurityProvider>
+        <ApiProvider>
+          <I18nProvider>
             <ServerErrorInterceptor serverErrorEmitter={serverErrorEmitter}>
               <DevSupport
                 ComponentPreviews={ComponentPreviews}
@@ -37,10 +37,10 @@ ReactDOM.render(
                 </AppErrorBoundary>
               </DevSupport>
             </ServerErrorInterceptor>
-          </BrowserRouter>
-        </I18nProvider>
-      </ApiProvider>
-    </SecurityProvider>
+          </I18nProvider>
+        </ApiProvider>
+      </SecurityProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
