@@ -1,10 +1,10 @@
 import { ServerErrorEvents } from "./ServerErrorEvents";
 import { ErrorHandler } from "@apollo/client/link/error";
-import { useSecurityStore } from "../security/security-context";
 import { useEffect } from "react";
 import { notification } from "antd";
 import { useIntl } from "react-intl";
 import { EventEmitter } from "@amplicode/react";
+import {useSecurity} from "../security/useSecurity";
 
 export interface ServerErrorInterceptorProps {
   serverErrorEmitter: EventEmitter<ServerErrorEvents>;
@@ -15,7 +15,7 @@ export function ServerErrorInterceptor({
   children
 }: ServerErrorInterceptorProps) {
   const intl = useIntl();
-  const securityStore = useSecurityStore();
+  const security = useSecurity();
 
   useEffect(() => {
     const graphQLErrorHandler: ErrorHandler = ({
@@ -36,7 +36,7 @@ export function ServerErrorInterceptor({
             err => err.extensions?.classification === "UNAUTHORIZED"
           )
         ) {
-          securityStore.logout();
+          void security.logout();
           return;
         }
 
@@ -56,11 +56,11 @@ export function ServerErrorInterceptor({
         return;
       }
       if (networkError.statusCode === 401) {
-        securityStore.logout();
+        void security.logout();
       }
     };
 
-    const unauthorizedHandler = () => securityStore.logout();
+    const unauthorizedHandler = () => security.logout();
 
     serverErrorEmitter.on("graphQLError", graphQLErrorHandler);
     serverErrorEmitter.on("unauthorized", unauthorizedHandler);
@@ -69,7 +69,7 @@ export function ServerErrorInterceptor({
       serverErrorEmitter.off("graphQLError", graphQLErrorHandler);
       serverErrorEmitter.off("unauthorized", unauthorizedHandler);
     };
-  }, [serverErrorEmitter, intl, securityStore]);
+  }, [serverErrorEmitter, intl, security]);
 
   return <>{children}</>;
 }

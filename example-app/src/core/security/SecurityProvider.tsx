@@ -1,6 +1,6 @@
 import React, {PropsWithChildren, useCallback, useEffect, useMemo, useState} from "react";
 import {AuthProvider, useAuth} from "react-oidc-context";
-import {oidcConfig} from "./oidcConfig";
+import {ID_TOKEN_STORAGE_KEY, oidcConfig} from "./oidcConfig";
 import {SecurityContext} from "./SecurityContext";
 import {SecurityStore} from "./SecurityStore";
 import {useApolloClient} from "@apollo/client";
@@ -11,11 +11,11 @@ import {resolvePath, useLocation, useNavigate} from "react-router-dom";
 
 export function SecurityProvider({children}: PropsWithChildren<unknown>) {
   return (
-    <SecurityStoreProvider>
-      <OIDCAuthProvider>
+    <OIDCAuthProvider>
+      <SecurityStoreProvider>
         {children}
-      </OIDCAuthProvider>
-    </SecurityStoreProvider>
+      </SecurityStoreProvider>
+    </OIDCAuthProvider>
   );
 }
 
@@ -43,12 +43,10 @@ function SecurityStoreProvider({children}: PropsWithChildren<unknown>) {
 }
 
 function OIDCAuthProvider({children}: PropsWithChildren<unknown>) {
-  const {saveToken} = useSecurity();
-
   /*
    * After login, authority will redirect the user to:
    *
-   * http://localhost:3000/auth?return_path={return_path}&state=...&session_state=...&code=...
+   * http://localhost:3000/auth?return_path=...&state=...&session_state=...&code=...
    *
    * where `state`, `session_state` and `code` are parameters added by authority,
    * and `return_path` is the pathname of the location from where the user was redirected to authority login page
@@ -57,7 +55,8 @@ function OIDCAuthProvider({children}: PropsWithChildren<unknown>) {
    * The reason we don't tell the authority to redirect directly to `return_path` is to support
    * the corner case of `return_path` containing query parameters called `state`, `session_state` or `code`.
    */
-  const {pathname: return_path} = useLocation();
+  const location = useLocation();
+  const return_path = encodeURIComponent(location.pathname + location.search + location.hash);
   const redirect_uri = useMemo(() => {
     const authPath = resolvePath('auth').pathname;
     return `${window.location.origin}${authPath}?return_path=${return_path}`
@@ -76,9 +75,9 @@ function OIDCAuthProvider({children}: PropsWithChildren<unknown>) {
         navigate('/');
         return;
       }
-      navigate(navigateTarget);
+      navigate(decodeURIComponent(navigateTarget));
     },
-    [navigate, saveToken]
+    [navigate]
   );
 
   return (
@@ -89,4 +88,8 @@ function OIDCAuthProvider({children}: PropsWithChildren<unknown>) {
       {children}
     </AuthProvider>
   );
+}
+
+async function saveToken(token: string) {
+  await localStorage.setItem(ID_TOKEN_STORAGE_KEY, token);
 }

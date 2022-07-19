@@ -1,54 +1,16 @@
-import {action, computed, makeObservable, observable} from "mobx";
+import {action, makeObservable, observable} from "mobx";
 import {ApolloClient, gql} from "@apollo/client";
 import {AuthContextProps} from "react-oidc-context";
-import {oidcConfig} from "./oidcConfig";
-
-const ID_TOKEN_STORAGE_KEY = `oidc.user:${oidcConfig.authority}:${oidcConfig.client_id}`;
+import {ID_TOKEN_STORAGE_KEY} from "./oidcConfig";
 
 export class SecurityStore {
-  @observable userName?: string;
+  @observable userName: string | null = null;
 
   constructor(
     private client: ApolloClient<unknown>,
     private auth: AuthContextProps,
   ) {
     makeObservable(this);
-  }
-
-  @computed
-  get isLoggedIn() {
-    return this.auth.isAuthenticated && this.isTokenAvailable;
-  }
-
-  @computed
-  get isTokenAvailable() {
-    return localStorage.getItem(ID_TOKEN_STORAGE_KEY) != null;
-  }
-
-  @computed
-  get isInProgress() {
-    return this.isLoading || this.isSigningIn || this.isSigningOut;
-  }
-
-  @computed
-  get isLoading() {
-    return this.auth.isLoading;
-  }
-
-  @computed
-  get isSigningIn() {
-    return this.auth.activeNavigator === 'signinSilent'
-      || this.auth.activeNavigator === 'signinRedirect';
-  }
-
-  @computed
-  get isSigningOut() {
-    return this.auth.activeNavigator === 'signoutRedirect';
-  }
-
-  @computed
-  get error() {
-    return this.auth.error;
   }
 
   @action
@@ -59,17 +21,12 @@ export class SecurityStore {
   @action
   logout = async () => {
     const post_logout_redirect_uri = window.location.href;
+    await localStorage.removeItem(ID_TOKEN_STORAGE_KEY);
     await this.auth.signoutRedirect({post_logout_redirect_uri});
-    await this.clearSession();
   };
 
   @action
-  async clearSession() {
-    await localStorage.removeItem(ID_TOKEN_STORAGE_KEY);
-  }
-
-  @action
-  checkSession(): Promise<void> {
+  checkSession = async (): Promise<void> => {
     return this.client
       .query({
         query: gql`
@@ -90,13 +47,8 @@ export class SecurityStore {
       )
       .catch(
         action(async () => {
-          await this.clearSession();
+          await this.logout();
         })
       );
-  }
-
-  @action
-  async saveToken(token: string) {
-    await localStorage.setItem(ID_TOKEN_STORAGE_KEY, token);
-  }
+  };
 }

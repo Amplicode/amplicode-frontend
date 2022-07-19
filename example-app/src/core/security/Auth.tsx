@@ -6,23 +6,37 @@ import React from "react";
 import { Loading } from "../feedback/Loading";
 import {useSecurity} from "./useSecurity";
 import { observer } from "mobx-react";
+import {useAuth} from "react-oidc-context";
+import {ID_TOKEN_STORAGE_KEY} from "./oidcConfig";
+import { ErrorResponse } from "oidc-client-ts";
 
 export const Auth = observer(({children}: PropsWithChildren<unknown>) => {
-  const {isLoggedIn, isInProgress, isLoading, isSigningIn, isSigningOut, error, login, checkSession} = useSecurity();
+  const {login, checkSession} = useSecurity();
+
+  const {isLoading, isAuthenticated, activeNavigator, error} = useAuth();
+
+  console.log('isAuthenticated', isAuthenticated,
+    'isLoading', isLoading,
+    'error', error
+    );
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isAuthenticated) {
       void checkSession();
     }
-  }, [checkSession, isLoggedIn])
+  }, [checkSession, isAuthenticated]);
 
   useEffect(() => {
-    if (!isLoggedIn && !isInProgress && error == null) {
-      void login();
+    if (!isAuthenticated && !isLoading && activeNavigator == null) {
+      const initialLogin = (error == null);
+      const refetchTokenExpired = (error instanceof ErrorResponse && error.error === 'invalid_grant');
+      if (initialLogin || refetchTokenExpired) {
+        void login();
+      }
     }
-  }, [error, isInProgress, isLoggedIn, login]);
+  }, [activeNavigator, error, isAuthenticated, isLoading, login]);
 
-  if (isSigningIn) {
+  if (activeNavigator === 'signinSilent' || activeNavigator === 'signinRedirect') {
     return (
       <Result title={<FormattedMessage id='auth.signingIn' />}
               icon={<LoginOutlined/>}
@@ -30,7 +44,7 @@ export const Auth = observer(({children}: PropsWithChildren<unknown>) => {
     );
   }
 
-  if (isSigningOut) {
+  if (activeNavigator === 'signoutRedirect') {
     return (
       <Result title={<FormattedMessage id='auth.signingOut' />}
               icon={<LogoutOutlined/>}
@@ -42,8 +56,15 @@ export const Auth = observer(({children}: PropsWithChildren<unknown>) => {
     return <Loading/>;
   }
 
-  if (error) {
-    console.error(error);
+  if (error != null) {
+    if (error instanceof ErrorResponse && error.error === 'invalid_grant') {
+      return (
+        <Result title={<FormattedMessage id='auth.expired' />}
+                icon={<LoginOutlined/>}
+        />
+      );
+    }
+
     return (
       <Result title={<FormattedMessage id='auth.failed' />}
               subTitle={<FormattedMessage id='common.unknownAppError' />}
@@ -52,7 +73,7 @@ export const Auth = observer(({children}: PropsWithChildren<unknown>) => {
     )
   }
 
-  if (isLoggedIn) {
+  if (isAuthenticated) {
     return <>{children}</>;
   }
 

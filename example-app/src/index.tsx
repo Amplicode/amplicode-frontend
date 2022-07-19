@@ -10,7 +10,7 @@ import { I18nProvider } from "./core/i18n/providers/I18nProvider";
 import { ServerErrorInterceptor } from "./core/error/ServerErrorInterceptor";
 import { AppErrorBoundary } from "./core/error/ErrorBoundary";
 import {SecurityProvider} from "./core/security/SecurityProvider";
-import {ApiProvider} from "./core/apollo/ApiProvider";
+import {GraphQLClientProvider} from "./core/apollo/GraphQLClientProvider";
 import { serverErrorEmitter } from "./core/error/serverErrorEmitter";
 
 // axios.interceptors.response.use(response => {
@@ -24,8 +24,8 @@ import { serverErrorEmitter } from "./core/error/serverErrorEmitter";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <SecurityProvider>
-        <ApiProvider>
+      <GraphQLClientProvider>
+        <SecurityProvider>
           <I18nProvider>
             <ServerErrorInterceptor serverErrorEmitter={serverErrorEmitter}>
               <DevSupport
@@ -38,8 +38,8 @@ ReactDOM.render(
               </DevSupport>
             </ServerErrorInterceptor>
           </I18nProvider>
-        </ApiProvider>
-      </SecurityProvider>
+        </SecurityProvider>
+      </GraphQLClientProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

@@ -3,8 +3,9 @@ import "./Home.css";
 import { FormattedMessage } from "react-intl";
 import { SmileOutlined } from "@ant-design/icons";
 import {useSecurity} from "../../../core/security/useSecurity";
+import {observer} from "mobx-react";
 
-export const Home = () => {
+export const Home = observer(() => {
   const {userName} = useSecurity();
 
   return (
@@ -19,4 +20,4 @@ export const Home = () => {
       subTitle={<FormattedMessage id="home.loggedInAs" values={{ userName }} />}
     />
   );
-};
+});

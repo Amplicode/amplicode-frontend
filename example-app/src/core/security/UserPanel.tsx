@@ -1,16 +1,12 @@
 import {useIntl} from "react-intl";
-import {useSecurityStore} from "../../core/security/security-context";
 import {useCallback} from "react";
-import {Button, Modal, notification} from "antd";
-import axios from "axios";
+import {Button, Modal} from "antd";
 import {LogoutOutlined} from "@ant-design/icons";
-import { useAuth } from "react-oidc-context";
+import {useSecurity} from "./useSecurity";
 
 export function UserPanel() {
   const intl = useIntl();
-  const securityStore = useSecurityStore();
-
-  const auth = useAuth();
+  const {logout} = useSecurity();
 
   const showLogoutConfirm = useCallback(() => {
     Modal.confirm({
@@ -18,7 +14,7 @@ export function UserPanel() {
       okText: intl.formatMessage({ id: "common.ok" }),
       cancelText: intl.formatMessage({ id: "common.cancel" }),
       onOk: async () => {
-        await securityStore.logout();
+        await logout();
         // try {
         //   const response = await securityStore.logout();
         //   if (response.status !== 200) {
@@ -35,7 +31,7 @@ export function UserPanel() {
         // }
       }
     });
-  }, [intl, securityStore]);
+  }, [intl, logout]);
 
   return (
     <Button
