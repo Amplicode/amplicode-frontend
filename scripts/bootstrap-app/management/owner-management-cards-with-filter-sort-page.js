@@ -13,10 +13,8 @@ const answers = btoa(JSON.stringify({
   upsertMutation: esc(ownerUpsertMutation),
   filterByArguments: [['filter', 'firstName'], ['filter', 'lastName']],
   orderByArguments: [
-    {property: 'CITY', direction: 'DESC'},
-    {property: 'CITY', direction: 'ASC'},
-    {property: 'FIRST_NAME', direction: 'DESC'},
-    {property: 'FIRST_NAME', direction: 'ASC'},
+    'CITY',
+    'FIRST_NAME',
   ],
   paginationType: 'offset'
 }));
