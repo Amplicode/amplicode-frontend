@@ -782,7 +782,7 @@ Expected answers:
 - `filterByArguments` an optional parameter that includes filter component in collection screens, 
 filtering will be available by arguments listed in answers
   
-Command example: [pet-management-list.js](scripts/bootstrap-app/generate-management/pet-management-list.js)
+Command example: [pet-management-list.js](scripts/bootstrap-app/management/pet-management-list.js)
 
 Generated screens: [PetList.tsx](example-app/src/app/screens/management/PetList.tsx), 
 [PetListEditor.tsx](example-app/src/app/screens/management/PetListEditor.tsx)  
@@ -804,7 +804,7 @@ Expected answers (description could be seen above, in [Management](#entity-manag
 - `detailsQuery`
 - `mode` should be `view with details` for readonly collection variant
 
-Command example: [pet-list-readonly.js](scripts/bootstrap-app/generate-readonly-collection/pet-list-readonly.js)
+Command example: [pet-list-readonly.js](scripts/bootstrap-app/readonly-collection-with-details/pet-list-readonly.js)
 
 Generated screens: [ReadOnlyPetList.tsx](example-app/src/app/screens/readonly-collection/ReadOnlyPetList.tsx),
 [ReadOnlyPetListDetails.tsx](example-app/src/app/screens/readonly-collection/ReadOnlyPetListDetails.tsx)
@@ -823,7 +823,7 @@ Expected answers (description could be seen above, in [Management](#entity-manag
 - `mutation` GraphQL query to delete entity
 - `mode` should be `edit` for standalone collection variant
 
-Command example: [owner-list-standalone.js](scripts/bootstrap-app/generate-standalone-collection/owner-list-standalone.js)
+Command example: [owner-list-standalone.js](scripts/bootstrap-app/standalone-collection/owner-list-standalone.js)
 
 Generated screen: [StandaloneOwnerList.tsx](example-app/src/app/screens/standalone-collection/StandaloneOwnerList.tsx)
 
@@ -842,7 +842,7 @@ Generator: `react-typescript:entity-details`
 
 Expected answers (description could be seen above, in [Management](#entity-management) section):
 
-Command example: [owner-editor-standalone.js](scripts/bootstrap-app/generate-standalone-editor/owner-editor-standalone.js)
+Command example: [owner-editor-standalone.js](scripts/bootstrap-app/standalone-editor/owner-editor-standalone.js)
 - `componentName`
 - `refetchQueryName` GraphQL query that should be refetched after item will be created or modified
 - `route`
@@ -865,13 +865,13 @@ So we need to add entity `id` (here id is equal to `1`) in url manually. For exa
 
 Generator: `react-typescript:entity-details`
 
-Command example: [owner-editor-standalone.js](scripts/bootstrap-app/generate-standalone-editor/owner-editor-standalone.js)
+Command example: [owner-editor-standalone.js](scripts/bootstrap-app/standalone-editor/owner-editor-standalone.js)
 - `componentName`
 - `route`
 - `shouldAddToMenu`
 - `query` GraphQL query to load entity
 
-Command example: [pet-details-standalone.js](scripts/bootstrap-app/generate-standalone-details/pet-details-standalone.js)
+Command example: [pet-details-standalone.js](scripts/bootstrap-app/standalone-details/pet-details-standalone.js)
 
 Generated screen: [StandalonePetDetails.tsx](example-app/src/app/screens/standalone-details/StandalonePetDetails.tsx)
 
@@ -890,7 +890,7 @@ Expected answers (description could be seen above, in [Management](#entity-manag
 - `route`
 - `query` GraphQL query to load list of entities
 
-Command example: [pet-lookup-cards.js](scripts/bootstrap-app/generate-lookup/pet-lookup-cards.js)
+Command example: [pet-lookup-cards.js](scripts/bootstrap-app/lookup/pet-lookup-cards.js)
 
 Generated screen: [PetLookupCards.tsx](example-app/src/app/screens/lookup/PetLookupCards.tsx)
 
