@@ -804,7 +804,7 @@ Expected answers (description could be seen above, in [Management](#entity-manag
 - `detailsQuery`
 - `mode` should be `view with details` for readonly collection variant
 
-Command example: [pet-list-readonly.js](scripts/bootstrap-app/readonly-collection-with-details/pet-list-readonly.js)
+Command example: [pet-list-readonly.js](scripts/bootstrap-app/readonly-management/pet-list-readonly.js)
 
 Generated screens: [ReadOnlyPetList.tsx](example-app/src/app/screens/readonly-collection/ReadOnlyPetList.tsx),
 [ReadOnlyPetListDetails.tsx](example-app/src/app/screens/readonly-collection/ReadOnlyPetListDetails.tsx)
@@ -826,6 +826,25 @@ Expected answers (description could be seen above, in [Management](#entity-manag
 Command example: [owner-list-standalone.js](scripts/bootstrap-app/standalone-collection/owner-list-standalone.js)
 
 Generated screen: [StandaloneOwnerList.tsx](example-app/src/app/screens/standalone-collection/StandaloneOwnerList.tsx)
+
+#### Standalone Read Only Collection
+Consist of single `collection component` without actions. <br>
+
+Generator: `react-typescript:entity-list`
+
+Expected answers (description could be seen above, in [Management](#entity-management) section):
+
+Expected answers:
+- `componentName`
+- `route`
+- `type`
+- `shouldAddToMenu`
+- `query` GraphQL query to load list of entities
+- `mode` should be `view` for read only collection variant
+
+Command example: [pet-list-readonly.js](scripts/bootstrap-app/standalone-readonly-collection/pet-list-readonly-no-details.js)
+
+Generated screens: [NoDetailsReadOnlyPetList.tsx](example-app/src/app/screens/no-details-readonly-collection/NoDetailsReadOnlyPetList.tsx),
 
 #### Standalone Editor
 Consist of `editor component`. <br>

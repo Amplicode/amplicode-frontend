@@ -26,20 +26,24 @@ gen('management/pet-disease-management-table.js');
 gen('management/pet-type-management-table.js');
 gen('management/visit-with-filter.js');
 
-gen('readonly-collection-with-details/owner-cards-readonly.js');
-gen('readonly-collection-with-details/owner-table-readonly.js');
-gen('readonly-collection-with-details/owner-list-readonly.js');
-gen('readonly-collection-with-details/pet-cards-readonly.js');
-gen('readonly-collection-with-details/pet-table-readonly.js');
-gen('readonly-collection-with-details/pet-list-readonly.js');
-gen('readonly-collection-with-details/scalars-list-readonly.js');
-gen('readonly-collection-with-details/pet-disease-list-readonly.js');
+gen('readonly-management/owner-cards-readonly.js');
+gen('readonly-management/owner-table-readonly.js');
+gen('readonly-management/owner-list-readonly.js');
+gen('readonly-management/pet-cards-readonly.js');
+gen('readonly-management/pet-table-readonly.js');
+gen('readonly-management/pet-list-readonly.js');
+gen('readonly-management/scalars-list-readonly.js');
+gen('readonly-management/pet-disease-list-readonly.js');
 
 gen('standalone-collection/owner-cards-standalone.js');
 gen('standalone-collection/owner-table-standalone.js');
 gen('standalone-collection/owner-list-standalone.js');
 gen('standalone-collection/pet-disease-list-standalone.js');
 gen('standalone-collection/scalars-cards-standalone.js');
+
+gen('standalone-readonly-collection/pet-cards-readonly-standalone.js');
+gen('standalone-readonly-collection/pet-list-readonly-standalone.js');
+gen('standalone-readonly-collection/pet-table-readonly-standalone.js');
 
 gen('standalone-editor/owner-editor-standalone.js');
 gen('standalone-editor/pet-disease-editor-standalone.js');
