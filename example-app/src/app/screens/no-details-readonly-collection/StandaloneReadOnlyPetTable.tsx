@@ -1,9 +1,8 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import { Space, Table } from "antd";
-import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { gql } from "../../../gql";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
@@ -85,9 +84,11 @@ const columns = [
   }
 ];
 
-export function ReadOnlyPetTable() {
+export function StandaloneReadOnlyPetTable() {
   const intl = useIntl();
-  useBreadcrumbItem(intl.formatMessage({ id: "screen.ReadOnlyPetTable" }));
+  useBreadcrumbItem(
+    intl.formatMessage({ id: "screen.StandaloneReadOnlyPetTable" })
+  );
 
   // Load the items from server
   const { loading, error, data } = useQuery(PET_LIST);
@@ -96,15 +97,6 @@ export function ReadOnlyPetTable() {
 
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
-
-  const navigate = useNavigate();
-
-  // Open details if row selected
-  useEffect(() => {
-    if (selectedRowId != null) {
-      navigate(selectedRowId);
-    }
-  }, [navigate, selectedRowId]);
 
   return (
     <div className="narrow-layout">

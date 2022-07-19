@@ -7,11 +7,9 @@
 <%# ------- TEMPLATE STARTS HERE ------- -%>
 import {
   useMemo,
+  useState,
   <% if (mode === 'view with details') { -%>
     useEffect,
-  <% } -%>
-  <% if (withFilters || mode === 'edit' || mode === 'view with details') { -%>
-    useState,
   <% } -%>
   <% if (withFilters || withOrderBy || withPagination) { -%>
     useCallback,

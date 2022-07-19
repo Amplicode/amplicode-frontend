@@ -12,6 +12,9 @@ import { StandaloneOwnerDetails } from "../screens/standalone-details/Standalone
 import { StandaloneScalarsEditor } from "../screens/standalone-editor/StandaloneScalarsEditor";
 import { StandalonePetDiseaseEditor } from "../screens/standalone-editor/StandalonePetDiseaseEditor";
 import { StandaloneOwnerEditor } from "../screens/standalone-editor/StandaloneOwnerEditor";
+import { StandaloneReadOnlyPetTable } from "../screens/no-details-readonly-collection/StandaloneReadOnlyPetTable";
+import { StandaloneReadOnlyPetList } from "../screens/no-details-readonly-collection/StandaloneReadOnlyPetList";
+import { StandaloneReadOnlyPetCards } from "../screens/no-details-readonly-collection/StandaloneReadOnlyPetCards";
 import { StandaloneScalarsCards } from "../screens/standalone-collection/StandaloneScalarsCards";
 import { StandalonePetDiseaseList } from "../screens/standalone-collection/StandalonePetDiseaseList";
 import { StandaloneOwnerList } from "../screens/standalone-collection/StandaloneOwnerList";
@@ -191,6 +194,18 @@ export function AppRoutes() {
       <Route path="standalone-scalars-cards">
         <Route index element={<StandaloneScalarsCards />} />
         <Route path=":recordId" element={<StandaloneScalarsCards />} />
+      </Route>
+      <Route path="standalone-read-only-pet-cards">
+        <Route index element={<StandaloneReadOnlyPetCards />} />
+        <Route path=":recordId" element={<StandaloneReadOnlyPetCards />} />
+      </Route>
+      <Route path="standalone-read-only-pet-list">
+        <Route index element={<StandaloneReadOnlyPetList />} />
+        <Route path=":recordId" element={<StandaloneReadOnlyPetList />} />
+      </Route>
+      <Route path="standalone-read-only-pet-table">
+        <Route index element={<StandaloneReadOnlyPetTable />} />
+        <Route path=":recordId" element={<StandaloneReadOnlyPetTable />} />
       </Route>
       <Route path="standalone-owner-editor">
         <Route index element={<StandaloneOwnerEditor />} />

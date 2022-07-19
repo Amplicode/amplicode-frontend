@@ -1,4 +1,4 @@
-import { ReactNode, useMemo, useState, useCallback } from "react";
+import { useMemo, ReactNode, useState, useCallback } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf, VariablesOf } from "@graphql-typed-document-node/core";
@@ -408,9 +408,8 @@ function ItemCard({ item }: { item: ItemType }) {
  */
 function useCardActions(item: ItemType): ReactNode[] {
   const intl = useIntl();
-  const { showDeleteConfirm, deleting } = useDeleteConfirm(item?.id);
-
   const navigate = useNavigate();
+  const { showDeleteConfirm, deleting } = useDeleteConfirm(item?.id);
 
   return [
     <EditOutlined

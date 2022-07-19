@@ -13,6 +13,9 @@ import { StandaloneOwnerDetails } from "../app/screens/standalone-details/Standa
 import { StandaloneScalarsEditor } from "../app/screens/standalone-editor/StandaloneScalarsEditor";
 import { StandalonePetDiseaseEditor } from "../app/screens/standalone-editor/StandalonePetDiseaseEditor";
 import { StandaloneOwnerEditor } from "../app/screens/standalone-editor/StandaloneOwnerEditor";
+import { StandaloneReadOnlyPetTable } from "../app/screens/no-details-readonly-collection/StandaloneReadOnlyPetTable";
+import { StandaloneReadOnlyPetList } from "../app/screens/no-details-readonly-collection/StandaloneReadOnlyPetList";
+import { StandaloneReadOnlyPetCards } from "../app/screens/no-details-readonly-collection/StandaloneReadOnlyPetCards";
 import { StandaloneScalarsCards } from "../app/screens/standalone-collection/StandaloneScalarsCards";
 import { StandalonePetDiseaseList } from "../app/screens/standalone-collection/StandalonePetDiseaseList";
 import { StandaloneOwnerList } from "../app/screens/standalone-collection/StandaloneOwnerList";
@@ -246,6 +249,15 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/StandaloneScalarsCards">
         <StandaloneScalarsCards />
+      </ComponentPreview>
+      <ComponentPreview path="/StandaloneReadOnlyPetCards">
+        <StandaloneReadOnlyPetCards />
+      </ComponentPreview>
+      <ComponentPreview path="/StandaloneReadOnlyPetList">
+        <StandaloneReadOnlyPetList />
+      </ComponentPreview>
+      <ComponentPreview path="/StandaloneReadOnlyPetTable">
+        <StandaloneReadOnlyPetTable />
       </ComponentPreview>
       <ComponentPreview path="/StandaloneOwnerEditor">
         <StandaloneOwnerEditor />

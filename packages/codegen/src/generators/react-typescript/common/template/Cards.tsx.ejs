@@ -3,8 +3,10 @@
 <% const MUTATION_CONST = deleteMutationName ? toFatSnakeCase(deleteMutationName) : undefined; -%>
 <%# ------- TEMPLATE STARTS HERE ------- -%>
 import {
-  ReactNode,
   useMemo,
+  <% if (mode === 'edit' || mode === 'view with details') { -%>
+    ReactNode,
+  <% } -%>
   <% if (withFilters) { -%>
     useState,
   <% } -%>
@@ -366,8 +368,11 @@ function Cards({items, loading, error}: ItemCardsListProps) {
 }
 
 function ItemCard({item}: {item: ItemType}) {
-  // Get the action buttons that will be displayed in the card
-  const cardActions: ReactNode[] = useCardActions(item);
+
+  <% if (mode === 'edit' || mode === 'view with details') { -%>
+    // Get the action buttons that will be displayed in the card
+    const cardActions: ReactNode[] = useCardActions(item);
+  <% } -%>
 
   if (item == null) {
     return null;
@@ -376,7 +381,9 @@ function ItemCard({item}: {item: ItemType}) {
   return (
     <Card key={item.<%= idField %>}
           title={get<%= capitalizeFirst(entityName) %>DisplayName(item)}
-          actions={cardActions}
+          <% if (mode === 'edit' || mode === 'view with details') { -%>
+            actions={cardActions}
+          <% } -%>
           className="narrow-layout"
     >
       <% attributes.forEach(attr => { -%>
@@ -409,52 +416,51 @@ function ItemCard({item}: {item: ItemType}) {
   );
 }
 
-/**
- * Returns action buttons that will be displayed inside the card.
- */
-function useCardActions(item: ItemType): ReactNode[] {
-  const intl = useIntl();
-  <% if (withDeleteAction) { -%>
-    const { showDeleteConfirm, deleting } = useDeleteConfirm(item?.<%= idField %>);
-  <% } -%>
-
-  <% if (mode === 'edit' || mode === 'view with details') { -%>
+<% if (mode === 'edit' || mode === 'view with details') { -%>
+  /**
+   * Returns action buttons that will be displayed inside the card.
+   */
+  function useCardActions(item: ItemType): ReactNode[] {
+    const intl = useIntl();
     const navigate = useNavigate();
-  <% } -%>
-
-  return [
-    <% if (mode === 'edit') { -%>
-      <EditOutlined
-        key="edit"
-        title={intl.formatMessage({ id: "common.edit" })}
-        onClick={() => {
-          if (item?.<%= idField %> != null) {
-            navigate(item.<%= idField %>);
-          }
-        }}
-      />,
-    <% } -%>
-    <% if (mode === 'view with details') { -%>
-      <EnterOutlined
-        key="open"
-        title={intl.formatMessage({ id: "common.open" })}
-        onClick={() => {
-          if (item?.<%= idField %> != null) {
-            navigate(item.<%= idField %>);
-          }
-        }}
-      />,
-    <% } -%>
     <% if (withDeleteAction) { -%>
-      deleting ? <LoadingOutlined /> :
-        <DeleteOutlined
-          key="delete"
-          title={intl.formatMessage({ id: "common.remove" })}
-          onClick={showDeleteConfirm}
-        />
+      const { showDeleteConfirm, deleting } = useDeleteConfirm(item?.<%= idField %>);
     <% } -%>
-  ];
-}
+
+    return [
+      <% if (mode === 'edit') { -%>
+        <EditOutlined
+          key="edit"
+          title={intl.formatMessage({ id: "common.edit" })}
+          onClick={() => {
+            if (item?.<%= idField %> != null) {
+              navigate(item.<%= idField %>);
+            }
+          }}
+        />,
+      <% } -%>
+      <% if (mode === 'view with details') { -%>
+        <EnterOutlined
+          key="open"
+          title={intl.formatMessage({ id: "common.open" })}
+          onClick={() => {
+            if (item?.<%= idField %> != null) {
+              navigate(item.<%= idField %>);
+            }
+          }}
+        />,
+      <% } -%>
+      <% if (withDeleteAction) { -%>
+        deleting ? <LoadingOutlined /> :
+          <DeleteOutlined
+            key="delete"
+            title={intl.formatMessage({ id: "common.remove" })}
+            onClick={showDeleteConfirm}
+          />
+      <% } -%>
+    ];
+  }
+<% } -%>
 
 <% if (withDeleteAction) { -%>
   /**

@@ -1,10 +1,8 @@
-import { useMemo, ReactNode } from "react";
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
 import { Empty, List, Space, Spin } from "antd";
-import { EnterOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { gql } from "../../../gql";
 import { ValueWithLabel } from "../../../core/crud/ValueWithLabel";
@@ -49,9 +47,11 @@ const PET_LIST = gql(`
   }
 `);
 
-export function ReadOnlyPetList() {
+export function StandaloneReadOnlyPetList() {
   const intl = useIntl();
-  useBreadcrumbItem(intl.formatMessage({ id: "screen.ReadOnlyPetList" }));
+  useBreadcrumbItem(
+    intl.formatMessage({ id: "screen.StandaloneReadOnlyPetList" })
+  );
 
   // Load the items from server
   const { loading, error, data } = useQuery(PET_LIST);
@@ -102,15 +102,12 @@ function ListItems({ items, loading, error }: ListItemsProps) {
 }
 
 function ListItem({ item }: { item: ItemType }) {
-  // Get the action buttons that will be displayed in the row
-  const rowActions: ReactNode[] = useRowActions(item);
-
   if (item == null) {
     return null;
   }
 
   return (
-    <List.Item actions={rowActions}>
+    <List.Item>
       <div className="list-wrapper">
         <ValueWithLabel
           key="identificationNumber"
@@ -160,26 +157,6 @@ function ListItem({ item }: { item: ItemType }) {
       </div>
     </List.Item>
   );
-}
-
-/**
- * Returns action buttons that will be displayed inside the item row.
- */
-function useRowActions(item: ItemType): ReactNode[] {
-  const intl = useIntl();
-  const navigate = useNavigate();
-
-  return [
-    <EnterOutlined
-      key="open"
-      title={intl.formatMessage({ id: "common.open" })}
-      onClick={() => {
-        if (item?.id != null) {
-          navigate(item.id);
-        }
-      }}
-    />
-  ];
 }
 
 /**

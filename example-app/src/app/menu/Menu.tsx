@@ -264,6 +264,30 @@ const menuItems: ItemType[] = [
   },
   {
     label: (
+      <Link to="standalone-read-only-pet-cards">
+        <FormattedMessage id="screen.StandaloneReadOnlyPetCards" />
+      </Link>
+    ),
+    key: "standalone-read-only-pet-cards"
+  },
+  {
+    label: (
+      <Link to="standalone-read-only-pet-list">
+        <FormattedMessage id="screen.StandaloneReadOnlyPetList" />
+      </Link>
+    ),
+    key: "standalone-read-only-pet-list"
+  },
+  {
+    label: (
+      <Link to="standalone-read-only-pet-table">
+        <FormattedMessage id="screen.StandaloneReadOnlyPetTable" />
+      </Link>
+    ),
+    key: "standalone-read-only-pet-table"
+  },
+  {
+    label: (
       <Link to="standalone-owner-editor">
         <FormattedMessage id="screen.StandaloneOwnerEditor" />
       </Link>
