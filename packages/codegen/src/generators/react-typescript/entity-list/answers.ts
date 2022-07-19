@@ -1,6 +1,5 @@
 import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/studio/studio-model";
 import {ScreenAnswers} from "../../../building-blocks/stages/answers/amplicode/ScreenAnswers";
-import { OrderByType } from "./template-model";
 
 export type EntityListMode = 'edit' | 'view' | 'view with details';
 export type EntityListType = 'list' | 'cards' | 'table';
@@ -14,7 +13,7 @@ export interface EntityListAnswers extends ScreenAnswers {
   mutation?: string; // TODO may be rename with 'deleteMutation'
   idField?: string;
   filterByArguments?: Array<string[]>;
-  orderByArguments?: OrderByType[];
+  orderByArguments?: string[];
   paginationType?: 'offset' | 'cursor';
 }
 

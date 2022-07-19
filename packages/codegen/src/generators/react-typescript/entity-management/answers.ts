@@ -1,7 +1,6 @@
 import {EntityListMode, EntityListType} from "../entity-list/answers";
 import {StudioTemplateProperty, StudioTemplatePropertyType} from "../../../common/studio/studio-model";
 import {ScreenAnswers} from "../../../building-blocks/stages/answers/amplicode/ScreenAnswers";
-import { OrderByType } from "../entity-list/template-model";
 
 export interface EntityManagementAnswers extends ScreenAnswers {
   listComponentName: string,
@@ -17,7 +16,7 @@ export interface EntityManagementAnswers extends ScreenAnswers {
   listIdField?: string,
   detailsIdField?: string,
   filterByArguments?: Array<string[]>;
-  orderByArguments?: OrderByType[];
+  orderByArguments?: string[];
   paginationType?: 'offset' | 'cursor';
 }
 

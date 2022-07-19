@@ -164,16 +164,12 @@ function removeFirstFilterPathString(argumentName: string[]) {
   return argumentName;
 }
 
-export interface OrderByType {
-  property: string;
-  direction: 'ASC' | 'DESC';
-}
 export interface OrderByTemplateModel {
-  orderByArguments?: OrderByType[];
+  orderByArguments?: string[];
   orderByType?: string;
   withOrderBy: boolean;
 }
-export function deriveOrderByTemplateModel(queryName: string, orderByArguments: OrderByType[] | undefined, schema: GraphQLSchema): OrderByTemplateModel {
+export function deriveOrderByTemplateModel(queryName: string, orderByArguments: string[] | undefined, schema: GraphQLSchema): OrderByTemplateModel {
   let orderByType: string | undefined;
   
   if (orderByArguments != null) {
