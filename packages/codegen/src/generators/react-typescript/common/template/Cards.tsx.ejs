@@ -259,7 +259,7 @@ export function <%= componentName %>() {
             />
           </Card>
         <% } -%>
-        <% if (mode === 'edit') { -%>
+        <% if (mode === 'edit' || withOrderBy) { -%>
           <ButtonPanel
             <% if (withOrderBy) { -%>
               onApplySort={applySort} sortValue={sortValue}
@@ -305,7 +305,9 @@ export function <%= componentName %>() {
     <% } -%>
   ) {
     const intl = useIntl();
-    const navigate = useNavigate();
+    <% if (mode === 'edit') { -%>
+      const navigate = useNavigate();
+    <% } -%>
 
     return (
       <%- include('OrderByButtonWrapperStart', locals) -%>

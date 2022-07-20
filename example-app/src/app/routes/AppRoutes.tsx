@@ -12,6 +12,9 @@ import { StandaloneOwnerDetails } from "../screens/standalone-details/Standalone
 import { StandaloneScalarsEditor } from "../screens/standalone-editor/StandaloneScalarsEditor";
 import { StandalonePetDiseaseEditor } from "../screens/standalone-editor/StandalonePetDiseaseEditor";
 import { StandaloneOwnerEditor } from "../screens/standalone-editor/StandaloneOwnerEditor";
+import { StandaloneReadOnlyOwnerTableWithFilterSortPage } from "../screens/readonly-collection/StandaloneReadOnlyOwnerTableWithFilterSortPage";
+import { StandaloneReadOnlyOwnerListWithFilterSortPage } from "../screens/readonly-collection/StandaloneReadOnlyOwnerListWithFilterSortPage";
+import { StandaloneReadOnlyOwnerCardsWithFilterSortPage } from "../screens/readonly-collection/StandaloneReadOnlyOwnerCardsWithFilterSortPage";
 import { StandaloneReadOnlyPetTable } from "../screens/no-details-readonly-collection/StandaloneReadOnlyPetTable";
 import { StandaloneReadOnlyPetList } from "../screens/no-details-readonly-collection/StandaloneReadOnlyPetList";
 import { StandaloneReadOnlyPetCards } from "../screens/no-details-readonly-collection/StandaloneReadOnlyPetCards";
@@ -20,6 +23,9 @@ import { StandalonePetDiseaseList } from "../screens/standalone-collection/Stand
 import { StandaloneOwnerList } from "../screens/standalone-collection/StandaloneOwnerList";
 import { StandaloneOwnerTable } from "../screens/standalone-collection/StandaloneOwnerTable";
 import { StandaloneOwnerCards } from "../screens/standalone-collection/StandaloneOwnerCards";
+import { ReadOnlyOwnerTableWithFilterSortPageScreenLayout } from "../screens/readonly-collection/ReadOnlyOwnerTableWithFilterSortPageScreenLayout";
+import { ReadOnlyOwnerListWithFilterSortPageScreenLayout } from "../screens/readonly-collection/ReadOnlyOwnerListWithFilterSortPageScreenLayout";
+import { ReadOnlyOwnerCardsWithFilterSortPageScreenLayout } from "../screens/readonly-collection/ReadOnlyOwnerCardsWithFilterSortPageScreenLayout";
 import { ReadOnlyPetDiseaseListScreenLayout } from "../screens/readonly-collection/ReadOnlyPetDiseaseListScreenLayout";
 import { ReadOnlyScalarsListScreenLayout } from "../screens/readonly-collection/ReadOnlyScalarsListScreenLayout";
 import { ReadOnlyPetListScreenLayout } from "../screens/readonly-collection/ReadOnlyPetListScreenLayout";
@@ -175,6 +181,36 @@ export function AppRoutes() {
           element={<ReadOnlyPetDiseaseListScreenLayout />}
         />
       </Route>
+      <Route path="read-only-owner-cards-with-filter-sort-page">
+        <Route
+          index
+          element={<ReadOnlyOwnerCardsWithFilterSortPageScreenLayout />}
+        />
+        <Route
+          path=":recordId"
+          element={<ReadOnlyOwnerCardsWithFilterSortPageScreenLayout />}
+        />
+      </Route>
+      <Route path="read-only-owner-list-with-filter-sort-page">
+        <Route
+          index
+          element={<ReadOnlyOwnerListWithFilterSortPageScreenLayout />}
+        />
+        <Route
+          path=":recordId"
+          element={<ReadOnlyOwnerListWithFilterSortPageScreenLayout />}
+        />
+      </Route>
+      <Route path="read-only-owner-table-with-filter-sort-page">
+        <Route
+          index
+          element={<ReadOnlyOwnerTableWithFilterSortPageScreenLayout />}
+        />
+        <Route
+          path=":recordId"
+          element={<ReadOnlyOwnerTableWithFilterSortPageScreenLayout />}
+        />
+      </Route>
       <Route path="standalone-owner-cards">
         <Route index element={<StandaloneOwnerCards />} />
         <Route path=":recordId" element={<StandaloneOwnerCards />} />
@@ -206,6 +242,36 @@ export function AppRoutes() {
       <Route path="standalone-read-only-pet-table">
         <Route index element={<StandaloneReadOnlyPetTable />} />
         <Route path=":recordId" element={<StandaloneReadOnlyPetTable />} />
+      </Route>
+      <Route path="standalone-read-only-owner-cards-with-filter-sort-page">
+        <Route
+          index
+          element={<StandaloneReadOnlyOwnerCardsWithFilterSortPage />}
+        />
+        <Route
+          path=":recordId"
+          element={<StandaloneReadOnlyOwnerCardsWithFilterSortPage />}
+        />
+      </Route>
+      <Route path="standalone-read-only-owner-list-with-filter-sort-page">
+        <Route
+          index
+          element={<StandaloneReadOnlyOwnerListWithFilterSortPage />}
+        />
+        <Route
+          path=":recordId"
+          element={<StandaloneReadOnlyOwnerListWithFilterSortPage />}
+        />
+      </Route>
+      <Route path="standalone-read-only-owner-table-with-filter-sort-page">
+        <Route
+          index
+          element={<StandaloneReadOnlyOwnerTableWithFilterSortPage />}
+        />
+        <Route
+          path=":recordId"
+          element={<StandaloneReadOnlyOwnerTableWithFilterSortPage />}
+        />
       </Route>
       <Route path="standalone-owner-editor">
         <Route index element={<StandaloneOwnerEditor />} />

@@ -224,6 +224,30 @@ const menuItems: ItemType[] = [
   },
   {
     label: (
+      <Link to="read-only-owner-cards-with-filter-sort-page">
+        <FormattedMessage id="screen.ReadOnlyOwnerCardsWithFilterSortPage" />
+      </Link>
+    ),
+    key: "read-only-owner-cards-with-filter-sort-page"
+  },
+  {
+    label: (
+      <Link to="read-only-owner-list-with-filter-sort-page">
+        <FormattedMessage id="screen.ReadOnlyOwnerListWithFilterSortPage" />
+      </Link>
+    ),
+    key: "read-only-owner-list-with-filter-sort-page"
+  },
+  {
+    label: (
+      <Link to="read-only-owner-table-with-filter-sort-page">
+        <FormattedMessage id="screen.ReadOnlyOwnerTableWithFilterSortPage" />
+      </Link>
+    ),
+    key: "read-only-owner-table-with-filter-sort-page"
+  },
+  {
+    label: (
       <Link to="standalone-owner-cards">
         <FormattedMessage id="screen.StandaloneOwnerCards" />
       </Link>
@@ -285,6 +309,30 @@ const menuItems: ItemType[] = [
       </Link>
     ),
     key: "standalone-read-only-pet-table"
+  },
+  {
+    label: (
+      <Link to="standalone-read-only-owner-cards-with-filter-sort-page">
+        <FormattedMessage id="screen.StandaloneReadOnlyOwnerCardsWithFilterSortPage" />
+      </Link>
+    ),
+    key: "standalone-read-only-owner-cards-with-filter-sort-page"
+  },
+  {
+    label: (
+      <Link to="standalone-read-only-owner-list-with-filter-sort-page">
+        <FormattedMessage id="screen.StandaloneReadOnlyOwnerListWithFilterSortPage" />
+      </Link>
+    ),
+    key: "standalone-read-only-owner-list-with-filter-sort-page"
+  },
+  {
+    label: (
+      <Link to="standalone-read-only-owner-table-with-filter-sort-page">
+        <FormattedMessage id="screen.StandaloneReadOnlyOwnerTableWithFilterSortPage" />
+      </Link>
+    ),
+    key: "standalone-read-only-owner-table-with-filter-sort-page"
   },
   {
     label: (
