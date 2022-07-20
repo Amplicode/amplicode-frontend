@@ -1,34 +1,13 @@
 import { gql, useQuery } from "@apollo/client";
-import {Result, Spin} from "antd";
+import {Result} from "antd";
 import './Home.css';
 import { FormattedMessage } from "react-intl";
 import { SmileOutlined } from "@ant-design/icons";
+import {useSecurity} from "../../../core/security/useSecurity";
+import {observer} from "mobx-react";
 
-const QUERY = gql`
-  query {
-    userInfo {
-      username
-    }
-  }
-`;
-
-export const Home = () => {
-  const {loading, error, data} = useQuery(QUERY);
-
-  if (loading) {
-    return <Spin/>;
-  }
-
-  if (error != null) {
-    return (
-      <Result status='error'
-              title='Query failed'
-              subTitle={error.message}
-      />
-    );
-  }
-
-  const {username} = data?.userInfo;
+export const Home = observer(() => {
+  const {userName} = useSecurity();
 
   return (
     <Result icon={<SmileOutlined/>}
@@ -39,9 +18,9 @@ export const Home = () => {
             }
             subTitle={
               <FormattedMessage id='home.loggedInAs'
-                                values={{username}}
+                                values={{userName}}
               />
             }
     />
   );
-};
+});

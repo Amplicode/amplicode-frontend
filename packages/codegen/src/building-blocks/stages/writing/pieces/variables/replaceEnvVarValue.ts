@@ -17,7 +17,7 @@ export async function replaceEnvVarValueInFile(gen: YeomanGenerator, fileName: s
     throw error;
   }
 
-  gen.fs.write(filePath, output);
+  await gen.fs.write(filePath, output);
 }
 
 export function replaceEnvVarValue(source: string, variableName: string, newValue: string): string {

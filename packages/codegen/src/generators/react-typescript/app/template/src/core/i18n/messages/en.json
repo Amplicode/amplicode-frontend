@@ -21,6 +21,12 @@
   "auth.login.unknownError": "Login failed",
   "auth.logout.confirm": "Are you sure you want to logout?",
   "auth.logout.unknownError": "Logout failed",
+  "auth.signingIn": "Redirecting to sign in page...",
+  "auth.signingOut": "Signing out...",
+  "auth.loading": "Loading...",
+  "auth.failed": "Authentication failed",
+  "auth.redirectAfterLogin": "Login successful. Redirecting...",
+  "auth.expired": "Session expired, please relogin",
 
   "EntityListScreen.deleteConfirmation": "Are you sure you want to delete this record?",
   "EntityDetailsScreen.savedSuccessfully": "Saved successfully",
@@ -30,7 +36,7 @@
 
   "screen.home": "Home",
   "home.welcome": "Welcome to {appName}!",
-  "home.loggedInAs": "You are logged in as {username}",
+  "home.loggedInAs": "You are logged in as {userName}",
 
   "filters.apply": "Apply",
   "filters.reset": "Reset",

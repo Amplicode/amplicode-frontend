@@ -20,7 +20,7 @@ export async function replaceStringValueInFile(
   }
 
   const output = ast.toSource();
-  gen.fs.write(filePath, output);
+  await gen.fs.write(filePath, output);
 }
 
 export function replaceStringValue(ast: Collection, variableName: string, newValue: string) {

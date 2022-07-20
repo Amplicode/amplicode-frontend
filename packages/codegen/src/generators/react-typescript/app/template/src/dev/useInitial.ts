@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { InitialHookStatus } from "@react-buddy/ide-toolbox";
-import { useSecurityStore } from "../core/security/security-context";
-import { DEV_LOGIN, DEV_PASSWORD } from "../config";
+import { useSecurity } from "../core/security/useSecurity";
+import {performDevLogin} from "./performDevLogin";
 
 export const useInitial: () => InitialHookStatus = () => {
-  const securityStore = useSecurityStore();
+  const security = useSecurity();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -12,16 +12,8 @@ export const useInitial: () => InitialHookStatus = () => {
   useEffect(() => {
     setLoading(true);
 
-    async function login() {
-      const response = await securityStore.login(DEV_LOGIN, DEV_PASSWORD);
-      if (response?.status !== 200) {
-        setError(true);
-      }
-      setLoading(false);
-    }
-
-    login();
-  }, [securityStore]);
+    void performDevLogin(security, setLoading, setError);
+  }, [security]);
 
   /*
     Implement hook functionality here.

@@ -3,14 +3,16 @@ import react from '@vitejs/plugin-react'
 
 const PORT = '<%= portNumber %>';
 const SERVER_URL = 'http://localhost';
-const LOGIN_BASE_URL = "login";
+
+// Do not inline or change this variable as it can be changed by Amplicode Studio code generation.
+const AMPLICODE_ENDPOINTS = 'graphql|login|logout';
 
 export default defineConfig({
   assetsInclude: ['**/*.graphql'],
   plugins: [react()],
   server: {
     proxy: {
-      [`^/(graphql|${LOGIN_BASE_URL}|logout)`]: `${SERVER_URL}:${PORT}`,
+      [`^/(${AMPLICODE_ENDPOINTS})`]: `${SERVER_URL}:${PORT}`,
     }
   }
 });

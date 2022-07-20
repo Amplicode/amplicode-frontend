@@ -5,8 +5,8 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { observer } from "mobx-react";
 import "./Login.css";
 import { FormattedMessage, useIntl } from "react-intl";
-import { useSecurityStore } from "../../core/security/security-context";
-import { LocaleSelector } from "../../core/i18n/localeSelector/LocaleSelector";
+import { useSecurityStore } from "../security-context";
+import { LocaleSelector } from "../../i18n/localeSelector/LocaleSelector";
 
 export const Login = observer(() => {
   const intl = useIntl();
@@ -45,7 +45,7 @@ export const Login = observer(() => {
           });
       }
     } catch (error) {
-      if(axios.isAxiosError(error)) { 
+      if (axios.isAxiosError(error)) {
         switch (error.response?.data.status) {
           case 401:
             notification.error({
@@ -65,7 +65,7 @@ export const Login = observer(() => {
   return (
     <div className="login-form-container">
       <div className="login-form">
-        <div className="title"><%= appShortName %></div>
+        <div className="title">jmix2-petclinic</div>
         <Form layout="vertical" onFinish={doLogin}>
           <Form.Item>
             <Input

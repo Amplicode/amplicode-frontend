@@ -18,7 +18,7 @@
     overflow: hidden;
 }
 
-.app-header__user-panel {
+.app-header__controls {
     margin-left: 12px;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .app-header__app-menu {
-    flex: 1 1 0%;
+    flex: 1 1 0;
     min-width: 0;
 }
 
