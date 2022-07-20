@@ -7,7 +7,6 @@
 - [**Reference Materials**](#reference)
   - [Generated Project Structure](#generated-structure)
   - [Generators](#generators)
-  - [Auth generators](#auth-generators)
   - [Generated TypeScript Types](#generated-types)
 
 ## Newcomer's Guide <a name="newcomers-guide"></a>
@@ -684,51 +683,6 @@ You'll need IntelliJ IDEA Ultimate.
 5. Restart Studio.
 
 Now you can create screens using Studio interface (`Ctrl + Shift + A` -> type "Frontend Component").
-
-### Auth Generators <a name="auth-generators"></a>
-
-Refer to this section when adding new auth generators or updating existing ones.  
-
-Changing auth method requires changes to a number of files. In addition, environment variables should be updated in these files (using utils in `building-blocks/stages/writing/variables`):
-
-- .env.development
-- .env.production
-- src/vite-env.d.ts
-- src/config.ts)
-
-The following table summarizes the necessary changes. Your new generator should delete the stuff it doesn't need (use case of changing auth type after app is generated). 
-
-`write` - generator must add or replace file/variable
-`write (stub)` - same, but file is empty implementation that only exists to limit invasiveness of changes
-`write (shared)` - same, but file/variable is shared between all generators except `No Auth`
-`delete` - generator must delete file/variable
-
-|                                        | Form Login     | OAuth2.0 with Keycloak (Stateful) | OIDC with Keycloak | OIDC with Cognito | No auth      |
-|----------------------------------------|----------------|-----------------------------------|--------------------|-------------------|--------------|
-| - Project files -                      | -              | -                                 | -                  | -                 | -            |
-| src/core/security/Auth.tsx             | write          | write                             | write              |                   | write (stub) |
-| src/core/security/oidcConfig.ts        | delete         | delete                            | write              |                   | delete       |
-| src/core/security/SecurityProvider.tsx | write          | write                             | write              |                   | write (stub) |
-| src/core/security/security.ts          | write          | write                             | delete             |                   | delete       |
-| src/core/security/security-context.ts  | write          | write                             | delete             |                   | delete       |
-| src/core/security/login/Login.css      | write          | delete                            | delete             |                   | delete       |
-| src/core/security/login/Login.tsx      | write          | write                             | delete             |                   | delete       |
-| src/core/apollo/links/links.ts         | write          | write                             | write              |                   | write        |
-| src/core/apollo/links/authLink.ts      | delete         | write                             | write              |                   | delete       |
-| src/core/apollo/links/httpLink.ts      | write          | write                             | write              |                   | write        |
-| src/app/header/UserPanel.css           | write (shared) | write (shared)                    | write (shared)     |                   | delete       |
-| src/app/header/UserPanel.tsx           | write (shared) | write (shared)                    | write (shared)     |                   | write (stub) |
-| vite.config.ts (proxy endpoints)       | write          | write                             | write              |                   | write        |
-| package.json                           | write          | write                             | write              |                   | write        |
-| package-lock.json                      | write          | write                             | write              |                   | write        |
-| - Environment variables -              | -              | -                                 | -                  | -                 | -            |
-| VITE_LOGIN_URI                         | write          | write                             | delete             |                   | delete       |
-| VITE_LOGOUT_URI                        | write          | write                             | delete             |                   | delete       |
-| VITE_REQUEST_SAME_ORIGIN               | write          | delete                            | delete             |                   | delete       |
-| VITE_DEV_LOGIN                         | write          | delete                            | delete             |                   | delete       |
-| VITE_DEV_PASSWORD                      | write          | delete                            | delete             |                   | delete       |
-
-
 
 ### Generated TypeScript Types <a name="generated-types"></a>
 

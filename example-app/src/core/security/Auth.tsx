@@ -17,7 +17,7 @@ export const Auth = observer(({children}: PropsWithChildren<unknown>) => {
 
   console.log('isAuthenticated', isAuthenticated,
     'isLoading', isLoading,
-    'error', error
+    'error', error?.message, error?.name
     );
 
   useEffect(() => {
@@ -28,9 +28,9 @@ export const Auth = observer(({children}: PropsWithChildren<unknown>) => {
 
   useEffect(() => {
     if (!isAuthenticated && !isLoading && activeNavigator == null) {
-      const initialLogin = (error == null);
-      const refetchTokenExpired = (error instanceof ErrorResponse && error.error === 'invalid_grant');
-      if (initialLogin || refetchTokenExpired) {
+      const noError = (error == null);
+      const invalidGrant = (error instanceof ErrorResponse && error.error === 'invalid_grant');
+      if (noError || invalidGrant) {
         void login();
       }
     }
@@ -57,12 +57,16 @@ export const Auth = observer(({children}: PropsWithChildren<unknown>) => {
   }
 
   if (error != null) {
-    if (error instanceof ErrorResponse && error.error === 'invalid_grant') {
-      return (
-        <Result title={<FormattedMessage id='auth.expired' />}
-                icon={<LoginOutlined/>}
-        />
-      );
+    if (error instanceof ErrorResponse) {
+      console.error(error.error);
+
+      if (error.error === 'invalid_grant') {
+        return (
+          <Result title={<FormattedMessage id='auth.expired' />}
+                  icon={<LoginOutlined/>}
+          />
+        );
+      }
     }
 
     return (

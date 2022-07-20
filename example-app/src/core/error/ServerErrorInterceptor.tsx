@@ -55,9 +55,9 @@ export function ServerErrorInterceptor({
       if (networkError == null || !("statusCode" in networkError)) {
         return;
       }
-      if (networkError.statusCode === 401) {
-        void security.logout();
-      }
+      // if (networkError.statusCode === 401) {
+        // void security.logout();
+      // }
     };
 
     const unauthorizedHandler = () => security.logout();

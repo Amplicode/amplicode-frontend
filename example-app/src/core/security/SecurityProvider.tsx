@@ -43,24 +43,10 @@ function SecurityStoreProvider({children}: PropsWithChildren<unknown>) {
 }
 
 function OIDCAuthProvider({children}: PropsWithChildren<unknown>) {
-  /*
-   * After login, authority will redirect the user to:
-   *
-   * http://localhost:3000/auth?return_path=...&state=...&session_state=...&code=...
-   *
-   * where `state`, `session_state` and `code` are parameters added by authority,
-   * and `return_path` is the pathname of the location from where the user was redirected to authority login page
-   * (including query parameters).
-   *
-   * The reason we don't tell the authority to redirect directly to `return_path` is to support
-   * the corner case of `return_path` containing query parameters called `state`, `session_state` or `code`.
-   */
   const location = useLocation();
   const return_path = encodeURIComponent(location.pathname + location.search + location.hash);
-  const redirect_uri = useMemo(() => {
-    const authPath = resolvePath('auth').pathname;
-    return `${window.location.origin}${authPath}?return_path=${return_path}`
-  }, [return_path]);
+  const authPath = resolvePath('auth').pathname;
+  const redirect_uri = `${window.location.origin}${authPath}?return_path=${return_path}`;
 
   const navigate = useNavigate();
   const handleSignin = useCallback(

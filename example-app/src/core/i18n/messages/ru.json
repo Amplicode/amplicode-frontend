@@ -21,7 +21,7 @@
   "auth.login.unknownError": "Не удалось войти",
   "auth.logout.confirm": "Вы действительно хотите выйти?",
   "auth.logout.unknownError": "Не удалось войти",
-  "auth.signingIn": "Вход...",
+  "auth.signingIn": "Перенаправляем на страницу входа...",
   "auth.signingOut": "Выход...",
   "auth.loading": "Загрузка...",
   "auth.failed": "Ошибка аутентификации",
