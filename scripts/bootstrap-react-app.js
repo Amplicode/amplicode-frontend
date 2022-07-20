@@ -34,6 +34,9 @@ gen('readonly-management/pet-table-readonly.js');
 gen('readonly-management/pet-list-readonly.js');
 gen('readonly-management/scalars-list-readonly.js');
 gen('readonly-management/pet-disease-list-readonly.js');
+gen('readonly-management/owner-readonly-cards-with-filter-sort-page.js');
+gen('readonly-management/owner-readonly-list-with-filter-sort-page.js');
+gen('readonly-management/owner-readonly-table-with-filter-sort-page.js');
 
 gen('standalone-collection/owner-cards-standalone.js');
 gen('standalone-collection/owner-table-standalone.js');
@@ -44,6 +47,9 @@ gen('standalone-collection/scalars-cards-standalone.js');
 gen('standalone-readonly-collection/pet-cards-readonly-standalone.js');
 gen('standalone-readonly-collection/pet-list-readonly-standalone.js');
 gen('standalone-readonly-collection/pet-table-readonly-standalone.js');
+gen('standalone-readonly-collection/owner-cards-with-filter-sort-page-readonly-standalone.js');
+gen('standalone-readonly-collection/owner-list-with-filter-sort-page-readonly-standalone.js');
+gen('standalone-readonly-collection/owner-table-with-filter-sort-page-readonly-standalone.js');
 
 gen('standalone-editor/owner-editor-standalone.js');
 gen('standalone-editor/pet-disease-editor-standalone.js');

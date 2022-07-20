@@ -13,6 +13,9 @@ import { StandaloneOwnerDetails } from "../app/screens/standalone-details/Standa
 import { StandaloneScalarsEditor } from "../app/screens/standalone-editor/StandaloneScalarsEditor";
 import { StandalonePetDiseaseEditor } from "../app/screens/standalone-editor/StandalonePetDiseaseEditor";
 import { StandaloneOwnerEditor } from "../app/screens/standalone-editor/StandaloneOwnerEditor";
+import { StandaloneReadOnlyOwnerTableWithFilterSortPage } from "../app/screens/readonly-collection/StandaloneReadOnlyOwnerTableWithFilterSortPage";
+import { StandaloneReadOnlyOwnerListWithFilterSortPage } from "../app/screens/readonly-collection/StandaloneReadOnlyOwnerListWithFilterSortPage";
+import { StandaloneReadOnlyOwnerCardsWithFilterSortPage } from "../app/screens/readonly-collection/StandaloneReadOnlyOwnerCardsWithFilterSortPage";
 import { StandaloneReadOnlyPetTable } from "../app/screens/no-details-readonly-collection/StandaloneReadOnlyPetTable";
 import { StandaloneReadOnlyPetList } from "../app/screens/no-details-readonly-collection/StandaloneReadOnlyPetList";
 import { StandaloneReadOnlyPetCards } from "../app/screens/no-details-readonly-collection/StandaloneReadOnlyPetCards";
@@ -21,6 +24,12 @@ import { StandalonePetDiseaseList } from "../app/screens/standalone-collection/S
 import { StandaloneOwnerList } from "../app/screens/standalone-collection/StandaloneOwnerList";
 import { StandaloneOwnerTable } from "../app/screens/standalone-collection/StandaloneOwnerTable";
 import { StandaloneOwnerCards } from "../app/screens/standalone-collection/StandaloneOwnerCards";
+import { ReadOnlyOwnerTableWithFilterSortPage } from "../app/screens/readonly-collection/ReadOnlyOwnerTableWithFilterSortPage";
+import { ReadOnlyOwnerTableWithFilterSortPageDetails } from "../app/screens/readonly-collection/ReadOnlyOwnerTableWithFilterSortPageDetails";
+import { ReadOnlyOwnerListWithFilterSortPage } from "../app/screens/readonly-collection/ReadOnlyOwnerListWithFilterSortPage";
+import { ReadOnlyOwnerListWithFilterSortPageDetails } from "../app/screens/readonly-collection/ReadOnlyOwnerListWithFilterSortPageDetails";
+import { ReadOnlyOwnerCardsWithFilterSortPage } from "../app/screens/readonly-collection/ReadOnlyOwnerCardsWithFilterSortPage";
+import { ReadOnlyOwnerCardsWithFilterSortPageDetails } from "../app/screens/readonly-collection/ReadOnlyOwnerCardsWithFilterSortPageDetails";
 import { ReadOnlyPetDiseaseList } from "../app/screens/readonly-collection/ReadOnlyPetDiseaseList";
 import { ReadOnlyPetDiseaseListDetails } from "../app/screens/readonly-collection/ReadOnlyPetDiseaseListDetails";
 import { ReadOnlyScalarsList } from "../app/screens/readonly-collection/ReadOnlyScalarsList";
@@ -235,6 +244,24 @@ const ComponentPreviews = () => {
       <ComponentPreview path="/ReadOnlyPetDiseaseList">
         <ReadOnlyPetDiseaseList />
       </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyOwnerCardsWithFilterSortPageDetails">
+        <ReadOnlyOwnerCardsWithFilterSortPageDetails />
+      </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyOwnerCardsWithFilterSortPage">
+        <ReadOnlyOwnerCardsWithFilterSortPage />
+      </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyOwnerListWithFilterSortPageDetails">
+        <ReadOnlyOwnerListWithFilterSortPageDetails />
+      </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyOwnerListWithFilterSortPage">
+        <ReadOnlyOwnerListWithFilterSortPage />
+      </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyOwnerTableWithFilterSortPageDetails">
+        <ReadOnlyOwnerTableWithFilterSortPageDetails />
+      </ComponentPreview>
+      <ComponentPreview path="/ReadOnlyOwnerTableWithFilterSortPage">
+        <ReadOnlyOwnerTableWithFilterSortPage />
+      </ComponentPreview>
       <ComponentPreview path="/StandaloneOwnerCards">
         <StandaloneOwnerCards />
       </ComponentPreview>
@@ -258,6 +285,15 @@ const ComponentPreviews = () => {
       </ComponentPreview>
       <ComponentPreview path="/StandaloneReadOnlyPetTable">
         <StandaloneReadOnlyPetTable />
+      </ComponentPreview>
+      <ComponentPreview path="/StandaloneReadOnlyOwnerCardsWithFilterSortPage">
+        <StandaloneReadOnlyOwnerCardsWithFilterSortPage />
+      </ComponentPreview>
+      <ComponentPreview path="/StandaloneReadOnlyOwnerListWithFilterSortPage">
+        <StandaloneReadOnlyOwnerListWithFilterSortPage />
+      </ComponentPreview>
+      <ComponentPreview path="/StandaloneReadOnlyOwnerTableWithFilterSortPage">
+        <StandaloneReadOnlyOwnerTableWithFilterSortPage />
       </ComponentPreview>
       <ComponentPreview path="/StandaloneOwnerEditor">
         <StandaloneOwnerEditor />
