@@ -97,7 +97,7 @@ export function PetList() {
     variables: queryVariables
   });
 
-  const mergeQueryVariales = useCallback(
+  const mergeQueryVariables = useCallback(
     (newQueryVariables: QueryVariablesType) => {
       setQueryVariables(queryVariables =>
         mergeDeep(queryVariables, newQueryVariables)
@@ -113,11 +113,11 @@ export function PetList() {
 
   const applyFilters = useCallback(
     (filters: QueryVariablesType) => {
-      mergeQueryVariales(
+      mergeQueryVariables(
         serializeVariables(PET_BY_IDENTIFICATION_NUMBER_LIST, filters)
       );
     },
-    [mergeQueryVariales]
+    [mergeQueryVariables]
   );
 
   return (

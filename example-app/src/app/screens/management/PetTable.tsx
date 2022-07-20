@@ -126,7 +126,7 @@ export function PetTable() {
     variables: queryVariables
   });
 
-  const mergeQueryVariales = useCallback(
+  const mergeQueryVariables = useCallback(
     (newQueryVariables: QueryVariablesType) => {
       setQueryVariables(queryVariables =>
         mergeDeep(queryVariables, newQueryVariables)
@@ -142,11 +142,11 @@ export function PetTable() {
 
   const applyFilters = useCallback(
     (filters: QueryVariablesType) => {
-      mergeQueryVariales(
+      mergeQueryVariables(
         serializeVariables(PET_BY_IDENTIFICATION_NUMBER_LIST, filters)
       );
     },
-    [mergeQueryVariales]
+    [mergeQueryVariables]
   );
 
   // selected row id

@@ -121,7 +121,7 @@ export function OwnerTableWithFilterSortPage() {
     variables: queryVariables
   });
 
-  const mergeQueryVariales = useCallback(
+  const mergeQueryVariables = useCallback(
     (newQueryVariables: QueryVariablesType) => {
       setQueryVariables(queryVariables =>
         mergeDeep(queryVariables, newQueryVariables)
@@ -142,14 +142,14 @@ export function OwnerTableWithFilterSortPage() {
   const changePagination = useCallback(
     (pagination: OffsetPaginationType) => {
       setPagination(pagination);
-      mergeQueryVariales({
+      mergeQueryVariables({
         page: {
           number: pagination.current - 1,
           size: pagination.pageSize
         }
       });
     },
-    [mergeQueryVariales]
+    [mergeQueryVariables]
   );
   const applyPagination = useCallback(
     (current: number, pageSize: number) =>
@@ -164,15 +164,15 @@ export function OwnerTableWithFilterSortPage() {
 
   const applySort = useCallback(
     (newSortValue: QueryVariablesType["sort"] | undefined) => {
-      mergeQueryVariales({ sort: newSortValue });
+      mergeQueryVariables({ sort: newSortValue });
       setSortValue(newSortValue);
     },
-    [mergeQueryVariales]
+    [mergeQueryVariables]
   );
 
   const applyFilters = useCallback(
     (filters: QueryVariablesType) => {
-      mergeQueryVariales(
+      mergeQueryVariables(
         serializeVariables(
           OWNER_LIST_BY_NAMES_FILTER_OFFSET_PAGE_SORTED,
           filters
@@ -180,7 +180,7 @@ export function OwnerTableWithFilterSortPage() {
       );
       changePagination(initialPagination);
     },
-    [changePagination, mergeQueryVariales]
+    [changePagination, mergeQueryVariables]
   );
 
   const afterResetFilters = useCallback(() => applySort(undefined), [

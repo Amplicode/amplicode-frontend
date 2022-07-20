@@ -91,7 +91,7 @@ export function VisitWithFilter() {
     variables: queryVariables
   });
 
-  const mergeQueryVariales = useCallback(
+  const mergeQueryVariables = useCallback(
     (newQueryVariables: QueryVariablesType) => {
       setQueryVariables(queryVariables =>
         mergeDeep(queryVariables, newQueryVariables)
@@ -106,9 +106,9 @@ export function VisitWithFilter() {
 
   const applyFilters = useCallback(
     (filters: QueryVariablesType) => {
-      mergeQueryVariales(serializeVariables(VISIT_FILTERED_LIST, filters));
+      mergeQueryVariables(serializeVariables(VISIT_FILTERED_LIST, filters));
     },
-    [mergeQueryVariales]
+    [mergeQueryVariables]
   );
 
   return (

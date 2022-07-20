@@ -190,7 +190,7 @@ export function <%= componentName %>() {
     // Load the items from server. Will be reloaded reactively if one of variable changes
     const { loading, error, data } = useQuery(<%= QUERY_CONST %>, { variables: queryVariables });
 
-    const mergeQueryVariales = useCallback((newQueryVariables: QueryVariablesType) => {
+    const mergeQueryVariables = useCallback((newQueryVariables: QueryVariablesType) => {
       setQueryVariables(queryVariables =>
         mergeDeep(
           queryVariables,
@@ -214,14 +214,14 @@ export function <%= componentName %>() {
     const changePagination = useCallback(
       (pagination: OffsetPaginationType) => {
         setPagination(pagination);
-        mergeQueryVariales({
+        mergeQueryVariables({
           page: {
             number: pagination.current - 1,
             size: pagination.pageSize
           }
         });
       },
-      [mergeQueryVariales]
+      [mergeQueryVariables]
     );
     const applyPagination = useCallback(
       (current: number, pageSize: number) => changePagination({
@@ -237,18 +237,18 @@ export function <%= componentName %>() {
     const [sortValue, setSortValue] = useState<QueryVariablesType['sort']>();
 
     const applySort = useCallback((newSortValue: QueryVariablesType['sort'] | undefined) => {
-      mergeQueryVariales({ sort: newSortValue });
+      mergeQueryVariables({ sort: newSortValue });
       setSortValue(newSortValue);
-    }, [mergeQueryVariales]);
+    }, [mergeQueryVariables]);
   <% } -%>
 
   <% if (withFilters) { -%>
     const applyFilters = useCallback((filters: QueryVariablesType) => {
-      mergeQueryVariales(serializeVariables(<%= QUERY_CONST %>, filters));
+      mergeQueryVariables(serializeVariables(<%= QUERY_CONST %>, filters));
       <% if (locals?.paginationType === 'offset') { -%>
         changePagination(initialPagination);
       <% } -%>
-    }, [<% if (locals?.paginationType === 'offset') { -%> changePagination, <% } -%> mergeQueryVariales]);
+    }, [<% if (locals?.paginationType === 'offset') { -%> changePagination, <% } -%> mergeQueryVariables]);
   
     <% if (withOrderBy) { -%>
       const afterResetFilters = useCallback(() => applySort(undefined), [applySort]);  
