@@ -1,4 +1,4 @@
-import {YeomanGenerator} from "../../../../YeomanGenerator";
+import {YeomanGenerator} from "../../../../../YeomanGenerator";
 import j, {Collection} from "jscodeshift";
 
 export async function removeVarExportInFile(gen: YeomanGenerator, file: string, variableName: string) {

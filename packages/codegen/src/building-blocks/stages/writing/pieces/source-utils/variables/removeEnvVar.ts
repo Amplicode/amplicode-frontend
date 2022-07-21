@@ -1,4 +1,4 @@
-import {YeomanGenerator} from "../../../../YeomanGenerator";
+import {YeomanGenerator} from "../../../../../YeomanGenerator";
 
 export async function removeEnvVarInFile(gen: YeomanGenerator, fileName: string, variableName: string) {
   const filePath = gen.destinationPath(fileName);

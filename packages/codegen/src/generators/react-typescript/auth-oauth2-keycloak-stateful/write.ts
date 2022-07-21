@@ -1,8 +1,8 @@
 import {YeomanGenerator} from "../../../building-blocks/YeomanGenerator";
 import {EmptyTemplateModel} from "../../../building-blocks/stages/template-model/pieces/EmptyTemplateModel";
 import {writeTemplate} from "../../../building-blocks/stages/writing/pieces/writeTemplate";
-import {replaceEnvVarValueInFile} from "../../../building-blocks/stages/writing/pieces/variables/replaceEnvVarValue";
-import {replaceStringValueInFile} from "../../../building-blocks/stages/writing/pieces/variables/replaceStringValue";
+import {replaceEnvVarValueInFile} from "../../../building-blocks/stages/writing/pieces/source-utils/variables/replaceEnvVarValue";
+import {replaceStringValueInFile} from "../../../building-blocks/stages/writing/pieces/source-utils/variables/replaceStringValue";
 import {resetAuth} from "../../../building-blocks/stages/writing/pieces/auth/resetAuth";
 
 export async function write_Auth_OAuth2_Keycloak_Stateful(

@@ -1,8 +1,8 @@
 import {YeomanGenerator} from "../../../../YeomanGenerator";
 import { deleteFiles } from "../deleteFiles";
-import {removeEnvVarInFile} from "../variables/removeEnvVar";
-import {replaceStringValueInFile} from "../variables/replaceStringValue";
-import {removeVarExportInFile} from "../variables/removeVarExport";
+import {removeEnvVarInFile} from "../source-utils/variables/removeEnvVar";
+import {replaceStringValueInFile} from "../source-utils/variables/replaceStringValue";
+import {removeVarExportInFile} from "../source-utils/variables/removeVarExport";
 import {uninstallNpmDeps} from "../npm/uninstallNpmDeps";
 import { writeTemplate } from "../writeTemplate";
 

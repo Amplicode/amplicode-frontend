@@ -1,4 +1,4 @@
-import {YeomanGenerator} from "../../../../YeomanGenerator";
+import {YeomanGenerator} from "../../../../../YeomanGenerator";
 import { ReplacementTargetNotFoundError } from "./ReplacementTargetNotFoundError";
 
 export async function replaceEnvVarValueInFile(gen: YeomanGenerator, fileName: string, variableName: string, newValue:string) {

@@ -4,9 +4,10 @@ import {amplicodePipeline} from "../../../building-blocks/pipelines/amplicodePip
 import { amplicodeCommonOptionsConfig } from "../../../building-blocks/stages/options/pieces/amplicode";
 import path from "path";
 import { writeAuthOidcKeycloak } from "./write";
+import {CommonGenerationOptions} from "../../../common/cli-options";
 
 export class AuthOidcKeycloak extends YeomanGenerator {
-  constructor(args: string | string[], options: ComponentOptions) {
+  constructor(args: string | string[], options: CommonGenerationOptions) {
     super(args, options);
   }
 

@@ -1,4 +1,4 @@
-import {YeomanGenerator} from "../../../../YeomanGenerator";
+import {YeomanGenerator} from "../../../../../YeomanGenerator";
 import j, {Collection} from "jscodeshift";
 import {ReplacementTargetNotFoundError} from "./ReplacementTargetNotFoundError";
 

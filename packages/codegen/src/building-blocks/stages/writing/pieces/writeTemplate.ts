@@ -1,11 +1,12 @@
 import {YeomanGenerator} from "../../../YeomanGenerator";
 
 export async function writeTemplate(
-  gen: YeomanGenerator, src: string = '.', dest: string = src, templateModel: Record<string, unknown> = {}
+  gen: YeomanGenerator,
+  templateModel: Record<string, unknown> = {}
 ) {
   await gen.fs.copyTpl(
-    gen.templatePath(src),
-    gen.destinationPath(dest),
+    gen.templatePath() + '/**',
+    gen.destinationPath('.'),
     templateModel
   );
 }

@@ -7,10 +7,7 @@ export async function writeAuthOidcKeycloak(
   _templateModel: EmptyTemplateModel, gen: YeomanGenerator
 ) {
   await resetAuth(gen);
-
   await writeTemplate(gen);
-
-
-
   await gen.npmInstall(['oidc-client-ts', 'react-oidc-context']);
 }
+
