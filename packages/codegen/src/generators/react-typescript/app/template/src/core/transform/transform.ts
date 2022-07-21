@@ -13,7 +13,7 @@ export interface TransformOptions {
 /**
  * Transform data object between frontend and backend format. Two operations are supported:
  * * `serialize` - transform frontend data before sending to backend
- * * `deserialize` - transform data recieved from backend for frontend reperesentation
+ * * `deserialize` - transform data received from backend for frontend representation
  */
 export function transform<T extends NullableObjectOrList>(
   data: T,
