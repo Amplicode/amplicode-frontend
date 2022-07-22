@@ -1,27 +1,27 @@
 import { ServerErrorEvents } from "./ServerErrorEvents";
 import { ErrorHandler } from "@apollo/client/link/error";
-import { useSecurityStore } from "../security/security-context";
 import { useEffect } from "react";
 import { notification } from "antd";
 import { useIntl } from "react-intl";
 import { EventEmitter } from "@amplicode/react";
+import { useSecurity } from "../security/useSecurity";
 
 export interface ServerErrorInterceptorProps {
   serverErrorEmitter: EventEmitter<ServerErrorEvents>;
   children: React.ReactNode;
 }
 export function ServerErrorInterceptor({
-  serverErrorEmitter,
-  children
-}: ServerErrorInterceptorProps) {
+                                         serverErrorEmitter,
+                                         children
+                                       }: ServerErrorInterceptorProps) {
   const intl = useIntl();
-  const securityStore = useSecurityStore();
+  const security = useSecurity();
 
   useEffect(() => {
     const graphQLErrorHandler: ErrorHandler = ({
-      networkError,
-      graphQLErrors
-    }) => {
+                                                 networkError,
+                                                 graphQLErrors
+                                               }) => {
       // TODO code below assumes that GraphQL server returns
       // {"errors":[{"extensions":{"classification":"UNAUTHORIZED"}}], ...}
       // for not authenticated user
@@ -36,7 +36,7 @@ export function ServerErrorInterceptor({
             err => err.extensions?.classification === "UNAUTHORIZED"
           )
         ) {
-          securityStore.logout();
+          void security.logout();
           return;
         }
 
@@ -56,11 +56,11 @@ export function ServerErrorInterceptor({
         return;
       }
       if (networkError.statusCode === 401) {
-        securityStore.logout();
+        // noop
       }
     };
 
-    const unauthorizedHandler = () => securityStore.logout();
+    const unauthorizedHandler = () => { /* noop */ };
 
     serverErrorEmitter.on("graphQLError", graphQLErrorHandler);
     serverErrorEmitter.on("unauthorized", unauthorizedHandler);
@@ -69,7 +69,7 @@ export function ServerErrorInterceptor({
       serverErrorEmitter.off("graphQLError", graphQLErrorHandler);
       serverErrorEmitter.off("unauthorized", unauthorizedHandler);
     };
-  }, [serverErrorEmitter, intl, securityStore]);
+  }, [serverErrorEmitter, intl, security]);
 
   return <>{children}</>;
 }

@@ -22,9 +22,10 @@ export const defaultConfigureGenerator = <O extends CommonGenerationOptions>(tem
   gen.registerTransformStream(createEjsRenameTransform());
   gen.registerTransformStream(createFormatTransform());
 
-  if (options.answers || options.model) {
-    gen.conflicter.force = true;
-  }
+  // Never ask for confirmation when overwriting files,
+  // since currently we only support using generator from Studio.
+  // If in future we decide to support using generator from CLI, we need to revisit this.
+  gen.conflicter.force = true;
 }
 
 /**

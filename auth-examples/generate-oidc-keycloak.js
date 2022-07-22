@@ -58,3 +58,5 @@ runCmdSync(`node ${amplicodegen} react-typescript:entity-management`
   + ` --schema ../scripts/schema/schema.graphql`
   + ` --dest ./example-oidc-keycloak/src/app/screens/${MANAGEMENT_DIR}`
   + ` --dirShift ../../../`);
+
+runCmdSync('npm run generate --prefix example-oidc-keycloak');

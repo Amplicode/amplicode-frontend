@@ -21,7 +21,7 @@
   "auth.login.unknownError": "Login failed",
   "auth.logout.confirm": "Are you sure you want to logout?",
   "auth.logout.unknownError": "Logout failed",
-  "auth.signingIn": "Redirecting to sign in page...",
+  "auth.signingIn": "Signing in...",
   "auth.signingOut": "Signing out...",
   "auth.loading": "Loading...",
   "auth.failed": "Authentication failed",

@@ -5,6 +5,7 @@ import {replaceStringValueInFile} from "../source-utils/variables/replaceStringV
 import {removeVarExportInFile} from "../source-utils/variables/removeVarExport";
 import {uninstallNpmDeps} from "../npm/uninstallNpmDeps";
 import { writeTemplate } from "../writeTemplate";
+import path from "path";
 
 /**
  * Deletes all auth-related specifics.
@@ -57,7 +58,7 @@ export async function resetAuth(gen: YeomanGenerator) {
   await uninstallNpmDeps(gen, ['oidc-client-ts', 'react-oidc-context']);
 
   // Reset some files to defaults from ./template/**
-  await writeTemplate(gen);
+  await writeTemplate(gen, path.join(__dirname, 'template'));
 
   await deleteFiles(gen, './src/non-existing-file'); // TODO remove
 }
