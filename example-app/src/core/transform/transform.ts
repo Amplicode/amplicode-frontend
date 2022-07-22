@@ -1,17 +1,6 @@
 import { getGraphQLSchema } from "../schema/util/getGraphQLSchema";
-import {
-  GraphQLEnumType,
-  GraphQLFieldMap,
-  GraphQLInputObjectType,
-  GraphQLInterfaceType,
-  GraphQLObjectType,
-  GraphQLSchema,
-  GraphQLUnionType
-} from "graphql";
-import {
-  GraphQLInputFieldMap,
-  GraphQLScalarType
-} from "graphql/type/definition";
+import { GraphQLSchema } from "graphql";
+import { getNamedType } from "graphql/type/definition";
 import { getTypeFields } from "../schema/util/getTypeFields";
 import { NullableObjectOrList, ScalarTransformer } from "./types";
 import { customScalarTransformers } from "./model/custom-scalars";
@@ -24,7 +13,7 @@ export interface TransformOptions {
 /**
  * Transform data object between frontend and backend format. Two operations are supported:
  * * `serialize` - transform frontend data before sending to backend
- * * `deserialize` - transform data recieved from backend for frontend reperesentation
+ * * `deserialize` - transform data received from backend for frontend representation
  */
 export function transform<T extends NullableObjectOrList>(
   data: T,
@@ -55,24 +44,55 @@ export function transform<T extends NullableObjectOrList>(
     ...options?.transformers
   };
 
-  Object.keys(data as object).forEach((fieldName: string) => {
-    if (fieldName === "__typename") {
-      // Leave __typename in the output so that it can be further transformed
-      processedItem[fieldName] = data[fieldName];
-      return;
-    }
-    const schema = getGraphQLSchema();
-    const fieldTypeName = getFieldTypeName(fieldName, typename, schema);
+  const schema = getGraphQLSchema();
 
-    const transformer = transformerMap[fieldTypeName];
+  if (typeof data === "object") {
+    Object.keys(data as object).forEach((fieldName: string) => {
+      if (fieldName === "__typename") {
+        // Leave __typename in the output so that it can be further transformed
+        processedItem[fieldName] = data[fieldName];
+        return;
+      }
+      const fieldTypeName = getFieldTypeName(fieldName, typename, schema);
+
+      const transformer = transformerMap[fieldTypeName];
+      if (transformer == null) {
+        // Not a custom scalar
+        processedItem[fieldName] = data[fieldName];
+        return;
+      }
+
+      const unsupportedOperationErrorMessage =
+        `Error when attempting to ${operation} field ${fieldName} of custom scalar type ${fieldTypeName}.` +
+        `Provided transformer does not support ${operation} operation.`;
+
+      switch (operation) {
+        case "serialize":
+          if (transformer.serialize == null) {
+            throw new Error(unsupportedOperationErrorMessage);
+          }
+          processedItem[fieldName] = transformer.serialize(data[fieldName]);
+          break;
+        case "deserialize":
+          if (transformer.parseValue == null) {
+            throw new Error(unsupportedOperationErrorMessage);
+          }
+          processedItem[fieldName] = transformer.parseValue(data[fieldName]);
+          break;
+        default:
+          throw new Error(`Unexpected operation ${operation}`);
+      }
+    });
+  } else {
+    const transformer = transformerMap[typename];
+
     if (transformer == null) {
       // Not a custom scalar
-      processedItem[fieldName] = data[fieldName];
-      return;
+      return data;
     }
 
     const unsupportedOperationErrorMessage =
-      `Error when attempting to ${operation} field ${fieldName} of custom scalar type ${fieldTypeName}.` +
+      `Error when attempting to ${operation} with ${typename} type` +
       `Provided transformer does not support ${operation} operation.`;
 
     switch (operation) {
@@ -80,18 +100,16 @@ export function transform<T extends NullableObjectOrList>(
         if (transformer.serialize == null) {
           throw new Error(unsupportedOperationErrorMessage);
         }
-        processedItem[fieldName] = transformer.serialize(data[fieldName]);
-        break;
+        return transformer.serialize(data) as T;
       case "deserialize":
         if (transformer.parseValue == null) {
           throw new Error(unsupportedOperationErrorMessage);
         }
-        processedItem[fieldName] = transformer.parseValue(data[fieldName]);
-        break;
+        return transformer.parseValue(data) as T;
       default:
         throw new Error(`Unexpected operation ${operation}`);
     }
-  });
+  }
 
   return processedItem as T;
 }
@@ -101,19 +119,8 @@ function getFieldTypeName(
   typename: string,
   schema: GraphQLSchema
 ): string {
-  const fields:
-    | GraphQLFieldMap<any, any>
-    | GraphQLInputFieldMap = getTypeFields(typename, schema);
+  const fields = getTypeFields(typename, schema);
   const fieldType = fields[fieldName].type;
-  if (
-    fieldType instanceof GraphQLScalarType ||
-    fieldType instanceof GraphQLEnumType ||
-    fieldType instanceof GraphQLInputObjectType ||
-    fieldType instanceof GraphQLInterfaceType ||
-    fieldType instanceof GraphQLUnionType ||
-    fieldType instanceof GraphQLObjectType
-  ) {
-    return fieldType.name;
-  }
-  return fieldType.ofType.name;
+
+  return getNamedType(fieldType).name;
 }

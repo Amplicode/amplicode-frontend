@@ -71,6 +71,6 @@
     "whatwg-fetch": "^3.6.2"
   },
   "amplicode": {
-    "generatorVersion": "0.24.0"
+    "generatorVersion": "0.25.0"
   }
 }
