@@ -18,7 +18,7 @@
     "mkdirp": "^1.0.4",
     "prettier": "~1.19.1",
     "rimraf": "^2.7.1",
-    "semantic-release": "^17.4.2"
+    "semantic-release": "^19.0.3"
   },
   "scripts": {
     "lerna": "lerna",
