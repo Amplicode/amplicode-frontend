@@ -6,8 +6,8 @@ const answers = btoa(JSON.stringify({
   componentName: 'StandaloneScalarsCards',
   route: 'standalone-scalars-cards',
   shouldAddToMenu: true,
-  query: esc(scalarsListQuery),
-  mutation: esc(scalarsDeleteMutation),
+  listQuery: esc(scalarsListQuery),
+  deleteMutation: esc(scalarsDeleteMutation),
   mode: 'edit'
 }));
 

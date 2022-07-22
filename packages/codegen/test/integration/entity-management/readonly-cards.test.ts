@@ -26,7 +26,7 @@ describe('codegen readonly cards', () => {
       route: 'read-only-owner-cards',
       shouldAddToMenu: true,
       listQuery: ownerListQuery,
-      detailsQuery: ownerDetailsQuery,
+      itemQuery: ownerDetailsQuery,
       mode: 'view with details',
       type: 'cards'
     };
@@ -77,7 +77,7 @@ describe('codegen readonly cards', () => {
       route: 'read-only-pet-cards',
       shouldAddToMenu: true,
       listQuery: petListQuery,
-      detailsQuery: petDetailsQuery,
+      itemQuery: petDetailsQuery,
       mode: 'view with details',
       type: 'cards'
     };
@@ -186,7 +186,7 @@ describe('codegen readonly cards', () => {
       route: 'read-only-scalars-cards',
       shouldAddToMenu: true,
       listQuery: scalarsListQuery,
-      detailsQuery: scalarsDetailsQuery,
+      itemQuery: scalarsDetailsQuery,
       mode: 'view with details',
       type: 'cards'
     };

@@ -44,8 +44,8 @@ describe('codegen standalone table', () => {
       componentName: 'StandaloneOwnerTable',
       route: 'standalone-owner-table',
       shouldAddToMenu: false,
-      query: ownerListQuery,
-      mutation: ownerDeleteMutation,
+      listQuery: ownerListQuery,
+      deleteMutation: ownerDeleteMutation,
       type: 'table',
       mode: 'edit'
     };
@@ -80,8 +80,8 @@ describe('codegen standalone table', () => {
       componentName: 'StandalonePetTable',
       route: 'standalone-pet-table',
       shouldAddToMenu: false,
-      query: petListQuery,
-      mutation: petDeleteMutation,
+      listQuery: petListQuery,
+      deleteMutation: petDeleteMutation,
       mode: 'edit',
       type: 'table'
     };

@@ -11,7 +11,7 @@ export interface EntityManagementAnswers extends ScreenAnswers {
   multiselect?: boolean;
   mode?: EntityListMode,
   listQuery: string,
-  detailsQuery: string,
+  itemQuery: string,
   upsertMutation?: string,
   deleteMutation?: string,
   listIdField?: string,
@@ -165,7 +165,7 @@ export const commonEntityManagementQuestions: StudioTemplateProperty[] =  [
   },
   {
     caption: 'Query to load item',
-    code: 'detailsQuery',
+    code: 'itemQuery',
     propertyType: StudioTemplatePropertyType.GRAPHQL_QUERY,
     required: true,
     step: {

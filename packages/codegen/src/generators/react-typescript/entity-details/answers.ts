@@ -3,8 +3,8 @@ import {ScreenAnswers} from "../../../building-blocks/stages/answers/amplicode/S
 
 export type MvpEntityEditorAnswers =
   ScreenAnswers & {
-    query: string; // TODO may be rename with 'detailsQuery'
-    mutation?: string; // TODO may be rename with 'upsertMutation'
+    itemQuery: string;
+    upsertMutation?: string;
     refetchQueryName: string;
     idField?: string;
   };
@@ -32,13 +32,13 @@ export const entityDetailsQuestions = [
   },
   {
     caption: 'Query to load item',
-    code: 'query',
+    code: 'itemQuery',
     propertyType: StudioTemplatePropertyType.GRAPHQL_QUERY,
     required: true
   },
   {
     caption: 'Mutation to create or update item',
-    code: 'mutation',
+    code: 'upsertMutation',
     propertyType: StudioTemplatePropertyType.GRAPHQL_MUTATION,
     required: false
   },

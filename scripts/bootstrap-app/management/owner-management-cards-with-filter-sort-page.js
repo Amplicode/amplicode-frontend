@@ -8,7 +8,7 @@ const answers = btoa(JSON.stringify({
   route: 'owner-cards-with-filter-sort-page',
   shouldAddToMenu: true,
   listQuery: esc(ownerListByNamesFilterOffsetPageSorted),
-  detailsQuery: esc(ownerDetailsQuery),
+  itemQuery: esc(ownerDetailsQuery),
   deleteMutation: esc(ownerDeleteMutation),
   upsertMutation: esc(ownerUpsertMutation),
   filterByArguments: [['filter', 'firstName'], ['filter', 'lastName']],

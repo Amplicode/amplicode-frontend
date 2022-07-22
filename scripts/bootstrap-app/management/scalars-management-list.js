@@ -9,7 +9,7 @@ const answers = btoa(JSON.stringify({
   type: 'list',
   shouldAddToMenu: true,
   listQuery: esc(scalarsListQuery),
-  detailsQuery: esc(scalarsDetailsQuery),
+  itemQuery: esc(scalarsDetailsQuery),
   deleteMutation: esc(scalarsDeleteMutation),
   upsertMutation: esc(scalarsUpsertMutation),
 }));

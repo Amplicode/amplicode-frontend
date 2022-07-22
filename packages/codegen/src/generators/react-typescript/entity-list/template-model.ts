@@ -53,8 +53,8 @@ export const deriveEntityListTemplateModel: AmplicodeTemplateModelStage<Amplicod
   const {
     componentName,
     route,
-    query: queryString,
-    mutation: deleteMutationString,
+    listQuery: queryString,
+    deleteMutation: deleteMutationString,
     type = 'cards',
     multiselect = false,
     mode = 'edit',

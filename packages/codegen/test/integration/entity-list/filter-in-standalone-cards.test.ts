@@ -16,8 +16,8 @@ describe('codegen filter in standalone cards', () => {
       componentName: 'CardsWithFilterProperty',
       route: 'cards-with-filter-property',
       shouldAddToMenu: false,
-      query: ownerListQueryWithFilter,
-      mutation: ownerDeleteMutation,
+      listQuery: ownerListQueryWithFilter,
+      deleteMutation: ownerDeleteMutation,
       filterByArguments: [['filter', 'firstName'], ['filter', 'lastName']]
     };
     const componentPath = path.join(DEST_DIR, 'CardsWithFilterProperty.tsx');
@@ -35,8 +35,8 @@ describe('codegen filter in standalone cards', () => {
       componentName: 'CardsWithoutFilterProperty',
       route: 'cards-without-filter-property',
       shouldAddToMenu: false,
-      query: ownerListQueryWithFilter,
-      mutation: ownerDeleteMutation,
+      listQuery: ownerListQueryWithFilter,
+      deleteMutation: ownerDeleteMutation,
     };
     const componentWithoutFilterPath = path.join(DEST_DIR, 'CardsWithoutFilterProperty.tsx');
     await generate(GENERATOR_DIR, opts(DEST_DIR, answersWithoutFilterProperty, [SCHEMA_PATH]));
@@ -50,8 +50,8 @@ describe('codegen filter in standalone cards', () => {
       componentName: 'CardsWithNullFilterProperty',
       route: 'cards-with-null-filter-property',
       shouldAddToMenu: false,
-      query: ownerListQueryWithFilter,
-      mutation: ownerDeleteMutation,
+      listQuery: ownerListQueryWithFilter,
+      deleteMutation: ownerDeleteMutation,
       filterByArguments: null
     };
     const componentWithNullFilterPath = path.join(DEST_DIR, 'CardsWithNullFilterProperty.tsx');
@@ -64,8 +64,8 @@ describe('codegen filter in standalone cards', () => {
       componentName: 'CardsWithEmptyArrayFilterProperty',
       route: 'cards-with-empty-array-filter-property',
       shouldAddToMenu: false,
-      query: ownerListQueryWithFilter,
-      mutation: ownerDeleteMutation,
+      listQuery: ownerListQueryWithFilter,
+      deleteMutation: ownerDeleteMutation,
       filterByArguments: []
     };
     const componentWithEmptyArrayFilterPath = path.join(DEST_DIR, 'CardsWithEmptyArrayFilterProperty.tsx');

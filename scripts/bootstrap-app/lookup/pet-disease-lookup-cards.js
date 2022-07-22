@@ -6,7 +6,7 @@ const answers = btoa(JSON.stringify({
   componentName: 'PetDiseaseLookupCards',
   route: 'pet-disease-lookup-cards',
   shouldAddToMenu: true,
-  query: esc(petDiseaseListQuery),
+  listQuery: esc(petDiseaseListQuery),
   idField: 'petDiseaseIdentifier'
 }));
 

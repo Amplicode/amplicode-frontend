@@ -8,7 +8,7 @@ const answers = btoa(JSON.stringify({
   route: 'pet-cards',
   shouldAddToMenu: true,
   listQuery: esc(petListQueryWithFilter),
-  detailsQuery: esc(petDetailsQuery),
+  itemQuery: esc(petDetailsQuery),
   deleteMutation: esc(petDeleteMutation),
   upsertMutation: esc(petUpsertMutation),
   filterByArguments: [['identificationNumber']],

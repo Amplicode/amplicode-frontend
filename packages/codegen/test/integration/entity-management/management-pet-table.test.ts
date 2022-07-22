@@ -27,7 +27,7 @@ describe('codegen pet table management', () => {
       type: 'table',
       shouldAddToMenu: true,
       listQuery: petListQuery,
-      detailsQuery: petDetailsQuery,
+      itemQuery: petDetailsQuery,
       deleteMutation: petDeleteMutation,
       upsertMutation: petUpsertMutation,
     };

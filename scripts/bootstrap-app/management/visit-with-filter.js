@@ -64,7 +64,7 @@ const answers = btoa(JSON.stringify({
   route: 'visit-with-filter',
   shouldAddToMenu: true,
   listQuery: esc(visitListQueryWithFilter),
-  detailsQuery: esc(visitDetailsQuery),
+  itemQuery: esc(visitDetailsQuery),
   deleteMutation: esc(visitDeleteMutation),
   upsertMutation: esc(visitUpsertMutation),
   filterByArguments: [

@@ -10,7 +10,7 @@ const answers = btoa(JSON.stringify({
     multiselect: true,
     shouldAddToMenu: true,
     listQuery: esc(ownerListQuery),
-    detailsQuery: esc(ownerDetailsQuery),
+    itemQuery: esc(ownerDetailsQuery),
     deleteMutation: esc(ownerDeleteMutation),
     upsertMutation: esc(ownerUpsertMutation),
 }));

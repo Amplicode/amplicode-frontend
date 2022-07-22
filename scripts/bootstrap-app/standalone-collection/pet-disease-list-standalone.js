@@ -7,8 +7,8 @@ const answers = btoa(JSON.stringify({
   route: 'standalone-pet-disease-list',
   type: 'list',
   shouldAddToMenu: true,
-  query: esc(petDiseaseListQuery),
-  mutation: esc(petDiseaseDeleteMutation),
+  listQuery: esc(petDiseaseListQuery),
+  deleteMutation: esc(petDiseaseDeleteMutation),
   mode: 'edit',
   idField: 'petDiseaseIdentifier'
 }));

@@ -15,10 +15,10 @@ describe('codegen entity-editor test', () => {
   it('should generate entity editor screen - Owner', async () => {
 
     const editorAnswers:MvpEntityEditorAnswers = {
-      query: getOwnerQuery,
+      itemQuery: getOwnerQuery,
       route: 'owner-editor',
       refetchQueryName: 'Get_Owner',
-      mutation: ownerUpsertMutation,
+      upsertMutation: ownerUpsertMutation,
       componentName: 'OwnerEditor',
       shouldAddToMenu: false
     };
@@ -36,10 +36,10 @@ describe('codegen entity-editor test', () => {
   it('should generate entity editor screen - ScalarsTestEntity', async () => {
 
     const editorAnswers:MvpEntityEditorAnswers = {
-      query: scalarsDetailsQuery,
+      itemQuery: scalarsDetailsQuery,
       route: 'scalars-editor',
       refetchQueryName: 'Get_Scalars',
-      mutation: scalarsUpsertMutation,
+      upsertMutation: scalarsUpsertMutation,
       componentName: 'ScalarsEditor',
       shouldAddToMenu: false
     };

@@ -7,8 +7,8 @@ const answers = btoa(JSON.stringify({
   refetchQueryName: 'Get_Owner_List',
   route: 'standalone-owner-editor',
   shouldAddToMenu: true,
-  query: esc(ownerDetailsQuery),
-  mutation: esc(ownerUpsertMutation),
+  itemQuery: esc(ownerDetailsQuery),
+  upsertMutation: esc(ownerUpsertMutation),
 }));
 
 runCmdSync(`node ${amplicodegen} react-typescript:entity-details`

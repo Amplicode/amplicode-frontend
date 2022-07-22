@@ -6,7 +6,7 @@ const answers = btoa(JSON.stringify({
   componentName: 'OwnerLookupCards',
   route: 'owner-lookup-cards',
   shouldAddToMenu: true,
-  query: esc(ownerListQuery),
+  listQuery: esc(ownerListQuery),
 }));
 
 runCmdSync(`node ${amplicodegen} react-typescript:entity-lookup`

@@ -25,7 +25,7 @@ describe('codegen scalars cards management', () => {
       route: 'notnull-scalars-cards',
       shouldAddToMenu: true,
       listQuery: notNullScalarsListQuery,
-      detailsQuery: notNullScalarsDetailsQuery,
+      itemQuery: notNullScalarsDetailsQuery,
       deleteMutation: notNullScalarsDeleteMutation,
       upsertMutation: notNullScalarsUpsertMutation,
     };

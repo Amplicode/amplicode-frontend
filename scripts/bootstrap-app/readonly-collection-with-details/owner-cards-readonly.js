@@ -8,7 +8,7 @@ const answers = btoa(JSON.stringify({
   route: 'read-only-owner-cards',
   shouldAddToMenu: true,
   listQuery: esc(ownerListQuery),
-  detailsQuery: esc(ownerDetailsQuery),
+  itemQuery: esc(ownerDetailsQuery),
   mode: 'view with details'
 }));
 

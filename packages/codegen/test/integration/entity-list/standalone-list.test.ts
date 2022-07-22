@@ -19,8 +19,8 @@ describe('codegen standalone list', () => {
       componentName: 'StandaloneOwnerList',
       route: 'standalone-owner-list',
       shouldAddToMenu: false,
-      query: ownerListQuery,
-      mutation: ownerDeleteMutation,
+      listQuery: ownerListQuery,
+      deleteMutation: ownerDeleteMutation,
       type: 'list',
       mode: 'edit'
     };
@@ -56,8 +56,8 @@ describe('codegen standalone list', () => {
       componentName: 'StandalonePetList',
       route: 'standalone-pet-list',
       shouldAddToMenu: false,
-      query: petListQuery,
-      mutation: petDeleteMutation,
+      listQuery: petListQuery,
+      deleteMutation: petDeleteMutation,
       mode: 'edit',
       type: 'list'
     };

@@ -6,7 +6,7 @@ const answers = btoa(JSON.stringify({
   componentName: 'PetTypeLookupCards',
   route: 'pet-type-lookup-cards',
   shouldAddToMenu: true,
-  query: esc(petTypeListQuery),
+  listQuery: esc(petTypeListQuery),
 }));
 
 runCmdSync(`node ${amplicodegen} react-typescript:entity-lookup`

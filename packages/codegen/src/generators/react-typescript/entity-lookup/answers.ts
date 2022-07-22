@@ -3,7 +3,7 @@ import {ScreenAnswers} from "../../../building-blocks/stages/answers/amplicode/S
 
 export type EntityLookupAnswers =
   ScreenAnswers & {
-  query: string; // TODO maybe rename with listQuery
+  listQuery: string;
   idField?: string;
 };
 
@@ -24,7 +24,7 @@ export const entityLookupQuestions = [
   },
   {
     caption: 'Query to load items',
-    code: 'query',
+    code: 'listQuery',
     propertyType: StudioTemplatePropertyType.GRAPHQL_QUERY,
     required: true
   },

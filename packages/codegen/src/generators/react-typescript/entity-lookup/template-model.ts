@@ -39,7 +39,7 @@ export const deriveEntityLookupTemplateModel: AmplicodeTemplateModelStage<Amplic
   const {
     componentName,
     route,
-    query: queryString,
+    listQuery: queryString,
     idField = 'id',
   } = answers;
 
