@@ -97,15 +97,6 @@ export function ReadOnlyPetTable() {
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
-  // const navigate = useNavigate();
-
-  // // Open details if row selected
-  // useEffect(() => {
-  //   if (selectedRowId != null) {
-  //     navigate(selectedRowId);
-  //   }
-  // }, [navigate, selectedRowId]);
-
   return (
     <div className="narrow-layout">
       <Space direction="vertical" className="table-space">
@@ -136,13 +127,13 @@ function ButtonPanel({ selectedRowId }: ButtonPanelProps) {
     <Space direction="horizontal">
       <Button
         htmlType="button"
-        key="edit"
-        title={intl.formatMessage({ id: "common.view" })}
+        key="view"
+        title={intl.formatMessage({ id: "common.viewDetails" })}
         disabled={selectedRowId == null}
         onClick={() => selectedRowId && navigate(selectedRowId)}
       >
         <span>
-          <FormattedMessage id="common.edit" />
+          <FormattedMessage id="common.viewDetails" />
         </span>
       </Button>
     </Space>
@@ -201,7 +192,7 @@ function TableSection({
     }));
 
   return (
-    <Space direction="vertical" className="table-space entity-table-readonly">
+    <Space direction="vertical" className="table-space entity-table">
       <Table
         loading={loading}
         dataSource={dataSource}
