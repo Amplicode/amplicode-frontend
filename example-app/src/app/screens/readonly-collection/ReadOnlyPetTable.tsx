@@ -1,10 +1,10 @@
-import { useMemo, useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ResultOf } from "@graphql-typed-document-node/core";
-import { Space, Table } from "antd";
+import {Button, Space, Table} from "antd";
 import { useNavigate } from "react-router-dom";
-import { useIntl } from "react-intl";
+import {FormattedMessage, useIntl} from "react-intl";
 import { gql } from "../../../gql";
 import { RequestFailedError } from "../../../core/crud/RequestFailedError";
 import { deserialize } from "../../../core/transform/model/deserialize";
@@ -97,18 +97,19 @@ export function ReadOnlyPetTable() {
   // selected row id
   const [selectedRowId, setSelectedRowId] = useState();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  // Open details if row selected
-  useEffect(() => {
-    if (selectedRowId != null) {
-      navigate(selectedRowId);
-    }
-  }, [navigate, selectedRowId]);
+  // // Open details if row selected
+  // useEffect(() => {
+  //   if (selectedRowId != null) {
+  //     navigate(selectedRowId);
+  //   }
+  // }, [navigate, selectedRowId]);
 
   return (
     <div className="narrow-layout">
       <Space direction="vertical" className="table-space">
+        <ButtonPanel selectedRowId={selectedRowId} />
         <TableSection
           items={items}
           loading={loading}
@@ -118,6 +119,33 @@ export function ReadOnlyPetTable() {
         />
       </Space>
     </div>
+  );
+}
+
+interface ButtonPanelProps {
+  selectedRowId?: string;
+}
+/**
+ * Button panel above
+ */
+function ButtonPanel({ selectedRowId }: ButtonPanelProps) {
+  const intl = useIntl();
+  const navigate = useNavigate();
+
+  return (
+    <Space direction="horizontal">
+      <Button
+        htmlType="button"
+        key="edit"
+        title={intl.formatMessage({ id: "common.view" })}
+        disabled={selectedRowId == null}
+        onClick={() => selectedRowId && navigate(selectedRowId)}
+      >
+        <span>
+          <FormattedMessage id="common.edit" />
+        </span>
+      </Button>
+    </Space>
   );
 }
 
