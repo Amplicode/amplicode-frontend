@@ -1,5 +1,5 @@
 import { buildClientSchema, buildSchema, GraphQLSchema } from "graphql";
-import schemaAsString from "./../schema.graphql?raw";
+import schemaAsString from "./../schema.txt?raw";
 
 export function getGraphQLSchema(): GraphQLSchema {
   let isSdlFormat = false;

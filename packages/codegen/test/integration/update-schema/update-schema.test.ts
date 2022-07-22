@@ -10,7 +10,7 @@ describe('codegen update schema', async () => {
   before(async () => { await cleanup(DEST_DIR)});
 
   it('should update bundled schema', async () => {
-    const bundledSchemaPath = path.join(DEST_DIR, 'src', 'core', 'schema', 'schema.graphql');
+    const bundledSchemaPath = path.join(DEST_DIR, 'src', 'core', 'schema', 'schema.txt');
     // check that cleanup is completed, before test start
     expect(fs.existsSync(bundledSchemaPath)).to.be.false;
 

@@ -8,8 +8,8 @@ export function writeGraphQLSchema(gen: YeomanGenerator, templateModel: {schema?
     return;
   }
   gen.fs.copyTpl(
-    path.join(__dirname, '..', 'common', 'template', 'schema.graphql'),
-    gen.destinationPath(path.join(relDirShift ?? '', 'src', 'core', 'schema', 'schema.graphql')),
+    path.join(__dirname, '..', 'common', 'template', 'schema.txt'),
+    gen.destinationPath(path.join(relDirShift ?? '', 'src', 'core', 'schema', 'schema.txt')),
     templateModel
   );
 }

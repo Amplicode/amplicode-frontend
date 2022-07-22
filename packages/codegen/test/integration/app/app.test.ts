@@ -40,12 +40,12 @@ describe('codegen app test', () => {
     assert.ok(fs.existsSync(prodEnvPath));
 
     const doc = yaml.load(fs.readFileSync(codegenConfigPath, 'utf-8'));
-    expect((doc as any).schema).eq('./src/core/schema/schema.graphql');
+    expect((doc as any).schema).eq('./src/core/schema/schema.txt');
 
     expect(fs.readFileSync(devEnvPath, 'utf-8')).to.contain('VITE_GRAPHQL_URI=/graphql');
     expect(fs.readFileSync(prodEnvPath, 'utf-8')).to.contain('VITE_GRAPHQL_URI=/graphql');
 
-    const appSchemaPath = path.join(DEST_DIR, 'src', 'core', 'schema', 'schema.graphql');
+    const appSchemaPath = path.join(DEST_DIR, 'src', 'core', 'schema', 'schema.txt');
     expect(fs.readFileSync(appSchemaPath, 'utf-8')).to.contain('type PetDTO {');
     expect(fs.readFileSync(appSchemaPath, 'utf-8')).not.to.contain('type TestEntity {');
 
@@ -74,7 +74,7 @@ describe('codegen app test', () => {
     const schemaPaths = [SCHEMA_PATH, SCHEMA2_PATH];
     await generate(GENERATOR_DIR, opts(DEST_DIR, answers, schemaPaths));
 
-    const appSchemaPath = path.join(DEST_DIR, 'src', 'core', 'schema', 'schema.graphql');
+    const appSchemaPath = path.join(DEST_DIR, 'src', 'core', 'schema', 'schema.txt');
     expect(fs.readFileSync(appSchemaPath, 'utf-8')).to.contain('type PetDTO {');
     expect(fs.readFileSync(appSchemaPath, 'utf-8')).to.contain('type TestEntity {');
   });
