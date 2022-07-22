@@ -7,8 +7,8 @@ const answers = btoa(JSON.stringify({
   refetchQueryName: 'Get_Scalars_List',
   route: 'standalone-scalars-editor',
   shouldAddToMenu: true,
-  query: esc(scalarsDetailsQuery),
-  mutation: esc(scalarsUpsertMutation),
+  itemQuery: esc(scalarsDetailsQuery),
+  upsertMutation: esc(scalarsUpsertMutation),
 }));
 
 runCmdSync(`node ${amplicodegen} react-typescript:entity-details`

@@ -6,7 +6,7 @@ const answers = btoa(JSON.stringify({
   componentName: 'StandaloneScalarsDetails',
   route: 'standalone-scalars-details',
   shouldAddToMenu: true,
-  query: esc(scalarsDetailsQuery),
+  itemQuery: esc(scalarsDetailsQuery),
 }));
 
 runCmdSync(`node ${amplicodegen} react-typescript:entity-details`

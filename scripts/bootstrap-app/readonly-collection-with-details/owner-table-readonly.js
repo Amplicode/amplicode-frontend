@@ -9,7 +9,7 @@ const answers = btoa(JSON.stringify({
   type: 'table',
   shouldAddToMenu: true,
   listQuery: esc(ownerListQuery),
-  detailsQuery: esc(ownerDetailsQuery),
+  itemQuery: esc(ownerDetailsQuery),
   mode: 'view with details'
 }));
 

@@ -20,7 +20,7 @@ describe('codegen lookup cards', () => {
     const answers = {
       componentName: 'OwnerLookup',
       route: 'owner-lookup-cards',
-      query: ownerListQuery
+      listQuery: ownerListQuery
     };
     const componentPath = path.join(DEST_DIR, 'OwnerLookup.tsx');
     // check that cleanup is completed, before test start
@@ -70,7 +70,7 @@ describe('codegen lookup cards', () => {
     const answers = {
       componentName: 'ScalarsLookupCards',
       route: 'scalars-lookup-cards',
-      query: scalarsListQuery
+      listQuery: scalarsListQuery
     };
     const componentPath = path.join(DEST_DIR, 'ScalarsLookupCards.tsx');
     // check that cleanup is completed, before test start
@@ -93,7 +93,7 @@ describe('codegen lookup cards', () => {
     const answers = {
       componentName: 'PetLookupCards',
       route: 'pet-lookup-cards',
-      query: petListQuery
+      listQuery: petListQuery
     };
     const componentPath = path.join(DEST_DIR, 'PetLookupCards.tsx');
     // check that cleanup is completed, before test start

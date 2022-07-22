@@ -7,8 +7,8 @@ const answers = btoa(JSON.stringify({
   route: 'standalone-owner-list',
   type: 'list',
   shouldAddToMenu: true,
-  query: esc(ownerListQuery),
-  mutation: esc(ownerDeleteMutation),
+  listQuery: esc(ownerListQuery),
+  deleteMutation: esc(ownerDeleteMutation),
   mode: 'edit'
 }));
 

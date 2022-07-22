@@ -36,7 +36,7 @@ describe('codegen readonly table', () => {
       route: 'read-only-owner-table',
       shouldAddToMenu: true,
       listQuery: ownerListQuery,
-      detailsQuery: ownerDetailsQuery,
+      itemQuery: ownerDetailsQuery,
       mode: 'view with details',
       type: 'table'
     };
@@ -75,7 +75,7 @@ describe('codegen readonly table', () => {
       route: 'read-only-pet-table',
       shouldAddToMenu: true,
       listQuery: petListQuery,
-      detailsQuery: petDetailsQuery,
+      itemQuery: petDetailsQuery,
       mode: 'view with details',
       type: 'table'
     };

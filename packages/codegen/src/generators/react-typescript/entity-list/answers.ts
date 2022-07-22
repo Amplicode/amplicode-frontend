@@ -10,8 +10,8 @@ export interface EntityListAnswers extends ScreenAnswers {
   multiselect?: boolean;
   mode?: EntityListMode;
   route: string;
-  query: string; // TODO may be rename with 'listQuery'
-  mutation?: string; // TODO may be rename with 'deleteMutation'
+  listQuery: string;
+  deleteMutation?: string;
   idField?: string;
   filterByArguments?: Array<string[]>;
   orderByArguments?: OrderByType[];
@@ -64,14 +64,13 @@ export const entityListQuestions: StudioTemplateProperty[] = [
   },
   {
     caption: 'Query to load items',
-    code: 'query',
+    code: 'listQuery',
     propertyType: StudioTemplatePropertyType.GRAPHQL_QUERY,
     required: true
   },
   {
     caption: 'Mutation to delete an item',
-    // TODO rename with 'deleteMutation'
-    code: 'mutation',
+    code: 'deleteMutation',
     propertyType: StudioTemplatePropertyType.GRAPHQL_MUTATION,
     required: false
   },
@@ -86,21 +85,21 @@ export const entityListQuestions: StudioTemplateProperty[] = [
     caption: "Select arguments to filter by",
     code: "filterByArguments",
     propertyType: StudioTemplatePropertyType.FILTER_QUERY_ARGUMENT_ARRAY,
-    relatedProperty: 'query',
+    relatedProperty: 'listQuery',
     required: false,
   },
   {
     caption: "Select arguments to order by",
     code: "orderByArguments",
     propertyType: StudioTemplatePropertyType.ORDER_QUERY_ARGUMENT_ARRAY,
-    relatedProperty: 'query',
+    relatedProperty: 'listQuery',
     required: false,
   },
   {
     caption: "Pagination type",
     code: "paginationType",
     propertyType: StudioTemplatePropertyType.PAGINATION_TYPE,
-    relatedProperty: 'query',
+    relatedProperty: 'listQuery',
     required: false,
   },
   {

@@ -9,7 +9,7 @@ const answers = btoa(JSON.stringify({
   type: 'list',
   shouldAddToMenu: true,
   listQuery: esc(petDiseaseListQuery),
-  detailsQuery: esc(petDiseaseDetailsQuery),
+  itemQuery: esc(petDiseaseDetailsQuery),
   deleteMutation: esc(petDiseaseDeleteMutation),
   upsertMutation: esc(petDiseaseUpsertMutation),
   listIdField: "petDiseaseIdentifier",

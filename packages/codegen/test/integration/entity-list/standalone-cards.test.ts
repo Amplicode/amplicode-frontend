@@ -25,8 +25,8 @@ describe('codegen standalone cards', () => {
       componentName: 'StandaloneOwnerCards',
       route: 'standalone-owner-cards',
       shouldAddToMenu: false,
-      query: ownerListQuery,
-      mutation: ownerDeleteMutation,
+      listQuery: ownerListQuery,
+      deleteMutation: ownerDeleteMutation,
       mode: 'edit',
       type: 'cards'
     };
@@ -80,8 +80,8 @@ describe('codegen standalone cards', () => {
       componentName: 'StandalonePetCards',
       route: 'standalone-pet-cards',
       shouldAddToMenu: false,
-      query: petListQuery,
-      mutation: petDeleteMutation,
+      listQuery: petListQuery,
+      deleteMutation: petDeleteMutation,
       mode: 'edit',
       type: 'cards'
     };
@@ -114,8 +114,8 @@ describe('codegen standalone cards', () => {
       componentName: 'StandaloneScalarsCards',
       route: 'standalone-scalars-cards',
       shouldAddToMenu: false,
-      query: scalarsListQuery,
-      mutation: scalarsDeleteMutation,
+      listQuery: scalarsListQuery,
+      deleteMutation: scalarsDeleteMutation,
       mode: 'edit',
       type: 'cards'
     };

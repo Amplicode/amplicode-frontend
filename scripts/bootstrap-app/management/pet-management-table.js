@@ -9,7 +9,7 @@ const answers = btoa(JSON.stringify({
   type: 'table',
   shouldAddToMenu: true,
   listQuery: esc(petListQueryWithFilter),
-  detailsQuery: esc(petDetailsQuery),
+  itemQuery: esc(petDetailsQuery),
   deleteMutation: esc(petDeleteMutation),
   upsertMutation: esc(petUpsertMutation),
   filterByArguments: [['identificationNumber']],

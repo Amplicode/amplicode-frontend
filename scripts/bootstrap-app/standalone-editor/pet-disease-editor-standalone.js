@@ -7,8 +7,8 @@ const answers = btoa(JSON.stringify({
   refetchQueryName: 'Get_Pet_Disease_List',
   route: 'standalone-pet-disease-editor',
   shouldAddToMenu: true,
-  query: esc(petDiseaseDetailsQuery),
-  mutation: esc(petDiseaseUpsertMutation),
+  itemQuery: esc(petDiseaseDetailsQuery),
+  upsertMutation: esc(petDiseaseUpsertMutation),
   idField: 'petDiseaseIdentifier'
 }));
 

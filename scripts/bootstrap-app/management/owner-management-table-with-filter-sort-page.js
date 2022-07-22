@@ -9,7 +9,7 @@ const answers = btoa(JSON.stringify({
   type: 'table',
   shouldAddToMenu: true,
   listQuery: esc(ownerListByNamesFilterOffsetPageSorted),
-  detailsQuery: esc(ownerDetailsQuery),
+  itemQuery: esc(ownerDetailsQuery),
   deleteMutation: esc(ownerDeleteMutation),
   upsertMutation: esc(ownerUpsertMutation),
   filterByArguments: [['filter', 'firstName'], ['filter', 'lastName']],

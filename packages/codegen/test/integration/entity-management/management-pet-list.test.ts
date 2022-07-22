@@ -27,7 +27,7 @@ describe('codegen pet list management', () => {
       type: 'list',
       shouldAddToMenu: true,
       listQuery: petListQuery,
-      detailsQuery: petDetailsQuery,
+      itemQuery: petDetailsQuery,
       deleteMutation: petDeleteMutation,
       upsertMutation: petUpsertMutation,
     };

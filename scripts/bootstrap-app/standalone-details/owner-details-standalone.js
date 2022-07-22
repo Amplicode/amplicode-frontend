@@ -6,7 +6,7 @@ const answers = btoa(JSON.stringify({
   componentName: 'StandaloneOwnerDetails',
   route: 'standalone-owner-details',
   shouldAddToMenu: true,
-  query: esc(ownerDetailsQuery),
+  itemQuery: esc(ownerDetailsQuery),
 }));
 
 runCmdSync(`node ${amplicodegen} react-typescript:entity-details`

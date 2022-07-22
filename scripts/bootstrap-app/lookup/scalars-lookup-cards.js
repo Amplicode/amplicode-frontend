@@ -6,7 +6,7 @@ const answers = btoa(JSON.stringify({
   componentName: 'ScalarsLookupCards',
   route: 'scalars-lookup-cards',
   shouldAddToMenu: true,
-  query: esc(scalarsListQuery),
+  listQuery: esc(scalarsListQuery),
 }));
 
 runCmdSync(`node ${amplicodegen} react-typescript:entity-lookup`

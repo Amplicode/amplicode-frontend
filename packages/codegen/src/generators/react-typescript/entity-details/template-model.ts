@@ -52,8 +52,8 @@ export const deriveEntityDetailsTemplateModel: AmplicodeTemplateModelStage<
   schema?: GraphQLSchema,
 ): Promise<MvpEntityEditorTemplateModel>  => {
   const {
-    query: queryString,
-    mutation: mutationString,
+    itemQuery: queryString,
+    upsertMutation: mutationString,
     idField = 'id',
     refetchQueryName
   } = answers;

@@ -6,8 +6,8 @@ const answers = btoa(JSON.stringify({
   componentName: 'StandaloneOwnerCards',
   route: 'standalone-owner-cards',
   shouldAddToMenu: true,
-  query: esc(ownerListQuery),
-  mutation: esc(ownerDeleteMutation),
+  listQuery: esc(ownerListQuery),
+  deleteMutation: esc(ownerDeleteMutation),
   mode: 'edit'
 }));
 

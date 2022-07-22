@@ -8,7 +8,7 @@ const answers = btoa(JSON.stringify({
   route: 'scalars-notnull-cards',
   shouldAddToMenu: true,
   listQuery: esc(notNullScalarsListQuery),
-  detailsQuery: esc(notNullScalarsDetailsQuery),
+  itemQuery: esc(notNullScalarsDetailsQuery),
   deleteMutation: esc(notNullScalarsDeleteMutation),
   upsertMutation: esc(notNullScalarsUpsertMutation),
 }));

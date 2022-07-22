@@ -17,7 +17,7 @@ describe('codegen entity-details test', () => {
     const displayNameFuncFilePath = path.join(DEST_DIR, 'core', 'display-name', 'getOwnerDTODisplayName.ts');
 
     const detailsAnswers = {
-      query: getOwnerQuery,
+      itemQuery: getOwnerQuery,
       componentName: 'OwnerDetails',
       shouldAddToMenu: false
     };
@@ -59,7 +59,7 @@ describe('codegen entity-details test', () => {
     const displayNameFuncFile = path.join(DEST_DIR, 'core', 'display-name', 'getScalarsTestEntityDisplayName.ts');
 
     const detailsAnswers = {
-      query: scalarsDetailsQuery,
+      itemQuery: scalarsDetailsQuery,
       componentName: 'ScalarsDetails',
       shouldAddToMenu: false
     };
@@ -80,7 +80,7 @@ describe('codegen entity-details test', () => {
   it('should generate entity details screen - Pet', async () => {
 
     const detailsAnswers = {
-      query: petDetailsQuery,
+      itemQuery: petDetailsQuery,
       componentName: 'PetDetails',
       shouldAddToMenu: false
     };

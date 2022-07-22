@@ -27,7 +27,7 @@ describe('codegen pet cards management', () => {
       type: 'cards',
       shouldAddToMenu: true,
       listQuery: petListQuery,
-      detailsQuery: petDetailsQuery,
+      itemQuery: petDetailsQuery,
       deleteMutation: petDeleteMutation,
       upsertMutation: petUpsertMutation,
     };
